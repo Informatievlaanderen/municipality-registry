@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.1...v1.0.2) (2019-01-07)
+
+
+### Bug Fixes
+
+* use the correct version for the nuget packages ([4d5e0d2](https://github.com/informatievlaanderen/municipality-registry/commit/4d5e0d2))
+
 ## [1.0.1](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.0...v1.0.1) (2019-01-07)
 
 
