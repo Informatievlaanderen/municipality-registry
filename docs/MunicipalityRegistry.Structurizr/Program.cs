@@ -53,7 +53,6 @@ namespace MunicipalityRegistry.Structurizr
         private static readonly string SoftwareSystemProjectionProducerId = Ids.SoftwareSystemProjectionProducer.ToString();
         private static readonly string SoftwareSystemApiId = Ids.SoftwareSystemApi.ToString();
 
-        private static string _workspaceUrlViewFormat;
         private static long _workspaceId;
         private static string _apiKey;
         private static string _apiSecret;
@@ -68,7 +67,6 @@ namespace MunicipalityRegistry.Structurizr
             _workspaceId = long.Parse(configuration["Structurizr:WorkspaceId"]);
             _apiKey = configuration["Structurizr:ApiKey"];
             _apiSecret = configuration["Structurizr:ApiSecret"];
-            _workspaceUrlViewFormat = $"{string.Format(WorkspaceUrlFormat, _workspaceId)}#{{0}}";
 
             var workspace = new Workspace("MunicipalityRegistry", "Gemeente referentie register.")
             {
