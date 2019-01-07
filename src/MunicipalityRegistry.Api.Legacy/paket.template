@@ -1,0 +1,31 @@
+type file
+version 1.0.0
+
+id Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Legacy
+title Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Legacy
+
+authors Basisregisters Vlaanderen
+owners agentschap Informatie Vlaanderen <https://vlaanderen.be/informatie-vlaanderen>
+copyright Copyright (c) agentschap Informatie Vlaanderen
+requireLicenseAcceptance false
+projectUrl https://github.com/Informatievlaanderen/municipality-registry
+iconUrl https://raw.githubusercontent.com/Informatievlaanderen/build-pipeline/master/logo.png
+licenseUrl https://opensource.org/licenses/EUPL-1.2
+
+description Municipality Registry.
+
+dependencies
+  framework: netstandard20
+    Be.Vlaanderen.Basisregisters.GrAr.Legacy >= LOCKEDVERSION
+
+files
+  MunicipalityRegistry.Api.Legacy.dll => lib\netcoreapp2.2
+  MunicipalityRegistry.Api.Legacy.pdb => lib\netcoreapp2.2
+  MunicipalityRegistry.Api.Legacy.xml => lib\netcoreapp2.2
+  MunicipalityRegistry.Api.Legacy.xml => content
+
+  MunicipalityRegistry.Projections.Legacy.dll => lib\netcoreapp2.2
+  MunicipalityRegistry.Projections.Legacy.pdb => lib\netcoreapp2.2
+
+  MunicipalityRegistry.dll => lib\netcoreapp2.2
+  MunicipalityRegistry.pdb => lib\netcoreapp2.2

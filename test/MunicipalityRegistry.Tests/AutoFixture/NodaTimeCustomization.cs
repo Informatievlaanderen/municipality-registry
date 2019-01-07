@@ -1,0 +1,59 @@
+namespace MunicipalityRegistry.Tests.AutoFixture
+{
+    using System;
+    using global::AutoFixture;
+    using global::AutoFixture.Kernel;
+    using NodaTime;
+
+    public class NodaTimeCustomization : ICustomization
+    {
+        public void Customize(IFixture fixture)
+        {
+            fixture.Customizations.Add(new LocalDateGenerator());
+            fixture.Customizations.Add(new LocalTimeGenerator());
+            fixture.Customizations.Add(new LocalDateTimeGenerator());
+        }
+
+        public class LocalDateGenerator : ISpecimenBuilder
+        {
+            public object Create(object request, ISpecimenContext context)
+            {
+                if (context == null)
+                    throw new ArgumentNullException(nameof(context));
+
+                if (!typeof(LocalDate).Equals(request))
+                    return new NoSpecimen();
+
+                return LocalDate.FromDateTime(DateTime.Today);
+            }
+        }
+
+        public class LocalTimeGenerator : ISpecimenBuilder
+        {
+            public object Create(object request, ISpecimenContext context)
+            {
+                if (context == null)
+                    throw new ArgumentNullException(nameof(context));
+
+                if (!typeof(LocalTime).Equals(request))
+                    return new NoSpecimen();
+
+                return LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks);
+            }
+        }
+
+        public class LocalDateTimeGenerator : ISpecimenBuilder
+        {
+            public object Create(object request, ISpecimenContext context)
+            {
+                if (context == null)
+                    throw new ArgumentNullException(nameof(context));
+
+                if (!typeof(LocalDateTime).Equals(request))
+                    return new NoSpecimen();
+
+                return LocalDateTime.FromDateTime(DateTime.Now);
+            }
+        }
+    }
+}
