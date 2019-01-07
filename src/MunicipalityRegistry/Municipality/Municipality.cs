@@ -10,7 +10,6 @@ namespace MunicipalityRegistry.Municipality
     using NetTopologySuite.IO;
     using NodaTime;
     using System;
-    using Version = Version;
 
     public partial class Municipality : AggregateRootEntity
     {
