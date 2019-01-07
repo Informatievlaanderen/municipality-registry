@@ -30,7 +30,6 @@ namespace MunicipalityRegistry.Municipality.Events
                 new MunicipalityId(municipalityId),
                 new NisCode(nisCode)) => ((ISetProvenance)this).SetProvenance(provenance.ToProvenance());
 
-
         void ISetProvenance.SetProvenance(Provenance provenance) => Provenance = new ProvenanceData(provenance);
     }
 }

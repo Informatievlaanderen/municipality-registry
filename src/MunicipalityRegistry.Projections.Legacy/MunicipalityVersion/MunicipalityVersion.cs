@@ -36,6 +36,38 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
         public string Operator { get; set; }
         public Organisation? Organisation { get; set; }
         public Plan? Plan { get; set; }
+
+        public MunicipalityVersion CloneAndApplyEventInfo(
+            long newPosition,
+            Action<MunicipalityVersion> editFunc)
+        {
+            var newItem = new MunicipalityVersion
+            {
+                Position = newPosition,
+
+                MunicipalityId = MunicipalityId,
+                NisCode = NisCode,
+
+                NameDutch = NameDutch,
+                NameEnglish = NameEnglish,
+                NameFrench = NameFrench,
+                NameGerman = NameGerman,
+
+                Status = Status,
+
+                Plan = Plan,
+                Modification = Modification,
+                Operator = Operator,
+                Organisation = Organisation,
+                Application = Application,
+
+                VersionTimestamp = VersionTimestamp
+            };
+
+            editFunc(newItem);
+
+            return newItem;
+        }
     }
 
     public class MunicipalityVersionConfiguration : IEntityTypeConfiguration<MunicipalityVersion>

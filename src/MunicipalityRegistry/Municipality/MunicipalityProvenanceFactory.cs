@@ -1,6 +1,5 @@
 namespace MunicipalityRegistry.Municipality
 {
-    using Be.Vlaanderen.Basisregisters.Crab;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using System;
 

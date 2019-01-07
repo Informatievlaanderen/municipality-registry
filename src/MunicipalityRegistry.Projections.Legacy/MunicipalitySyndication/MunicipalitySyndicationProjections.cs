@@ -1,12 +1,9 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
 {
-    using System;
-    using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
 
-    // TODO: Make MunicipalityVersionProjections and MunicipalitySyndicationProjections more consistent
     public class MunicipalitySyndicationProjections : ConnectedProjection<LegacyContext>
     {
         public MunicipalitySyndicationProjections()
@@ -23,7 +20,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                     ChangeType = message.EventName
                 };
 
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
+                newMunicipalitySyndicationItem.ApplyProvenance(message.Message.Provenance);
 
                 await context
                     .MunicipalitySyndication
@@ -32,408 +29,198 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
 
             When<Envelope<MunicipalityNisCodeWasDefined>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
-                    x => x.NisCode = message.Message.NisCode);
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
+                    x => x.NisCode = message.Message.NisCode,
+                    ct);
             });
 
             When<Envelope<MunicipalityNisCodeWasCorrected>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
-                    x => x.NisCode = message.Message.NisCode);
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
+                    x => x.NisCode = message.Message.NisCode,
+                    ct);
             });
 
             When<Envelope<MunicipalityWasNamed>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
                     x =>
                     {
                         UpdateNameByLanguage(x, message.Message.Language, message.Message.Name);
                         UpdateDefaultNameByPrimaryLanguage(x);
-                    });
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityNameWasCorrected>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
                     x =>
                     {
                         UpdateNameByLanguage(x, message.Message.Language, message.Message.Name);
                         UpdateDefaultNameByPrimaryLanguage(x);
-                    });
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityNameWasCleared>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
                     x =>
                     {
                         UpdateNameByLanguage(x, message.Message.Language, null);
                         UpdateDefaultNameByPrimaryLanguage(x);
-                    });
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityNameWasCorrectedToCleared>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
                     x =>
                     {
                         UpdateNameByLanguage(x, message.Message.Language, null);
                         UpdateDefaultNameByPrimaryLanguage(x);
-                    });
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityPrimaryLanguageWasDefined>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
                     x =>
                     {
                         x.PrimaryLanguage = message.Message.Language;
                         UpdateDefaultNameByPrimaryLanguage(x);
-                    });
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityPrimaryLanguageWasCorrected>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
                     x =>
                     {
                         x.PrimaryLanguage = message.Message.Language;
                         UpdateDefaultNameByPrimaryLanguage(x);
-                    });
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityPrimaryLanguageWasCleared>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
                     x =>
                     {
                         x.PrimaryLanguage = null;
                         UpdateDefaultNameByPrimaryLanguage(x);
-                    });
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityPrimaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
                     x =>
                     {
                         x.PrimaryLanguage = null;
                         UpdateDefaultNameByPrimaryLanguage(x);
-                    });
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalitySecondaryLanguageWasDefined>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
-                    x => x.SecondaryLanguage = message.Message.Language);
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
+                    x => x.SecondaryLanguage = message.Message.Language,
+                    ct);
             });
 
             When<Envelope<MunicipalitySecondaryLanguageWasCorrected>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
-                    x => x.SecondaryLanguage = message.Message.Language);
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
+                    x => x.SecondaryLanguage = message.Message.Language,
+                    ct);
             });
 
             When<Envelope<MunicipalitySecondaryLanguageWasCleared>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
-                    x => x.SecondaryLanguage = null);
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
+                    x => x.SecondaryLanguage = null,
+                    ct);
             });
 
             When<Envelope<MunicipalitySecondaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
-                    x => x.SecondaryLanguage = null);
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
+                    x => x.SecondaryLanguage = null,
+                    ct);
             });
 
             When<Envelope<MunicipalityBecameCurrent>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
-                    x => x.Status = MunicipalityStatus.Current);
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
+                    x => x.Status = MunicipalityStatus.Current,
+                    ct);
             });
 
             When<Envelope<MunicipalityWasCorrectedToCurrent>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
-                    x => x.Status = MunicipalityStatus.Current);
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
+                    x => x.Status = MunicipalityStatus.Current,
+                    ct);
             });
 
             When<Envelope<MunicipalityWasRetired>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
-                    x => x.Status = MunicipalityStatus.Retired);
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
+                    x => x.Status = MunicipalityStatus.Retired,
+                    ct);
             });
 
             When<Envelope<MunicipalityWasCorrectedToRetired>>(async (context, message, ct) =>
             {
-                var municipalitySyndicationItem = await context.LatestPosition(message.Message.MunicipalityId, ct);
-
-                if (municipalitySyndicationItem == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                var newMunicipalitySyndicationItem = municipalitySyndicationItem.CloneAndApplyEventInfo(
-                    message.Position,
-                    message.EventName,
-                    message.Message.Provenance.Timestamp,
-                    x => x.Status = MunicipalityStatus.Retired);
-
-                ApplyProvenance(newMunicipalitySyndicationItem, message.Message.Provenance);
-
-                await context
-                    .MunicipalitySyndication
-                    .AddAsync(newMunicipalitySyndicationItem, ct);
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
+                    x => x.Status = MunicipalityStatus.Retired,
+                    ct);
             });
         }
-
-        private static void ApplyProvenance(MunicipalitySyndicationItem item, ProvenanceData provenance)
-        {
-            item.Application = provenance.Application;
-            item.Modification = provenance.Modification;
-            item.Operator = provenance.Operator;
-            item.Organisation = provenance.Organisation;
-            item.Plan = provenance.Plan;
-        }
-
-        private static ProjectionItemNotFoundException<MunicipalitySyndicationProjections> DatabaseItemNotFound(Guid municipalityId)
-            => new ProjectionItemNotFoundException<MunicipalitySyndicationProjections>(municipalityId.ToString("D"));
 
         private static void UpdateNameByLanguage(MunicipalitySyndicationItem municipalitySyndicationItem, Language? language, string name)
         {
