@@ -136,7 +136,7 @@ Target "Push" DoNothing
 "Publish"            ==> "Pack"
 "Pack_Solution"      ==> "Pack"
 
-"Publish"                           ==> "Containerize"
+"Pack"                              ==> "Containerize"
 "Containerize_ApiBeamer"            ==> "Containerize"
 "Containerize_ApiLegacy"            ==> "Containerize"
 "Containerize_ApiExtract"           ==> "Containerize"
