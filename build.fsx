@@ -4,8 +4,8 @@ open Fake
 open ``Build-generic``
 
 let dockerRepository = "municipalityregistry"
-let assemblyVersionNumber = (sprintf "2.0.0.%s")
-let nugetVersionNumber = (sprintf "2.0.%s")
+let assemblyVersionNumber = (sprintf "2.%s")
+let nugetVersionNumber = (sprintf "%s")
 
 let build = buildSolution assemblyVersionNumber
 let buildTest = buildTest assemblyVersionNumber
