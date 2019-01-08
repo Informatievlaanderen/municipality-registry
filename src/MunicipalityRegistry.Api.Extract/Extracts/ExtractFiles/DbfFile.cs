@@ -8,7 +8,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts.ExtractFiles
     public class DbfFile<TDbaseRecord> : ExtractFile
         where TDbaseRecord : DbaseRecord
     {
-        private static Encoding Encoding => Encoding.GetEncoding(1252);
+        private static Encoding Encoding => Encoding.GetEncoding(DbaseCodePage.Western_European_ANSI.ToByte());
 
         public DbfFile(string name, DbaseFileHeader header)
             : base(name, "dbf", Encoding) => header.Write(Writer);
