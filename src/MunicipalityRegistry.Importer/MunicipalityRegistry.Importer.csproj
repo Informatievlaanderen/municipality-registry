@@ -68,9 +68,6 @@
     <Compile Include="SettingsBasedConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MunicipalityRegistry.Importer-Staging.exe.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="App.config" />
     <None Include="paket.references" />
     <None Include="Properties\Settings.settings">
