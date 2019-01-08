@@ -24,7 +24,6 @@ Target "Test_Solution" (fun _ -> test "MunicipalityRegistry")
 
 Target "Publish_Solution" (fun _ ->
   [
-    "MunicipalityRegistry"
     "MunicipalityRegistry.Api.Beamer"
     "MunicipalityRegistry.Api.Legacy"
     "MunicipalityRegistry.Api.Extract"
