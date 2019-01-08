@@ -1,8 +1,16 @@
-namespace MunicipalityRegistry.Projections.Extract
+namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
 {
+    using System;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    public class MunicipalityExtractItem
+    {
+        public Guid? MunicipalityId { get; set; }
+        public string NisCode { get; set; }
+        public byte[] DbaseRecord { get; set; }
+    }
 
     public class MunicipalityExtractItemConfiguration : IEntityTypeConfiguration<MunicipalityExtractItem>
     {

@@ -6,6 +6,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
     using Be.Vlaanderen.Basisregisters.Shaperon;
     using ExtractFiles;
     using Projections.Extract;
+    using Projections.Extract.MunicipalityExtract;
 
     public class MunicipalityRegistryExtractBuilder
     {

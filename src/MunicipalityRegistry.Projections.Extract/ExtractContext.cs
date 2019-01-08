@@ -7,6 +7,7 @@ namespace MunicipalityRegistry.Projections.Extract
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
+    using MunicipalityExtract;
 
     public class ExtractContext : RunnerDbContext<ExtractContext>
     {

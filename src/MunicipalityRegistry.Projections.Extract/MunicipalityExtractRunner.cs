@@ -5,6 +5,7 @@ namespace MunicipalityRegistry.Projections.Extract
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Be.Vlaanderen.Basisregisters.Shaperon;
     using Microsoft.Extensions.Logging;
+    using MunicipalityExtract;
 
     public class MunicipalityExtractRunner : Runner<ExtractContext>
     {
