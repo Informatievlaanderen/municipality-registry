@@ -21,11 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		bitbucket-pipelines.yml = bitbucket-pipelines.yml
 		build.fsx = build.fsx
 		global.json = global.json
+		package.json = package.json
 		paket.dependencies = paket.dependencies
-		README = README
+		README.md = README.md
+		SEMVER.md = SEMVER.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MunicipalityRegistry.Projections.Legacy", "src\MunicipalityRegistry.Projections.Legacy\MunicipalityRegistry.Projections.Legacy.csproj", "{74376690-FB03-4DBA-811B-DD913570C65F}"
