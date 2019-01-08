@@ -25,8 +25,8 @@ namespace MunicipalityRegistry.Municipality.Events
         private MunicipalityWasRegistered(
             Guid municipalityId,
             string nisCode,
-            ProvenanceData provenance)
-            : this(
+            ProvenanceData provenance) :
+            this(
                 new MunicipalityId(municipalityId),
                 new NisCode(nisCode)) => ((ISetProvenance)this).SetProvenance(provenance.ToProvenance());
 

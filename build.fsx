@@ -8,7 +8,6 @@ let assemblyVersionNumber = (sprintf "2.%s")
 let nugetVersionNumber = (sprintf "%s")
 
 let build = buildSolution assemblyVersionNumber
-let buildTest = buildTest assemblyVersionNumber
 let publish = publish assemblyVersionNumber
 let pack = pack nugetVersionNumber
 let push = push dockerRepository

@@ -26,8 +26,8 @@ namespace MunicipalityRegistry.Municipality.Events
         private MunicipalityWasCorrectedToRetired(
             Guid municipalityId,
             Instant retirementDate,
-            ProvenanceData provenance)
-            : this(
+            ProvenanceData provenance) :
+            this(
                 new MunicipalityId(municipalityId),
                 new RetirementDate(retirementDate)) => ((ISetProvenance)this).SetProvenance(provenance.ToProvenance());
 

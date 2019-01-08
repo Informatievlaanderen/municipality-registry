@@ -21,8 +21,8 @@ namespace MunicipalityRegistry.Municipality.Events
         [JsonConstructor]
         private MunicipalityBecameCurrent(
             Guid municipalityId,
-            ProvenanceData provenance)
-            : this(
+            ProvenanceData provenance) :
+            this(
                 new MunicipalityId(municipalityId)) => ((ISetProvenance)this).SetProvenance(provenance.ToProvenance());
 
         void ISetProvenance.SetProvenance(Provenance provenance) => Provenance = new ProvenanceData(provenance);
