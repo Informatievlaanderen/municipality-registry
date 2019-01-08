@@ -109,9 +109,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
         }
 
         private static void UpdateVersionTimestamp(MunicipalityName municipalityNameItem, Instant versionTimestamp)
-        {
-            municipalityNameItem.VersionTimestamp = versionTimestamp;
-        }
+            => municipalityNameItem.VersionTimestamp = versionTimestamp;
 
         private static ProjectionItemNotFoundException<MunicipalityListProjections> DatabaseItemNotFound(Guid municipalityId)
             => new ProjectionItemNotFoundException<MunicipalityListProjections>(municipalityId.ToString("D"));

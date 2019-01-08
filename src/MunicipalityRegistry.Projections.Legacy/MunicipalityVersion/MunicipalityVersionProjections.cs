@@ -157,7 +157,5 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
                     throw new ArgumentOutOfRangeException(nameof(language), language, null);
             }
         }
-
-       
     }
 }
