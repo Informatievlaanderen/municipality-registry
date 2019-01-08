@@ -8,37 +8,21 @@ let assemblyVersionNumber = (sprintf "2.%s")
 let nugetVersionNumber = (sprintf "%s")
 
 let build = buildSolution assemblyVersionNumber
-let publish = publish assemblyVersionNumber
+let test = testSolution
+let publish = publishSolution assemblyVersionNumber
 let pack = pack nugetVersionNumber
 let push = push dockerRepository
 let containerize = containerize dockerRepository
 
-Target "Clean" (fun _ ->
-  CleanDir buildDir
-)
 // Solution -----------------------------------------------------------------------
 
 Target "Restore_Solution" (fun _ -> restore "MunicipalityRegistry")
 
 Target "Build_Solution" (fun _ -> build "MunicipalityRegistry")
 
-Target "Test_Solution" (fun _ ->
-  [
-    "MunicipalityRegistry.Tests"
-    "MunicipalityRegistry.Projections.Legacy.Tests"
-  ] |> List.iter test)
+Target "Test_Solution" (fun _ -> test "MunicipalityRegistry")
 
-Target "Publish_Solution" (fun _ ->
-  [
-    "MunicipalityRegistry"
-    "MunicipalityRegistry.Api.Beamer"
-    "MunicipalityRegistry.Api.Legacy"
-    "MunicipalityRegistry.Api.Extract"
-    "MunicipalityRegistry.Api.CrabImport"
-    "MunicipalityRegistry.Projections.Legacy"
-    "MunicipalityRegistry.Projections.Extract"
-    "MunicipalityRegistry.Projections.LastChangedList"
-  ] |> List.iter publish)
+Target "Publish_Solution" (fun _ -> publish "MunicipalityRegistry")
 
 Target "Pack_Solution" (fun _ ->
   [
