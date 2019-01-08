@@ -32,6 +32,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
     using System.Threading.Tasks;
     using System.Xml;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.Syndication;
 
     [ApiVersion("1.0")]
     [AdvertiseApiVersions("1.0")]
@@ -266,7 +267,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
 
                 var nextUri = BuildVolgendeUri(pagedMunicipalities.PaginationInfo, syndicationConfiguration["NextUri"]);
                 if (nextUri != null)
-                    await writer.Write(new SyndicationLink(nextUri, Be.Vlaanderen.Basisregisters.GrAr.Common.Syndication.GrArAtomLinkTypes.Next));
+                    await writer.Write(new SyndicationLink(nextUri, GrArAtomLinkTypes.Next));
 
                 foreach (var municipality in pagedMunicipalities.Items)
                     await writer.WriteMunicipality(responseOptions, formatter, syndicationConfiguration["Category"], municipality);

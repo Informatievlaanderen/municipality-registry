@@ -61,11 +61,11 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         {
             var municipalityExamples = new List<MunicipalityBosaItemResponse>
             {
-                new MunicipalityBosaItemResponse("13014", _responseOptions.Naamruimte, DateTimeOffset.Now, new GeografischeNaam[]
+                new MunicipalityBosaItemResponse("13014", _responseOptions.Naamruimte, DateTimeOffset.Now, new []
                 {
                     new GeografischeNaam("Hoogstraten", Taal.NL)
                 }),
-                new MunicipalityBosaItemResponse("13035", _responseOptions.Naamruimte, DateTimeOffset.Now.AddHours(32), new GeografischeNaam[]
+                new MunicipalityBosaItemResponse("13035", _responseOptions.Naamruimte, DateTimeOffset.Now.AddHours(32), new []
                 {
                     new GeografischeNaam("Ravels", Taal.NL)
                 })
