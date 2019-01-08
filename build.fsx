@@ -9,7 +9,7 @@ let nugetVersionNumber = (sprintf "%s")
 
 let build = buildSolution assemblyVersionNumber
 let test = testSolution
-let publish = publishSolution assemblyVersionNumber
+let publish = publish assemblyVersionNumber
 let pack = pack nugetVersionNumber
 let push = push dockerRepository
 let containerize = containerize dockerRepository
@@ -22,7 +22,17 @@ Target "Build_Solution" (fun _ -> build "MunicipalityRegistry")
 
 Target "Test_Solution" (fun _ -> test "MunicipalityRegistry")
 
-Target "Publish_Solution" (fun _ -> publish "MunicipalityRegistry")
+Target "Publish_Solution" (fun _ ->
+  [
+    "MunicipalityRegistry"
+    "MunicipalityRegistry.Api.Beamer"
+    "MunicipalityRegistry.Api.Legacy"
+    "MunicipalityRegistry.Api.Extract"
+    "MunicipalityRegistry.Api.CrabImport"
+    "MunicipalityRegistry.Projections.Legacy"
+    "MunicipalityRegistry.Projections.Extract"
+    "MunicipalityRegistry.Projections.LastChangedList"
+  ] |> List.iter publish)
 
 Target "Pack_Solution" (fun _ ->
   [
