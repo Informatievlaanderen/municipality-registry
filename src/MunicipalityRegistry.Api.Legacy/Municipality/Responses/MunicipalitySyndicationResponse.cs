@@ -19,7 +19,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Common.Syndication;
-    using Provenance = Be.Vlaanderen.Basisregisters.GrAr.Common.Syndication.Provenance;
+    using Provenance = Be.Vlaanderen.Basisregisters.GrAr.Provenance.Syndication.Provenance;
 
     public static class MunicipalitySyndicationResponse
     {
