@@ -78,7 +78,7 @@ nuget Be.Vlaanderen.Basisregisters.GrAr.Import ~> 3.0
 nuget Be.Vlaanderen.Basisregisters.GrAr.Legacy ~> 3.0
 nuget Be.Vlaanderen.Basisregisters.GrAr.Provenance ~> 3.0
 
-nuget Be.Vlaanderen.Basisregisters.Shaperon ~> 1.0
+nuget Be.Vlaanderen.Basisregisters.Shaperon ~> 1.2
 
 // .NET CLASSIC STUFF
 nuget EntityFramework 6.2.0
