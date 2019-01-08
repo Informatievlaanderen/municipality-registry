@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.6...v1.0.7) (2019-01-08)
+
+
+### Bug Fixes
+
+* remove non existant file from csproj ([7213ee1](https://github.com/informatievlaanderen/municipality-registry/commit/7213ee1))
+
 ## [1.0.6](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.5...v1.0.6) (2019-01-08)
 
 ## [1.0.5](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.4...v1.0.5) (2019-01-08)
