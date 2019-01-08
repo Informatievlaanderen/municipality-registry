@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.3...v1.0.4) (2019-01-08)
+
+
+### Bug Fixes
+
+* use new location of Provenance class ([de98598](https://github.com/informatievlaanderen/municipality-registry/commit/de98598))
+
 ## [1.0.3](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.2...v1.0.3) (2019-01-07)
 
 ## [1.0.2](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.1...v1.0.2) (2019-01-07)
