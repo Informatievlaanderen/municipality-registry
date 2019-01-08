@@ -84,8 +84,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         {
             var municipalities = _context
                 .MunicipalityName
-                .Where(m => m.IsFlemishRegion)
-                .AsNoTracking();
+                .AsNoTracking()
+                .Where(m => m.IsFlemishRegion);
 
             if (!filtering.ShouldFilter)
                 return municipalities;
