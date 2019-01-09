@@ -270,7 +270,7 @@ NUGET
     Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac (1.1)
       Autofac.Extensions.DependencyInjection (>= 4.3.1)
       Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore (1.1)
-    Be.Vlaanderen.Basisregisters.Shaperon (1.0.2)
+    Be.Vlaanderen.Basisregisters.Shaperon (1.2)
       NetTopologySuite (1.15.1)
     Be.Vlaanderen.Basisregisters.Testing.Infrastructure.Events (1.0) - copy_local: true, copy_content_to_output_dir: always, content: true
       Be.Vlaanderen.Basisregisters.AggregateSource (>= 1.0)
