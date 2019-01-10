@@ -258,12 +258,6 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
             });
         }
 
-        private static void UpdateVersionTimestamp(MunicipalityDetail municipality, Instant versionTimestamp)
-            => municipality.VersionTimestamp = versionTimestamp;
-
-        private static ProjectionItemNotFoundException<MunicipalityDetailProjections> DatabaseItemNotFound(Guid municipalityId)
-            => new ProjectionItemNotFoundException<MunicipalityDetailProjections>(municipalityId.ToString("D"));
-
         private static void UpdateNameByLanguage(MunicipalityDetail municipality, Language? language, string name)
         {
             switch (language)
@@ -285,5 +279,11 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
                     break;
             }
         }
+
+        private static void UpdateVersionTimestamp(MunicipalityDetail municipality, Instant versionTimestamp)
+            => municipality.VersionTimestamp = versionTimestamp;
+
+        private static ProjectionItemNotFoundException<MunicipalityDetailProjections> DatabaseItemNotFound(Guid municipalityId)
+            => new ProjectionItemNotFoundException<MunicipalityDetailProjections>(municipalityId.ToString("D"));
     }
 }
