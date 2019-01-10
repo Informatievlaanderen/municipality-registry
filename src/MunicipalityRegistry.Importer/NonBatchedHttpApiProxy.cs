@@ -30,6 +30,13 @@ namespace MunicipalityRegistry.Importer
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+                if (!string.IsNullOrEmpty(_config.AuthUserName) &&
+                    !string.IsNullOrEmpty(_config.AuthPassword))
+                {
+                    var encodedString = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_config.AuthUserName}:{_config.AuthPassword}"));
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", encodedString);
+                }
+
                 foreach (var import in imports)
                 foreach (var command in import.Commands)
                 {
