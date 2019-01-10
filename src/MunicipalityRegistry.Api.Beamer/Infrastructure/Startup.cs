@@ -83,17 +83,23 @@ namespace MunicipalityRegistry.Api.Beamer.Infrastructure
                     pathToCheck => pathToCheck != "/");
             }
 
-            app
-                .UseDefaultForApi(
-                    _applicationContainer,
-                    serviceProvider,
-                    env,
-                    appLifetime,
-                    loggerFactory,
-                    apiVersionProvider,
-                    groupName => $"Basisregisters.Vlaanderen - MunicipalityRegistry Beamer API {groupName}")
-
-                .UseMiddleware<AddNoCacheHeadersMiddleware>();
+            app.UseDefaultForApi(new StartupOptions
+            {
+                ApplicationContainer = _applicationContainer,
+                ServiceProvider = serviceProvider,
+                HostingEnvironment = env,
+                ApplicationLifetime = appLifetime,
+                LoggerFactory = loggerFactory,
+                Api =
+                {
+                    VersionProvider = apiVersionProvider,
+                    Info = groupName => $"Basisregisters Vlaanderen - Municipality Registry API {groupName}"
+                },
+                MiddlewareHooks =
+                {
+                    AfterMiddleware = x => x.UseMiddleware<AddNoCacheHeadersMiddleware>(),
+                }
+            });
         }
 
         private static string GetApiLeadingText(ApiVersionDescription description)
