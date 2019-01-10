@@ -1,3 +1,10 @@
+## [1.0.10](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.9...v1.0.10) (2019-01-10)
+
+
+### Bug Fixes
+
+* use new startup options and hook up no cache middleware ([ca0a975](https://github.com/informatievlaanderen/municipality-registry/commit/ca0a975))
+
 ## [1.0.9](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.8...v1.0.9) (2019-01-10)
 
 
