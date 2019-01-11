@@ -1,3 +1,10 @@
+## [1.0.11](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.10...v1.0.11) (2019-01-11)
+
+
+### Bug Fixes
+
+* use basisregisters vlaanderen instead of vbr ([de43af6](https://github.com/informatievlaanderen/municipality-registry/commit/de43af6))
+
 ## [1.0.10](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.9...v1.0.10) (2019-01-10)
 
 
