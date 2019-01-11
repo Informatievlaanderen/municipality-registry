@@ -8,9 +8,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
     using Infrastructure.Options;
     using Microsoft.Extensions.Options;
-    using Requests;
     using Swashbuckle.AspNetCore.Filters;
-    using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Bosa;
 
     [DataContract(Name = "GemeenteCollectie", Namespace = "")]
     public class MunicipalityBosaResponse
@@ -75,26 +73,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
             {
                 Gemeenten = municipalityExamples,
                 TotaalAantal = 2
-            };
-        }
-    }
-
-    public class MunicipalityBosaRequestExamples : IExamplesProvider
-    {
-        public object GetExamples()
-        {
-            return new BosaMunicipalityRequest
-            {
-                Gemeentenaam = new ZoekGeografischeNaam
-                {
-                    Taal = Taal.NL,
-                    Spelling = "ra",
-                    SearchType = BosaSearchType.Bevat
-                },
-                GemeenteCode = new ZoekIdentifier
-                {
-                    ObjectId = "13"
-                }
             };
         }
     }

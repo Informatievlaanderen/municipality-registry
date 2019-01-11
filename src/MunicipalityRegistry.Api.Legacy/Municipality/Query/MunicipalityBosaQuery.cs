@@ -197,7 +197,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         public DateTimeOffset? Version { get; set; }
         public string Name { get; set; }
         public Language? Language { get; set; }
-        public bool IsContainsFilter { get; set; } = true;
+        public bool IsContainsFilter { get; set; }
 
         public MunicipalityNameFilter(BosaMunicipalityRequest request)
         {
