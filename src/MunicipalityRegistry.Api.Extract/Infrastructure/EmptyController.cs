@@ -19,7 +19,7 @@ namespace MunicipalityRegistry.Api.Extract.Infrastructure
         {
             return Request.Headers[HeaderNames.Accept].ToString().Contains("text/html")
                 ? (IActionResult)new RedirectResult("/docs")
-                : new OkObjectResult($"Welcome to the VBR Municipality Api v{Assembly.GetEntryAssembly().GetName().Version}.");
+                : new OkObjectResult($"Welcome to the Basisregisters Vlaanderen Municipality Api v{Assembly.GetEntryAssembly().GetName().Version}.");
         }
     }
 }
