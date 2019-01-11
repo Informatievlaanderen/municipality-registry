@@ -8,7 +8,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
     using Municipality.Events;
     using NodaTime;
 
-    public class MunicipalityExtractProjection : ConnectedProjection<ExtractContext>
+    public class MunicipalityExtractProjections : ConnectedProjection<ExtractContext>
     {
         // TODO: Probably need to get these from enums and data vlaanderen from config
         private const string InUse = "InGebruik";
@@ -17,7 +17,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
 
         private readonly Encoding _encoding;
 
-        public MunicipalityExtractProjection(Encoding encoding)
+        public MunicipalityExtractProjections(Encoding encoding)
         {
             _encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
 
