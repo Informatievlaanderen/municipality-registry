@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.13...v1.1.0) (2019-01-11)
+
+
+### Features
+
+* return all municipalities ([9f3b5ee](https://github.com/informatievlaanderen/municipality-registry/commit/9f3b5ee))
+
 ## [1.0.13](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.12...v1.0.13) (2019-01-11)
 
 ## [1.0.12](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.11...v1.0.12) (2019-01-11)
