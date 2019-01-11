@@ -37,7 +37,7 @@ namespace MunicipalityRegistry.Api.Beamer.Infrastructure
                     (provider, description) => new Info
                     {
                         Version = description.ApiVersion.ToString(),
-                        Title = "VBR MunicipalityRegistry Beamer API",
+                        Title = "Basisregisters Vlaanderen Municipality Registry API",
                         Description = GetApiLeadingText(description),
                         Contact = new Contact
                         {
@@ -103,6 +103,6 @@ namespace MunicipalityRegistry.Api.Beamer.Infrastructure
         }
 
         private static string GetApiLeadingText(ApiVersionDescription description)
-            => $"Momenteel leest u de documentatie voor versie {description.ApiVersion} van de Basisregisters Vlaanderen MunicipalityRegistry Beamer API{string.Format(description.IsDeprecated ? ", **deze API versie is niet meer ondersteund * *." : ".")}";
+            => $"Momenteel leest u de documentatie voor versie {description.ApiVersion} van de Basisregisters Vlaanderen Municipality Registry API{string.Format(description.IsDeprecated ? ", **deze API versie is niet meer ondersteund * *." : ".")}";
     }
 }
