@@ -22,6 +22,8 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
     [ApiExplorerSettings(GroupName = "Extract")]
     public class ExtractController : ApiController
     {
+        public static string ZipName = "gemeenten";
+
         /// <summary>
         /// Vraag een dump van het volledige register op.
         /// </summary>
@@ -49,7 +51,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
                 MunicipalityRegistryExtractBuilder.CreateMunicipalityFile(municipalities)
             };
 
-            return zip.CreateResponse($"gemeenten-{DateTime.Now:yyyy-MM-dd}");
+            return zip.CreateResponse($"{ZipName}-{DateTime.Now:yyyy-MM-dd}");
         }
     }
 }

@@ -7,7 +7,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts.Responses
     {
         public object GetExamples()
         {
-            return new { mimeType = "application/zip", fileName = $"gemeenten-{DateTime.Now:yyyy-MM-dd}.zip" };
+            return new { mimeType = "application/zip", fileName = $"{ExtractController.ZipName}-{DateTime.Now:yyyy-MM-dd}.zip" };
         }
     }
 }
