@@ -55,13 +55,13 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
 
                 Status = Status,
 
-                Plan = Plan,
+                VersionTimestamp = VersionTimestamp,
+
+                Application = Application,
                 Modification = Modification,
                 Operator = Operator,
                 Organisation = Organisation,
-                Application = Application,
-
-                VersionTimestamp = VersionTimestamp
+                Plan = Plan
             };
 
             editFunc(newItem);
@@ -99,8 +99,9 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
 
             builder.Ignore(x => x.VersionTimestamp);
 
-            builder.HasIndex(x => x.NisCode)
-                .ForSqlServerIsClustered();
+            builder.HasIndex(x => x.NisCode).ForSqlServerIsClustered();
+            builder.HasIndex(x => x.MunicipalityId);
+            builder.HasIndex(x => x.Position);
         }
     }
 }

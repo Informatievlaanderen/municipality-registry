@@ -62,7 +62,6 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
             b.Property(x => x.Status);
 
             b.HasIndex(x => x.DefaultName).ForSqlServerIsClustered();
-            b.HasIndex(x => x.Status);
         }
     }
 }

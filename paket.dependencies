@@ -41,6 +41,8 @@ nuget Serilog.Sinks.File 4.0.0
 nuget Serilog.Enrichers.Thread 3.0.0
 nuget Serilog.Enrichers.Environment 2.1.2
 
+nuget Microsoft.EntityFrameworkCore.Design 2.2.0
+
 // BASE REGISTRIES STUFF
 nuget Be.Vlaanderen.Basisregisters.Build.Pipeline ~> 1.5
 nuget Be.Vlaanderen.Basisregisters.Testing.Infrastructure.Events ~> 1.0 content: true, copy_content_to_output_dir: always, copy_local: true

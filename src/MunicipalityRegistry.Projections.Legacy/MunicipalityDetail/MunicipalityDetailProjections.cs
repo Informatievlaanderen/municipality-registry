@@ -1,6 +1,5 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
 {
-    using System;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;

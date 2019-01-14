@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MunicipalityRegistry.Projections.Legacy.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -116,13 +116,13 @@ namespace MunicipalityRegistry.Projections.Legacy.Migrations
                 columns: table => new
                 {
                     MunicipalityId = table.Column<Guid>(nullable: false),
+                    Position = table.Column<long>(nullable: false),
                     NisCode = table.Column<string>(nullable: true),
                     NameDutch = table.Column<string>(nullable: true),
                     NameFrench = table.Column<string>(nullable: true),
                     NameGerman = table.Column<string>(nullable: true),
                     NameEnglish = table.Column<string>(nullable: true),
                     Status = table.Column<int>(nullable: true),
-                    Position = table.Column<long>(nullable: false),
                     VersionTimestamp = table.Column<DateTimeOffset>(nullable: true),
                     Application = table.Column<int>(nullable: true),
                     Modification = table.Column<int>(nullable: true),
@@ -165,16 +165,34 @@ namespace MunicipalityRegistry.Projections.Legacy.Migrations
                 .Annotation("SqlServer:Clustered", true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_MunicipalityList_Status",
-                schema: "MunicipalityRegistryLegacy",
-                table: "MunicipalityList",
-                column: "Status");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_MunicipalityName_IsFlemishRegion",
                 schema: "MunicipalityRegistryLegacy",
                 table: "MunicipalityName",
                 column: "IsFlemishRegion");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MunicipalityName_NameDutchSearch",
+                schema: "MunicipalityRegistryLegacy",
+                table: "MunicipalityName",
+                column: "NameDutchSearch");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MunicipalityName_NameEnglishSearch",
+                schema: "MunicipalityRegistryLegacy",
+                table: "MunicipalityName",
+                column: "NameEnglishSearch");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MunicipalityName_NameFrenchSearch",
+                schema: "MunicipalityRegistryLegacy",
+                table: "MunicipalityName",
+                column: "NameFrenchSearch");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MunicipalityName_NameGermanSearch",
+                schema: "MunicipalityRegistryLegacy",
+                table: "MunicipalityName",
+                column: "NameGermanSearch");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MunicipalityName_NisCode",
@@ -196,11 +214,23 @@ namespace MunicipalityRegistry.Projections.Legacy.Migrations
                 column: "MunicipalityId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MunicipalityVersions_MunicipalityId",
+                schema: "MunicipalityRegistryLegacy",
+                table: "MunicipalityVersions",
+                column: "MunicipalityId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MunicipalityVersions_NisCode",
                 schema: "MunicipalityRegistryLegacy",
                 table: "MunicipalityVersions",
                 column: "NisCode")
                 .Annotation("SqlServer:Clustered", true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MunicipalityVersions_Position",
+                schema: "MunicipalityRegistryLegacy",
+                table: "MunicipalityVersions",
+                column: "Position");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

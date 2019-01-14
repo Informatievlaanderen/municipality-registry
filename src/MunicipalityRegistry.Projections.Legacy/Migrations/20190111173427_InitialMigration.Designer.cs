@@ -10,14 +10,14 @@ using MunicipalityRegistry.Projections.Legacy;
 namespace MunicipalityRegistry.Projections.Legacy.Migrations
 {
     [DbContext(typeof(LegacyContext))]
-    [Migration("20181220091941_Initial")]
-    partial class Initial
+    [Migration("20190111173427_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -99,8 +99,6 @@ namespace MunicipalityRegistry.Projections.Legacy.Migrations
                     b.HasIndex("DefaultName")
                         .HasAnnotation("SqlServer:Clustered", true);
 
-                    b.HasIndex("Status");
-
                     b.ToTable("MunicipalityList","MunicipalityRegistryLegacy");
                 });
 
@@ -136,6 +134,14 @@ namespace MunicipalityRegistry.Projections.Legacy.Migrations
                         .HasAnnotation("SqlServer:Clustered", false);
 
                     b.HasIndex("IsFlemishRegion");
+
+                    b.HasIndex("NameDutchSearch");
+
+                    b.HasIndex("NameEnglishSearch");
+
+                    b.HasIndex("NameFrenchSearch");
+
+                    b.HasIndex("NameGermanSearch");
 
                     b.HasIndex("NisCode")
                         .HasAnnotation("SqlServer:Clustered", true);
@@ -230,8 +236,12 @@ namespace MunicipalityRegistry.Projections.Legacy.Migrations
                     b.HasKey("MunicipalityId", "Position")
                         .HasAnnotation("SqlServer:Clustered", false);
 
+                    b.HasIndex("MunicipalityId");
+
                     b.HasIndex("NisCode")
                         .HasAnnotation("SqlServer:Clustered", true);
+
+                    b.HasIndex("Position");
 
                     b.ToTable("MunicipalityVersions","MunicipalityRegistryLegacy");
                 });

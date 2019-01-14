@@ -31,8 +31,8 @@ namespace MunicipalityRegistry.Projections.Extract
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{Environment.MachineName.ToLowerInvariant()}.json")
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
+                .AddJsonFile($"appsettings.{Environment.MachineName.ToLowerInvariant()}.json", optional: true, reloadOnChange: false)
                 .AddEnvironmentVariables()
                 .Build();
 

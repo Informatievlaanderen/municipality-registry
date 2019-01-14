@@ -68,6 +68,11 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
             builder.HasIndex(p => p.NisCode).ForSqlServerIsClustered();
             builder.HasIndex(MunicipalityName.VersionTimestampBackingPropertyName);
             builder.HasIndex(p => p.IsFlemishRegion);
+
+            builder.HasIndex(p => p.NameDutchSearch);
+            builder.HasIndex(p => p.NameFrenchSearch);
+            builder.HasIndex(p => p.NameGermanSearch);
+            builder.HasIndex(p => p.NameEnglishSearch);
         }
     }
 }

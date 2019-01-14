@@ -8,6 +8,7 @@ namespace MunicipalityRegistry.Projections.Legacy
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
     using MunicipalityList;
+    using MunicipalitySyndication;
 
     public class LegacyContext : RunnerDbContext<LegacyContext>
     {
@@ -15,9 +16,9 @@ namespace MunicipalityRegistry.Projections.Legacy
 
         public DbSet<MunicipalityListItem> MunicipalityList { get; set; }
         public DbSet<MunicipalityDetail.MunicipalityDetail> MunicipalityDetail { get; set; }
-        public DbSet<MunicipalitySyndication.MunicipalitySyndicationItem> MunicipalitySyndication { get; set; }
-        public DbSet<MunicipalityName.MunicipalityName> MunicipalityName { get; set; }
         public DbSet<MunicipalityVersion.MunicipalityVersion> MunicipalityVersions { get; set; }
+        public DbSet<MunicipalityName.MunicipalityName> MunicipalityName { get; set; }
+        public DbSet<MunicipalitySyndicationItem> MunicipalitySyndication { get; set; }
 
         // This needs to be here to please EF
         public LegacyContext() { }
@@ -35,8 +36,8 @@ namespace MunicipalityRegistry.Projections.Legacy
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{Environment.MachineName.ToLowerInvariant()}.json")
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
+                .AddJsonFile($"appsettings.{Environment.MachineName.ToLowerInvariant()}.json", optional: true, reloadOnChange: false)
                 .AddEnvironmentVariables()
                 .Build();
 

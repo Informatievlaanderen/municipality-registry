@@ -10,14 +10,14 @@ using MunicipalityRegistry.Projections.Extract;
 namespace MunicipalityRegistry.Projections.Extract.Migrations
 {
     [DbContext(typeof(ExtractContext))]
-    [Migration("20180830120606_InitialMigration")]
+    [Migration("20190111173332_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -34,7 +34,7 @@ namespace MunicipalityRegistry.Projections.Extract.Migrations
                     b.ToTable("ProjectionStates","MunicipalityRegistryExtract");
                 });
 
-            modelBuilder.Entity("MunicipalityRegistry.Projections.Extract.MunicipalityExtractItem", b =>
+            modelBuilder.Entity("MunicipalityRegistry.Projections.Extract.MunicipalityExtract.MunicipalityExtractItem", b =>
                 {
                     b.Property<Guid?>("MunicipalityId")
                         .ValueGeneratedOnAdd();
@@ -46,7 +46,8 @@ namespace MunicipalityRegistry.Projections.Extract.Migrations
                     b.HasKey("MunicipalityId")
                         .HasAnnotation("SqlServer:Clustered", false);
 
-                    b.HasIndex("NisCode");
+                    b.HasIndex("NisCode")
+                        .HasAnnotation("SqlServer:Clustered", true);
 
                     b.ToTable("Municipality","MunicipalityRegistryExtract");
                 });

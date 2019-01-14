@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/informatievlaanderen/municipality-registry/compare/v1.2.0...v1.2.1) (2019-01-14)
+
+# [1.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v1.1.2...v1.2.0) (2019-01-14)
+
+
+### Features
+
+* updated sql db indices ([27addc5](https://github.com/informatievlaanderen/municipality-registry/commit/27addc5))
+
 ## [1.1.2](https://github.com/informatievlaanderen/municipality-registry/compare/v1.1.1...v1.1.2) (2019-01-11)
 
 ## [1.1.1](https://github.com/informatievlaanderen/municipality-registry/compare/v1.1.0...v1.1.1) (2019-01-11)
