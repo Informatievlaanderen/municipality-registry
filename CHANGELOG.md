@@ -1,3 +1,39 @@
+## [1.1.2](https://github.com/informatievlaanderen/municipality-registry/compare/v1.1.1...v1.1.2) (2019-01-11)
+
+## [1.1.1](https://github.com/informatievlaanderen/municipality-registry/compare/v1.1.0...v1.1.1) (2019-01-11)
+
+# [1.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.13...v1.1.0) (2019-01-11)
+
+
+### Features
+
+* return all municipalities ([9f3b5ee](https://github.com/informatievlaanderen/municipality-registry/commit/9f3b5ee))
+
+## [1.0.13](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.12...v1.0.13) (2019-01-11)
+
+## [1.0.12](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.11...v1.0.12) (2019-01-11)
+
+## [1.0.11](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.10...v1.0.11) (2019-01-11)
+
+
+### Bug Fixes
+
+* use basisregisters vlaanderen instead of vbr ([de43af6](https://github.com/informatievlaanderen/municipality-registry/commit/de43af6))
+
+## [1.0.10](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.9...v1.0.10) (2019-01-10)
+
+
+### Bug Fixes
+
+* use new startup options and hook up no cache middleware ([ca0a975](https://github.com/informatievlaanderen/municipality-registry/commit/ca0a975))
+
+## [1.0.9](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.8...v1.0.9) (2019-01-10)
+
+
+### Bug Fixes
+
+* use basic auth for importer ([3e00dd8](https://github.com/informatievlaanderen/municipality-registry/commit/3e00dd8))
+
 ## [1.0.8](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.7...v1.0.8) (2019-01-08)
 
 ## [1.0.7](https://github.com/informatievlaanderen/municipality-registry/compare/v1.0.6...v1.0.7) (2019-01-08)

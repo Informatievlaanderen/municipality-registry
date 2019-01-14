@@ -17,6 +17,6 @@ namespace MunicipalityRegistry.Projections.Extract
                 Name,
                 envelopeFactory,
                 logger,
-                new MunicipalityExtractProjection(DbaseCodePage.Western_European_ANSI.ToEncoding())) { }
+                new MunicipalityExtractProjections(DbaseCodePage.Western_European_ANSI.ToEncoding())) { }
     }
 }

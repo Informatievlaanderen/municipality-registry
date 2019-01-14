@@ -21,9 +21,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts.ExtractFiles
 
         public void WriteBytesAs<T>(IEnumerable<byte[]> records)
             where T : TDbaseRecord, new()
-        {
-            Write(records.Select(CreateRecordFromBytes<T>));
-        }
+            => Write(records.Select(CreateRecordFromBytes<T>));
 
         private static T CreateRecordFromBytes<T>(byte[] record)
             where T : TDbaseRecord, new()

@@ -21,8 +21,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         {
             var municipalities = _context
                 .MunicipalityList
-                .AsNoTracking()
-                .Where(m => m.Status == MunicipalityStatus.Current);
+                .AsNoTracking();
 
             if (!filtering.ShouldFilter)
                 return municipalities;

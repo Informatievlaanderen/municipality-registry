@@ -47,6 +47,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Be.Vlaanderen.Basisregister
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MunicipalityRegistry.Api.Beamer", "src\MunicipalityRegistry.Api.Beamer\MunicipalityRegistry.Api.Beamer.csproj", "{058187CF-C83C-4A4B-A9F0-EAE811F2F199}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "adr", "adr", "{32B5DF70-E927-4C77-B47E-0AF9D239586C}"
+	ProjectSection(SolutionItems) = preProject
+		docs\adr\0001-record-architecture-decisions.md = docs\adr\0001-record-architecture-decisions.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

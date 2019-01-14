@@ -16,7 +16,7 @@ We will use Architecture Decision Records, as described by Michael Nygard in thi
 
 ### Changes to Nygard's approach
 
-We will keep ADRs in the project repository under `docs/adr/NNN-explanation-of-adr.md`.
+We will keep ADRs in the project repository under `docs/adr/NNNN-explanation-of-adr.md`.
 
 ## Consequences
 

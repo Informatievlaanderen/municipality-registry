@@ -25,244 +25,220 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
 
             When<Envelope<MunicipalityNisCodeWasDefined>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.NisCode = message.Message.NisCode;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.NisCode = message.Message.NisCode;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityNisCodeWasCorrected>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.NisCode = message.Message.NisCode;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.NisCode = message.Message.NisCode;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityWasNamed>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                UpdateNameByLanguage(municipality, message.Message.Language, message.Message.Name);
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        UpdateNameByLanguage(municipality, message.Message.Language, message.Message.Name);
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityNameWasCorrected>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                UpdateNameByLanguage(municipality, message.Message.Language, message.Message.Name);
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        UpdateNameByLanguage(municipality, message.Message.Language, message.Message.Name);
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityNameWasCleared>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                UpdateNameByLanguage(municipality, message.Message.Language, null);
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        UpdateNameByLanguage(municipality, message.Message.Language, null);
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityNameWasCorrectedToCleared>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                UpdateNameByLanguage(municipality, message.Message.Language, null);
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        UpdateNameByLanguage(municipality, message.Message.Language, null);
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityPrimaryLanguageWasDefined>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.PrimaryLanguage = message.Message.Language;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.PrimaryLanguage = message.Message.Language;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityPrimaryLanguageWasCorrected>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.PrimaryLanguage = message.Message.Language;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.PrimaryLanguage = message.Message.Language;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityPrimaryLanguageWasCleared>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.PrimaryLanguage = null;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.PrimaryLanguage = null;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityPrimaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.PrimaryLanguage = null;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.PrimaryLanguage = null;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalitySecondaryLanguageWasDefined>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.SecondaryLanguage = message.Message.Language;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.SecondaryLanguage = message.Message.Language;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalitySecondaryLanguageWasCorrected>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.SecondaryLanguage = message.Message.Language;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.SecondaryLanguage = message.Message.Language;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalitySecondaryLanguageWasCleared>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.SecondaryLanguage = null;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.SecondaryLanguage = null;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalitySecondaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.SecondaryLanguage = null;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.SecondaryLanguage = null;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityBecameCurrent>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.Status = MunicipalityStatus.Current;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.Status = MunicipalityStatus.Current;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityWasCorrectedToCurrent>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.Status = MunicipalityStatus.Current;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.Status = MunicipalityStatus.Current;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityWasRetired>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.Status = MunicipalityStatus.Retired;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.Status = MunicipalityStatus.Retired;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
 
             When<Envelope<MunicipalityWasCorrectedToRetired>>(async (context, message, ct) =>
             {
-                var municipality = await context
-                    .MunicipalityDetail
-                    .FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
-
-                if (municipality == null)
-                    throw DatabaseItemNotFound(message.Message.MunicipalityId);
-
-                municipality.Status = MunicipalityStatus.Retired;
-                UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.Status = MunicipalityStatus.Retired;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
             });
         }
-
-        private static void UpdateVersionTimestamp(MunicipalityDetail municipality, Instant versionTimestamp)
-            => municipality.VersionTimestamp = versionTimestamp;
-
-        private static ProjectionItemNotFoundException<MunicipalityDetailProjections> DatabaseItemNotFound(Guid municipalityId)
-            => new ProjectionItemNotFoundException<MunicipalityDetailProjections>(municipalityId.ToString("D"));
 
         private static void UpdateNameByLanguage(MunicipalityDetail municipality, Language? language, string name)
         {
@@ -285,5 +261,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
                     break;
             }
         }
+
+        private static void UpdateVersionTimestamp(MunicipalityDetail municipality, Instant versionTimestamp)
+            => municipality.VersionTimestamp = versionTimestamp;
     }
 }

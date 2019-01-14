@@ -45,7 +45,7 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
                     (provider, description) => new Info
                     {
                         Version = description.ApiVersion.ToString(),
-                        Title = "VBR MunicipalityRegistry API",
+                        Title = "Basisregisters Vlaanderen Municipality Registry API",
                         Description = GetApiLeadingText(description),
                         Contact = new Contact
                         {
@@ -90,20 +90,26 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
                     pathToCheck => pathToCheck != "/");
             }
 
-            app
-                .UseDefaultForApi(
-                    _applicationContainer,
-                    serviceProvider,
-                    env,
-                    appLifetime,
-                    loggerFactory,
-                    apiVersionProvider,
-                    groupName => $"Basisregisters.Vlaanderen - MunicipalityRegistry API {groupName}")
-
-                .UseMiddleware<AddNoCacheHeadersMiddleware>();
+            app.UseDefaultForApi(new StartupOptions
+            {
+                ApplicationContainer = _applicationContainer,
+                ServiceProvider = serviceProvider,
+                HostingEnvironment = env,
+                ApplicationLifetime = appLifetime,
+                LoggerFactory = loggerFactory,
+                Api =
+                {
+                    VersionProvider = apiVersionProvider,
+                    Info = groupName => $"Basisregisters Vlaanderen - Municipality Registry API {groupName}"
+                },
+                MiddlewareHooks =
+                {
+                    AfterMiddleware = x => x.UseMiddleware<AddNoCacheHeadersMiddleware>(),
+                }
+            });
         }
 
         private static string GetApiLeadingText(ApiVersionDescription description)
-            => $"Momenteel leest u de documentatie voor versie {description.ApiVersion} van de Basisregisters Vlaanderen MunicipalityRegistry API{string.Format(description.IsDeprecated ? ", **deze API versie is niet meer ondersteund * *." : ".")}";
+            => $"Momenteel leest u de documentatie voor versie {description.ApiVersion} van de Basisregisters Vlaanderen Municipality Registry API{string.Format(description.IsDeprecated ? ", **deze API versie is niet meer ondersteund * *." : ".")}";
     }
 }

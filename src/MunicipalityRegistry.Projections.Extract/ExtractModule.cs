@@ -54,7 +54,10 @@ namespace MunicipalityRegistry.Projections.Extract
                     }));
         }
 
-        private static void RunInMemoryDb(IServiceCollection services, ILoggerFactory loggerFactory, ILogger<ExtractModule> logger)
+        private static void RunInMemoryDb(
+            IServiceCollection services,
+            ILoggerFactory loggerFactory,
+            ILogger<ExtractModule> logger)
         {
             services
                 .AddDbContext<ExtractContext>(options => options

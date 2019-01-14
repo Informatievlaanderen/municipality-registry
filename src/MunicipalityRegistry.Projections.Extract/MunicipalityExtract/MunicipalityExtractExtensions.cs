@@ -25,7 +25,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
             return municipality;
         }
 
-        private static ProjectionItemNotFoundException<MunicipalityExtractProjection> DatabaseItemNotFound(Guid municipalityId)
-            => new ProjectionItemNotFoundException<MunicipalityExtractProjection>(municipalityId.ToString("D"));
+        private static ProjectionItemNotFoundException<MunicipalityExtractProjections> DatabaseItemNotFound(Guid municipalityId)
+            => new ProjectionItemNotFoundException<MunicipalityExtractProjections>(municipalityId.ToString("D"));
     }
 }

@@ -13,7 +13,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
         public static ExtractFile CreateMunicipalityFile(IReadOnlyCollection<MunicipalityExtractItem> municipalities)
         {
             return ExtractBuilder.CreateDbfFile<MunicipalityDbaseRecord>(
-                "gemeenten",
+                ExtractController.ZipName,
                 new MunicipalityDbaseSchema(),
                 municipalities
                     .Select(org => org.DbaseRecord)
