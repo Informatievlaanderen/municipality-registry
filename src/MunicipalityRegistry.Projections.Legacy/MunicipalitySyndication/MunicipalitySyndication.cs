@@ -56,30 +56,30 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
             var newItem = new MunicipalitySyndicationItem
             {
                 Position = newPosition,
-                ChangeType = eventName,
 
                 MunicipalityId = MunicipalityId,
                 NisCode = NisCode,
-                DefaultName = DefaultName,
+                ChangeType = eventName,
 
+                PrimaryLanguage = PrimaryLanguage,
+                SecondaryLanguage = SecondaryLanguage,
+
+                DefaultName = DefaultName,
                 NameDutch = NameDutch,
                 NameEnglish = NameEnglish,
                 NameFrench = NameFrench,
                 NameGerman = NameGerman,
 
-                PrimaryLanguage = PrimaryLanguage,
-                SecondaryLanguage = SecondaryLanguage,
-
                 Status = Status,
 
-                Plan = Plan,
+                RecordCreatedAt = RecordCreatedAt,
+                LastChangedOn = lastChangedOn,
+
+                Application = Application,
                 Modification = Modification,
                 Operator = Operator,
                 Organisation = Organisation,
-                Application = Application,
-
-                RecordCreatedAt = RecordCreatedAt,
-                LastChangedOn = lastChangedOn
+                Plan = Plan
             };
 
             editFunc(newItem);

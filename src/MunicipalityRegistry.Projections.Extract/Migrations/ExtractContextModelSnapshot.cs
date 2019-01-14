@@ -15,7 +15,7 @@ namespace MunicipalityRegistry.Projections.Extract.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -32,7 +32,7 @@ namespace MunicipalityRegistry.Projections.Extract.Migrations
                     b.ToTable("ProjectionStates","MunicipalityRegistryExtract");
                 });
 
-            modelBuilder.Entity("MunicipalityRegistry.Projections.Extract.MunicipalityExtractItem", b =>
+            modelBuilder.Entity("MunicipalityRegistry.Projections.Extract.MunicipalityExtract.MunicipalityExtractItem", b =>
                 {
                     b.Property<Guid?>("MunicipalityId")
                         .ValueGeneratedOnAdd();
@@ -44,7 +44,8 @@ namespace MunicipalityRegistry.Projections.Extract.Migrations
                     b.HasKey("MunicipalityId")
                         .HasAnnotation("SqlServer:Clustered", false);
 
-                    b.HasIndex("NisCode");
+                    b.HasIndex("NisCode")
+                        .HasAnnotation("SqlServer:Clustered", true);
 
                     b.ToTable("Municipality","MunicipalityRegistryExtract");
                 });

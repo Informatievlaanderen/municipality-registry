@@ -43,7 +43,8 @@ namespace MunicipalityRegistry.Projections.Extract.Migrations
                 name: "IX_Municipality_NisCode",
                 schema: "MunicipalityRegistryExtract",
                 table: "Municipality",
-                column: "NisCode");
+                column: "NisCode")
+                .Annotation("SqlServer:Clustered", true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
