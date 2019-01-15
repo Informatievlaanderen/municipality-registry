@@ -13,8 +13,9 @@ namespace MunicipalityRegistry.Infrastructure
             if (string.IsNullOrWhiteSpace(connectionString))
                 return;
 
-            builder.RegisterModule(new SqlStreamStoreModule(connectionString, Schema.Default));
-            builder.RegisterModule(new TraceSqlStreamStoreModule(configuration["DataDog:ServiceName"]));
+            builder
+                .RegisterModule(new SqlStreamStoreModule(connectionString, Schema.Default))
+                .RegisterModule(new TraceSqlStreamStoreModule(configuration["DataDog:ServiceName"]));
         }
     }
 }
