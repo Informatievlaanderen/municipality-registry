@@ -1,3 +1,11 @@
+## [1.2.3](https://github.com/informatievlaanderen/municipality-registry/compare/v1.2.2...v1.2.3) (2019-01-17)
+
+
+### Bug Fixes
+
+* unit tests need a dummy connection string ([f68a45c](https://github.com/informatievlaanderen/municipality-registry/commit/f68a45c))
+* use https for syndication namespaces ([24f8d3f](https://github.com/informatievlaanderen/municipality-registry/commit/24f8d3f))
+
 ## [1.2.2](https://github.com/informatievlaanderen/municipality-registry/compare/v1.2.1...v1.2.2) (2019-01-16)
 
 
