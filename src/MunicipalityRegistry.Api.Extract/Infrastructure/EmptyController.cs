@@ -16,10 +16,8 @@ namespace MunicipalityRegistry.Api.Extract.Infrastructure
         public IActionResult Get(
             [FromServices] IHostingEnvironment hostingEnvironment,
             CancellationToken cancellationToken)
-        {
-            return Request.Headers[HeaderNames.Accept].ToString().Contains("text/html")
+            => Request.Headers[HeaderNames.Accept].ToString().Contains("text/html")
                 ? (IActionResult)new RedirectResult("/docs")
                 : new OkObjectResult($"Welcome to the Basisregisters Vlaanderen Municipality Api v{Assembly.GetEntryAssembly().GetName().Version}.");
-        }
     }
 }

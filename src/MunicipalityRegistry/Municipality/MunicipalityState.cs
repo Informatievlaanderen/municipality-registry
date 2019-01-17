@@ -59,10 +59,16 @@ namespace MunicipalityRegistry.Municipality
 
         private void WhenCrabEventApplied()
         {
-            if (LastModificationBasedOnCrab == Modification.Unknown)
-                LastModificationBasedOnCrab = Modification.Insert;
-            else if (LastModificationBasedOnCrab == Modification.Insert)
-                LastModificationBasedOnCrab = Modification.Update;
+            switch (LastModificationBasedOnCrab)
+            {
+                case Modification.Unknown:
+                    LastModificationBasedOnCrab = Modification.Insert;
+                    break;
+
+                case Modification.Insert:
+                    LastModificationBasedOnCrab = Modification.Update;
+                    break;
+            }
         }
 
         private void When(MunicipalityWasRegistered @event)

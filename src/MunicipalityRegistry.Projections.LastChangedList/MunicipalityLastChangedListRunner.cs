@@ -15,7 +15,6 @@ namespace MunicipalityRegistry.Projections.LastChangedList
                 Name,
                 new Projections(),
                 envelopeFactory,
-                logger)
-        { }
+                logger) { }
     }
 }
