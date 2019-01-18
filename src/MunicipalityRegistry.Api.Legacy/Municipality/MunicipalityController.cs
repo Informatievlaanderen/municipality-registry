@@ -125,7 +125,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                             responseOptions.Value.Naamruimte,
                             responseOptions.Value.DetailUrl,
                             m.VersionTimestamp.ToBelgianDateTimeOffset(),
-                            new GeografischeNaam(m.DefaultName, m.PrimaryLanguage.ConvertFromLanguage())))
+                            new GeografischeNaam(m.DefaultName, m.PrimaryLanguage.ConvertFromLanguage()),
+                            m.Status))
                         .ToListAsync(cancellationToken),
                     TotaalAantal = pagedMunicipalities.PaginationInfo.TotalItems,
                     Volgende = BuildVolgendeUri(pagedMunicipalities.PaginationInfo, responseOptions.Value.VolgendeUrl)

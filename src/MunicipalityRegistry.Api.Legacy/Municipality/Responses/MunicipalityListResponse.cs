@@ -5,6 +5,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using System.Runtime.Serialization;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
+    using Convertors;
     using Infrastructure.Options;
     using Microsoft.Extensions.Options;
     using Swashbuckle.AspNetCore.Filters;
@@ -52,11 +53,24 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         [DataMember(Name = "Gemeentenaam", Order = 3)]
         public Gemeentenaam Gemeentenaam { get; set; }
 
-        public MunicipalityListItemResponse(string id, string naamruimte, string detail, DateTimeOffset version, GeografischeNaam geografischeNaam)
+        /// <summary>
+        /// De fase in het leven van de gemeente.
+        /// </summary>
+        [DataMember(Name = "GemeenteStatus", Order = 4)]
+        public GemeenteStatus? GemeenteStatus { get; set; }
+
+        public MunicipalityListItemResponse(
+            string id,
+            string naamruimte,
+            string detail,
+            DateTimeOffset version,
+            GeografischeNaam geografischeNaam,
+            MunicipalityStatus? municipalityStatus)
         {
             Identificator = new Identificator(naamruimte, id, version);
             Detail = new Uri(string.Format(detail, id));
             Gemeentenaam = new Gemeentenaam(geografischeNaam);
+            GemeenteStatus = municipalityStatus?.ConvertFromMunicipalityStatus();
         }
     }
 
@@ -71,8 +85,21 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         {
             var municipalitySamples = new List<MunicipalityListItemResponse>
             {
-                new MunicipalityListItemResponse("31005", _responseOptions.Naamruimte, _responseOptions.DetailUrl, DateTimeOffset.Now, new GeografischeNaam("Brugge", Taal.NL)),
-                new MunicipalityListItemResponse("53084", _responseOptions.Naamruimte, _responseOptions.DetailUrl, DateTimeOffset.Now.AddHours(32), new GeografischeNaam("Quévy", Taal.FR))
+                new MunicipalityListItemResponse(
+                    "31005",
+                    _responseOptions.Naamruimte,
+                    _responseOptions.DetailUrl,
+                    DateTimeOffset.Now,
+                    new GeografischeNaam("Brugge", Taal.NL),
+                    MunicipalityStatus.Current),
+
+                new MunicipalityListItemResponse(
+                    "53084",
+                    _responseOptions.Naamruimte,
+                    _responseOptions.DetailUrl,
+                    DateTimeOffset.Now.AddHours(32),
+                    new GeografischeNaam("Quévy", Taal.FR),
+                    MunicipalityStatus.Retired)
             };
 
             return new MunicipalityListResponse
