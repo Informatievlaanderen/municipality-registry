@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v1.2.3...v1.3.0) (2019-01-18)
+
+
+### Features
+
+* add municipality status in list response ([4b75ccc](https://github.com/informatievlaanderen/municipality-registry/commit/4b75ccc))
+
 ## [1.2.3](https://github.com/informatievlaanderen/municipality-registry/compare/v1.2.2...v1.2.3) (2019-01-17)
 
 
