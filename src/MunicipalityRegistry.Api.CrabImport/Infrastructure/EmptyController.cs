@@ -15,7 +15,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
         [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Get(
             [FromServices] IHostingEnvironment hostingEnvironment,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
             => Request.Headers[HeaderNames.Accept].ToString().Contains("text/html")
                 ? (IActionResult)new RedirectResult("/docs")
                 : new OkObjectResult($"Welcome to the Basisregisters Vlaanderen Municipality Api v{Assembly.GetEntryAssembly().GetName().Version}.");
