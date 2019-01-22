@@ -13,7 +13,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
         // TODO: Probably need to get these from enums and data vlaanderen from config
         private const string InUse = "InGebruik";
         private const string Retired = "Gehistoreerd";
-        private const string IdUri = "http://data.vlaanderen.be/id/gemeente";
+        private const string IdUri = "https://data.vlaanderen.be/id/gemeente";
 
         private readonly Encoding _encoding;
 

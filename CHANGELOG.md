@@ -1,3 +1,25 @@
+# [1.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v1.2.3...v1.3.0) (2019-01-18)
+
+
+### Features
+
+* add municipality status in list response ([4b75ccc](https://github.com/informatievlaanderen/municipality-registry/commit/4b75ccc))
+
+## [1.2.3](https://github.com/informatievlaanderen/municipality-registry/compare/v1.2.2...v1.2.3) (2019-01-17)
+
+
+### Bug Fixes
+
+* unit tests need a dummy connection string ([f68a45c](https://github.com/informatievlaanderen/municipality-registry/commit/f68a45c))
+* use https for syndication namespaces ([24f8d3f](https://github.com/informatievlaanderen/municipality-registry/commit/24f8d3f))
+
+## [1.2.2](https://github.com/informatievlaanderen/municipality-registry/compare/v1.2.1...v1.2.2) (2019-01-16)
+
+
+### Bug Fixes
+
+* required upgrade for datadog tracing to avoid connection pool problems ([a5b5dae](https://github.com/informatievlaanderen/municipality-registry/commit/a5b5dae))
+
 ## [1.2.1](https://github.com/informatievlaanderen/municipality-registry/compare/v1.2.0...v1.2.1) (2019-01-14)
 
 # [1.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v1.1.2...v1.2.0) (2019-01-14)

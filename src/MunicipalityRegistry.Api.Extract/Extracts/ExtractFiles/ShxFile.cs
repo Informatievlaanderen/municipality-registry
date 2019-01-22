@@ -15,7 +15,6 @@ namespace MunicipalityRegistry.Api.Extract.Extracts.ExtractFiles
                 record.Write(Writer);
         }
 
-        protected sealed override void BeforeFlush()
-        { }
+        protected sealed override void BeforeFlush() { }
     }
 }

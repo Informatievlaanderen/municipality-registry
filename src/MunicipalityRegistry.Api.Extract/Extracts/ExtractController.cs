@@ -38,7 +38,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
         [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples), jsonConverter: typeof(StringEnumConverter))]
         public async Task<IActionResult> Get(
             [FromServices] ExtractContext context,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
         {
             var municipalities = await context
                 .MunicipalityExtract

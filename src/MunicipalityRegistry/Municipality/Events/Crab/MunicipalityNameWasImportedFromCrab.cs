@@ -62,7 +62,6 @@ namespace MunicipalityRegistry.Municipality.Events
                 new CrabTimestamp(timestamp),
                 new CrabOperator(@operator),
                 modification,
-                organisation
-            ) { }
+                organisation) { }
     }
 }

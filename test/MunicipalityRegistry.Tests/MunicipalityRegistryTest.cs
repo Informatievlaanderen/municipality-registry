@@ -19,7 +19,7 @@ namespace MunicipalityRegistry.Tests
         protected override void ConfigureCommandHandling(ContainerBuilder builder)
         {
             var configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(new Dictionary<string, string> { { "ConnectionStrings:Events", "" } })
+                .AddInMemoryCollection(new Dictionary<string, string> { { "ConnectionStrings:Events", "x" } })
                 .Build();
 
             builder.RegisterModule(new CommandHandlingModule(configuration));

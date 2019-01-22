@@ -53,8 +53,8 @@ let build = buildSolution assemblyVersionNumber
 let test = testSolution
 let publish = publish assemblyVersionNumber
 let pack = pack nugetVersionNumber
-let push = push dockerRepository
 let containerize = containerize dockerRepository
+let push = push dockerRepository
 
 // Solution -----------------------------------------------------------------------
 
