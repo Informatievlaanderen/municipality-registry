@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/informatievlaanderen/municipality-registry/compare/v1.3.0...v1.4.0) (2019-01-23)
+
+
+### Features
+
+* refactored primary/secondary language into official/facilities ([5933a79](https://github.com/informatievlaanderen/municipality-registry/commit/5933a79))
+
 # [1.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v1.2.3...v1.3.0) (2019-01-18)
 
 
