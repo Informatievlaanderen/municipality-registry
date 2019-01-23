@@ -6,8 +6,6 @@ namespace MunicipalityRegistry.Api.Extract.Extracts.Responses
     public class MunicipalityRegistryResponseExample : IExamplesProvider
     {
         public object GetExamples()
-        {
-            return new { mimeType = "application/zip", fileName = $"{ExtractController.ZipName}-{DateTime.Now:yyyy-MM-dd}.zip" };
-        }
+            => new { mimeType = "application/zip", fileName = $"{ExtractController.ZipName}-{DateTime.Now:yyyy-MM-dd}.zip" };
     }
 }
