@@ -114,7 +114,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         [DataMember(Name = "Identificator", Order = 2)]
         public Identificator Identificator { get; set; }
 
-
         /// <summary>
         /// De officiële talen van de gemeente.
         /// </summary>

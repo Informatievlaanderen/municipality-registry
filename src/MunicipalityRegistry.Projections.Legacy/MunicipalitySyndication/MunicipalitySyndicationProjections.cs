@@ -98,7 +98,6 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                     ct);
             });
 
-
             When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await context.CreateNewMunicipalitySyndicationItem(
