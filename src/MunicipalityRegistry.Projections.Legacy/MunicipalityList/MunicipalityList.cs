@@ -1,20 +1,20 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
 {
     using System;
+    using System.Collections.Generic;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Newtonsoft.Json;
     using NodaTime;
 
     public class MunicipalityListItem
     {
         public static string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
+        public static string OfficialLanguagesBackingPropertyName = nameof(OfficialLanguagesAsString);
 
         public Guid? MunicipalityId { get; set; }
         public string NisCode { get; set; }
-
-        public Language? PrimaryLanguage { get; set; }
-        public Language? SecondaryLanguage { get; set; }
 
         public string DefaultName { get; set; }
         public string NameDutch { get; set; }
@@ -24,12 +24,41 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
 
         public MunicipalityStatus? Status { get; set; }
 
+        public IReadOnlyCollection<Language> OfficialLanguages
+        {
+            get => GetDeserializedOfficialLanguages();
+            set => OfficialLanguagesAsString = JsonConvert.SerializeObject(value);
+        }
+
+        private string OfficialLanguagesAsString { get; set; }
+
         private DateTimeOffset VersionTimestampAsDateTimeOffset { get; set; }
 
         public Instant VersionTimestamp
         {
             get => Instant.FromDateTimeOffset(VersionTimestampAsDateTimeOffset);
             set => VersionTimestampAsDateTimeOffset = value.ToDateTimeOffset();
+        }
+
+        public void AddOfficialLanguage(Language language)
+        {
+            var languages = GetDeserializedOfficialLanguages();
+            languages.Add(language);
+            OfficialLanguages = languages;
+        }
+
+        public void RemoveOfficialLanguage(Language language)
+        {
+            var languages = GetDeserializedOfficialLanguages();
+            languages.Remove(language);
+            OfficialLanguages = languages;
+        }
+
+        private List<Language> GetDeserializedOfficialLanguages()
+        {
+            return string.IsNullOrEmpty(OfficialLanguagesAsString)
+                ? new List<Language>()
+                : JsonConvert.DeserializeObject<List<Language>>(OfficialLanguagesAsString);
         }
     }
 
@@ -45,9 +74,6 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
 
             b.Property(x => x.NisCode);
 
-            b.Property(x => x.PrimaryLanguage);
-            b.Property(x => x.SecondaryLanguage);
-
             b.Property(x => x.DefaultName);
             b.Property(x => x.NameDutch);
             b.Property(x => x.NameFrench);
@@ -55,9 +81,13 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
             b.Property(x => x.NameEnglish);
 
             b.Ignore(x => x.VersionTimestamp);
+            b.Ignore(x => x.OfficialLanguages);
 
             b.Property(MunicipalityListItem.VersionTimestampBackingPropertyName)
                 .HasColumnName("VersionTimestamp");
+
+            b.Property(MunicipalityListItem.OfficialLanguagesBackingPropertyName)
+                .HasColumnName("OfficialLanguages");
 
             b.Property(x => x.Status);
 

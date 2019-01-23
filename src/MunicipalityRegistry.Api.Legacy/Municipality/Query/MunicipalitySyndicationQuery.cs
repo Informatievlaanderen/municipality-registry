@@ -25,6 +25,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         public Instant RecordCreatedAt { get; }
         public Instant LastChangedOn { get; }
         public MunicipalityStatus? Status { get; }
+        public IEnumerable<Language> OfficialLanguages { get; } = new List<Language>();
+        public IEnumerable<Language> FacilitiesLanguages { get; } = new List<Language>();
         public string NameDutch { get; }
         public string NameFrench { get; }
         public string NameGerman { get; }
@@ -63,6 +65,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
             Instant recordCreatedAt,
             Instant lastChangedOn,
             MunicipalityStatus? status,
+            IEnumerable<Language> officialLanguages,
+            IEnumerable<Language> facilitiesLanguages,
             string nameDutch,
             string nameFrench,
             string nameGerman,
@@ -83,6 +87,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
 
             DefaultName = defaultName;
             Status = status;
+            OfficialLanguages = officialLanguages;
+            FacilitiesLanguages = facilitiesLanguages;
             NameDutch = nameDutch;
             NameFrench = nameFrench;
             NameGerman = nameGerman;
@@ -114,6 +120,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                    x.RecordCreatedAt,
                    x.LastChangedOn,
                    x.Status,
+                   x.OfficialLanguages,
+                   x.FacilitiesLanguages,
                    x.NameDutch,
                    x.NameFrench,
                    x.NameGerman,

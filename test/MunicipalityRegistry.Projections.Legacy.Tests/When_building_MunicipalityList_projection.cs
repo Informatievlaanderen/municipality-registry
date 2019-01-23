@@ -119,49 +119,6 @@ namespace MunicipalityRegistry.Projections.Legacy.Tests
         }
 
         [Fact]
-        public async Task Given_MunicipalityDefinedSecondaryLanguage_Then_expected_item_should_be_changed()
-        {
-            var projection = new MunicipalityListProjections();
-            var resolver = ConcurrentResolve.WhenEqualToHandlerMessageType(projection.Handlers);
-
-            var crabMunicipalityId = new CrabMunicipalityId(1);
-            var municipalityId = MunicipalityId.CreateFor(crabMunicipalityId);
-
-            var nisCode = "456";
-            var municipalityWasRegistered = new MunicipalityWasRegistered(municipalityId, new NisCode(nisCode));
-            ((ISetProvenance)municipalityWasRegistered).SetProvenance(_provenance);
-
-            var municipalityNisCodeWasDefined = new MunicipalityNisCodeWasDefined(municipalityId, new NisCode(nisCode));
-            ((ISetProvenance)municipalityNisCodeWasDefined).SetProvenance(_provenance);
-
-            var municipalitySecondaryLanguageWasDefined = new MunicipalitySecondaryLanguageWasDefined(municipalityId, Language.English);
-            ((ISetProvenance)municipalitySecondaryLanguageWasDefined).SetProvenance(_provenance);
-            await new ConnectedProjectionScenario<LegacyContext>(resolver)
-                .Given(
-                    new Envelope<MunicipalityWasRegistered>(new Envelope(
-                        municipalityWasRegistered,
-                        EmptyMetadata)),
-
-                    new Envelope<MunicipalityNisCodeWasDefined>(new Envelope(
-                        municipalityNisCodeWasDefined,
-                        EmptyMetadata)),
-
-                    new Envelope<MunicipalitySecondaryLanguageWasDefined>(new Envelope(
-                        municipalitySecondaryLanguageWasDefined,
-                        EmptyMetadata)))
-                .Verify(async context =>
-                {
-                    var municipality = await context.MunicipalityList.FirstAsync(a => a.NisCode == nisCode);
-
-                    municipality.MunicipalityId.Should().Be((Guid)municipalityId);
-                    municipality.SecondaryLanguage.Should().Be(Language.English);
-
-                    return VerificationResult.Pass();
-                })
-                .Assert();
-        }
-
-        [Fact]
         public async Task Given_MunicipalityDefinedPrimaryLanguage_Then_expected_item_is_updated()
         {
             var projection = new MunicipalityListProjections();
@@ -174,8 +131,8 @@ namespace MunicipalityRegistry.Projections.Legacy.Tests
             var municipalityWasRegistered = new MunicipalityWasRegistered(municipalityId, new NisCode(nisCode));
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(_provenance);
 
-            var municipalityPrimaryLanguageWasDefined = new MunicipalityPrimaryLanguageWasDefined(municipalityId, Language.Dutch);
-            ((ISetProvenance)municipalityPrimaryLanguageWasDefined).SetProvenance(_provenance);
+            var municipalityOfficialLanguageWasAdded = new MunicipalityOfficialLanguageWasAdded(municipalityId, Language.Dutch);
+            ((ISetProvenance)municipalityOfficialLanguageWasAdded).SetProvenance(_provenance);
 
             await new ConnectedProjectionScenario<LegacyContext>(resolver)
                 .Given(
@@ -183,15 +140,15 @@ namespace MunicipalityRegistry.Projections.Legacy.Tests
                         municipalityWasRegistered,
                         EmptyMetadata)),
 
-                    new Envelope<MunicipalityPrimaryLanguageWasDefined>(new Envelope(
-                        municipalityPrimaryLanguageWasDefined,
+                    new Envelope<MunicipalityOfficialLanguageWasAdded>(new Envelope(
+                        municipalityOfficialLanguageWasAdded,
                         EmptyMetadata)))
                 .Verify(async context =>
                 {
                     var municipality = await context.MunicipalityList.FirstAsync(a => a.MunicipalityId == municipalityId);
 
                     municipality.MunicipalityId.Should().Be((Guid)municipalityId);
-                    municipality.PrimaryLanguage.Should().Be(Language.Dutch);
+                    municipality.OfficialLanguages.Should().AllBeEquivalentTo(Language.Dutch);
 
                     return VerificationResult.Pass();
                 })

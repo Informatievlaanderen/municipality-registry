@@ -28,6 +28,7 @@ namespace MunicipalityRegistry.Tests
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.SecondaryLanguage, CrabLanguage.French)
+                .With(x => x.FacilityLanguage, CrabLanguage.English)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
                 .With(x => x.Geometry, new WkbGeometry(GeometryHelpers.ExampleWkb))
                 .Create();
@@ -48,11 +49,14 @@ namespace MunicipalityRegistry.Tests
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, _importMunicipalityFromCrab.NisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
 
-            var municipalityPrimaryLanguageWasDefined = new MunicipalityPrimaryLanguageWasDefined(_municipalityId, Language.Dutch);
-            ((ISetProvenance)municipalityPrimaryLanguageWasDefined).SetProvenance(CreateProvenance(1));
+            var municipalityOfficialLanguageWasAdded = new MunicipalityOfficialLanguageWasAdded(_municipalityId, Language.Dutch);
+            ((ISetProvenance)municipalityOfficialLanguageWasAdded).SetProvenance(CreateProvenance(1));
 
-            var municipalitySecondaryLanguageWasDefined = new MunicipalitySecondaryLanguageWasDefined(_municipalityId, Language.French);
-            ((ISetProvenance)municipalitySecondaryLanguageWasDefined).SetProvenance(CreateProvenance(1));
+            var municipalitySecondOfficialLanguageWasAdded = new MunicipalityOfficialLanguageWasAdded(_municipalityId, Language.French);
+            ((ISetProvenance)municipalitySecondOfficialLanguageWasAdded).SetProvenance(CreateProvenance(1));
+
+            var facilityLanguageWasAdded = new MunicipalityFacilitiesLanguageWasAdded(_municipalityId, Language.English);
+            ((ISetProvenance)facilityLanguageWasAdded).SetProvenance(CreateProvenance(1));
 
             var municipalityWasDrawn = new MunicipalityWasDrawn(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb));
             ((ISetProvenance)municipalityWasDrawn).SetProvenance(CreateProvenance(1));
@@ -66,8 +70,9 @@ namespace MunicipalityRegistry.Tests
                     .When(_importMunicipalityFromCrab)
                     .Then(_municipalityId,
                         municipalityWasRegistered,
-                        municipalityPrimaryLanguageWasDefined,
-                        municipalitySecondaryLanguageWasDefined,
+                        municipalityOfficialLanguageWasAdded,
+                        municipalitySecondOfficialLanguageWasAdded,
+                        facilityLanguageWasAdded,
                         municipalityWasDrawn,
                         municipalityBecameCurrent,
                         _importMunicipalityFromCrab.ToLegacyEvent()));

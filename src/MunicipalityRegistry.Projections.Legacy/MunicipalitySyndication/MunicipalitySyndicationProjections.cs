@@ -1,5 +1,6 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
 {
+    using System.Linq;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
@@ -53,7 +54,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                     x =>
                     {
                         UpdateNameByLanguage(x, message.Message.Language, message.Message.Name);
-                        UpdateDefaultNameByPrimaryLanguage(x);
+                        UpdateDefaultName(x);
                     },
                     ct);
             });
@@ -66,7 +67,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                     x =>
                     {
                         UpdateNameByLanguage(x, message.Message.Language, message.Message.Name);
-                        UpdateDefaultNameByPrimaryLanguage(x);
+                        UpdateDefaultName(x);
                     },
                     ct);
             });
@@ -79,7 +80,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                     x =>
                     {
                         UpdateNameByLanguage(x, message.Message.Language, null);
-                        UpdateDefaultNameByPrimaryLanguage(x);
+                        UpdateDefaultName(x);
                     },
                     ct);
             });
@@ -92,96 +93,61 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                     x =>
                     {
                         UpdateNameByLanguage(x, message.Message.Language, null);
-                        UpdateDefaultNameByPrimaryLanguage(x);
+                        UpdateDefaultName(x);
                     },
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasDefined>>(async (context, message, ct) =>
+
+            When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await context.CreateNewMunicipalitySyndicationItem(
                     message.Message.MunicipalityId,
                     message,
                     x =>
                     {
-                        x.PrimaryLanguage = message.Message.Language;
-                        UpdateDefaultNameByPrimaryLanguage(x);
+                        x.AddOfficialLanguage(message.Message.Language);
+                        UpdateDefaultName(x);
                     },
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCorrected>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) =>
             {
                 await context.CreateNewMunicipalitySyndicationItem(
                     message.Message.MunicipalityId,
                     message,
                     x =>
                     {
-                        x.PrimaryLanguage = message.Message.Language;
-                        UpdateDefaultNameByPrimaryLanguage(x);
+                        x.RemoveOfficialLanguage(message.Message.Language);
+                        UpdateDefaultName(x);
                     },
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCleared>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await context.CreateNewMunicipalitySyndicationItem(
                     message.Message.MunicipalityId,
                     message,
                     x =>
                     {
-                        x.PrimaryLanguage = null;
-                        UpdateDefaultNameByPrimaryLanguage(x);
+                        x.AddFacilitiesLanguage(message.Message.Language);
+                        UpdateDefaultName(x);
                     },
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) =>
             {
                 await context.CreateNewMunicipalitySyndicationItem(
                     message.Message.MunicipalityId,
                     message,
                     x =>
                     {
-                        x.PrimaryLanguage = null;
-                        UpdateDefaultNameByPrimaryLanguage(x);
+                        x.RemoveFacilitiesLanguage(message.Message.Language);
+                        UpdateDefaultName(x);
                     },
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasDefined>>(async (context, message, ct) =>
-            {
-                await context.CreateNewMunicipalitySyndicationItem(
-                    message.Message.MunicipalityId,
-                    message,
-                    x => x.SecondaryLanguage = message.Message.Language,
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCorrected>>(async (context, message, ct) =>
-            {
-                await context.CreateNewMunicipalitySyndicationItem(
-                    message.Message.MunicipalityId,
-                    message,
-                    x => x.SecondaryLanguage = message.Message.Language,
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCleared>>(async (context, message, ct) =>
-            {
-                await context.CreateNewMunicipalitySyndicationItem(
-                    message.Message.MunicipalityId,
-                    message,
-                    x => x.SecondaryLanguage = null,
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
-            {
-                await context.CreateNewMunicipalitySyndicationItem(
-                    message.Message.MunicipalityId,
-                    message,
-                    x => x.SecondaryLanguage = null,
                     ct);
             });
 
@@ -244,12 +210,11 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
             }
         }
 
-        private static void UpdateDefaultNameByPrimaryLanguage(MunicipalitySyndicationItem municipalitySyndicationItem)
+        private static void UpdateDefaultName(MunicipalitySyndicationItem municipalitySyndicationItem)
         {
-            switch (municipalitySyndicationItem.PrimaryLanguage)
+            switch (municipalitySyndicationItem.OfficialLanguages.FirstOrDefault())
             {
                 default:
-                case null:
                 case Language.Dutch:
                     municipalitySyndicationItem.DefaultName = municipalitySyndicationItem.NameDutch;
                     break;

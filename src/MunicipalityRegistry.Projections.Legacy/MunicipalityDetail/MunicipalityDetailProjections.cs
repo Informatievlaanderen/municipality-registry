@@ -94,97 +94,49 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasDefined>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityDetail(
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        municipality.PrimaryLanguage = message.Message.Language;
+                        municipality.AddOfficialLanguage(message.Message.Language);
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCorrected>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityDetail(
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        municipality.PrimaryLanguage = message.Message.Language;
+                        municipality.RemoveOfficialLanguage(message.Message.Language);
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCleared>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityDetail(
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        municipality.PrimaryLanguage = null;
+                        municipality.AddFacilitiesLanguage(message.Message.Language);
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityDetail(
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        municipality.PrimaryLanguage = null;
-                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
-                    },
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasDefined>>(async (context, message, ct) =>
-            {
-                await context.FindAndUpdateMunicipalityDetail(
-                    message.Message.MunicipalityId,
-                    municipality =>
-                    {
-                        municipality.SecondaryLanguage = message.Message.Language;
-                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
-                    },
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCorrected>>(async (context, message, ct) =>
-            {
-                await context.FindAndUpdateMunicipalityDetail(
-                    message.Message.MunicipalityId,
-                    municipality =>
-                    {
-                        municipality.SecondaryLanguage = message.Message.Language;
-                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
-                    },
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCleared>>(async (context, message, ct) =>
-            {
-                await context.FindAndUpdateMunicipalityDetail(
-                    message.Message.MunicipalityId,
-                    municipality =>
-                    {
-                        municipality.SecondaryLanguage = null;
-                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
-                    },
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
-            {
-                await context.FindAndUpdateMunicipalityDetail(
-                    message.Message.MunicipalityId,
-                    municipality =>
-                    {
-                        municipality.SecondaryLanguage = null;
+                        municipality.RemoveFacilitiesLanguage(message.Message.Language);
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);

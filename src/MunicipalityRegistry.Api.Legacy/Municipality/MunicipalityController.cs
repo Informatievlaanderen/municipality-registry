@@ -77,6 +77,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                     responseOptions.Value.Naamruimte,
                     municipality.Status.ConvertFromMunicipalityStatus(),
                     municipality.NisCode,
+                    municipality.OfficialLanguages,
+                    municipality.FacilitiesLanguages,
                     municipality.NameDutch,
                     municipality.NameFrench,
                     municipality.NameGerman,
@@ -125,7 +127,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                             responseOptions.Value.Naamruimte,
                             responseOptions.Value.DetailUrl,
                             m.VersionTimestamp.ToBelgianDateTimeOffset(),
-                            new GeografischeNaam(m.DefaultName, m.PrimaryLanguage.ConvertFromLanguage()),
+                            new GeografischeNaam(m.DefaultName, m.OfficialLanguages.FirstOrDefault().ConvertFromLanguage()),
                             m.Status))
                         .ToListAsync(cancellationToken),
                     TotaalAantal = pagedMunicipalities.PaginationInfo.TotalItems,

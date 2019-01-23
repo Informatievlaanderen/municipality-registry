@@ -7,7 +7,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
     using NodaTime;
     using System;
 
-    public class MunicipalityVersion
+    public class MunicipalityVersion : MunicipalityLanguagesBase
     {
         public static string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
 
@@ -55,6 +55,9 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
 
                 Status = Status,
 
+                OfficialLanguages = OfficialLanguages,
+                FacilitiesLanguages = FacilitiesLanguages,
+
                 VersionTimestamp = VersionTimestamp,
 
                 Application = Application,
@@ -91,6 +94,12 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
             builder.Property(MunicipalityVersion.VersionTimestampBackingPropertyName)
                 .HasColumnName("VersionTimestamp");
 
+            builder.Property(MunicipalityLanguagesBase.OfficialLanguagesBackingPropertyName)
+                .HasColumnName("OfficialLanguages");
+
+            builder.Property(MunicipalityLanguagesBase.FacilitiesLanguagesBackingPropertyName)
+                .HasColumnName("FacilitiesLanguages");
+
             builder.Property(x => x.Application);
             builder.Property(x => x.Modification);
             builder.Property(x => x.Operator);
@@ -98,6 +107,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
             builder.Property(x => x.Plan);
 
             builder.Ignore(x => x.VersionTimestamp);
+            builder.Ignore(x => x.OfficialLanguages);
+            builder.Ignore(x => x.FacilitiesLanguages);
 
             builder.HasIndex(x => x.NisCode).ForSqlServerIsClustered();
             builder.HasIndex(x => x.MunicipalityId);

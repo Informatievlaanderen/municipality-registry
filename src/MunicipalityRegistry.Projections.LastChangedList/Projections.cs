@@ -12,7 +12,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
         private static readonly AcceptType[] SupportedAcceptTypes = { AcceptType.Json, AcceptType.JsonLd, AcceptType.Xml };
 
         public Projections()
-            : base (SupportedAcceptTypes)
+            : base(SupportedAcceptTypes)
         {
             When<Envelope<MunicipalityWasRegistered>>(async (context, message, ct) =>
             {
@@ -67,42 +67,22 @@ namespace MunicipalityRegistry.Projections.LastChangedList
                 await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasDefined>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCorrected>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) =>
             {
                 await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCleared>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
-            {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasDefined>>(async (context, message, ct) =>
-            {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCorrected>>(async (context, message, ct) =>
-            {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCleared>>(async (context, message, ct) =>
-            {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) =>
             {
                 await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
             });

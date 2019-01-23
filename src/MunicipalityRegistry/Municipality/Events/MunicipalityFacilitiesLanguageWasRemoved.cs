@@ -1,19 +1,19 @@
 namespace MunicipalityRegistry.Municipality.Events
 {
-    using System;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Newtonsoft.Json;
+    using System;
 
-    [EventName("MunicipalitySecondaryLanguageWasDefined")]
-    [EventDescription("De secundaire taal van de gemeente werd gedefiniëerd.")]
-    public class MunicipalitySecondaryLanguageWasDefined : IHasProvenance, ISetProvenance
+    [EventName("MunicipalityFacilityLanguageWasRemoved")]
+    [EventDescription("Een faciliteiten taal van de gemeente werd verwijderd.")]
+    public class MunicipalityFacilitiesLanguageWasRemoved : IHasProvenance, ISetProvenance
     {
         public Guid MunicipalityId { get; }
         public Language Language { get; }
         public ProvenanceData Provenance { get; private set; }
 
-        public MunicipalitySecondaryLanguageWasDefined(
+        public MunicipalityFacilitiesLanguageWasRemoved(
             MunicipalityId municipalityId,
             Language language)
         {
@@ -22,7 +22,7 @@ namespace MunicipalityRegistry.Municipality.Events
         }
 
         [JsonConstructor]
-        private MunicipalitySecondaryLanguageWasDefined(
+        private MunicipalityFacilitiesLanguageWasRemoved(
             Guid municipalityId,
             Language language,
             ProvenanceData provenance) :

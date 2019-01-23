@@ -33,6 +33,7 @@ namespace MunicipalityRegistry.Municipality
                         message.Command.NisCode,
                         message.Command.PrimaryLanguage,
                         message.Command.SecondaryLanguage,
+                        message.Command.FacilityLanguage,
                         message.Command.NumberOfFlags,
                         message.Command.Lifetime,
                         message.Command.Geometry,

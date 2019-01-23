@@ -1,22 +1,19 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
 {
-    using System;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using NodaTime;
+    using System;
 
-    public class MunicipalitySyndicationItem
+    public class MunicipalitySyndicationItem : MunicipalityLanguagesBase
     {
         public long Position { get; set; }
 
         public Guid? MunicipalityId { get; set; }
         public string NisCode { get; set; }
         public string ChangeType { get; set; }
-
-        public Language? PrimaryLanguage { get; set; }
-        public Language? SecondaryLanguage { get; set; }
 
         public string DefaultName { get; set; }
         public string NameDutch { get; set; }
@@ -61,8 +58,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                 NisCode = NisCode,
                 ChangeType = eventName,
 
-                PrimaryLanguage = PrimaryLanguage,
-                SecondaryLanguage = SecondaryLanguage,
+                OfficialLanguages = OfficialLanguages,
+                FacilitiesLanguages = FacilitiesLanguages,
 
                 DefaultName = DefaultName,
                 NameDutch = NameDutch,
@@ -104,15 +101,18 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
             b.Property(x => x.NisCode);
             b.Property(x => x.ChangeType);
 
-            b.Property(x => x.PrimaryLanguage);
-            b.Property(x => x.SecondaryLanguage);
-
             b.Property(x => x.DefaultName);
             b.Property(x => x.NameDutch);
             b.Property(x => x.NameFrench);
             b.Property(x => x.NameGerman);
             b.Property(x => x.NameEnglish);
             b.Property(x => x.Status);
+
+            b.Property(MunicipalityLanguagesBase.OfficialLanguagesBackingPropertyName)
+                .HasColumnName("OfficialLanguages");
+
+            b.Property(MunicipalityLanguagesBase.FacilitiesLanguagesBackingPropertyName)
+                .HasColumnName("FacilitiesLanguages");
 
             b.Property(x => x.RecordCreatedAtAsDateTimeOffset).HasColumnName("RecordCreatedAt");
             b.Property(x => x.LastChangedOnAsDateTimeOffset).HasColumnName("LastChangedOn");
@@ -125,6 +125,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
 
             b.Ignore(x => x.RecordCreatedAt);
             b.Ignore(x => x.LastChangedOn);
+            b.Ignore(x => x.OfficialLanguages);
+            b.Ignore(x => x.FacilitiesLanguages);
 
             b.HasIndex(x => x.MunicipalityId);
         }

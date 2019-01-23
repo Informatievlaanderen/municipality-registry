@@ -46,7 +46,6 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
                         _fixture.Create<MunicipalityBecameCurrent>())
 
                     .When(importMunicipalityFromCrab)
@@ -56,11 +55,11 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
         [Fact]
         public void WithCorrectedNisCode()
         {
-
             var importMunicipalityFromCrab = _fixture
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?) null)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
                 .With(x => x.Modification, CrabModification.Correction)
                 .With(x => x.Geometry, (WkbGeometry) null)
@@ -78,7 +77,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         _fixture.Create<MunicipalityBecameCurrent>())
 
                     .When(importMunicipalityFromCrab)
@@ -98,6 +97,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Geometry, (WkbGeometry) null)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), retirementDate))
                 .Create();
@@ -113,7 +113,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         _fixture.Create<MunicipalityBecameCurrent>())
 
                     .When(importMunicipalityFromCrab)
@@ -134,6 +134,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.Modification, CrabModification.Correction)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Geometry, (WkbGeometry) null)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), retirementDate))
                 .Create();
@@ -149,7 +150,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         _fixture.Create<MunicipalityBecameCurrent>())
 
                     .When(importMunicipalityFromCrab)
@@ -166,6 +167,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Geometry, (WkbGeometry) null)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
                 .Create();
@@ -181,7 +183,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         _fixture.Create<MunicipalityWasRegistered>())
 
                     .When(importMunicipalityFromCrab)
@@ -198,6 +200,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Modification, CrabModification.Correction)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
                 .With(x => x.Geometry, (WkbGeometry) null)
@@ -214,7 +217,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         _fixture.Create<MunicipalityWasRetired>())
 
                     .When(importMunicipalityFromCrab)
@@ -225,12 +228,91 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
         }
 
         [Fact]
+        public void WithNewFacilityLanguage()
+        {
+            var importMunicipalityFromCrab = _fixture
+                .Build<ImportMunicipalityFromCrab>()
+                .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
+                .With(x => x.SecondaryLanguage, (CrabLanguage?)null)
+                .With(x => x.FacilityLanguage, CrabLanguage.German)
+                .With(x => x.Geometry, (WkbGeometry)null)
+                .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
+                .Create();
+
+            var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
+            ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
+
+            var municipalityExistingFacilityLanguage = new MunicipalityFacilitiesLanguageWasAdded(_municipalityId, Language.French);
+            ((ISetProvenance)municipalityExistingFacilityLanguage).SetProvenance(CreateProvenance(1));
+
+            var municipalityFacilityLanguageWasRemoved = new MunicipalityFacilitiesLanguageWasRemoved(_municipalityId, Language.French);
+            ((ISetProvenance)municipalityFacilityLanguageWasRemoved).SetProvenance(CreateProvenance(1));
+
+            var municipalityFacilityLanguageWasAdded = new MunicipalityFacilitiesLanguageWasAdded(_municipalityId, Language.German);
+            ((ISetProvenance)municipalityFacilityLanguageWasAdded).SetProvenance(CreateProvenance(1));
+
+            Assert(
+                new Scenario()
+                    .Given(_municipalityId,
+                        municipalityWasRegistered,
+                        _fixture.Create<MunicipalityNisCodeWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
+                        municipalityExistingFacilityLanguage,
+                        _fixture.Create<MunicipalityBecameCurrent>())
+
+                    .When(importMunicipalityFromCrab)
+
+                    .Then(_municipalityId,
+                        municipalityFacilityLanguageWasAdded,
+                        municipalityFacilityLanguageWasRemoved,
+                        importMunicipalityFromCrab.ToLegacyEvent()));
+        }
+
+        [Fact]
+        public void WithNewFacilityLanguageNull()
+        {
+            var importMunicipalityFromCrab = _fixture
+                .Build<ImportMunicipalityFromCrab>()
+                .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
+                .With(x => x.SecondaryLanguage, (CrabLanguage?)null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
+                .With(x => x.Geometry, (WkbGeometry)null)
+                .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
+                .Create();
+
+            var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
+            ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
+
+            var municipalityExistingFacilityLanguage = new MunicipalityFacilitiesLanguageWasAdded(_municipalityId, Language.French);
+            ((ISetProvenance)municipalityExistingFacilityLanguage).SetProvenance(CreateProvenance(1));
+
+            var municipalityFacilityLanguageWasRemoved = new MunicipalityFacilitiesLanguageWasRemoved(_municipalityId, Language.French);
+            ((ISetProvenance)municipalityFacilityLanguageWasRemoved).SetProvenance(CreateProvenance(1));
+
+            Assert(
+                new Scenario()
+                    .Given(_municipalityId,
+                        municipalityWasRegistered,
+                        _fixture.Create<MunicipalityNisCodeWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
+                        municipalityExistingFacilityLanguage,
+                        _fixture.Create<MunicipalityBecameCurrent>())
+
+                    .When(importMunicipalityFromCrab)
+
+                    .Then(_municipalityId,
+                        municipalityFacilityLanguageWasRemoved,
+                        importMunicipalityFromCrab.ToLegacyEvent()));
+        }
+
+        [Fact]
         public void WithNewPrimaryLanguage()
         {
             var importMunicipalityFromCrab = _fixture
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, CrabLanguage.English)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Geometry, (WkbGeometry) null)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
                 .Create();
@@ -238,54 +320,25 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
 
-            var municipalityPrimaryLanguageWasDefined = new MunicipalityPrimaryLanguageWasDefined(_municipalityId, Language.English);
-            ((ISetProvenance)municipalityPrimaryLanguageWasDefined).SetProvenance(CreateProvenance(1));
+            var municipalityOfficialLanguageWasRemoved = new MunicipalityOfficialLanguageWasRemoved(_municipalityId, Language.Dutch);
+            ((ISetProvenance)municipalityOfficialLanguageWasRemoved).SetProvenance(CreateProvenance(1));
+
+            var municipalityOfficialLanguageWasAdded = new MunicipalityOfficialLanguageWasAdded(_municipalityId, Language.English);
+            ((ISetProvenance)municipalityOfficialLanguageWasAdded).SetProvenance(CreateProvenance(1));
 
             Assert(
                 new Scenario()
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         _fixture.Create<MunicipalityBecameCurrent>())
 
                     .When(importMunicipalityFromCrab)
 
                     .Then(_municipalityId,
-                        municipalityPrimaryLanguageWasDefined,
-                        importMunicipalityFromCrab.ToLegacyEvent()));
-        }
-
-        [Fact]
-        public void WithNewPrimaryLanguageAndCorrection()
-        {
-            var importMunicipalityFromCrab = _fixture
-                .Build<ImportMunicipalityFromCrab>()
-                .With(x => x.PrimaryLanguage, CrabLanguage.English)
-                .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
-                .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
-                .With(x => x.Modification, CrabModification.Correction)
-                .With(x => x.Geometry, (WkbGeometry) null)
-                .Create();
-
-            var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
-            ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
-
-            var municipalityPrimaryLanguageWasCorrected = new MunicipalityPrimaryLanguageWasCorrected(_municipalityId, Language.English);
-            ((ISetProvenance)municipalityPrimaryLanguageWasCorrected).SetProvenance(CreateProvenance(1));
-
-            Assert(
-                new Scenario()
-                    .Given(_municipalityId,
-                        municipalityWasRegistered,
-                        _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
-                        _fixture.Create<MunicipalityBecameCurrent>())
-
-                    .When(importMunicipalityFromCrab)
-
-                    .Then(_municipalityId,
-                        municipalityPrimaryLanguageWasCorrected,
+                        municipalityOfficialLanguageWasAdded,
+                        municipalityOfficialLanguageWasRemoved,
                         importMunicipalityFromCrab.ToLegacyEvent()));
         }
 
@@ -296,6 +349,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, (CrabLanguage?) null)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Geometry, (WkbGeometry) null)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
                 .Create();
@@ -303,54 +357,21 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
 
-            var municipalityPrimaryLanguageWasCleared = new MunicipalityPrimaryLanguageWasCleared(_municipalityId);
-            ((ISetProvenance)municipalityPrimaryLanguageWasCleared).SetProvenance(CreateProvenance(1));
+            var municipalityOfficialLanguageWasRemoved = new MunicipalityOfficialLanguageWasRemoved(_municipalityId, Language.Dutch);
+            ((ISetProvenance)municipalityOfficialLanguageWasRemoved).SetProvenance(CreateProvenance(1));
 
             Assert(
                 new Scenario()
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         _fixture.Create<MunicipalityBecameCurrent>())
 
                     .When(importMunicipalityFromCrab)
 
                     .Then(_municipalityId,
-                        municipalityPrimaryLanguageWasCleared,
-                        importMunicipalityFromCrab.ToLegacyEvent()));
-        }
-
-        [Fact]
-        public void WithNewPrimaryLanguageAsNullAndCorrection()
-        {
-            var importMunicipalityFromCrab = _fixture
-                .Build<ImportMunicipalityFromCrab>()
-                .With(x => x.PrimaryLanguage, (CrabLanguage?) null)
-                .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
-                .With(x => x.Modification, CrabModification.Correction)
-                .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
-                .With(x => x.Geometry, (WkbGeometry) null)
-                .Create();
-
-            var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
-            ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
-
-            var municipalityPrimaryLanguageWasCorrectedToCleared = new MunicipalityPrimaryLanguageWasCorrectedToCleared(_municipalityId);
-            ((ISetProvenance)municipalityPrimaryLanguageWasCorrectedToCleared).SetProvenance(CreateProvenance(1));
-
-            Assert(
-                new Scenario()
-                    .Given(_municipalityId,
-                        municipalityWasRegistered,
-                        _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
-                        _fixture.Create<MunicipalityBecameCurrent>())
-
-                    .When(importMunicipalityFromCrab)
-
-                    .Then(_municipalityId,
-                        municipalityPrimaryLanguageWasCorrectedToCleared,
+                        municipalityOfficialLanguageWasRemoved,
                         importMunicipalityFromCrab.ToLegacyEvent()));
         }
 
@@ -361,6 +382,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.SecondaryLanguage, CrabLanguage.French)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
                 .With(x => x.Geometry, (WkbGeometry) null)
                 .Create();
@@ -368,54 +390,21 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
 
-            var municipalitySecondaryLanguageWasDefined = new MunicipalitySecondaryLanguageWasDefined(_municipalityId, Language.French);
-            ((ISetProvenance)municipalitySecondaryLanguageWasDefined).SetProvenance(CreateProvenance(1));
+            var municipalityOfficialLanguageWasAdded = new MunicipalityOfficialLanguageWasAdded(_municipalityId, Language.French);
+            ((ISetProvenance)municipalityOfficialLanguageWasAdded).SetProvenance(CreateProvenance(1));
 
             Assert(
                 new Scenario()
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         _fixture.Create<MunicipalityBecameCurrent>())
 
                     .When(importMunicipalityFromCrab)
 
                     .Then(_municipalityId,
-                        municipalitySecondaryLanguageWasDefined,
-                        importMunicipalityFromCrab.ToLegacyEvent()));
-        }
-
-        [Fact]
-        public void WithNewSecondaryLanguageAndCorrection()
-        {
-            var importMunicipalityFromCrab = _fixture
-                .Build<ImportMunicipalityFromCrab>()
-                .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
-                .With(x => x.SecondaryLanguage, CrabLanguage.French)
-                .With(x => x.Modification, CrabModification.Correction)
-                .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
-                .With(x => x.Geometry, (WkbGeometry) null)
-                .Create();
-
-            var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
-            ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
-
-            var municipalitySecondaryLanguageWasCorrected = new MunicipalitySecondaryLanguageWasCorrected(_municipalityId, Language.French);
-            ((ISetProvenance)municipalitySecondaryLanguageWasCorrected).SetProvenance(CreateProvenance(1));
-
-            Assert(
-                new Scenario()
-                    .Given(_municipalityId,
-                        municipalityWasRegistered,
-                        _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
-                        _fixture.Create<MunicipalityBecameCurrent>())
-
-                    .When(importMunicipalityFromCrab)
-
-                    .Then(_municipalityId,
-                        municipalitySecondaryLanguageWasCorrected,
+                        municipalityOfficialLanguageWasAdded,
                         importMunicipalityFromCrab.ToLegacyEvent()));
         }
 
@@ -426,6 +415,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
                 .With(x => x.Geometry, (WkbGeometry) null)
                 .Create();
@@ -433,56 +423,25 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
 
-            var municipalitySecondaryLanguageWasCleared = new MunicipalitySecondaryLanguageWasCleared(_municipalityId);
-            ((ISetProvenance)municipalitySecondaryLanguageWasCleared).SetProvenance(CreateProvenance(1));
+            var municipalitySecondOfficialLanguageWasRemoved = new MunicipalityOfficialLanguageWasRemoved(_municipalityId, Language.French);
+            ((ISetProvenance)municipalitySecondOfficialLanguageWasRemoved).SetProvenance(CreateProvenance(1));
+
+            var municipalitySecondOfficialLanguageWasAdded = new MunicipalityOfficialLanguageWasAdded(_municipalityId, Language.French);
+            ((ISetProvenance)municipalitySecondOfficialLanguageWasAdded).SetProvenance(CreateProvenance(1));
 
             Assert(
                 new Scenario()
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
-                        _fixture.Create<MunicipalitySecondaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
+                        municipalitySecondOfficialLanguageWasAdded,
                         _fixture.Create<MunicipalityBecameCurrent>())
 
                     .When(importMunicipalityFromCrab)
 
                     .Then(_municipalityId,
-                        municipalitySecondaryLanguageWasCleared,
-                        importMunicipalityFromCrab.ToLegacyEvent()));
-        }
-
-        [Fact]
-        public void WithNewSecondaryLanguageAsNullAndCorrection()
-        {
-            var importMunicipalityFromCrab = _fixture
-                .Build<ImportMunicipalityFromCrab>()
-                .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
-                .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
-                .With(x => x.Modification, CrabModification.Correction)
-                .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
-                .With(x => x.Geometry, (WkbGeometry) null)
-                .Create();
-
-            var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
-            ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
-
-            var municipalitySecondaryLanguageWasCorrectedToCleared = new MunicipalitySecondaryLanguageWasCorrectedToCleared(_municipalityId);
-            ((ISetProvenance)municipalitySecondaryLanguageWasCorrectedToCleared).SetProvenance(CreateProvenance(1));
-
-            Assert(
-                new Scenario()
-                    .Given(_municipalityId,
-                        municipalityWasRegistered,
-                        _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
-                        _fixture.Create<MunicipalitySecondaryLanguageWasDefined>(),
-                        _fixture.Create<MunicipalityBecameCurrent>())
-
-                    .When(importMunicipalityFromCrab)
-
-                    .Then(_municipalityId,
-                        municipalitySecondaryLanguageWasCorrectedToCleared,
+                        municipalitySecondOfficialLanguageWasRemoved,
                         importMunicipalityFromCrab.ToLegacyEvent()));
         }
 
@@ -493,6 +452,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
                 .With(x => x.Geometry, new WkbGeometry(GeometryHelpers.ExampleWkb))
                 .Create();
@@ -511,7 +471,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         municipalityWasDrawn,
                         _fixture.Create<MunicipalityBecameCurrent>())
 
@@ -529,6 +489,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Modification, CrabModification.Correction)
                 .With(x => x.Geometry, new WkbGeometry(GeometryHelpers.ExampleWkb))
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
@@ -548,7 +509,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         municipalityWasDrawn,
                         _fixture.Create<MunicipalityBecameCurrent>())
 
@@ -566,6 +527,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                 .Build<ImportMunicipalityFromCrab>()
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
                 .With(x => x.Geometry, (WkbGeometry) null)
                 .Create();
@@ -584,7 +546,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                     .Given(_municipalityId,
                          municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         municipalityWasDrawn,
                         _fixture.Create<MunicipalityBecameCurrent>())
 
@@ -603,6 +565,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                 .With(x => x.PrimaryLanguage, CrabLanguage.Dutch)
                 .With(x => x.Modification, CrabModification.Correction)
                 .With(x => x.SecondaryLanguage, (CrabLanguage?) null)
+                .With(x => x.FacilityLanguage, (CrabLanguage?)null)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
                 .With(x => x.Geometry, (WkbGeometry) null)
                 .Create();
@@ -621,7 +584,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
                     .Given(_municipalityId,
                         municipalityWasRegistered,
                         _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityPrimaryLanguageWasDefined>(),
+                        _fixture.Create<MunicipalityOfficialLanguageWasAdded>(),
                         municipalityWasDrawn,
                         _fixture.Create<MunicipalityBecameCurrent>())
 

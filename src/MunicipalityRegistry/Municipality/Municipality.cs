@@ -10,6 +10,8 @@ namespace MunicipalityRegistry.Municipality
     using NetTopologySuite.IO;
     using NodaTime;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public partial class Municipality : AggregateRootEntity
     {
@@ -46,26 +48,6 @@ namespace MunicipalityRegistry.Municipality
             ApplyChange(new MunicipalityNameWasCleared(_municipalityId, language));
         }
 
-        public void DefinePrimaryLanguage(Language language)
-        {
-            ApplyChange(new MunicipalityPrimaryLanguageWasDefined(_municipalityId, language));
-        }
-
-        public void ClearPrimaryLanguage()
-        {
-            ApplyChange(new MunicipalityPrimaryLanguageWasCleared(_municipalityId));
-        }
-
-        public void DefineSecondaryLanguage(Language language)
-        {
-            ApplyChange(new MunicipalitySecondaryLanguageWasDefined(_municipalityId, language));
-        }
-
-        public void ClearSecondaryLanguage()
-        {
-            ApplyChange(new MunicipalitySecondaryLanguageWasCleared(_municipalityId));
-        }
-
         public void Draw(ExtendedWkbGeometry ewkb)
         {
             ApplyChange(new MunicipalityWasDrawn(_municipalityId, ewkb));
@@ -86,6 +68,7 @@ namespace MunicipalityRegistry.Municipality
             NisCode nisCode,
             CrabLanguage? primaryLanguage,
             CrabLanguage? secondaryLanguage,
+            CrabLanguage? facilityLanguage,
             NumberOfFlags numberOfFlags,
             CrabLifetime crabLifetime,
             WkbGeometry geometry,
@@ -97,8 +80,8 @@ namespace MunicipalityRegistry.Municipality
             var endTime = crabLifetime?.EndDateTime;
 
             CheckChangedNisCode(nisCode, crabModification);
-            CheckChangedPrimaryLanguage(primaryLanguage?.ToLanguage(), crabModification);
-            CheckChangedSecondaryLanguage(secondaryLanguage?.ToLanguage(), crabModification);
+            CheckChangedOfficialLanguages(new[] { primaryLanguage?.ToLanguage(), secondaryLanguage?.ToLanguage() });
+            CheckChangedFacilityLanguages(facilityLanguage?.ToLanguage());
             CheckChangedGeometry(geometry == null ? null : geometry, crabModification);
             CheckChangedStatus(endTime, crabModification);
 
@@ -141,6 +124,39 @@ namespace MunicipalityRegistry.Municipality
                 organisation));
         }
 
+        private void CheckChangedFacilityLanguages(Language? facilityLanguage)
+        {
+            if (facilityLanguage.HasValue && !_facilitiesLanguages.Contains(facilityLanguage.Value))
+                ApplyChange(new MunicipalityFacilitiesLanguageWasAdded(_municipalityId, facilityLanguage.Value));
+
+            if (!facilityLanguage.HasValue && _facilitiesLanguages.Any())
+                ApplyChange(new MunicipalityFacilitiesLanguageWasRemoved(_municipalityId, _facilitiesLanguages.Single()));
+            else if (facilityLanguage.HasValue && _facilitiesLanguages.Count > 1)
+                ApplyChange(new MunicipalityFacilitiesLanguageWasRemoved(_municipalityId, _facilitiesLanguages.Single(x => x != facilityLanguage.Value)));
+        }
+
+        private void CheckChangedOfficialLanguages(IEnumerable<Language?> officialLanguages)
+        {
+            var languages = officialLanguages
+                .Where(x => x.HasValue)
+                .Select(x => x.Value)
+                .ToList();
+
+            foreach (var language in languages)
+            {
+                if (!_officialLanguages.Contains(language))
+                    ApplyChange(new MunicipalityOfficialLanguageWasAdded(_municipalityId, language));
+            }
+
+            var languagesToBeRemoved = _officialLanguages.Except(languages).ToList();
+
+            foreach (var language in languagesToBeRemoved)
+            {
+                if (!languages.Contains(language))
+                    ApplyChange(new MunicipalityOfficialLanguageWasRemoved(_municipalityId, language));
+            }
+        }
+
         private void CheckChangedNisCode(NisCode nisCode, CrabModification? crabModification)
         {
             if (_nisCode == nisCode)
@@ -153,48 +169,6 @@ namespace MunicipalityRegistry.Municipality
                 ApplyChange(new MunicipalityNisCodeWasCorrected(_municipalityId, nisCode));
             else
                 DefineNisCode(nisCode);
-        }
-
-        private void CheckChangedPrimaryLanguage(Language? primaryLanguage, CrabModification? crabModification)
-        {
-            if (_primaryLanguage == primaryLanguage)
-                return;
-
-            if (primaryLanguage.HasValue)
-            {
-                if (crabModification == CrabModification.Correction)
-                    ApplyChange(new MunicipalityPrimaryLanguageWasCorrected(_municipalityId, primaryLanguage.Value));
-                else
-                    DefinePrimaryLanguage(primaryLanguage.Value);
-            }
-            else
-            {
-                if (crabModification == CrabModification.Correction)
-                    ApplyChange(new MunicipalityPrimaryLanguageWasCorrectedToCleared(_municipalityId));
-                else
-                    ClearPrimaryLanguage();
-            }
-        }
-
-        private void CheckChangedSecondaryLanguage(Language? secondaryLanguage, CrabModification? crabModification)
-        {
-            if (_secondaryLanguage == secondaryLanguage)
-                return;
-
-            if (secondaryLanguage.HasValue)
-            {
-                if (crabModification == CrabModification.Correction)
-                    ApplyChange(new MunicipalitySecondaryLanguageWasCorrected(_municipalityId, secondaryLanguage.Value));
-                else
-                    DefineSecondaryLanguage(secondaryLanguage.Value);
-            }
-            else
-            {
-                if (crabModification == CrabModification.Correction)
-                    ApplyChange(new MunicipalitySecondaryLanguageWasCorrectedToCleared(_municipalityId));
-                else
-                    ClearSecondaryLanguage();
-            }
         }
 
         private void CheckChangedGeometry(byte[] wkb, CrabModification? modification)

@@ -1,11 +1,11 @@
 namespace MunicipalityRegistry.Municipality.Commands.Crab
 {
-    using System;
-    using System.Collections.Generic;
     using Be.Vlaanderen.Basisregisters.Crab;
     using Be.Vlaanderen.Basisregisters.Generators.Guid;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.Utilities;
+    using System;
+    using System.Collections.Generic;
 
     public class ImportMunicipalityFromCrab : IHasCrabProvenance
     {
@@ -14,6 +14,7 @@ namespace MunicipalityRegistry.Municipality.Commands.Crab
         public NisCode NisCode { get; set; }
         public CrabLanguage? PrimaryLanguage { get; set; }
         public CrabLanguage? SecondaryLanguage { get; set; }
+        public CrabLanguage? FacilityLanguage { get; set; }
         public WkbGeometry Geometry { get; set; }
         public CrabLifetime Lifetime { get; set; }
         public CrabTimestamp Timestamp { get; set; }
@@ -27,6 +28,7 @@ namespace MunicipalityRegistry.Municipality.Commands.Crab
             NisCode nisCode,
             CrabLanguage? primaryLanguage,
             CrabLanguage? secondaryLanguage,
+            CrabLanguage? facilityLanguage,
             WkbGeometry geometry,
             NumberOfFlags numberOfFlags,
             CrabLifetime lifetime,
@@ -39,6 +41,7 @@ namespace MunicipalityRegistry.Municipality.Commands.Crab
             NisCode = nisCode;
             PrimaryLanguage = primaryLanguage;
             SecondaryLanguage = secondaryLanguage;
+            FacilityLanguage = facilityLanguage;
             Geometry = geometry;
             Lifetime = lifetime;
             Timestamp = timestamp;
@@ -59,6 +62,7 @@ namespace MunicipalityRegistry.Municipality.Commands.Crab
             yield return NisCode;
             yield return PrimaryLanguage;
             yield return SecondaryLanguage;
+            yield return FacilityLanguage;
             yield return Geometry;
             yield return Lifetime;
             yield return Timestamp;

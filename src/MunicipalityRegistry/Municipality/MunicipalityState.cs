@@ -1,9 +1,9 @@
 namespace MunicipalityRegistry.Municipality
 {
+    using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.Utilities.HexByteConvertor;
     using Events;
     using System.Collections.Generic;
-    using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
 
     public partial class Municipality
     {
@@ -12,11 +12,11 @@ namespace MunicipalityRegistry.Municipality
         private MunicipalityStatus? _status;
         private RetirementDate _retiredDate;
 
-        private Language? _primaryLanguage;
-        private Language? _secondaryLanguage;
-
         private readonly Dictionary<Language, MunicipalityName> _names
             = new Dictionary<Language, MunicipalityName>();
+
+        private readonly List<Language> _officialLanguages = new List<Language>();
+        private readonly List<Language> _facilitiesLanguages = new List<Language>();
 
         private ExtendedWkbGeometry _geometry;
 
@@ -33,15 +33,11 @@ namespace MunicipalityRegistry.Municipality
             Register<MunicipalityNameWasCleared>(When);
             Register<MunicipalityNameWasCorrectedToCleared>(When);
 
-            Register<MunicipalityPrimaryLanguageWasDefined>(When);
-            Register<MunicipalityPrimaryLanguageWasCorrected>(When);
-            Register<MunicipalityPrimaryLanguageWasCleared>(When);
-            Register<MunicipalityPrimaryLanguageWasCorrectedToCleared>(When);
+            Register<MunicipalityOfficialLanguageWasAdded>(When);
+            Register<MunicipalityOfficialLanguageWasRemoved>(When);
 
-            Register<MunicipalitySecondaryLanguageWasDefined>(When);
-            Register<MunicipalitySecondaryLanguageWasCorrected>(When);
-            Register<MunicipalitySecondaryLanguageWasCleared>(When);
-            Register<MunicipalitySecondaryLanguageWasCorrectedToCleared>(When);
+            Register<MunicipalityFacilitiesLanguageWasAdded>(When);
+            Register<MunicipalityFacilitiesLanguageWasRemoved>(When);
 
             Register<MunicipalityWasDrawn>(When);
             Register<MunicipalityGeometryWasCorrected>(When);
@@ -107,44 +103,24 @@ namespace MunicipalityRegistry.Municipality
             _names.Remove(@event.Language);
         }
 
-        private void When(MunicipalityPrimaryLanguageWasDefined @event)
+        private void When(MunicipalityOfficialLanguageWasAdded @event)
         {
-            _primaryLanguage = @event.Language;
+            _officialLanguages.Add(@event.Language);
         }
 
-        private void When(MunicipalityPrimaryLanguageWasCorrected @event)
+        private void When(MunicipalityOfficialLanguageWasRemoved @event)
         {
-            _primaryLanguage = @event.Language;
+            _officialLanguages.Remove(@event.Language);
         }
 
-        private void When(MunicipalityPrimaryLanguageWasCleared @event)
+        private void When(MunicipalityFacilitiesLanguageWasAdded @event)
         {
-            _primaryLanguage = null;
+            _facilitiesLanguages.Add(@event.Language);
         }
 
-        private void When(MunicipalityPrimaryLanguageWasCorrectedToCleared @event)
+        private void When(MunicipalityFacilitiesLanguageWasRemoved @event)
         {
-            _primaryLanguage = null;
-        }
-
-        private void When(MunicipalitySecondaryLanguageWasDefined @event)
-        {
-            _secondaryLanguage = @event.Language;
-        }
-
-        private void When(MunicipalitySecondaryLanguageWasCorrected @event)
-        {
-            _secondaryLanguage = @event.Language;
-        }
-
-        private void When(MunicipalitySecondaryLanguageWasCleared @event)
-        {
-            _secondaryLanguage = null;
-        }
-
-        private void When(MunicipalitySecondaryLanguageWasCorrectedToCleared @event)
-        {
-            _secondaryLanguage = null;
+            _facilitiesLanguages.Remove(@event.Language);
         }
 
         private void When(MunicipalityWasDrawn @event)
