@@ -1,5 +1,6 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
 {
+    using System.Linq;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
@@ -53,7 +54,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
                     municipalityListItem =>
                     {
                         UpdateNameByLanguage(municipalityListItem, message.Message.Language, message.Message.Name);
-                        UpdateDefaultNameByPrimaryLanguage(municipalityListItem);
+                        UpdateDefaultNameByOfficialLanguages(municipalityListItem);
                         UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -66,7 +67,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
                     municipalityListItem =>
                     {
                         UpdateNameByLanguage(municipalityListItem, message.Message.Language, message.Message.Name);
-                        UpdateDefaultNameByPrimaryLanguage(municipalityListItem);
+                        UpdateDefaultNameByOfficialLanguages(municipalityListItem);
                         UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -79,7 +80,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
                     municipalityListItem =>
                     {
                         UpdateNameByLanguage(municipalityListItem, message.Message.Language, null);
-                        UpdateDefaultNameByPrimaryLanguage(municipalityListItem);
+                        UpdateDefaultNameByOfficialLanguages(municipalityListItem);
                         UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -92,107 +93,55 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
                     municipalityListItem =>
                     {
                         UpdateNameByLanguage(municipalityListItem, message.Message.Language, null);
-                        UpdateDefaultNameByPrimaryLanguage(municipalityListItem);
+                        UpdateDefaultNameByOfficialLanguages(municipalityListItem);
                         UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
                     },
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasDefined>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityListItem(
                     message.Message.MunicipalityId,
                     municipalityListItem =>
                     {
-                        municipalityListItem.PrimaryLanguage = message.Message.Language;
-                        UpdateDefaultNameByPrimaryLanguage(municipalityListItem);
+                        municipalityListItem.AddOfficialLanguage(message.Message.Language);
+                        UpdateDefaultNameByOfficialLanguages(municipalityListItem);
                         UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
                     },
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCorrected>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityListItem(
                     message.Message.MunicipalityId,
                     municipalityListItem =>
                     {
-                        municipalityListItem.PrimaryLanguage = message.Message.Language;
-                        UpdateDefaultNameByPrimaryLanguage(municipalityListItem);
+                        municipalityListItem.RemoveOfficialLanguage(message.Message.Language);
+                        UpdateDefaultNameByOfficialLanguages(municipalityListItem);
                         UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
                     },
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCleared>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityListItem(
                     message.Message.MunicipalityId,
                     municipalityListItem =>
                     {
-                        municipalityListItem.PrimaryLanguage = null;
-                        UpdateDefaultNameByPrimaryLanguage(municipalityListItem);
                         UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
                     },
                     ct);
             });
 
-            When<Envelope<MunicipalityPrimaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityListItem(
                     message.Message.MunicipalityId,
                     municipalityListItem =>
                     {
-                        municipalityListItem.PrimaryLanguage = null;
-                        UpdateDefaultNameByPrimaryLanguage(municipalityListItem);
-                        UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
-                    },
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasDefined>>(async (context, message, ct) =>
-            {
-                await context.FindAndUpdateMunicipalityListItem(
-                    message.Message.MunicipalityId,
-                    municipalityListItem =>
-                    {
-                        municipalityListItem.SecondaryLanguage = message.Message.Language;
-                        UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
-                    },
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCorrected>>(async (context, message, ct) =>
-            {
-                await context.FindAndUpdateMunicipalityListItem(
-                    message.Message.MunicipalityId,
-                    municipalityListItem =>
-                    {
-                        municipalityListItem.SecondaryLanguage = message.Message.Language;
-                        UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
-                    },
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCleared>>(async (context, message, ct) =>
-            {
-                await context.FindAndUpdateMunicipalityListItem(
-                    message.Message.MunicipalityId,
-                    municipalityListItem =>
-                    {
-                        municipalityListItem.SecondaryLanguage = null;
-                        UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
-                    },
-                    ct);
-            });
-
-            When<Envelope<MunicipalitySecondaryLanguageWasCorrectedToCleared>>(async (context, message, ct) =>
-            {
-                await context.FindAndUpdateMunicipalityListItem(
-                    message.Message.MunicipalityId,
-                    municipalityListItem =>
-                    {
-                        municipalityListItem.SecondaryLanguage = null;
                         UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -269,11 +218,10 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
             }
         }
 
-        private static void UpdateDefaultNameByPrimaryLanguage(MunicipalityListItem municipalityListItem)
+        private static void UpdateDefaultNameByOfficialLanguages(MunicipalityListItem municipalityListItem)
         {
-            switch (municipalityListItem.PrimaryLanguage)
+            switch (municipalityListItem.OfficialLanguages.FirstOrDefault())
             {
-                case null:
                 case Language.Dutch:
                     municipalityListItem.DefaultName = municipalityListItem.NameDutch;
                     break;

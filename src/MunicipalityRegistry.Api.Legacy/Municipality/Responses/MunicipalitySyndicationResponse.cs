@@ -85,6 +85,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                 naamruimte,
                 municipality.Status,
                 municipality.NisCode,
+                municipality.OfficialLanguages,
+                municipality.FacilitiesLanguages,
                 municipality.NameDutch,
                 municipality.NameFrench,
                 municipality.NameGerman,
@@ -113,21 +115,33 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         public Identificator Identificator { get; set; }
 
         /// <summary>
+        /// De officiële talen van de gemeente.
+        /// </summary>
+        [DataMember(Name = "OfficieleTalen", Order = 3)]
+        public List<Taal> OfficialLanguages { get; set; }
+
+        /// <summary>
+        /// De faciliteiten talen van de gemeente.
+        /// </summary>
+        [DataMember(Name = "FaciliteitenTalen", Order = 4)]
+        public List<Taal> FacilitiesLanguages { get; set; }
+
+        /// <summary>
         /// De officiële namen van de gemeente.
         /// </summary>
-        [DataMember(Name = "Gemeentenamen", Order = 3)]
+        [DataMember(Name = "Gemeentenamen", Order = 5)]
         public List<GeografischeNaam> MunicipalityNames { get; set; }
 
         /// <summary>
         /// De fase in het leven van de gemeente.
         /// </summary>
-        [DataMember(Name = "GemeenteStatus", Order = 4)]
+        [DataMember(Name = "GemeenteStatus", Order = 6)]
         public GemeenteStatus? MunicipalityStatus { get; set; }
 
         /// <summary>
         /// Creatie data ivm het item.
         /// </summary>
-        [DataMember(Name = "Creatie", Order = 5)]
+        [DataMember(Name = "Creatie", Order = 7)]
         public Provenance Provenance { get; set; }
 
         public MunicipalitySyndicationContent(
@@ -135,6 +149,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
             string naamruimte,
             MunicipalityStatus? status,
             string nisCode,
+            IEnumerable<Language> officialLanguages,
+            IEnumerable<Language> facilitiesLanguages,
             string nameDutch,
             string nameFrench,
             string nameGerman,
@@ -146,6 +162,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
             MunicipalityId = municipalityId;
             Identificator = new Identificator(naamruimte, nisCode, version);
             MunicipalityStatus = status?.ConvertFromMunicipalityStatus();
+            OfficialLanguages = officialLanguages.Select(x => x.ConvertFromLanguage()).ToList();
+            FacilitiesLanguages = facilitiesLanguages.Select(x => x.ConvertFromLanguage()).ToList();
 
             var gemeenteNamen = new List<GeografischeNaam>
                 {

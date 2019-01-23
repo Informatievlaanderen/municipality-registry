@@ -1,20 +1,17 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
 {
-    using System;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using NodaTime;
+    using System;
 
-    public class MunicipalityDetail
+    public class MunicipalityDetail : MunicipalityLanguagesBase
     {
         public static string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
 
         public Guid? MunicipalityId { get; set; }
         public string NisCode { get; set; }
-
-        public Language? PrimaryLanguage { get; set; }
-        public Language? SecondaryLanguage { get; set; }
 
         public string NameDutch { get; set; }
         public string NameFrench { get; set; }
@@ -44,13 +41,18 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
 
             b.Property(x => x.NisCode);
 
-            b.Property(x => x.PrimaryLanguage);
-            b.Property(x => x.SecondaryLanguage);
-
             b.Property(MunicipalityDetail.VersionTimestampBackingPropertyName)
                 .HasColumnName("VersionTimestamp");
 
+            b.Property(MunicipalityLanguagesBase.OfficialLanguagesBackingPropertyName)
+                .HasColumnName("OfficialLanguages");
+
+            b.Property(MunicipalityLanguagesBase.FacilitiesLanguagesBackingPropertyName)
+                .HasColumnName("FacilitiesLanguages");
+
             b.Ignore(x => x.VersionTimestamp);
+            b.Ignore(x => x.OfficialLanguages);
+            b.Ignore(x => x.FacilitiesLanguages);
             b.Property(x => x.Status);
 
             b.Property(x => x.NameDutch);

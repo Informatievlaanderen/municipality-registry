@@ -1,16 +1,17 @@
 namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.Serialization;
     using Be.Vlaanderen.Basisregisters.Api.Exceptions;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
+    using Convertors;
     using Infrastructure.Options;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
     using Swashbuckle.AspNetCore.Filters;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.Serialization;
 
     [DataContract(Name = "GemeenteDetail", Namespace = "")]
     public class MunicipalityResponse
@@ -22,21 +23,35 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         public Identificator Identificator { get; set; }
 
         /// <summary>
+        /// De officiële talen van de gemeente.
+        /// </summary>
+        [DataMember(Name = "OfficieleTalen", Order = 2)]
+        public List<Taal> OfficialLanguages { get; set; }
+
+        /// <summary>
+        /// De faciliteiten talen van de gemeente.
+        /// </summary>
+        [DataMember(Name = "FaciliteitenTalen", Order = 3)]
+        public List<Taal> FacilitiesLanguages { get; set; }
+
+        /// <summary>
         /// De officiële namen van de gemeente.
         /// </summary>
-        [DataMember(Name = "Gemeentenamen", Order = 2)]
+        [DataMember(Name = "Gemeentenamen", Order = 4)]
         public List<GeografischeNaam> Gemeentenamen { get; set; }
 
         /// <summary>
         /// De fase in het leven van de gemeente.
         /// </summary>
-        [DataMember(Name = "GemeenteStatus", Order = 3)]
+        [DataMember(Name = "GemeenteStatus", Order = 5)]
         public GemeenteStatus GemeenteStatus { get; set; }
 
         public MunicipalityResponse(
             string naamruimte,
             GemeenteStatus status,
             string nisCode,
+            IEnumerable<Language> officialLanguages,
+            IEnumerable<Language> facilitiesLanguages,
             string nameDutch,
             string nameFrench,
             string nameGerman,
@@ -45,6 +60,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         {
             Identificator = new Identificator(naamruimte, nisCode, version);
             GemeenteStatus = status;
+            OfficialLanguages = officialLanguages.Select(x => x.ConvertFromLanguage()).ToList();
+            FacilitiesLanguages = facilitiesLanguages.Select(x => x.ConvertFromLanguage()).ToList();
 
             var gemeenteNamen = new List<GeografischeNaam>
             {
@@ -70,6 +87,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                 _responseOptions.Naamruimte,
                 GemeenteStatus.InGebruik,
                 "31005",
+                new List<Language> { Language.Dutch },
+                new List<Language> { Language.French },
                 "Brugge",
                 "Bruges",
                 "Brügge",

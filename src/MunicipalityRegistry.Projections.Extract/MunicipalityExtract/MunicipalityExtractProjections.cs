@@ -98,6 +98,39 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                     ct);
             });
 
+            When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) =>
+            {
+                await context.FindAndUpdateMunicipalityExtract(
+                    message.Message.MunicipalityId,
+                    municipality => UpdateVersie(municipality, message.Message.Provenance.Timestamp),
+                    ct);
+            });
+
+            When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) =>
+            {
+                await context.FindAndUpdateMunicipalityExtract(
+                    message.Message.MunicipalityId,
+                    municipality => UpdateVersie(municipality, message.Message.Provenance.Timestamp),
+                    ct);
+            });
+
+            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) =>
+            {
+                await context.FindAndUpdateMunicipalityExtract(
+                    message.Message.MunicipalityId,
+                    municipality => UpdateVersie(municipality, message.Message.Provenance.Timestamp),
+                    ct);
+            });
+
+
+            When<Envelope<MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) =>
+            {
+                await context.FindAndUpdateMunicipalityExtract(
+                    message.Message.MunicipalityId,
+                    municipality => UpdateVersie(municipality, message.Message.Provenance.Timestamp),
+                    ct);
+            });
+
             When<Envelope<MunicipalityNameWasCorrectedToCleared>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityExtract(

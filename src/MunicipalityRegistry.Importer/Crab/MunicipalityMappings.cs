@@ -1,24 +1,56 @@
 namespace MunicipalityRegistry.Importer.Crab
 {
+    using Aiv.Vbr.CentraalBeheer.Crab.Entity;
+    using Aiv.Vbr.CrabModel;
+    using Be.Vlaanderen.Basisregisters.Crab;
+    using Municipality.Commands.Crab;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Aiv.Vbr.CentraalBeheer.Crab.Entity;
-    using Be.Vlaanderen.Basisregisters.Crab;
-    using Aiv.Vbr.CrabModel;
-    using Municipality.Commands.Crab;
     using CrabLifetime = Be.Vlaanderen.Basisregisters.Crab.CrabLifetime;
 
     internal class MunicipalityMappings
     {
+        internal static List<string> NisCodesWith2OfficialLanguages = new List<string>
+        {
+            "21001",
+            "21002",
+            "21003",
+            "21004",
+            "21005",
+            "21006",
+            "21007",
+            "21008",
+            "21009",
+            "21010",
+            "21011",
+            "21012",
+            "21013",
+            "21014",
+            "21015",
+            "21016",
+            "21017",
+            "21018",
+            "21019",
+        };
+
         public static ImportMunicipalityFromCrab GetCommandFromGemeente(tblGemeente gemeente)
         {
             MapLogging.Log(".");
 
+            var secondaryLanguage = ParseLanguage(gemeente.TaalcodeTweedeTaal);
+            var facilityLanguage = ParseLanguage(gemeente.TaalcodeTweedeTaal);
+
+            if (NisCodesWith2OfficialLanguages.Contains(gemeente.NISCode))
+                facilityLanguage = null;
+            else
+                secondaryLanguage = null;
+
             return new ImportMunicipalityFromCrab(
                 new NisCode(gemeente.NISCode),
                 ParseLanguage(gemeente.Taalcode),
-                ParseLanguage(gemeente.TaalcodeTweedeTaal),
+                secondaryLanguage,
+                facilityLanguage,
                 gemeente.Geometry != null
                     ? new WkbGeometry(gemeente.Geometry.WKB)
                     : null,
@@ -44,10 +76,19 @@ namespace MunicipalityRegistry.Importer.Crab
                 {
                     MapLogging.Log(".");
 
+                    var secondaryLanguage = ParseLanguage(gemeenteHist.TaalcodeTweedeTaal);
+                    var facilityLanguage = ParseLanguage(gemeenteHist.TaalcodeTweedeTaal);
+
+                    if (NisCodesWith2OfficialLanguages.Contains(gemeenteHist.NISCode))
+                        facilityLanguage = null;
+                    else
+                        secondaryLanguage = null;
+
                     return new ImportMunicipalityFromCrab(
                         new NisCode(gemeenteHist.NISCode),
                         ParseLanguage(gemeenteHist.Taalcode),
-                        ParseLanguage(gemeenteHist.TaalcodeTweedeTaal),
+                        secondaryLanguage,
+                        facilityLanguage,
                         gemeenteHist.Geometry != null
                             ? new WkbGeometry(gemeenteHist.Geometry.WKB)
                             : null,
