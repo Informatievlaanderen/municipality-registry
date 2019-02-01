@@ -75,7 +75,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                     "informatie.vlaanderen@vlaanderen.be",
                     AtomContributorTypes.Author));
 
-            await writer.Write(new SyndicationContent(formatter.CreateContent(item)));
+            await writer.Write(item);
         }
 
         private static string BuildDescription(MunicipalitySyndicationQueryResult municipality, string naamruimte)
@@ -166,12 +166,12 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
             FacilitiesLanguages = facilitiesLanguages.Select(x => x.ConvertFromLanguage()).ToList();
 
             var gemeenteNamen = new List<GeografischeNaam>
-                {
-                    new GeografischeNaam(nameDutch, Taal.NL),
-                    new GeografischeNaam(nameFrench, Taal.FR),
-                    new GeografischeNaam(nameGerman, Taal.DE),
-                    new GeografischeNaam(nameEnglish, Taal.EN),
-                };
+            {
+                new GeografischeNaam(nameDutch, Taal.NL),
+                new GeografischeNaam(nameFrench, Taal.FR),
+                new GeografischeNaam(nameGerman, Taal.DE),
+                new GeografischeNaam(nameEnglish, Taal.EN),
+            };
 
             MunicipalityNames = gemeenteNamen.Where(x => !string.IsNullOrEmpty(x.Spelling)).ToList();
 
