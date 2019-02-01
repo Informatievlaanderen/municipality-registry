@@ -48,14 +48,15 @@ namespace MunicipalityRegistry.Projections.Legacy
             var container = ConfigureServices(configuration);
             var logger = container.GetService<ILogger<Program>>();
 
+            var migrationsHelper = new MigrationsHelper(
+                configuration.GetConnectionString("LegacyProjectionsAdmin"),
+                container.GetRequiredService<ILoggerFactory>());
+
             try
             {
                 var runner = container.GetService<MunicipalityLegacyRunner>();
 
-                await MigrationsHelper.RunAsync(
-                    configuration.GetConnectionString("LegacyProjectionsAdmin"),
-                    container.GetService<ILoggerFactory>(),
-                    ct);
+                await migrationsHelper.RunMigrationsAsync(ct);
 
                 await runner.StartAsync(
                     container.GetService<IStreamStore>(),
