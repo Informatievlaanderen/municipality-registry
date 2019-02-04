@@ -9,7 +9,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
         protected override string CacheKeyFormat => "legacy/municipality:{{0}}.{1}";
         protected override string UriFormat => "/v1/gemeenten/{{0}}";
 
-        private static readonly AcceptType[] SupportedAcceptTypes = { AcceptType.Json, AcceptType.JsonLd, AcceptType.Xml };
+        private static readonly AcceptType[] SupportedAcceptTypes = { AcceptType.Json, AcceptType.Xml };
 
         public Projections()
             : base(SupportedAcceptTypes)
