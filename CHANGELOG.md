@@ -1,3 +1,10 @@
+## [1.4.5](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.4...v1.4.5) (2019-02-06)
+
+
+### Bug Fixes
+
+* properly serialise rfc 3339 dates ([9da1f9f](https://github.com/informatievlaanderen/municipality-registry/commit/9da1f9f))
+
 ## [1.4.4](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.3...v1.4.4) (2019-02-04)
 
 ## [1.4.3](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.2...v1.4.3) (2019-02-04)
