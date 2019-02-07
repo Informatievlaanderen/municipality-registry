@@ -1,3 +1,10 @@
+## [1.4.6](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.5...v1.4.6) (2019-02-07)
+
+
+### Bug Fixes
+
+* support nullable Rfc3339SerializableDateTimeOffset in converter ([751209f](https://github.com/informatievlaanderen/municipality-registry/commit/751209f))
+
 ## [1.4.5](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.4...v1.4.5) (2019-02-06)
 
 
