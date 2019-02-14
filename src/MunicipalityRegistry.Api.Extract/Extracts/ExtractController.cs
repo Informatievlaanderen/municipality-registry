@@ -1,20 +1,18 @@
 namespace MunicipalityRegistry.Api.Extract.Extracts
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.Api.Exceptions;
-    using ExtractFiles;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json.Converters;
     using Projections.Extract;
     using Responses;
     using Swashbuckle.AspNetCore.Filters;
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using ExtractFiles;
 
     [ApiVersion("1.0")]
     [AdvertiseApiVersions("1.0")]
@@ -40,18 +38,11 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
             [FromServices] ExtractContext context,
             CancellationToken cancellationToken = default)
         {
-            var municipalities = await context
-                .MunicipalityExtract
-                .AsNoTracking()
-                .OrderBy(m => m.NisCode)
-                .ToListAsync(cancellationToken);
-
-            var zip = new List<ExtractFile>
+            return new List<ExtractFile>
             {
-                MunicipalityRegistryExtractBuilder.CreateMunicipalityFile(municipalities)
-            };
-
-            return zip.CreateResponse($"{ZipName}-{DateTime.Now:yyyy-MM-dd}");
+                MunicipalityRegistryExtractBuilder.CreateMunicipalityFile(context)
+            }
+            .CreateResponse($"{ZipName}-{DateTime.Now:yyyy-MM-dd}", cancellationToken);
         }
     }
 }

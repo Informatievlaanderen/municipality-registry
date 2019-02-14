@@ -1,17 +1,20 @@
 namespace MunicipalityRegistry.Api.Extract.Extracts
 {
+    using ExtractFiles;
+    using Infrastructure;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Net.Http.Headers;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Compression;
-    using System.Net.Mime;
-    using ExtractFiles;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Net.Http.Headers;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public static class MunicipalityRegistryExtractArchive
     {
-        public static FileStreamResult CreateResponse(this List<ExtractFile> files, string name)
+        public static FileResult CreateResponse(this List<ExtractFile> files, string name, CancellationToken token)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentNullException(nameof(name));
@@ -20,30 +23,35 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
                 ? name
                 : $"{name.TrimEnd('.')}.zip";
 
-            // REMARK: Do not put this in a using or FileStreamResult will not be able to access it!
-            var archiveStream = new MemoryStream();
+            return CreateCallbackFileStreamResult(name, files, token);
+        }
 
-            using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create, leaveOpen: true))
+        private static FileResult CreateCallbackFileStreamResult(string fileName, List<ExtractFile> files, CancellationToken token)
+        {
+            return new FileCallbackResult(
+                new MediaTypeHeaderValue("application/octet-stream"),
+                (stream, _) => Task.Run(() => WriteArchiveContent(stream, files, token), token)
+            )
             {
-                foreach (var file in files)
-                {
-                    using (file)
-                    {
-                        var fileContent = file.Flush();
+                FileDownloadName = fileName
+            };
+        }
 
-                        using (var archiveItem = archive.CreateEntry(fileContent.Name).Open())
-                            fileContent.Content.CopyTo(archiveItem);
+        private static void WriteArchiveContent(Stream archiveStream, List<ExtractFile> files, CancellationToken token)
+        {
+            using (var archive = new ZipArchive(archiveStream, ZipArchiveMode.Create))
+            {
+                foreach (var file in files.Where(file => null != file))
+                {
+                    if (token.IsCancellationRequested)
+                        break;
+
+                    using (var dbfFileStream = archive.CreateEntry(file.Name).Open())
+                    {
+                        file.WriteTo(dbfFileStream, token);
                     }
                 }
             }
-
-            // FileStreamResult does a Stream.CopyTo (which copies 0 bytes if you don't reset the position)
-            archiveStream.Seek(0, SeekOrigin.Begin);
-
-            return new FileStreamResult(archiveStream, new MediaTypeHeaderValue(MediaTypeNames.Application.Zip))
-            {
-                FileDownloadName = name
-            };
         }
     }
 }
