@@ -7,6 +7,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using Microsoft.EntityFrameworkCore;
 
     public class MunicipalityRegistryExtractBuilder
     {
@@ -17,6 +18,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
                 new MunicipalityDbaseSchema(),
                 context
                     .MunicipalityExtract
+                    .AsNoTracking()
                     .Select(org => org.DbaseRecord),
                 context.MunicipalityExtract.Count);
         }
