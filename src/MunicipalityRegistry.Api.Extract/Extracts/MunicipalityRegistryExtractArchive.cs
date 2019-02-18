@@ -9,6 +9,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
     using System.IO;
     using System.IO.Compression;
     using System.Linq;
+    using System.Net.Mime;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -29,7 +30,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
         private static FileResult CreateCallbackFileStreamResult(string fileName, List<ExtractFile> files, CancellationToken token)
         {
             return new FileCallbackResult(
-                new MediaTypeHeaderValue("application/octet-stream"),
+                new MediaTypeHeaderValue(MediaTypeNames.Application.Octet),
                 (stream, _) => Task.Run(() => WriteArchiveContent(stream, files, token), token)
             )
             {
