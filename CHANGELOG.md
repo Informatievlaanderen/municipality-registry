@@ -1,3 +1,10 @@
+## [1.4.7](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.6...v1.4.7) (2019-02-25)
+
+
+### Bug Fixes
+
+* correctly write provenance data ([c9453b7](https://github.com/informatievlaanderen/municipality-registry/commit/c9453b7))
+
 ## [1.4.6](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.5...v1.4.6) (2019-02-07)
 
 
