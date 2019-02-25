@@ -7,19 +7,23 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
     using System.IO;
     using System.Linq;
     using Be.Vlaanderen.Basisregisters.Api.Extract;
+    using Be.Vlaanderen.Basisregisters.GrAr.Extracts;
     using Microsoft.EntityFrameworkCore;
 
     public class MunicipalityRegistryExtractBuilder
     {
         public static ExtractFile CreateMunicipalityFile(ExtractContext context)
-            => CreateDbfFile<MunicipalityDbaseRecord>(
+        {
+            var extractItems = context
+                .MunicipalityExtract
+                .AsNoTracking();
+
+            return CreateDbfFile<MunicipalityDbaseRecord>(
                 ExtractController.ZipName,
                 new MunicipalityDbaseSchema(),
-                context
-                    .MunicipalityExtract
-                    .AsNoTracking()
-                    .Select(org => org.DbaseRecord),
-                context.MunicipalityExtract.Count);
+                extractItems.Select(org => org.DbaseRecord),
+                extractItems.Count);
+        }
 
         private static ExtractFile CreateDbfFile<TDbaseRecord>(
             string fileName,

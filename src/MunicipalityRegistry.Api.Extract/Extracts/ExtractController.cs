@@ -9,7 +9,6 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
     using Responses;
     using Swashbuckle.AspNetCore.Filters;
     using System;
-    using System.Collections.Generic;
     using System.Threading;
     using Be.Vlaanderen.Basisregisters.Api.Extract;
 
@@ -36,7 +35,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
         public IActionResult Get(
             [FromServices] ExtractContext context,
             CancellationToken cancellationToken = default) =>
-            new List<ExtractFile> { MunicipalityRegistryExtractBuilder.CreateMunicipalityFile(context) }
-                .CreateResponse($"{ZipName}-{DateTime.Now:yyyy-MM-dd}", cancellationToken);
+            new ExtractArchive($"{ZipName}-{DateTime.Now:yyyy-MM-dd}") { MunicipalityRegistryExtractBuilder.CreateMunicipalityFile(context) }
+                .CreateFileCallbackResult(cancellationToken);
     }
 }
