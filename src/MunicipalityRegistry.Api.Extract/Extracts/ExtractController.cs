@@ -11,8 +11,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
     using System;
     using System.Collections.Generic;
     using System.Threading;
-    using System.Threading.Tasks;
-    using ExtractFiles;
+    using Be.Vlaanderen.Basisregisters.Api.Extract;
 
     [ApiVersion("1.0")]
     [AdvertiseApiVersions("1.0")]
@@ -34,15 +33,10 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
         [ProducesResponseType(typeof(BasicApiProblem), StatusCodes.Status500InternalServerError)]
         [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalityRegistryResponseExample), jsonConverter: typeof(StringEnumConverter))]
         [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples), jsonConverter: typeof(StringEnumConverter))]
-        public async Task<IActionResult> Get(
+        public IActionResult Get(
             [FromServices] ExtractContext context,
-            CancellationToken cancellationToken = default)
-        {
-            return new List<ExtractFile>
-            {
-                MunicipalityRegistryExtractBuilder.CreateMunicipalityFile(context)
-            }
-            .CreateResponse($"{ZipName}-{DateTime.Now:yyyy-MM-dd}", cancellationToken);
-        }
+            CancellationToken cancellationToken = default) =>
+            new List<ExtractFile> { MunicipalityRegistryExtractBuilder.CreateMunicipalityFile(context) }
+                .CreateResponse($"{ZipName}-{DateTime.Now:yyyy-MM-dd}", cancellationToken);
     }
 }

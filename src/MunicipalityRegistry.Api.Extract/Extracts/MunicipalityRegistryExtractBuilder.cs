@@ -1,19 +1,18 @@
 namespace MunicipalityRegistry.Api.Extract.Extracts
 {
     using Be.Vlaanderen.Basisregisters.Shaperon;
-    using ExtractFiles;
     using Projections.Extract;
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using Be.Vlaanderen.Basisregisters.Api.Extract;
     using Microsoft.EntityFrameworkCore;
 
     public class MunicipalityRegistryExtractBuilder
     {
         public static ExtractFile CreateMunicipalityFile(ExtractContext context)
-        {
-            return CreateDbfFile<MunicipalityDbaseRecord>(
+            => CreateDbfFile<MunicipalityDbaseRecord>(
                 ExtractController.ZipName,
                 new MunicipalityDbaseSchema(),
                 context
@@ -21,24 +20,20 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
                     .AsNoTracking()
                     .Select(org => org.DbaseRecord),
                 context.MunicipalityExtract.Count);
-        }
 
         private static ExtractFile CreateDbfFile<TDbaseRecord>(
-           string fileName,
-           DbaseSchema schema,
-           IEnumerable<byte[]> records,
-           Func<int> getRecordCount
-       ) where TDbaseRecord : DbaseRecord, new()
-        {
-            return new ExtractFile(
+            string fileName,
+            DbaseSchema schema,
+            IEnumerable<byte[]> records,
+            Func<int> getRecordCount) where TDbaseRecord : DbaseRecord, new()
+            => new ExtractFile(
                 new DbfFileName(fileName),
                 (stream, token) =>
                 {
                     var dbfFile = CreateDbfFileWriter<TDbaseRecord>(
                         schema,
                         new DbaseRecordCount(getRecordCount()),
-                        stream
-                    );
+                        stream);
 
                     foreach (var record in records)
                     {
@@ -47,26 +42,21 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
 
                         dbfFile.WriteBytesAs<TDbaseRecord>(record);
                     }
+
                     dbfFile.WriteEndOfFile();
-                }
-            );
-        }
+                });
 
         private static DbfFileWriter<TDbaseRecord> CreateDbfFileWriter<TDbaseRecord>(
             DbaseSchema schema,
             DbaseRecordCount recordCount,
-            Stream writeStream
-        ) where TDbaseRecord : DbaseRecord
-        {
-            return new DbfFileWriter<TDbaseRecord>(
+            Stream writeStream) where TDbaseRecord : DbaseRecord
+            => new DbfFileWriter<TDbaseRecord>(
                 new DbaseFileHeader(
                     DateTime.Now,
                     DbaseCodePage.Western_European_ANSI,
                     recordCount,
                     schema
                 ),
-                writeStream
-            );
-        }
+                writeStream);
     }
 }
