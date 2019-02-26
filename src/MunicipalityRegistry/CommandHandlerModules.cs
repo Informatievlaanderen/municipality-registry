@@ -1,9 +1,7 @@
 namespace MunicipalityRegistry
 {
-    using System;
-    using Be.Vlaanderen.Basisregisters.AggregateSource;
-    using Be.Vlaanderen.Basisregisters.CommandHandling.SqlStreamStore.Autofac;
     using Autofac;
+    using Be.Vlaanderen.Basisregisters.CommandHandling;
     using Municipality;
 
     public static class CommandHandlerModules
@@ -11,12 +9,13 @@ namespace MunicipalityRegistry
         public static void Register(ContainerBuilder containerBuilder)
         {
             containerBuilder
-                .RegisterSqlStreamStoreCommandHandler<MunicipalityCommandHandlerModule>(
-                    c => handler =>
-                        new MunicipalityCommandHandlerModule(
-                            c.Resolve<Func<IMunicipalities>>(),
-                            c.Resolve<Func<ConcurrentUnitOfWork>>(),
-                            handler));
+                .RegisterType<MunicipalityProvenanceFactory>()
+                .SingleInstance();
+
+            containerBuilder
+                .RegisterType<MunicipalityCommandHandlerModule>()
+                .Named<CommandHandlerModule>(typeof(MunicipalityCommandHandlerModule).FullName)
+                .As<CommandHandlerModule>();
         }
     }
 }

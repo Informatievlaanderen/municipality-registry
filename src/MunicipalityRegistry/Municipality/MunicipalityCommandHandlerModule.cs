@@ -3,17 +3,25 @@ namespace MunicipalityRegistry.Municipality
     using System;
     using Be.Vlaanderen.Basisregisters.AggregateSource;
     using Be.Vlaanderen.Basisregisters.CommandHandling;
+    using Be.Vlaanderen.Basisregisters.CommandHandling.SqlStreamStore;
+    using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Commands.Crab;
+    using SqlStreamStore;
 
-    public sealed class MunicipalityCommandHandlerModule : ProvenanceCommandHandlerModule<Municipality>
+    public sealed class MunicipalityCommandHandlerModule : CommandHandlerModule
     {
         public MunicipalityCommandHandlerModule(
             Func<IMunicipalities> getMunicipalities,
             Func<ConcurrentUnitOfWork> getUnitOfWork,
-            ReturnHandler<CommandMessage> finalHandler = null) : base(getUnitOfWork, finalHandler, new MunicipalityProvenanceFactory())
+            Func<IStreamStore> getStreamStore,
+            EventMapping eventMapping,
+            EventSerializer eventSerializer,
+            MunicipalityProvenanceFactory provenanceFactory)
         {
             For<ImportMunicipalityFromCrab>()
+                .AddSqlStreamStore(getStreamStore, getUnitOfWork, eventMapping, eventSerializer)
+                .AddProvenance(getUnitOfWork, provenanceFactory)
                 .Handle(async (message, ct) =>
                 {
                     var municipalities = getMunicipalities();
@@ -44,6 +52,8 @@ namespace MunicipalityRegistry.Municipality
                 });
 
             For<ImportMunicipalityNameFromCrab>()
+                .AddSqlStreamStore(getStreamStore, getUnitOfWork, eventMapping, eventSerializer)
+                .AddProvenance(getUnitOfWork, provenanceFactory)
                 .Handle(async (message, ct) =>
                 {
                     var municipalities = getMunicipalities();
