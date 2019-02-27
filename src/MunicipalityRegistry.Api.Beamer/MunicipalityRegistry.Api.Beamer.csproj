@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Be.Vlaanderen.Basisregisters.Beamer\Be.Vlaanderen.Basisregisters.Beamer.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Infrastructure\MunicipalityRegistry.Infrastructure.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Projections.Extract\MunicipalityRegistry.Projections.Extract.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Projections.LastChangedList\MunicipalityRegistry.Projections.LastChangedList.csproj" />
