@@ -1,8 +1,6 @@
-namespace MunicipalityRegistry.Api.Beamer.Projections
+namespace MunicipalityRegistry.Api.Projector.Projections
 {
-    using System.Linq;
     using Be.Vlaanderen.Basisregisters.Api;
-    using Be.Vlaanderen.Basisregisters.Beamer.Plugins;
     using Microsoft.AspNetCore.Mvc;
 
     [ApiVersion("1.0")]

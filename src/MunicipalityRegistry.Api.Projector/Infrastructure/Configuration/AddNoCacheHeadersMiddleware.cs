@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Beamer.Infrastructure.Configuration
+namespace MunicipalityRegistry.Api.Projector.Infrastructure.Configuration
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;

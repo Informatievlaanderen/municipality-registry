@@ -1,0 +1,27 @@
+type file
+version 1.0.0
+
+id Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Projector
+title Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Projector
+
+authors Basisregisters Vlaanderen
+owners agentschap Informatie Vlaanderen <https://vlaanderen.be/informatie-vlaanderen>
+copyright Copyright (c) agentschap Informatie Vlaanderen
+requireLicenseAcceptance false
+projectUrl https://github.com/Informatievlaanderen/municipality-registry
+iconUrl https://raw.githubusercontent.com/Informatievlaanderen/build-pipeline/master/logo.png
+licenseUrl https://opensource.org/licenses/EUPL-1.2
+
+description Municipality Registry Projector API.
+
+dependencies
+  framework: netstandard20
+    Be.Vlaanderen.Basisregisters.Api >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.EventHandling.Autofac  >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac  >= LOCKEDVERSION
+
+files
+  MunicipalityRegistry.Api.Projector.dll => lib\netcoreapp2.2
+  MunicipalityRegistry.Api.Projector.pdb => lib\netcoreapp2.2
+  MunicipalityRegistry.Api.Projector.xml => lib\netcoreapp2.2
+  MunicipalityRegistry.Api.Projector.xml => content

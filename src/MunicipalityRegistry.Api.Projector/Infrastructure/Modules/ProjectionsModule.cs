@@ -1,7 +1,5 @@
-namespace MunicipalityRegistry.Api.Beamer.Infrastructure.Modules
+namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
 {
-    using Be.Vlaanderen.Basisregisters.Beamer;
-    using Be.Vlaanderen.Basisregisters.Beamer.Modules;
     using Autofac;
     using MunicipalityRegistry.Projections.Legacy.MunicipalityDetail;
     using MunicipalityRegistry.Projections.Legacy.MunicipalityList;
@@ -12,7 +10,7 @@ namespace MunicipalityRegistry.Api.Beamer.Infrastructure.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterModule<BeamerModule>();
+            builder.RegisterModule<ProjectorModule>();
 
             builder.RegisterPlugin<MunicipalityDetailProjections>();
             builder.RegisterPlugin<MunicipalityListProjections>();

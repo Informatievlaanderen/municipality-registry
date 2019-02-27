@@ -66,7 +66,7 @@ Target "Test_Solution" (fun _ -> test "MunicipalityRegistry")
 
 Target "Publish_Solution" (fun _ ->
   [
-    "MunicipalityRegistry.Api.Beamer"
+    "MunicipalityRegistry.Api.Projector"
     "MunicipalityRegistry.Api.Legacy"
     "MunicipalityRegistry.Api.Extract"
     "MunicipalityRegistry.Api.CrabImport"
@@ -77,14 +77,14 @@ Target "Publish_Solution" (fun _ ->
 
 Target "Pack_Solution" (fun _ ->
   [
-    "MunicipalityRegistry.Api.Beamer"
+    "MunicipalityRegistry.Api.Projector"
     "MunicipalityRegistry.Api.Legacy"
     "MunicipalityRegistry.Api.Extract"
     "MunicipalityRegistry.Api.CrabImport"
   ] |> List.iter pack)
 
-Target "Containerize_ApiBeamer" (fun _ -> containerize "MunicipalityRegistry.Api.Beamer" "api-beamer")
-Target "PushContainer_ApiBeamer" (fun _ -> push "api-beamer")
+Target "Containerize_ApiProjector" (fun _ -> containerize "MunicipalityRegistry.Api.Projector" "api-projector")
+Target "PushContainer_ApiProjector" (fun _ -> push "api-projector")
 
 Target "Containerize_ApiLegacy" (fun _ -> containerize "MunicipalityRegistry.Api.Legacy" "api-legacy")
 Target "PushContainer_ApiLegacy" (fun _ -> push "api-legacy")
@@ -129,7 +129,7 @@ Target "Push" DoNothing
 "Pack_Solution"      ==> "Pack"
 
 "Pack"                              ==> "Containerize"
-"Containerize_ApiBeamer"            ==> "Containerize"
+"Containerize_ApiProjector"         ==> "Containerize"
 "Containerize_ApiLegacy"            ==> "Containerize"
 "Containerize_ApiExtract"           ==> "Containerize"
 "Containerize_ApiCrabImport"        ==> "Containerize"
@@ -140,7 +140,7 @@ Target "Push" DoNothing
 
 "Containerize"                      ==> "Push"
 "DockerLogin"                       ==> "Push"
-// "PushContainer_ApiBeamer"           ==> "Push"
+// "PushContainer_ApiProjector"        ==> "Push"
 "PushContainer_ApiLegacy"           ==> "Push"
 "PushContainer_ApiExtract"          ==> "Push"
 "PushContainer_ApiCrabImport"       ==> "Push"

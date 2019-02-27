@@ -8,4 +8,4 @@ WORKDIR /app
 EXPOSE 5000/tcp
 ENV ASPNETCORE_URLS http://*:5000
 
-ENTRYPOINT ["./MunicipalityRegistry.Api.Beamer"]
+ENTRYPOINT ["./MunicipalityRegistry.Api.Projector"]
