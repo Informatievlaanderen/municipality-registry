@@ -96,7 +96,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
         /// <response code="200">Als de opvraging van een lijst met gemeenten gelukt is.</response>
         /// <response code="500">Als er een interne fout is opgetreden.</response>
         [HttpGet]
-        [ProducesResponseType(typeof(List<MunicipalityListResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MunicipalityListResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(BasicApiProblem), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(BasicApiProblem), StatusCodes.Status500InternalServerError)]
         [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalityListResponseExamples), jsonConverter: typeof(StringEnumConverter))]
