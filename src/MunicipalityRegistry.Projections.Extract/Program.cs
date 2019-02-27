@@ -51,7 +51,7 @@ namespace MunicipalityRegistry.Projections.Extract
             var container = ConfigureServices(configuration);
             var logger = container.GetService<ILogger<Program>>();
 
-            var migrationsHelper = new MigrationsHelper(
+            var migrationsHelper = new ExtractContextMigrationsHelper(
                 configuration.GetConnectionString("ExtractProjectionsAdmin"),
                 container.GetRequiredService<ILoggerFactory>());
 
