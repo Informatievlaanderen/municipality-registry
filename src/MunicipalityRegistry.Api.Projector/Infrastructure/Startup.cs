@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Beamer.Infrastructure
+namespace MunicipalityRegistry.Api.Projector.Infrastructure
 {
     using System;
     using System.Linq;

@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Beamer.Infrastructure.Modules
+namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
 {
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Autofac;
