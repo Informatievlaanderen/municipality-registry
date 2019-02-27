@@ -5,9 +5,9 @@ namespace MunicipalityRegistry.Projections.Extract
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Logging;
 
-    public class MigrationsHelper : RunnerDbContextMigrationHelper<ExtractContext>
+    public class ExtractContextMigrationsHelper : RunnerDbContextMigrationHelper<ExtractContext>
     {
-        public MigrationsHelper(string connectionString, ILoggerFactory loggerFactory) :
+        public ExtractContextMigrationsHelper(string connectionString, ILoggerFactory loggerFactory) :
             base(
                 connectionString,
                 new HistoryConfiguration { Schema = Schema.Extract, Table = MigrationTables.Extract },
