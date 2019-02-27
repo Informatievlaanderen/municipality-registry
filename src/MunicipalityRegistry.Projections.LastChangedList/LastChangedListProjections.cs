@@ -4,14 +4,14 @@ namespace MunicipalityRegistry.Projections.LastChangedList
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
 
-    public class Projections : LastChangedListConnectedProjection
+    public class LastChangedListProjections : LastChangedListConnectedProjection
     {
         protected override string CacheKeyFormat => "legacy/municipality:{{0}}.{1}";
         protected override string UriFormat => "/v1/gemeenten/{{0}}";
 
         private static readonly AcceptType[] SupportedAcceptTypes = { AcceptType.Json, AcceptType.Xml };
 
-        public Projections()
+        public LastChangedListProjections()
             : base(SupportedAcceptTypes)
         {
             When<Envelope<MunicipalityWasRegistered>>(async (context, message, ct) =>

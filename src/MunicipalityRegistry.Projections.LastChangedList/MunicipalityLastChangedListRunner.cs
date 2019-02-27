@@ -13,7 +13,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
             ILogger<MunicipalityLastChangedListRunner> logger) :
             base(
                 Name,
-                new Projections(),
+                new LastChangedListProjections(),
                 envelopeFactory,
                 logger) { }
     }
