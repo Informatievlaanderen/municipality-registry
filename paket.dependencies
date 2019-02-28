@@ -41,7 +41,7 @@ nuget Serilog.Sinks.File 4.0.0
 nuget Serilog.Enrichers.Thread 3.0.0
 nuget Serilog.Enrichers.Environment 2.1.2
 
-nuget Microsoft.EntityFrameworkCore.Design 2.2.0
+nuget Microsoft.EntityFrameworkCore.Design 2.2.2
 
 // BASE REGISTRIES STUFF
 nuget Be.Vlaanderen.Basisregisters.Build.Pipeline ~> 1.5
@@ -67,7 +67,10 @@ nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList ~> 2.0
 nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore ~> 2.0
 nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac ~> 2.0
 nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner ~> 2.0
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector ~> 2.0
 nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector.Testing ~> 2.0
+
+nuget Be.Vlaanderen.Basisregisters.Projector ~> 1.0
 
 nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac ~> 1.1
 nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.Sql ~> 1.1
@@ -94,7 +97,7 @@ nuget Structurizr.AdrTools 0.9.0
 
 // TEST STUFF
 nuget Microsoft.NET.Test.Sdk 15.9.0
-nuget Microsoft.EntityFrameworkCore.InMemory 2.2.0
+nuget Microsoft.EntityFrameworkCore.InMemory 2.2.2
 nuget xunit 2.4.1
 nuget xunit.runner.visualstudio 2.4.1
 nuget xunit.categories 2.0.4

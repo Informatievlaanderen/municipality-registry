@@ -3,28 +3,134 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
+    using Be.Vlaanderen.Basisregisters.EventHandling;
+    using Be.Vlaanderen.Basisregisters.EventHandling.Autofac;
+    using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
+    using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac;
+    using Be.Vlaanderen.Basisregisters.Projector;
+    using Be.Vlaanderen.Basisregisters.Projector.Modules;
+    using Be.Vlaanderen.Basisregisters.Shaperon;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using MunicipalityRegistry.Infrastructure;
+    using MunicipalityRegistry.Projections.Extract;
+    using MunicipalityRegistry.Projections.Extract.MunicipalityExtract;
+    using MunicipalityRegistry.Projections.LastChangedList;
+    using MunicipalityRegistry.Projections.Legacy;
+    using MunicipalityRegistry.Projections.Legacy.MunicipalityDetail;
+    using MunicipalityRegistry.Projections.Legacy.MunicipalityList;
+    using MunicipalityRegistry.Projections.Legacy.MunicipalityName;
+    using MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication;
+    using MunicipalityRegistry.Projections.Legacy.MunicipalityVersion;
 
     public class ApiModule : Module
     {
         private readonly IConfiguration _configuration;
         private readonly IServiceCollection _services;
+        private readonly ILoggerFactory _loggerFactory;
 
         public ApiModule(
             IConfiguration configuration,
-            IServiceCollection services)
+            IServiceCollection services,
+            ILoggerFactory loggerFactory)
         {
             _configuration = configuration;
             _services = services;
+            _loggerFactory = loggerFactory;
         }
 
-        protected override void Load(ContainerBuilder containerBuilder)
+        protected override void Load(ContainerBuilder builder)
         {
-            containerBuilder
-                .RegisterModule(new DataDogModule(_configuration));
+            builder.RegisterModule(new DataDogModule(_configuration));
+            RegisterProjectionSetup(builder);
 
-            containerBuilder.Populate(_services);
+            builder.Populate(_services);
+        }
+
+        private void RegisterProjectionSetup(ContainerBuilder builder)
+        {
+            builder.RegisterModule(
+                new EventHandlingModule(
+                    typeof(DomainAssemblyMarker).Assembly,
+                    EventsJsonSerializerSettingsProvider.CreateSerializerSettings()
+                )
+            );
+
+            builder.RegisterModule<EnvelopeModule>();
+
+            builder.RegisterEventstreamModule(_configuration);
+
+            builder.RegisterModule<ProjectorModule>();
+            RegisterExtractProjections(builder);
+            RegisterLastChangedProjections(builder);
+            RegisterLegacyProjections(builder);
+        }
+
+        private void RegisterExtractProjections(ContainerBuilder builder)
+        {
+            builder.RegisterProjectionMigrationHelper(
+                new ExtractContextMigrationsHelper(
+                    _configuration.GetConnectionString("ExtractProjectionsAdmin"),
+                    _loggerFactory
+                )
+            );
+
+            builder.RegisterModule(
+                new ExtractModule(
+                    _configuration,
+                    _services,
+                    _loggerFactory)
+            );
+
+            builder
+                .RegisterProjections<MunicipalityExtractProjections, ExtractContext>(
+                    () => new MunicipalityExtractProjections(DbaseCodePage.Western_European_ANSI.ToEncoding()));
+        }
+
+        private void RegisterLastChangedProjections(ContainerBuilder builder)
+        {
+            builder.RegisterProjectionMigrationHelper(
+                new LastChangedListMigrationsHelper(
+                    _configuration.GetConnectionString("LastChangedListAdmin"),
+                    _loggerFactory
+                )
+            );
+
+            builder.RegisterModule(
+                new LastChangedListModule(
+                    _configuration.GetConnectionString("LastChangedList"),
+                    _configuration["DataDog:ServiceName"],
+                    _services,
+                    _loggerFactory
+                )
+            );
+
+            builder.RegisterProjections<LastChangedListProjections, LastChangedListContext>();
+        }
+
+        private void RegisterLegacyProjections(ContainerBuilder builder)
+        {
+            builder.RegisterProjectionMigrationHelper(
+                new LegacyContextMigrationHelper(
+                    _configuration.GetConnectionString("LegacyProjectionsAdmin"),
+                    _loggerFactory
+                )
+            );
+
+            builder.RegisterModule(
+                new LegacyModule(
+                    _configuration,
+                    _services,
+                    _loggerFactory
+                )
+            );
+
+            builder.RegisterProjections<MunicipalityDetailProjections, LegacyContext>();
+            builder.RegisterProjections<MunicipalityListProjections, LegacyContext>();
+            builder.RegisterProjections<MunicipalityNameProjections, LegacyContext>();
+            builder.RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>();
+            builder.RegisterProjections<MunicipalityVersionProjections, LegacyContext>();
         }
     }
 }

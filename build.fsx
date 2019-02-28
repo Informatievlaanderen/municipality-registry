@@ -140,7 +140,7 @@ Target "Push" DoNothing
 
 "Containerize"                      ==> "Push"
 "DockerLogin"                       ==> "Push"
-// "PushContainer_ApiProjector"        ==> "Push"
+"PushContainer_ApiProjector"        ==> "Push"
 "PushContainer_ApiLegacy"           ==> "Push"
 "PushContainer_ApiExtract"          ==> "Push"
 "PushContainer_ApiCrabImport"       ==> "Push"

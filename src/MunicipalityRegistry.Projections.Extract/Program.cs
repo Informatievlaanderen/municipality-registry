@@ -51,12 +51,11 @@ namespace MunicipalityRegistry.Projections.Extract
             var container = ConfigureServices(configuration);
             var logger = container.GetService<ILogger<Program>>();
 
-            var migrationsHelper = new ExtractContextMigrationsHelper(
-                configuration.GetConnectionString("ExtractProjectionsAdmin"),
-                container.GetRequiredService<ILoggerFactory>());
-
             try
             {
+                var migrationsHelper = new ExtractContextMigrationsHelper(
+                    configuration.GetConnectionString("ExtractProjectionsAdmin"),
+                    container.GetRequiredService<ILoggerFactory>());
                 var runner = container.GetService<MunicipalityExtractRunner>();
 
                 await migrationsHelper.RunMigrationsAsync(ct);

@@ -51,11 +51,10 @@ namespace MunicipalityRegistry.Projections.LastChangedList
 
             try
             {
-                var runner = container.GetService<MunicipalityLastChangedListRunner>();
-
                 var lastChangedList = new LastChangedListMigrationsHelper(
                         configuration.GetConnectionString("LastChangedList"),
                         container.GetService<ILoggerFactory>());
+                var runner = container.GetService<MunicipalityLastChangedListRunner>();
 
                 await lastChangedList.RunMigrationsAsync(ct);
 
