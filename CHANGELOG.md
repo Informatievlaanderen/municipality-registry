@@ -1,3 +1,10 @@
+## [1.4.11](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.10...v1.4.11) (2019-02-28)
+
+
+### Bug Fixes
+
+* removed 400 from api list responses ([039a4f8](https://github.com/informatievlaanderen/municipality-registry/commit/039a4f8))
+
 ## [1.4.10](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.9...v1.4.10) (2019-02-26)
 
 ## [1.4.9](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.8...v1.4.9) (2019-02-25)
