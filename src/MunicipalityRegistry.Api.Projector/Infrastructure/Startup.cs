@@ -61,6 +61,8 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure
 
             var containerBuilder = new ContainerBuilder();
 
+            containerBuilder.RegisterModule(new LoggingModule(_configuration, services));
+
             containerBuilder.RegisterModule(new ApiModule(_configuration, services, _loggerFactory));
 
             _applicationContainer = containerBuilder.Build();
