@@ -69,19 +69,16 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
 
         private void RegisterExtractProjections(ContainerBuilder builder)
         {
-            builder.RegisterProjectionMigrationHelper(
-                new ExtractContextMigrationsHelper(
-                    _configuration.GetConnectionString("ExtractProjectionsAdmin"),
-                    _loggerFactory
-                )
-            );
-
+            builder
+                .RegisterProjectionMigrator<ExtractContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory);
+ 
             builder.RegisterModule(
                 new ExtractModule(
                     _configuration,
                     _services,
-                    _loggerFactory)
-            );
+                    _loggerFactory));
 
             builder
                 .RegisterProjections<MunicipalityExtractProjections, ExtractContext>(
