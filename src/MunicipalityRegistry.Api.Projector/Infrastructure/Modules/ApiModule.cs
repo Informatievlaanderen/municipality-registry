@@ -23,6 +23,7 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
     using MunicipalityRegistry.Projections.Legacy.MunicipalityName;
     using MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication;
     using MunicipalityRegistry.Projections.Legacy.MunicipalityVersion;
+    using LastChangedListContextMigrationFactory = MunicipalityRegistry.Projections.LastChangedList.LastChangedListContextMigrationFactory;
 
     public class ApiModule : Module
     {
@@ -87,21 +88,17 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
 
         private void RegisterLastChangedProjections(ContainerBuilder builder)
         {
-            builder.RegisterProjectionMigrationHelper(
-                new LastChangedListMigrationsHelper(
-                    _configuration.GetConnectionString("LastChangedListAdmin"),
-                    _loggerFactory
-                )
-            );
+            builder
+                .RegisterProjectionMigrator<LastChangedListContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory);
 
             builder.RegisterModule(
                 new LastChangedListModule(
                     _configuration.GetConnectionString("LastChangedList"),
                     _configuration["DataDog:ServiceName"],
                     _services,
-                    _loggerFactory
-                )
-            );
+                    _loggerFactory));
 
             builder.RegisterProjections<LastChangedListProjections, LastChangedListContext>();
         }
