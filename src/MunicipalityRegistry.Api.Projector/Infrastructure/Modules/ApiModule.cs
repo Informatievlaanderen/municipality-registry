@@ -105,20 +105,16 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
 
         private void RegisterLegacyProjections(ContainerBuilder builder)
         {
-            builder.RegisterProjectionMigrationHelper(
-                new LegacyContextMigrationHelper(
-                    _configuration.GetConnectionString("LegacyProjectionsAdmin"),
-                    _loggerFactory
-                )
-            );
+            builder
+                .RegisterProjectionMigrator<LegacyContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory);
 
             builder.RegisterModule(
                 new LegacyModule(
                     _configuration,
                     _services,
-                    _loggerFactory
-                )
-            );
+                    _loggerFactory));
 
             builder.RegisterProjections<MunicipalityDetailProjections, LegacyContext>();
             builder.RegisterProjections<MunicipalityListProjections, LegacyContext>();
