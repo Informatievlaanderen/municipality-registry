@@ -1,3 +1,28 @@
+# [2.0.0](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.11...v2.0.0) (2019-03-11)
+
+
+### Bug Fixes
+
+* add logging to projector api ([e08a015](https://github.com/informatievlaanderen/municipality-registry/commit/e08a015))
+* remove Be.Vlaanderen.Basisregisters.Beamer ([585bc9f](https://github.com/informatievlaanderen/municipality-registry/commit/585bc9f))
+* remove containers per projection project ([ce51b8d](https://github.com/informatievlaanderen/municipality-registry/commit/ce51b8d))
+* remove unneeded properties from csproj ([89ec547](https://github.com/informatievlaanderen/municipality-registry/commit/89ec547))
+* rename Beamer to Projector ([fad4f14](https://github.com/informatievlaanderen/municipality-registry/commit/fad4f14))
+* update dependencies ([711a42f](https://github.com/informatievlaanderen/municipality-registry/commit/711a42f))
+
+
+### Features
+
+* convert extract projections from app to lib ([bd9b25f](https://github.com/informatievlaanderen/municipality-registry/commit/bd9b25f))
+* convert lastchangedlist projections from app to lib ([b66e036](https://github.com/informatievlaanderen/municipality-registry/commit/b66e036))
+* convert legacy projections from app to lib ([8042f9a](https://github.com/informatievlaanderen/municipality-registry/commit/8042f9a))
+* use Projector package ([eeab76b](https://github.com/informatievlaanderen/municipality-registry/commit/eeab76b))
+
+
+### BREAKING CHANGES
+
+* package project removed
+
 ## [1.4.11](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.10...v1.4.11) (2019-02-28)
 
 
