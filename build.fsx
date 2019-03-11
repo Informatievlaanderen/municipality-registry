@@ -95,15 +95,6 @@ Target "PushContainer_ApiExtract" (fun _ -> push "api-extract")
 Target "Containerize_ApiCrabImport" (fun _ -> containerize "MunicipalityRegistry.Api.CrabImport" "api-crab-import")
 Target "PushContainer_ApiCrabImport" (fun _ -> push "api-crab-import")
 
-Target "Containerize_ProjectionsLegacy" (fun _ -> containerize "MunicipalityRegistry.Projections.Legacy" "projections-legacy")
-Target "PushContainer_ProjectionsLegacy" (fun _ -> push "projections-legacy")
-
-Target "Containerize_ProjectionsExtract" (fun _ -> containerize "MunicipalityRegistry.Projections.Extract" "projections-extract")
-Target "PushContainer_ProjectionsExtract" (fun _ -> push "projections-extract")
-
-Target "Containerize_ProjectionsRedis" (fun _ -> containerize "MunicipalityRegistry.Projections.LastChangedList" "projections-redis")
-Target "PushContainer_ProjectionsRedis" (fun _ -> push "projections-redis")
-
 // --------------------------------------------------------------------------------
 
 Target "Build" DoNothing
@@ -133,9 +124,6 @@ Target "Push" DoNothing
 "Containerize_ApiLegacy"            ==> "Containerize"
 "Containerize_ApiExtract"           ==> "Containerize"
 "Containerize_ApiCrabImport"        ==> "Containerize"
-"Containerize_ProjectionsLegacy"    ==> "Containerize"
-"Containerize_ProjectionsExtract"   ==> "Containerize"
-"Containerize_ProjectionsRedis"     ==> "Containerize"
 // Possibly add more projects to containerize here
 
 "Containerize"                      ==> "Push"
@@ -144,9 +132,6 @@ Target "Push" DoNothing
 "PushContainer_ApiLegacy"           ==> "Push"
 "PushContainer_ApiExtract"          ==> "Push"
 "PushContainer_ApiCrabImport"       ==> "Push"
-"PushContainer_ProjectionsLegacy"   ==> "Push"
-"PushContainer_ProjectionsExtract"  ==> "Push"
-"PushContainer_ProjectionsRedis"    ==> "Push"
 // Possibly add more projects to push here
 
 // By default we build & test
