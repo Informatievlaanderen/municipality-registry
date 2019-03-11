@@ -16,10 +16,10 @@ description Municipality Registry Projector API.
 
 dependencies
   framework: netstandard20
-    Be.Vlaanderen.Basisregisters.Api >= LOCKEDVERSION
-    Be.Vlaanderen.Basisregisters.EventHandling.Autofac  >= LOCKEDVERSION
-    Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac  >= LOCKEDVERSION
-    Be.Vlaanderen.Basisregisters.Projector >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.Api ~> 1.8
+    Be.Vlaanderen.Basisregisters.EventHandling.Autofac ~> 1.0
+    Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac ~> 1.1
+    Be.Vlaanderen.Basisregisters.Projector ~> 1.1
 
 files
   MunicipalityRegistry.Api.Projector.dll => lib\netcoreapp2.2
