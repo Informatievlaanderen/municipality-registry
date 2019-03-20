@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.0.0...v2.0.1) (2019-03-20)
+
+
+### Bug Fixes
+
+* update projector version ([8fc8911](https://github.com/informatievlaanderen/municipality-registry/commit/8fc8911))
+
 # [2.0.0](https://github.com/informatievlaanderen/municipality-registry/compare/v1.4.11...v2.0.0) (2019-03-11)
 
 
