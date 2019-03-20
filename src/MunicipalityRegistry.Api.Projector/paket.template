@@ -19,7 +19,7 @@ dependencies
     Be.Vlaanderen.Basisregisters.Api ~> 1.8
     Be.Vlaanderen.Basisregisters.EventHandling.Autofac ~> 1.0
     Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac ~> 1.1
-    Be.Vlaanderen.Basisregisters.Projector ~> 1.1
+    Be.Vlaanderen.Basisregisters.Projector ~> 2.0
 
 files
   MunicipalityRegistry.Api.Projector.dll => lib\netcoreapp2.2

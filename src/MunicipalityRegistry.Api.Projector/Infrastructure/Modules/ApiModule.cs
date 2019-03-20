@@ -62,7 +62,7 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
 
             builder.RegisterEventstreamModule(_configuration);
 
-            builder.RegisterModule<ProjectorModule>();
+            builder.RegisterModule(new ProjectorModule(_loggerFactory));
             RegisterExtractProjections(builder);
             RegisterLastChangedProjections(builder);
             RegisterLegacyProjections(builder);
@@ -70,11 +70,6 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
 
         private void RegisterExtractProjections(ContainerBuilder builder)
         {
-            builder
-                .RegisterProjectionMigrator<ExtractContextMigrationFactory>(
-                    _configuration,
-                    _loggerFactory);
- 
             builder.RegisterModule(
                 new ExtractModule(
                     _configuration,
@@ -82,17 +77,15 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
                     _loggerFactory));
 
             builder
+                .RegisterProjectionMigrator<ExtractContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory)
                 .RegisterProjections<MunicipalityExtractProjections, ExtractContext>(
                     () => new MunicipalityExtractProjections(DbaseCodePage.Western_European_ANSI.ToEncoding()));
         }
 
         private void RegisterLastChangedProjections(ContainerBuilder builder)
         {
-            builder
-                .RegisterProjectionMigrator<LastChangedListContextMigrationFactory>(
-                    _configuration,
-                    _loggerFactory);
-
             builder.RegisterModule(
                 new LastChangedListModule(
                     _configuration.GetConnectionString("LastChangedList"),
@@ -100,27 +93,30 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
                     _services,
                     _loggerFactory));
 
-            builder.RegisterProjections<LastChangedListProjections, LastChangedListContext>();
+            builder
+                .RegisterProjectionMigrator<LastChangedListContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory)
+                .RegisterProjections<LastChangedListProjections, LastChangedListContext>();
         }
 
         private void RegisterLegacyProjections(ContainerBuilder builder)
         {
             builder
+                .RegisterModule(
+                    new LegacyModule(
+                        _configuration,
+                        _services,
+                        _loggerFactory));
+            builder
                 .RegisterProjectionMigrator<LegacyContextMigrationFactory>(
                     _configuration,
-                    _loggerFactory);
-
-            builder.RegisterModule(
-                new LegacyModule(
-                    _configuration,
-                    _services,
-                    _loggerFactory));
-
-            builder.RegisterProjections<MunicipalityDetailProjections, LegacyContext>();
-            builder.RegisterProjections<MunicipalityListProjections, LegacyContext>();
-            builder.RegisterProjections<MunicipalityNameProjections, LegacyContext>();
-            builder.RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>();
-            builder.RegisterProjections<MunicipalityVersionProjections, LegacyContext>();
+                    _loggerFactory)
+                .RegisterProjections<MunicipalityDetailProjections, LegacyContext>()
+                .RegisterProjections<MunicipalityListProjections, LegacyContext>()
+                .RegisterProjections<MunicipalityNameProjections, LegacyContext>()
+                .RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>()
+                .RegisterProjections<MunicipalityVersionProjections, LegacyContext>();
         }
     }
 }
