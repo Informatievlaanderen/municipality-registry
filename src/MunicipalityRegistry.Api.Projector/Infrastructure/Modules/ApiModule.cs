@@ -62,7 +62,7 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
 
             builder.RegisterEventstreamModule(_configuration);
 
-            builder.RegisterModule(new ProjectorModule(_loggerFactory));
+            builder.RegisterModule<ProjectorModule>();
             RegisterExtractProjections(builder);
             RegisterLastChangedProjections(builder);
             RegisterLegacyProjections(builder);

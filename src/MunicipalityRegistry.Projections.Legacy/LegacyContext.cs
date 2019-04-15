@@ -1,12 +1,8 @@
 namespace MunicipalityRegistry.Projections.Legacy
 {
-    using System;
-    using System.IO;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Design;
-    using Microsoft.Extensions.Configuration;
     using MunicipalityList;
     using MunicipalitySyndication;
 
