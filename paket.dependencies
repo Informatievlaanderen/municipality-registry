@@ -70,7 +70,7 @@ nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner ~> 3.1
 nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector ~> 3.1
 nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector.Testing ~> 3.1
 
-nuget Be.Vlaanderen.Basisregisters.Projector ~> 2.0
+nuget Be.Vlaanderen.Basisregisters.Projector ~> 3.1
 
 nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac ~> 1.1
 nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.Sql ~> 1.1
