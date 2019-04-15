@@ -56,7 +56,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                 nameof(MunicipalityListItem.NameGerman)
             };
 
-            public SortingHeader DefaultSortingHeader { get; } = new SortingHeader(nameof(MunicipalityListItem.DefaultName), SortOrder.Ascending);
+            public SortingHeader DefaultSortingHeader { get; } = new SortingHeader(nameof(MunicipalityListItem.NisCode), SortOrder.Ascending);
         }
     }
 
