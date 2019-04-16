@@ -1,3 +1,11 @@
+## [2.0.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.0.1...v2.0.2) (2019-04-16)
+
+
+### Bug Fixes
+
+* change default municipalty list sorting to NisCode [GR-717] ([7fe4f74](https://github.com/informatievlaanderen/municipality-registry/commit/7fe4f74))
+* update dependencies ([1386435](https://github.com/informatievlaanderen/municipality-registry/commit/1386435))
+
 ## [2.0.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.0.0...v2.0.1) (2019-03-20)
 
 
