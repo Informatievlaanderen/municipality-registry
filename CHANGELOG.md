@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.1.0...v2.2.0) (2019-04-17)
+
+
+### Features
+
+* update grar + shaperon packages ([edd4788](https://github.com/informatievlaanderen/municipality-registry/commit/edd4788))
+
 # [2.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.0.2...v2.1.0) (2019-04-17)
 
 
