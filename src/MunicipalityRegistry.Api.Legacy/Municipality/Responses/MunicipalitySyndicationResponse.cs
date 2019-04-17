@@ -223,7 +223,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         <Id>{_responseOptions.Naamruimte}/13023</Id>
         <Naamruimte>{_responseOptions.Naamruimte}</Naamruimte>
         <ObjectId>13023</ObjectId>
-        <Versie>1</Versie>
+        <VersieId>1</VersieId>
     </Identificator>
     <Creatie>
         <Organisatie>Nationaal Geografisch Instituut</Organisatie>

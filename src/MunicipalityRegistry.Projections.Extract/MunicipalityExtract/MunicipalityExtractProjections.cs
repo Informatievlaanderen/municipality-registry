@@ -34,7 +34,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                         {
                             gemeenteid = { Value = message.Message.NisCode },
                             id = { Value = $"{IdUri}/{message.Message.NisCode}" },
-                            versie = { Value = message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset().DateTime }
+                            versieid = { Value = message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset().DateTime }
                         }.ToBytes(_encoding)
                     }, ct);
             });
@@ -245,7 +245,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
             });
 
         private void UpdateVersie(MunicipalityExtractItem municipality, Instant timestamp)
-            => UpdateRecord(municipality, record => record.versie.Value = timestamp.ToBelgianDateTimeOffset().DateTime);
+            => UpdateRecord(municipality, record => record.versieid.Value = timestamp.ToBelgianDateTimeOffset().DateTime);
 
         private void UpdateRecord(MunicipalityExtractItem municipality, Action<MunicipalityDbaseRecord> updateFunc)
         {
