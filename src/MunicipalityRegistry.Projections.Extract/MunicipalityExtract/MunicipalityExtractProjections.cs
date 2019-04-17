@@ -1,12 +1,13 @@
 namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
 {
-    using System;
-    using System.Text;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
     using NodaTime;
+    using System;
+    using System.Linq;
+    using System.Text;
 
     public class MunicipalityExtractProjections : ConnectedProjection<ExtractContext>
     {
@@ -68,7 +69,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        UpdateGemeenteNm(municipality, message.Message.Language, message.Message.Name);
+                        UpdateName(municipality, message.Message.Language, message.Message.Name);
                         UpdateVersie(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -80,7 +81,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        UpdateGemeenteNm(municipality, message.Message.Language, message.Message.Name);
+                        UpdateName(municipality, message.Message.Language, message.Message.Name);
                         UpdateVersie(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -92,7 +93,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        UpdateGemeenteNm(municipality, message.Message.Language, null);
+                        UpdateName(municipality, message.Message.Language, null);
                         UpdateVersie(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -102,7 +103,12 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
             {
                 await context.FindAndUpdateMunicipalityExtract(
                     message.Message.MunicipalityId,
-                    municipality => UpdateVersie(municipality, message.Message.Provenance.Timestamp),
+                    municipality =>
+                    {
+                        municipality.AddOfficialLanguage(message.Message.Language);
+                        UpdateRecord(municipality, record => UpdateGemeentenm(municipality, record));
+                        UpdateVersie(municipality, message.Message.Provenance.Timestamp);
+                    },
                     ct);
             });
 
@@ -110,24 +116,12 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
             {
                 await context.FindAndUpdateMunicipalityExtract(
                     message.Message.MunicipalityId,
-                    municipality => UpdateVersie(municipality, message.Message.Provenance.Timestamp),
-                    ct);
-            });
-
-            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) =>
-            {
-                await context.FindAndUpdateMunicipalityExtract(
-                    message.Message.MunicipalityId,
-                    municipality => UpdateVersie(municipality, message.Message.Provenance.Timestamp),
-                    ct);
-            });
-
-
-            When<Envelope<MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) =>
-            {
-                await context.FindAndUpdateMunicipalityExtract(
-                    message.Message.MunicipalityId,
-                    municipality => UpdateVersie(municipality, message.Message.Provenance.Timestamp),
+                    municipality =>
+                    {
+                        municipality.RemoveOfficialLanguage(message.Message.Language);
+                        UpdateRecord(municipality, record => UpdateGemeentenm(municipality, record));
+                        UpdateVersie(municipality, message.Message.Provenance.Timestamp);
+                    },
                     ct);
             });
 
@@ -137,7 +131,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        UpdateGemeenteNm(municipality, message.Message.Language, null);
+                        UpdateName(municipality, message.Message.Language, null);
                         UpdateVersie(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -192,14 +186,53 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
             });
         }
 
-        private void UpdateGemeenteNm(MunicipalityExtractItem municipality, Language language, string name)
+        private void UpdateName(MunicipalityExtractItem municipality, Language language, string name)
             => UpdateRecord(municipality, record =>
             {
-                if (language == Language.Dutch)
-                    record.gemeentenm.Value = name;
-                else if (record.gemeentenm.Value == null)
-                    record.gemeentenm.Value = name;
+                switch (language)
+                {
+                    case Language.Dutch:
+                        municipality.NameDutch = name;
+                        break;
+                    case Language.French:
+                        municipality.NameFrench = name;
+                        break;
+                    case Language.German:
+                        municipality.NameGerman = name;
+                        break;
+                    case Language.English:
+                        municipality.NameEnglish = name;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(language), language, null);
+                }
+
+                UpdateGemeentenm(municipality, record);
             });
+
+        private static void UpdateGemeentenm(MunicipalityExtractItem municipality, MunicipalityDbaseRecord record)
+        {
+            if (municipality.OfficialLanguages.Any())
+            {
+                switch (municipality.OfficialLanguages.First())
+                {
+                    case Language.Dutch:
+                        record.gemeentenm.Value = municipality.NameDutch;
+                        break;
+                    case Language.French:
+                        record.gemeentenm.Value = municipality.NameFrench;
+                        break;
+                    case Language.German:
+                        record.gemeentenm.Value = municipality.NameGerman;
+                        break;
+                    case Language.English:
+                        record.gemeentenm.Value = municipality.NameEnglish;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
 
         private void UpdateStatus(MunicipalityExtractItem municipality, string status)
             => UpdateRecord(municipality, record => record.status.Value = status);
