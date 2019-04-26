@@ -1,24 +1,36 @@
 namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
 {
-    using System;
-    using System.Security.Cryptography.X509Certificates;
     using Be.Vlaanderen.Basisregisters.Api;
     using Microsoft.AspNetCore.Hosting;
 
     public class Program
     {
-        private static readonly Tuple<string, string> DevelopmentCertificate = new Tuple<string, string>(
-            "api.dev.gemeente.basisregisters.vlaanderen.be.pfx",
-            "gemeenteregister!");
+        private static readonly DevelopmentCertificate DevelopmentCertificate =
+            new DevelopmentCertificate(
+                "api.dev.gemeente.basisregisters.vlaanderen.be.pfx",
+                "gemeenteregister!");
 
         public static void Main(string[] args) => CreateWebHostBuilder(args).Build().Run();
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
             => new WebHostBuilder()
                 .UseDefaultForApi<Startup>(
-                    httpPort: 1090,
-                    httpsPort: 1444,
-                    httpsCertificate: () => new X509Certificate2(DevelopmentCertificate.Item1, DevelopmentCertificate.Item2),
-                    commandLineArgs: args);
+                    new ProgramOptions
+                    {
+                        Hosting =
+                        {
+                            HttpPort = 1090,
+                            HttpsPort = 1444,
+                            HttpsCertificate = DevelopmentCertificate.ToCertificate
+                        },
+                        Logging = {
+                            WriteTextToConsole = true,
+                            WriteJsonToConsole = false
+                        },
+                        Runtime =
+                        {
+                            CommandLineArgs = args
+                        }
+                    });
     }
 }

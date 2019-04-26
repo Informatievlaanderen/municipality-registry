@@ -43,23 +43,33 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
         {
             services
                 .ConfigureDefaultForApi<Startup>(
-                    (provider, description) => new Info
+                    new StartupConfigureOptions
                     {
-                        Version = description.ApiVersion.ToString(),
-                        Title = "Basisregisters Vlaanderen Municipality Registry API",
-                        Description = GetApiLeadingText(description),
-                        Contact = new Contact
+                        Cors =
                         {
-                            Name = "Informatie Vlaanderen",
-                            Email = "informatie.vlaanderen@vlaanderen.be",
-                            Url = "https://legacy.basisregisters.vlaanderen"
+                            Origins = _configuration
+                                .GetSection("Cors")
+                                .GetChildren()
+                                .Select(c => c.Value)
+                                .ToArray()
+                        },
+                        Swagger =
+                        {
+                            ApiInfo = (provider, description) => new Info
+                            {
+                                Version = description.ApiVersion.ToString(),
+                                Title = "Basisregisters Vlaanderen Municipality Registry API",
+                                Description = GetApiLeadingText(description),
+                                Contact = new Contact
+                                {
+                                    Name = "Informatie Vlaanderen",
+                                    Email = "informatie.vlaanderen@vlaanderen.be",
+                                    Url = "https://legacy.basisregisters.vlaanderen"
+                                }
+                            },
+                            XmlCommentPaths = new [] { typeof(Startup).GetTypeInfo().Assembly.GetName().Name }
                         }
-                    },
-                    new []
-                    {
-                        typeof(Startup).GetTypeInfo().Assembly.GetName().Name,
-                    },
-                    _configuration.GetSection("Cors").GetChildren().Select(c => c.Value).ToArray());
+                    });
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new ApiModule(_configuration, services, _loggerFactory));
@@ -81,36 +91,34 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
         {
             StartupHelpers.EnsureSqlStreamStoreSchema<Startup>(streamStore, loggerFactory);
 
-            if (datadogToggle.FeatureEnabled)
-            {
-                if (debugDataDogToggle.FeatureEnabled)
-                    StartupHelpers.SetupSourceListener(serviceProvider.GetRequiredService<TraceSource>());
-
-                app.UseDataDogTracing(
-                    serviceProvider.GetRequiredService<TraceSource>(),
-                    _configuration["DataDog:ServiceName"],
-                    pathToCheck => pathToCheck != "/");
-            }
-
-            app.UseDefaultForApi(new StartupOptions
-            {
-                ApplicationContainer = _applicationContainer,
-                ServiceProvider = serviceProvider,
-                HostingEnvironment = env,
-                ApplicationLifetime = appLifetime,
-                LoggerFactory = loggerFactory,
-                Api =
+            app
+                .UseDatadog<Startup>(
+                    serviceProvider,
+                    loggerFactory,
+                    datadogToggle,
+                    debugDataDogToggle,
+                    _configuration["DataDog:ServiceName"])
+                .UseDefaultForApi(new StartupUseOptions
                 {
-                    VersionProvider = apiVersionProvider,
-                    Info = groupName => $"Basisregisters Vlaanderen - Municipality Registry API {groupName}"
-                },
-                MiddlewareHooks =
-                {
-                    AfterMiddleware = x => x.UseMiddleware<AddNoCacheHeadersMiddleware>(),
-                }
-            });
-
-            app.UseIdempotencyDatabaseMigrations();
+                    Common =
+                    {
+                        ApplicationContainer = _applicationContainer,
+                        ServiceProvider = serviceProvider,
+                        HostingEnvironment = env,
+                        ApplicationLifetime = appLifetime,
+                        LoggerFactory = loggerFactory,
+                    },
+                    Api =
+                    {
+                        VersionProvider = apiVersionProvider,
+                        Info = groupName => $"Basisregisters Vlaanderen - Municipality Registry API {groupName}"
+                    },
+                    MiddlewareHooks =
+                    {
+                        AfterMiddleware = x => x.UseMiddleware<AddNoCacheHeadersMiddleware>(),
+                    }
+                })
+                .UseIdempotencyDatabaseMigrations();
         }
 
         private static string GetApiLeadingText(ApiVersionDescription description)

@@ -4,7 +4,6 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
     using System.Linq;
     using System.Reflection;
     using Be.Vlaanderen.Basisregisters.Api;
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.AspNetCore;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
@@ -18,7 +17,6 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
     using Modules;
     using Options;
     using Swashbuckle.AspNetCore.Swagger;
-    using TraceSource = Be.Vlaanderen.Basisregisters.DataDog.Tracing.TraceSource;
 
     /// <summary>Represents the startup process for the application.</summary>
     public class Startup
@@ -42,24 +40,33 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
         {
             services
                 .ConfigureDefaultForApi<Startup>(
-                    (provider, description) => new Info
+                    new StartupConfigureOptions
                     {
-                        Version = description.ApiVersion.ToString(),
-                        Title = "Basisregisters Vlaanderen Municipality Registry API",
-                        Description = GetApiLeadingText(description),
-                        Contact = new Contact
+                        Cors =
                         {
-                            Name = "Informatie Vlaanderen",
-                            Email = "informatie.vlaanderen@vlaanderen.be",
-                            Url = "https://legacy.basisregisters.vlaanderen"
+                            Origins = _configuration
+                                .GetSection("Cors")
+                                .GetChildren()
+                                .Select(c => c.Value)
+                                .ToArray()
+                        },
+                        Swagger =
+                        {
+                            ApiInfo = (provider, description) => new Info
+                            {
+                                Version = description.ApiVersion.ToString(),
+                                Title = "Basisregisters Vlaanderen Municipality Registry API",
+                                Description = GetApiLeadingText(description),
+                                Contact = new Contact
+                                {
+                                    Name = "Informatie Vlaanderen",
+                                    Email = "informatie.vlaanderen@vlaanderen.be",
+                                    Url = "https://legacy.basisregisters.vlaanderen"
+                                }
+                            },
+                            XmlCommentPaths = new[] { typeof(Startup).GetTypeInfo().Assembly.GetName().Name }
                         }
-                    },
-                    new[]
-                    {
-                        typeof(Startup).GetTypeInfo().Assembly.GetName().Name,
-                    },
-                    _configuration.GetSection("Cors").GetChildren().Select(c => c.Value).ToArray())
-
+                    })
                 .Configure<ResponseOptions>(_configuration);
 
             var containerBuilder = new ContainerBuilder();
@@ -79,34 +86,33 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
             ApiDataDogToggle datadogToggle,
             ApiDebugDataDogToggle debugDataDogToggle)
         {
-            if (datadogToggle.FeatureEnabled)
-            {
-                if (debugDataDogToggle.FeatureEnabled)
-                    StartupHelpers.SetupSourceListener(serviceProvider.GetRequiredService<TraceSource>());
-
-                app.UseDataDogTracing(
-                    serviceProvider.GetRequiredService<TraceSource>(),
-                    _configuration["DataDog:ServiceName"],
-                    pathToCheck => pathToCheck != "/");
-            }
-
-            app.UseDefaultForApi(new StartupOptions
-            {
-                ApplicationContainer = _applicationContainer,
-                ServiceProvider = serviceProvider,
-                HostingEnvironment = env,
-                ApplicationLifetime = appLifetime,
-                LoggerFactory = loggerFactory,
-                Api =
+            app
+                .UseDatadog<Startup>(
+                    serviceProvider,
+                    loggerFactory,
+                    datadogToggle,
+                    debugDataDogToggle,
+                    _configuration["DataDog:ServiceName"])
+                .UseDefaultForApi(new StartupUseOptions
                 {
-                    VersionProvider = apiVersionProvider,
-                    Info = groupName => $"Basisregisters Vlaanderen - Municipality Registry API {groupName}"
-                },
-                MiddlewareHooks =
-                {
-                    AfterMiddleware = x => x.UseMiddleware<AddNoCacheHeadersMiddleware>(),
-                }
-            });
+                    Common =
+                    {
+                        ApplicationContainer = _applicationContainer,
+                        ServiceProvider = serviceProvider,
+                        HostingEnvironment = env,
+                        ApplicationLifetime = appLifetime,
+                        LoggerFactory = loggerFactory
+                    },
+                    Api =
+                    {
+                        VersionProvider = apiVersionProvider,
+                        Info = groupName => $"Basisregisters Vlaanderen - Municipality Registry API {groupName}"
+                    },
+                    MiddlewareHooks =
+                    {
+                        AfterMiddleware = x => x.UseMiddleware<AddNoCacheHeadersMiddleware>(),
+                    }
+                });
         }
 
         private static string GetApiLeadingText(ApiVersionDescription description)
