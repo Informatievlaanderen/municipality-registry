@@ -32,7 +32,6 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
                         {
                             CommandLineArgs = args
                         }
-
                     });
     }
 }

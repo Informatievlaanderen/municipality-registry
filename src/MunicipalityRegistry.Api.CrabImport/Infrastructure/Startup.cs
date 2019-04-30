@@ -5,8 +5,6 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
     using System.Reflection;
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing;
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.AspNetCore;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
@@ -16,6 +14,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
     using Microsoft.AspNetCore.Mvc.ApiExplorer;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.Extensions.Logging;
     using Modules;
     using SqlStreamStore;
@@ -24,6 +23,8 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
     /// <summary>Represents the startup process for the application.</summary>
     public class Startup
     {
+        private const string DatabaseTag = "db";
+
         private IContainer _applicationContainer;
 
         private readonly IConfiguration _configuration;
@@ -68,6 +69,25 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
                                 }
                             },
                             XmlCommentPaths = new [] { typeof(Startup).GetTypeInfo().Assembly.GetName().Name }
+                        },
+                        MiddlewareHooks =
+                        {
+                            AfterHealthChecks = health =>
+                            {
+                                var connectionStrings = _configuration
+                                    .GetSection("ConnectionStrings")
+                                    .GetChildren();
+
+                                foreach (var connectionString in connectionStrings)
+                                    health.AddSqlServer(
+                                        connectionString.Value,
+                                        name: $"sqlserver-{connectionString.Key.ToLowerInvariant()}",
+                                        tags: new[] { DatabaseTag, "sql", "sqlserver" });
+
+                                health.AddDbContextCheck<IdempotencyContext>(
+                                    $"dbcontext-{nameof(IdempotencyContext).ToLowerInvariant()}",
+                                    tags: new[] { DatabaseTag, "sql", "sqlserver" });
+                            }
                         }
                     });
 
@@ -87,8 +107,10 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
             IApiVersionDescriptionProvider apiVersionProvider,
             MsSqlStreamStore streamStore,
             ApiDataDogToggle datadogToggle,
-            ApiDebugDataDogToggle debugDataDogToggle)
+            ApiDebugDataDogToggle debugDataDogToggle,
+            HealthCheckService healthCheckService)
         {
+            StartupHelpers.CheckDatabases(healthCheckService, DatabaseTag).GetAwaiter().GetResult();
             StartupHelpers.EnsureSqlStreamStoreSchema<Startup>(streamStore, loggerFactory);
 
             app
