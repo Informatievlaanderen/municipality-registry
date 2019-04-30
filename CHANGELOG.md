@@ -1,3 +1,13 @@
+## [2.2.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.2.0...v2.2.1) (2019-04-30)
+
+
+### Bug Fixes
+
+* add health checks ([cb9f811](https://github.com/informatievlaanderen/municipality-registry/commit/cb9f811))
+* correct paket dependcies ([52e0630](https://github.com/informatievlaanderen/municipality-registry/commit/52e0630))
+* update Basisregisters.Api dependency for NetCore 2.2.4 ([722e23b](https://github.com/informatievlaanderen/municipality-registry/commit/722e23b))
+* update docker template name ([01a1ef0](https://github.com/informatievlaanderen/municipality-registry/commit/01a1ef0))
+
 # [2.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.1.0...v2.2.0) (2019-04-17)
 
 
