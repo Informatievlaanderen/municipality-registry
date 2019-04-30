@@ -13,14 +13,18 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
     using Microsoft.AspNetCore.Mvc.ApiExplorer;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.Extensions.Logging;
     using Modules;
     using Options;
+    using Projections.Legacy;
     using Swashbuckle.AspNetCore.Swagger;
 
     /// <summary>Represents the startup process for the application.</summary>
     public class Startup
     {
+        private const string DatabaseTag = "db";
+
         private IContainer _applicationContainer;
 
         private readonly IConfiguration _configuration;
@@ -65,6 +69,25 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
                                 }
                             },
                             XmlCommentPaths = new[] { typeof(Startup).GetTypeInfo().Assembly.GetName().Name }
+                        },
+                        MiddlewareHooks =
+                        {
+                            AfterHealthChecks = health =>
+                            {
+                                var connectionStrings = _configuration
+                                    .GetSection("ConnectionStrings")
+                                    .GetChildren();
+
+                                foreach (var connectionString in connectionStrings)
+                                    health.AddSqlServer(
+                                        connectionString.Value,
+                                        name: $"sqlserver-{connectionString.Key.ToLowerInvariant()}",
+                                        tags: new[] { DatabaseTag, "sql", "sqlserver" });
+
+                                health.AddDbContextCheck<LegacyContext>(
+                                    $"dbcontext-{nameof(LegacyContext).ToLowerInvariant()}",
+                                    tags: new[] { DatabaseTag, "sql", "sqlserver" });
+                            }
                         }
                     })
                 .Configure<ResponseOptions>(_configuration);
@@ -84,8 +107,11 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
             ILoggerFactory loggerFactory,
             IApiVersionDescriptionProvider apiVersionProvider,
             ApiDataDogToggle datadogToggle,
-            ApiDebugDataDogToggle debugDataDogToggle)
+            ApiDebugDataDogToggle debugDataDogToggle,
+            HealthCheckService healthCheckService)
         {
+            StartupHelpers.CheckDatabases(healthCheckService, DatabaseTag).GetAwaiter().GetResult();
+
             app
                 .UseDatadog<Startup>(
                     serviceProvider,
