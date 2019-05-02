@@ -24,7 +24,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
                             HttpsCertificate = DevelopmentCertificate.ToCertificate
                         },
                         Logging = {
-                            WriteTextToConsole = true,
+                            WriteTextToConsole = false,
                             WriteJsonToConsole = false
                         },
                         Runtime =

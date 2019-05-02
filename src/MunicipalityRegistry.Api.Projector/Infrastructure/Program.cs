@@ -1,6 +1,5 @@
 namespace MunicipalityRegistry.Api.Projector.Infrastructure
 {
-    using System.Security.Cryptography.X509Certificates;
     using Be.Vlaanderen.Basisregisters.Api;
     using Microsoft.AspNetCore.Hosting;
 
@@ -26,7 +25,7 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure
                         },
                         Logging =
                         {
-                            WriteTextToConsole = true,
+                            WriteTextToConsole = false,
                             WriteJsonToConsole = false
                         },
                         Runtime =

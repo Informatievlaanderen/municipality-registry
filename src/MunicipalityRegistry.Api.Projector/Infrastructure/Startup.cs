@@ -3,11 +3,11 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure
     using System;
     using System.Linq;
     using System.Reflection;
-    using Be.Vlaanderen.Basisregisters.Api;
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.AspNetCore;
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
+    using Be.Vlaanderen.Basisregisters.Api;
+    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
+    using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
     using Be.Vlaanderen.Basisregisters.Projector.ConnectedProjections;
     using Configuration;
     using Microsoft.AspNetCore.Builder;
@@ -15,14 +15,18 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure
     using Microsoft.AspNetCore.Mvc.ApiExplorer;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.Extensions.Logging;
     using Modules;
+    using MunicipalityRegistry.Projections.Extract;
+    using MunicipalityRegistry.Projections.Legacy;
     using Swashbuckle.AspNetCore.Swagger;
-    using TraceSource = Be.Vlaanderen.Basisregisters.DataDog.Tracing.TraceSource;
 
     /// <summary>Represents the startup process for the application.</summary>
     public class Startup
     {
+        private const string DatabaseTag = "db";
+
         private IContainer _applicationContainer;
 
         private readonly IConfiguration _configuration;
@@ -66,16 +70,42 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure
                                     Url = "https://legacy.basisregisters.vlaanderen"
                                 }
                             },
-                            XmlCommentPaths = new []{ typeof(Startup).GetTypeInfo().Assembly.GetName().Name  }
+                            XmlCommentPaths = new[] {typeof(Startup).GetTypeInfo().Assembly.GetName().Name}
+                        },
+                        MiddlewareHooks =
+                        {
+                            FluentValidation = fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>(),
+
+                            AfterHealthChecks = health =>
+                            {
+                                var connectionStrings = _configuration
+                                    .GetSection("ConnectionStrings")
+                                    .GetChildren();
+
+                                foreach (var connectionString in connectionStrings)
+                                    health.AddSqlServer(
+                                        connectionString.Value,
+                                        name: $"sqlserver-{connectionString.Key.ToLowerInvariant()}",
+                                        tags: new[] {DatabaseTag, "sql", "sqlserver"});
+
+                                health.AddDbContextCheck<ExtractContext>(
+                                    $"dbcontext-{nameof(ExtractContext).ToLowerInvariant()}",
+                                    tags: new[] {DatabaseTag, "sql", "sqlserver"});
+
+                                health.AddDbContextCheck<LegacyContext>(
+                                    $"dbcontext-{nameof(LegacyContext).ToLowerInvariant()}",
+                                    tags: new[] {DatabaseTag, "sql", "sqlserver"});
+
+                                health.AddDbContextCheck<LastChangedListContext>(
+                                    $"dbcontext-{nameof(LastChangedListContext).ToLowerInvariant()}",
+                                    tags: new[] {DatabaseTag, "sql", "sqlserver"});
+                            }
                         }
                     });
 
             var containerBuilder = new ContainerBuilder();
-
             containerBuilder.RegisterModule(new LoggingModule(_configuration, services));
-
             containerBuilder.RegisterModule(new ApiModule(_configuration, services, _loggerFactory));
-
             _applicationContainer = containerBuilder.Build();
 
             return new AutofacServiceProvider(_applicationContainer);
@@ -89,8 +119,11 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure
             ILoggerFactory loggerFactory,
             IApiVersionDescriptionProvider apiVersionProvider,
             ApiDataDogToggle datadogToggle,
-            ApiDebugDataDogToggle debugDataDogToggle)
+            ApiDebugDataDogToggle debugDataDogToggle,
+            HealthCheckService healthCheckService)
         {
+            StartupHelpers.CheckDatabases(healthCheckService, DatabaseTag).GetAwaiter().GetResult();
+
             app
                 .UseDatadog<Startup>(
                     serviceProvider,
@@ -98,6 +131,7 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure
                     datadogToggle,
                     debugDataDogToggle,
                     _configuration["DataDog:ServiceName"])
+
                 .UseDefaultForApi(new StartupUseOptions
                 {
                     Common =

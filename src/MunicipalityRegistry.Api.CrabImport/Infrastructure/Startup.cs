@@ -3,11 +3,11 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
     using System;
     using System.Linq;
     using System.Reflection;
+    using Autofac;
+    using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
-    using Autofac;
-    using Autofac.Extensions.DependencyInjection;
     using Configuration;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -120,6 +120,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
                     datadogToggle,
                     debugDataDogToggle,
                     _configuration["DataDog:ServiceName"])
+
                 .UseDefaultForApi(new StartupUseOptions
                 {
                     Common =
@@ -140,6 +141,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
                         AfterMiddleware = x => x.UseMiddleware<AddNoCacheHeadersMiddleware>(),
                     }
                 })
+
                 .UseIdempotencyDatabaseMigrations();
         }
 

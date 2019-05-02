@@ -3,10 +3,10 @@ namespace MunicipalityRegistry.Api.Extract.Infrastructure
     using System;
     using System.Linq;
     using System.Reflection;
-    using Be.Vlaanderen.Basisregisters.Api;
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
+    using Be.Vlaanderen.Basisregisters.Api;
+    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Configuration;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -117,6 +117,7 @@ namespace MunicipalityRegistry.Api.Extract.Infrastructure
                     datadogToggle,
                     debugDataDogToggle,
                     _configuration["DataDog:ServiceName"])
+
                 .UseDefaultForApi(new StartupUseOptions
                 {
                     Common =

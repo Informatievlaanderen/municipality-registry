@@ -1,9 +1,9 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
 {
+    using System;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
-    using System;
 
     public class MunicipalityVersionProjections : ConnectedProjection<LegacyContext>
     {

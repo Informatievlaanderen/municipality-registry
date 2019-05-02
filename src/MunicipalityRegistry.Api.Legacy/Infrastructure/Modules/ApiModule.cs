@@ -1,8 +1,8 @@
 namespace MunicipalityRegistry.Api.Legacy.Infrastructure.Modules
 {
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
+    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -27,9 +27,7 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure.Modules
         protected override void Load(ContainerBuilder containerBuilder)
         {
             containerBuilder
-                .RegisterModule(new DataDogModule(_configuration));
-
-            containerBuilder
+                .RegisterModule(new DataDogModule(_configuration))
                 .RegisterModule(new LegacyModule(_configuration, _services, _loggerFactory));
 
             containerBuilder.Populate(_services);

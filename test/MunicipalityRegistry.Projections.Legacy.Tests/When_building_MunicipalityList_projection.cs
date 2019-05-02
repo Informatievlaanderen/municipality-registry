@@ -1,5 +1,9 @@
 namespace MunicipalityRegistry.Projections.Legacy.Tests
 {
+    using System;
+    using System.Collections.Concurrent;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.Crab;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
@@ -12,10 +16,6 @@ namespace MunicipalityRegistry.Projections.Legacy.Tests
     using Municipality.Events;
     using MunicipalityList;
     using NodaTime;
-    using System;
-    using System.Collections.Concurrent;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Xunit;
     using MunicipalityName = MunicipalityRegistry.MunicipalityName;
 

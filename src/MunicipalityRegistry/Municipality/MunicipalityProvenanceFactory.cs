@@ -1,7 +1,7 @@
 namespace MunicipalityRegistry.Municipality
 {
-    using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using System;
+    using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
 
     public class MunicipalityProvenanceFactory : CrabProvenanceFactory, IProvenanceFactory<Municipality>
     {

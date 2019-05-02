@@ -24,7 +24,6 @@ namespace MunicipalityRegistry.Projections.Legacy
                 new MunicipalityDetailProjections(),
                 new MunicipalitySyndicationProjections(),
                 new MunicipalityNameProjections(),
-                new MunicipalityVersionProjections())
-        { }
+                new MunicipalityVersionProjections()) { }
     }
 }

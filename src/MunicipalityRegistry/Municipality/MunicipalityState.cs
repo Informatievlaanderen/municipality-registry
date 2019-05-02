@@ -1,9 +1,9 @@
 namespace MunicipalityRegistry.Municipality
 {
+    using System.Collections.Generic;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.Utilities.HexByteConvertor;
     using Events;
-    using System.Collections.Generic;
 
     public partial class Municipality
     {

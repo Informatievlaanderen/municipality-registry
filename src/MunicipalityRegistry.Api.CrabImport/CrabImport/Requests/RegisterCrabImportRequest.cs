@@ -18,13 +18,11 @@ namespace MunicipalityRegistry.Api.CrabImport.CrabImport.Requests
     public class RegisterCrabImportRequestExample : IExamplesProvider
     {
         public object GetExamples()
-        {
-            return new RegisterCrabImportRequest
+            => new RegisterCrabImportRequest
             {
                 Type = "MunicipalityRegistry.Municipality.Commands.ImportMunicipalityNameFromCrab",
                 CrabItem = "{}"
             };
-        }
     }
 
     public static class RegisterCrabImportRequestMapping

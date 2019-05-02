@@ -5,7 +5,6 @@ namespace MunicipalityRegistry.Projections.LastChangedList
     public class LastChangedListContextMigrationFactory : MigrationFactory
     {
         public LastChangedListContextMigrationFactory()
-            : base("LastChangedListAdmin")
-        { }
+            : base("LastChangedListAdmin") { }
     }
 }

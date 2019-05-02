@@ -27,9 +27,7 @@ namespace MunicipalityRegistry.Api.Extract.Infrastructure.Modules
         protected override void Load(ContainerBuilder containerBuilder)
         {
             containerBuilder
-                .RegisterModule(new DataDogModule(_configuration));
-
-            containerBuilder
+                .RegisterModule(new DataDogModule(_configuration))
                 .RegisterModule(new ExtractModule(_configuration, _services, _loggerFactory));
 
             containerBuilder.Populate(_services);

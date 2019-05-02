@@ -5,7 +5,7 @@ LABEL maintainer "agentschap Informatie Vlaanderen <informatie.vlaanderen@vlaand
 COPY / /app
 WORKDIR /app
 
-EXPOSE 5000/tcp
-ENV ASPNETCORE_URLS http://*:5000
+EXPOSE 2002/tcp
+ENV ASPNETCORE_URLS http://*:2002
 
 ENTRYPOINT ["./MunicipalityRegistry.Api.Legacy"]

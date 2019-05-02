@@ -1,5 +1,14 @@
 namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Net.Mime;
+    using System.Runtime.Serialization;
+    using System.Threading.Tasks;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.Syndication;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
@@ -10,15 +19,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using Microsoft.SyndicationFeed.Atom;
     using Query;
     using Swashbuckle.AspNetCore.Filters;
-    using System;
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.Linq;
-    using System.Net.Mime;
-    using System.Runtime.Serialization;
-    using System.Threading.Tasks;
-    using Be.Vlaanderen.Basisregisters.GrAr.Common;
-    using Be.Vlaanderen.Basisregisters.GrAr.Common.Syndication;
     using Provenance = Be.Vlaanderen.Basisregisters.GrAr.Provenance.Syndication.Provenance;
 
     public static class MunicipalitySyndicationResponse

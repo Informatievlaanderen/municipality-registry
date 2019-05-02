@@ -1,6 +1,9 @@
 namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
 {
-    using Be.Vlaanderen.Basisregisters.Api.Exceptions;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.Serialization;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
     using Convertors;
@@ -8,10 +11,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
     using Swashbuckle.AspNetCore.Filters;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.Serialization;
+    using ProblemDetails = Be.Vlaanderen.Basisregisters.BasicApiProblem.ProblemDetails;
 
     [DataContract(Name = "GemeenteDetail", Namespace = "")]
     public class MunicipalityResponse
@@ -99,12 +99,12 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     public class MunicipalityNotFoundResponseExamples : IExamplesProvider
     {
         public object GetExamples()
-            => new BasicApiProblem
+            => new ProblemDetails
             {
                 HttpStatus = StatusCodes.Status404NotFound,
-                Title = BasicApiProblem.DefaultTitle,
+                Title = ProblemDetails.DefaultTitle,
                 Detail = "Onbestaande gemeente.",
-                ProblemInstanceUri = BasicApiProblem.GetProblemNumber()
+                ProblemInstanceUri = ProblemDetails.GetProblemNumber()
             };
     }
 }

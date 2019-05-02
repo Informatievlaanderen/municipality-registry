@@ -1,5 +1,8 @@
 namespace MunicipalityRegistry.Municipality
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Be.Vlaanderen.Basisregisters.AggregateSource;
     using Be.Vlaanderen.Basisregisters.Crab;
     using Events;
@@ -9,9 +12,6 @@ namespace MunicipalityRegistry.Municipality
     using NetTopologySuite.Geometries.Implementation;
     using NetTopologySuite.IO;
     using NodaTime;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public partial class Municipality : AggregateRootEntity
     {

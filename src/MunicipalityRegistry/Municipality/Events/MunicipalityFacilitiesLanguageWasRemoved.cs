@@ -1,9 +1,9 @@
 namespace MunicipalityRegistry.Municipality.Events
 {
+    using System;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Newtonsoft.Json;
-    using System;
 
     [EventName("MunicipalityFacilityLanguageWasRemoved")]
     [EventDescription("Een faciliteiten taal van de gemeente werd verwijderd.")]

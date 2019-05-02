@@ -1,10 +1,10 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
 {
+    using System;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using NodaTime;
-    using System;
 
     public class MunicipalityDetail : MunicipalityLanguagesBase
     {

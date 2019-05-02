@@ -7,8 +7,7 @@ namespace MunicipalityRegistry.Projections.Legacy
     public class LegacyContextMigrationFactory : RunnerDbContextMigrationFactory<LegacyContext>
     {
         public LegacyContextMigrationFactory()
-            : base("LegacyProjectionsAdmin", HistoryConfiguration)
-        { }
+            : base("LegacyProjectionsAdmin", HistoryConfiguration) { }
 
         private static MigrationHistoryConfiguration HistoryConfiguration =>
             new MigrationHistoryConfiguration

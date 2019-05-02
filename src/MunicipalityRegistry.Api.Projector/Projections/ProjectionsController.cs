@@ -10,7 +10,6 @@ namespace MunicipalityRegistry.Api.Projector.Projections
     public class ProjectionsController : DefaultProjectorController
     {
         public ProjectionsController(IConnectedProjectionsManager connectedProjectionsManager)
-            : base(connectedProjectionsManager)
-        { }
+            : base(connectedProjectionsManager) { }
     }
 }

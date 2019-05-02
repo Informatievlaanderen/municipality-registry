@@ -1,5 +1,9 @@
 namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
     using Be.Vlaanderen.Basisregisters.Api.Search;
     using Be.Vlaanderen.Basisregisters.Api.Search.Filtering;
     using Be.Vlaanderen.Basisregisters.Api.Search.Sorting;
@@ -8,10 +12,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
     using NodaTime;
     using Projections.Legacy;
     using Projections.Legacy.MunicipalitySyndication;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Linq.Expressions;
 
     public class MunicipalitySyndicationQueryResult
     {

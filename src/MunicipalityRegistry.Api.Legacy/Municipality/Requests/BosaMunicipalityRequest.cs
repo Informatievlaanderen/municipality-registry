@@ -14,8 +14,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Requests
     public class MunicipalityBosaRequestExamples : IExamplesProvider
     {
         public object GetExamples()
-        {
-            return new BosaMunicipalityRequest
+            => new BosaMunicipalityRequest
             {
                 Gemeentenaam = new ZoekGeografischeNaam
                 {
@@ -28,6 +27,5 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Requests
                     ObjectId = "13"
                 }
             };
-        }
     }
 }

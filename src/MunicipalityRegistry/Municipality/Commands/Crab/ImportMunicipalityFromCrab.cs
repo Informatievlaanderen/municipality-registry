@@ -1,11 +1,11 @@
 namespace MunicipalityRegistry.Municipality.Commands.Crab
 {
+    using System;
+    using System.Collections.Generic;
     using Be.Vlaanderen.Basisregisters.Crab;
     using Be.Vlaanderen.Basisregisters.Generators.Guid;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.Utilities;
-    using System;
-    using System.Collections.Generic;
 
     public class ImportMunicipalityFromCrab : IHasCrabProvenance
     {

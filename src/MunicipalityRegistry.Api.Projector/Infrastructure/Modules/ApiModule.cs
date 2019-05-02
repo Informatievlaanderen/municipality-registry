@@ -44,6 +44,7 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterModule(new DataDogModule(_configuration));
+
             RegisterProjectionSetup(builder);
 
             builder.Populate(_services);
@@ -51,18 +52,18 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
 
         private void RegisterProjectionSetup(ContainerBuilder builder)
         {
-            builder.RegisterModule(
-                new EventHandlingModule(
-                    typeof(DomainAssemblyMarker).Assembly,
-                    EventsJsonSerializerSettingsProvider.CreateSerializerSettings()
-                )
-            );
+            builder
+                .RegisterModule(
+                    new EventHandlingModule(
+                        typeof(DomainAssemblyMarker).Assembly,
+                        EventsJsonSerializerSettingsProvider.CreateSerializerSettings()))
 
-            builder.RegisterModule<EnvelopeModule>();
+                .RegisterModule<EnvelopeModule>()
 
-            builder.RegisterEventstreamModule(_configuration);
+                .RegisterEventstreamModule(_configuration)
 
-            builder.RegisterModule<ProjectorModule>();
+                .RegisterModule<ProjectorModule>();
+
             RegisterExtractProjections(builder);
             RegisterLastChangedProjections(builder);
             RegisterLegacyProjections(builder);

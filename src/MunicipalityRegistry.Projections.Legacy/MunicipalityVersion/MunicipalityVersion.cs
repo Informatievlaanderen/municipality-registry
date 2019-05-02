@@ -1,11 +1,11 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
 {
+    using System;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using NodaTime;
-    using System;
 
     public class MunicipalityVersion : MunicipalityLanguagesBase
     {
