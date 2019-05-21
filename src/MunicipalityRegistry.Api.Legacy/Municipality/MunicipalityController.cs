@@ -140,7 +140,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
         /// <param name="configuration"></param>
         /// <param name="context"></param>
         /// <param name="responseOptions"></param>
-        /// <param name="embed">Om volledige objecten terug te krijgen, zet embed op true.</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("sync")]
