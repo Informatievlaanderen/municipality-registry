@@ -1,3 +1,10 @@
+## [2.3.3](https://github.com/informatievlaanderen/municipality-registry/compare/v2.3.2...v2.3.3) (2019-05-21)
+
+
+### Bug Fixes
+
+* remove unneeded embed parameter ([a9835e0](https://github.com/informatievlaanderen/municipality-registry/commit/a9835e0))
+
 ## [2.3.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.3.1...v2.3.2) (2019-05-21)
 
 ## [2.3.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.3.0...v2.3.1) (2019-05-21)
