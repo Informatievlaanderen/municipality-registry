@@ -277,10 +277,10 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         public long? Position { get; set; }
         public string Embed { get; set; }
 
-        public bool ContainEvent =>
+        public bool ContainsEvent =>
             Embed.Contains("event", StringComparison.OrdinalIgnoreCase);
 
-        public bool ContainObject =>
+        public bool ContainsObject =>
             Embed.Contains("object", StringComparison.OrdinalIgnoreCase);
     }
 }
