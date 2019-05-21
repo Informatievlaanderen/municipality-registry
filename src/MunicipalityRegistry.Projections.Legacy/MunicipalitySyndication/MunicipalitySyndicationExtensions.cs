@@ -68,9 +68,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
         }
 
         public static void SetEventData<T>(this MunicipalitySyndicationItem syndicationItem, T message)
-        {
-            syndicationItem.EventDataAsXml = message.ToXml(message.GetType().Name).ToString(SaveOptions.DisableFormatting);
-        }
+            => syndicationItem.EventDataAsXml = message.ToXml(message.GetType().Name).ToString(SaveOptions.DisableFormatting);
 
         private static ProjectionItemNotFoundException<MunicipalitySyndicationProjections> DatabaseItemNotFound(Guid municipalityId)
             => new ProjectionItemNotFoundException<MunicipalitySyndicationProjections>(municipalityId.ToString("D"));

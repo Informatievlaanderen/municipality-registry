@@ -163,12 +163,11 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
 
             var pagedMunicipalities = new MunicipalitySyndicationQuery(
                 context,
-                filtering.Filter?.ContainEvent ?? false,
-                filtering.Filter?.ContainObject ?? false)
+                filtering.Filter?.ContainsEvent ?? false,
+                filtering.Filter?.ContainsObject ?? false)
                 .Fetch(filtering, sorting, pagination);
 
-            Response.AddPaginationResponse(pagedMunicipalities.PaginationInfo);
-            Response.AddSortingResponse(sorting.SortBy, sorting.SortOrder);
+            Response.AddPagedQueryResultHeaders(pagedMunicipalities);
 
             return new ContentResult
             {
