@@ -232,29 +232,28 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     <title>MunicipalityNisCodeWasDefined-4</title>
     <updated>2018-10-04T13:12:17Z</updated>
     <published>2018-10-04T13:12:17Z</published>
-    <link href=""{_responseOptions.Naamruimte}/13023"" rel=""related"" />
-    <link href=""https://basisregisters.vlaanderen.be/api/v1/gemeenten/13023"" rel=""self"" />
-    <link href=""https://basisregisters.vlaanderen.be/api/v1/gemeenten/13023.xml"" rel=""alternate"" type=""application/xml"" />
-    <link href=""https://basisregisters.vlaanderen.be/api/v1/gemeenten/13023.json"" rel=""alternate"" type=""application/json"" />
+    <link href=""{_responseOptions.Naamruimte}/23101"" rel=""related"" />
+    <link href=""https://basisregisters.vlaanderen.be/api/v1/gemeenten/23101"" rel=""self"" />
+    <link href=""https://basisregisters.vlaanderen.be/api/v1/gemeenten/23101.xml"" rel=""alternate"" type=""application/xml"" />
+    <link href=""https://basisregisters.vlaanderen.be/api/v1/gemeenten/23101.json"" rel=""alternate"" type=""application/json"" />
     <author>
       <name>agentschap Informatie Vlaanderen</name>
       <email>informatie.vlaanderen@vlaanderen.be</email>
     </author>
     <category term=""https://data.vlaanderen.be/ns/gemeente"" />
-    <content><![CDATA[
-<GemeenteDetail>
-    <GemeenteStatus>InGebruik</GemeenteStatus>
-    <Identificator>
-        <Id>{_responseOptions.Naamruimte}/13023</Id>
-        <Naamruimte>{_responseOptions.Naamruimte}</Naamruimte>
-        <ObjectId>13023</ObjectId>
-        <VersieId>1</VersieId>
-    </Identificator>
-    <Creatie>
-        <Organisatie>Nationaal Geografisch Instituut</Organisatie>
-        <Plan>Centrale bijhouding CRAB</Plan>
-    </Creatie>
-</GemeenteDetail>]]></content>
+    <content>
+<![CDATA[<Content xmlns:i=""http://www.w3.org/2001/XMLSchema-instance"">
+<Event>
+    <MunicipalityWasRegistered>
+    <MunicipalityId>3793d1d5-6eb4-580c-b1db-37a8c5f43ca7</MunicipalityId><NisCode>23101</NisCode><Provenance><Timestamp>2002-08-13T15:32:32Z</Timestamp><Modification>Insert</Modification><Organisation>Ngi</Organisation><Plan>CentralManagementCrab</Plan></Provenance>
+    </MunicipalityWasRegistered>
+</Event>
+<Object>
+    <Id>3793d1d5-6eb4-580c-b1db-37a8c5f43ca7</Id>
+    <Identificator><Id>http://data.vlaanderen.be/id/gemeente/23101</Id><Naamruimte>http://data.vlaanderen.be/id/gemeente</Naamruimte><ObjectId>23101</ObjectId><VersieId>2002-08-13T17:32:32+02:00</VersieId></Identificator><OfficieleTalen /><FaciliteitenTalen /><Gemeentenamen /><GemeenteStatus i:nil=""true"" /><Creatie><Organisatie>Nationaal Geografisch Instituut</Organisatie><Plan>Centrale bijhouding CRAB</Plan></Creatie>
+</Object>
+</Content>]]>
+      </content>
   </entry>
 </feed>";
         }
