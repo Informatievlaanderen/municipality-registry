@@ -7,6 +7,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using System.Net.Mime;
     using System.Runtime.Serialization;
     using System.Threading.Tasks;
+    using System.Xml;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Common.Syndication;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
@@ -80,27 +81,51 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
 
         private static string BuildDescription(MunicipalitySyndicationQueryResult municipality, string naamruimte)
         {
-            var content = new MunicipalitySyndicationContent(
-                municipality.MunicipalityId.Value,
-                naamruimte,
-                municipality.Status,
-                municipality.NisCode,
-                municipality.OfficialLanguages,
-                municipality.FacilitiesLanguages,
-                municipality.NameDutch,
-                municipality.NameFrench,
-                municipality.NameGerman,
-                municipality.NameEnglish,
-                municipality.LastChangedOn.ToBelgianDateTimeOffset(),
-                municipality.Organisation,
-                municipality.Plan);
+            if (!municipality.ContainsEvent && !municipality.ContainsObject)
+                return "No data embedded";
+
+            var content = new SyndicationContent();
+            if (municipality.ContainsObject)
+            {
+                content.Object = new MunicipalitySyndicationContent(
+                    municipality.MunicipalityId.Value,
+                    naamruimte,
+                    municipality.Status,
+                    municipality.NisCode,
+                    municipality.OfficialLanguages,
+                    municipality.FacilitiesLanguages,
+                    municipality.NameDutch,
+                    municipality.NameFrench,
+                    municipality.NameGerman,
+                    municipality.NameEnglish,
+                    municipality.LastChangedOn.ToBelgianDateTimeOffset(),
+                    municipality.Organisation,
+                    municipality.Plan);
+            }
+
+            if (municipality.ContainsEvent)
+            {
+                var doc = new XmlDocument();
+                doc.LoadXml(municipality.EventDataAsXml);
+                content.Event = doc.DocumentElement;
+            }
 
             return content.ToXml();
         }
     }
 
+    [DataContract(Name = "Content", Namespace = "")]
+    public class SyndicationContent : SyndicationContentBase
+    {
+        [DataMember(Name = "Event")]
+        public XmlElement Event { get; set; }
+
+        [DataMember(Name = "Object")]
+        public MunicipalitySyndicationContent Object { get; set; }
+    }
+
     [DataContract(Name = "Gemeente", Namespace = "")]
-    public class MunicipalitySyndicationContent : SyndicationContentBase
+    public class MunicipalitySyndicationContent
     {
         /// <summary>
         /// De technische id van de gemeente.

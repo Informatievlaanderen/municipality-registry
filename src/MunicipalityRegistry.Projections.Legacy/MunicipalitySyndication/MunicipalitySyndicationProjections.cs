@@ -18,10 +18,11 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                     NisCode = message.Message.NisCode,
                     RecordCreatedAt = message.Message.Provenance.Timestamp,
                     LastChangedOn = message.Message.Provenance.Timestamp,
-                    ChangeType = message.EventName
+                    ChangeType = message.EventName,
                 };
 
                 newMunicipalitySyndicationItem.ApplyProvenance(message.Message.Provenance);
+                newMunicipalitySyndicationItem.SetEventData(message.Message);
 
                 await context
                     .MunicipalitySyndication

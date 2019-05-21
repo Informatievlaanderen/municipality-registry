@@ -155,14 +155,17 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             [FromServices] IConfiguration configuration,
             [FromServices] LegacyContext context,
             [FromServices] IOptions<ResponseOptions> responseOptions,
-            bool embed = false,
             CancellationToken cancellationToken = default)
         {
             var filtering = Request.ExtractFilteringRequest<MunicipalitySyndicationFilter>();
             var sorting = Request.ExtractSortingRequest();
             var pagination = Request.ExtractPaginationRequest();
 
-            var pagedMunicipalities = new MunicipalitySyndicationQuery(context, embed).Fetch(filtering, sorting, pagination);
+            var pagedMunicipalities = new MunicipalitySyndicationQuery(
+                context,
+                filtering.Filter?.ContainEvent ?? false,
+                filtering.Filter?.ContainObject ?? false)
+                .Fetch(filtering, sorting, pagination);
 
             Response.AddPaginationResponse(pagedMunicipalities.PaginationInfo);
             Response.AddSortingResponse(sorting.SortBy, sorting.SortOrder);
