@@ -1,3 +1,15 @@
+# [2.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.2.2...v2.3.0) (2019-05-21)
+
+
+### Bug Fixes
+
+* update sync response example ([49f9dfa](https://github.com/informatievlaanderen/municipality-registry/commit/49f9dfa))
+
+
+### Features
+
+* add event/object as syndication filter ([545c44d](https://github.com/informatievlaanderen/municipality-registry/commit/545c44d))
+
 ## [2.2.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.2.1...v2.2.2) (2019-05-02)
 
 ## [2.2.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.2.0...v2.2.1) (2019-04-30)
