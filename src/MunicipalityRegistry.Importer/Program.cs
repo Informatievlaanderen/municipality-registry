@@ -4,7 +4,7 @@ namespace MunicipalityRegistry.Importer
     using System.Diagnostics;
     using System.Linq;
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing;
-    using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.Commandline;
+    using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.CommandLine;
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.Serilog;
     using Crab;
     using Serilog;
@@ -19,28 +19,15 @@ namespace MunicipalityRegistry.Importer
         {
             try
             {
+                var options = new ImportOptions(
+                    args,
+                    errors => WaitForExit("Could not parse commandline options."));
                 var settings = new SettingsBasedConfig();
-                if (!settings.EndDateRecovery.HasValue && args.Contains("update", StringComparer.OrdinalIgnoreCase))//make sure to perform a clean start when beginning a new update run
-                    args = args.Concat(new[] { "-c" }).Distinct().ToArray();
-
-                var generator = new MunicipalityCommandGenerator();
 
                 MapLogging.Log = s => _commandCounter++;
 
-                var builder = new CommandProcessorBuilder<int>(generator)
-                    .UseCommandLineArgs(
-                        args,
-                        settings.LastRunDate,
-                        settings.EndDateRecovery,
-                        settings.TimeMargin,
-                        int.Parse,
-                        errors => WaitForExit("Could not parse commandline options."));
-
-                WaitForStart();
-
-                settings.EndDateRecovery = builder.Options.Until;
-
-                builder
+                var commandProcessor = new CommandProcessorBuilder<int>(new MunicipalityCommandGenerator())
+                    .WithCommandLineOptions(options.ImportArguments)
                     .UseSerilog(cfg => cfg
                         .WriteTo.File(
                             "tracing.log",
@@ -50,13 +37,14 @@ namespace MunicipalityRegistry.Importer
                             rollOnFileSizeLimit: true,
                             rollingInterval: RollingInterval.Day)
                         .WriteTo.Console(LogEventLevel.Information))
-                    .UseApiProxyFactory(new NonBatchedHttpApiProxyFactory(settings))
+                    .UseApiProxyFactory(logger => new NonBatchedHttpApiProxyFactory(logger, settings))
                     .UseCommandProcessorConfig(settings)
                     .UseDefaultSerializerSettingsForCrabImports()
-                    .BuildAndRun();
+                    .Build();
 
-                settings.LastRunDate = settings.EndDateRecovery;
-                settings.EndDateRecovery = null;
+                WaitForStart();
+
+                commandProcessor.Run(options, settings);
 
                 WaitForExit();
             }
