@@ -1,3 +1,5 @@
+## [2.3.4](https://github.com/informatievlaanderen/municipality-registry/compare/v2.3.3...v2.3.4) (2019-05-22)
+
 ## [2.3.3](https://github.com/informatievlaanderen/municipality-registry/compare/v2.3.2...v2.3.3) (2019-05-21)
 
 
