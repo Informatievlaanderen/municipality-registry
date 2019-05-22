@@ -215,7 +215,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                        x.Plan,
                        x.EventDataAsXml);
 
-                if(_embedObject)
+                if (_embedObject)
                     return x => new MunicipalitySyndicationQueryResult(
                         x.MunicipalityId,
                         x.Position,
