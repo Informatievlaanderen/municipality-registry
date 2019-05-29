@@ -8,6 +8,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
+    using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.CrabImport;
     using Configuration;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -142,7 +143,8 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
                     }
                 })
 
-                .UseIdempotencyDatabaseMigrations();
+                .UseIdempotencyDatabaseMigrations()
+                .UseCrabImportMigrations();
         }
 
         private static string GetApiLeadingText(ApiVersionDescription description)
