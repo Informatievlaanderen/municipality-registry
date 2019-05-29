@@ -6,6 +6,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.EventHandling.Autofac;
+    using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.CrabImport;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -47,7 +48,14 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
 
                 .RegisterModule(new EnvelopeModule())
 
-                .RegisterModule(new CommandHandlingModule(_configuration));
+                .RegisterModule(new CommandHandlingModule(_configuration))
+
+                .RegisterModule(new CrabImportModule(
+                    _services,
+                    _configuration.GetConnectionString("CrabImport"),
+                    Schema.Default,
+                    "__EFMigrationsHistoryCrabImport", // remove on upgrade to GrAr.Common 7.2, default HistoryTableName is set in package
+                    _loggerFactory));
 
             containerBuilder.Populate(_services);
         }

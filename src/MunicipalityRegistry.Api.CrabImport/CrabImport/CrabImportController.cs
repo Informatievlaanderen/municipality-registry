@@ -7,6 +7,8 @@ namespace MunicipalityRegistry.Api.CrabImport.CrabImport
     using Be.Vlaanderen.Basisregisters.Api.Exceptions;
     using Be.Vlaanderen.Basisregisters.CommandHandling;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
+    using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing;
+    using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.CrabImport;
     using Infrastructure;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -56,6 +58,24 @@ namespace MunicipalityRegistry.Api.CrabImport.CrabImport
                 commandId,
                 () => RegisterCrabImportRequestMapping.Map(registerCrabImport),
                 cancellationToken);
+        }
+
+        [HttpGet("batch/current")]
+        public IActionResult GetBatchStatus(
+            [FromServices] CrabImportContext context)
+        {
+            return Ok(context.LastBatch);
+        }
+
+        [HttpPost("batch/current")]
+        public IActionResult SetBatchStatus(
+            [FromServices] CrabImportContext context,
+            [FromBody] ImportBatchStatus batchStatus)
+        {
+            context.SetCurrent(batchStatus);
+            context.SaveChanges();
+
+            return Ok();
         }
     }
 
