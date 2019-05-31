@@ -1,3 +1,10 @@
+# [2.4.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.3.4...v2.4.0) (2019-05-31)
+
+
+### Features
+
+* update grar common dependency ([86e8094](https://github.com/informatievlaanderen/municipality-registry/commit/86e8094))
+
 ## [2.3.4](https://github.com/informatievlaanderen/municipality-registry/compare/v2.3.3...v2.3.4) (2019-05-22)
 
 ## [2.3.3](https://github.com/informatievlaanderen/municipality-registry/compare/v2.3.2...v2.3.3) (2019-05-21)
