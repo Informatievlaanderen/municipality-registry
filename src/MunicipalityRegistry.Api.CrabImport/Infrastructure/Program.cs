@@ -19,11 +19,12 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
                     {
                         Hosting =
                         {
-                            HttpPort = 1090,
-                            HttpsPort = 1444,
+                            HttpPort = 2000,
+                            HttpsPort = 2001,
                             HttpsCertificate = DevelopmentCertificate.ToCertificate
                         },
-                        Logging = {
+                        Logging =
+                        {
                             WriteTextToConsole = false,
                             WriteJsonToConsole = false
                         },

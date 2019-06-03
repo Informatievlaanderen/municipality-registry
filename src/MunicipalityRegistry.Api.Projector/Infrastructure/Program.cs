@@ -19,8 +19,8 @@ namespace MunicipalityRegistry.Api.Projector.Infrastructure
                     {
                         Hosting =
                         {
-                            HttpPort = 2090,
-                            HttpsPort = 2444,
+                            HttpPort = 2006,
+                            HttpsPort = 2007,
                             HttpsCertificate = DevelopmentCertificate.ToCertificate
                         },
                         Logging =

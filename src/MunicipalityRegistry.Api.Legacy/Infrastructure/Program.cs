@@ -19,8 +19,8 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
                     {
                         Hosting =
                         {
-                            HttpPort = 2090,
-                            HttpsPort = 2444,
+                            HttpPort = 2002,
+                            HttpsPort = 2003,
                             HttpsCertificate = DevelopmentCertificate.ToCertificate
                         },
                         Logging =
