@@ -1,3 +1,11 @@
+## [2.4.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.4.0...v2.4.1) (2019-06-03)
+
+
+### Bug Fixes
+
+* include init.sh files ([491f26a](https://github.com/informatievlaanderen/municipality-registry/commit/491f26a))
+* make municipality use containerid and correct ports ([eaf5cf6](https://github.com/informatievlaanderen/municipality-registry/commit/eaf5cf6))
+
 # [2.4.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.3.4...v2.4.0) (2019-05-31)
 
 
