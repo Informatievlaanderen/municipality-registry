@@ -54,7 +54,6 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
                     _services,
                     _configuration.GetConnectionString("CrabImport"),
                     Schema.Default,
-                    "__EFMigrationsHistoryCrabImport", // remove on upgrade to GrAr.Common 7.2, default HistoryTableName is set in package
                     _loggerFactory));
 
             containerBuilder.Populate(_services);
