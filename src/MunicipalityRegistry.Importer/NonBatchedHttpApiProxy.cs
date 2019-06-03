@@ -8,7 +8,7 @@ namespace MunicipalityRegistry.Importer
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.Api;
     using Newtonsoft.Json;
 
-    public class NonBatchedHttpApiProxy : HttpApiProxy
+    public class NonBatchedHttpApiProxy : HttpApiProxyBase
     {
         public NonBatchedHttpApiProxy(
             ILogger logger,
@@ -17,23 +17,23 @@ namespace MunicipalityRegistry.Importer
             : base(logger, serializer, config)
         { }
 
-        public new void ImportBatch<TKey>(IEnumerable<KeyImport<TKey>> imports)
+        public override void ImportBatch<TKey>(IEnumerable<KeyImport<TKey>> imports)
         {
-            Using(client =>
+            using (var client = CreateImportClient())
             {
                 foreach (var import in imports)
-                foreach (var command in import.Commands)
-                {
-                    client
-                        .PostAsync(
-                            Config.ImportEndpoint,
-                            CreateJsonContent(Serializer.Serialize(command))
-                        )
-                        .GetAwaiter()
-                        .GetResult()
-                        .EnsureSuccessStatusCode();
-                }
-            });
+                    foreach (var command in import.Commands)
+                    {
+                        client
+                            .PostAsync(
+                                Config.ImportEndpoint,
+                                CreateJsonContent(Serializer.Serialize(command))
+                            )
+                            .GetAwaiter()
+                            .GetResult()
+                            .EnsureSuccessStatusCode();
+                    }
+            }
         }
     }
 }
