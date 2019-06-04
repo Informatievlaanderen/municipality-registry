@@ -1,3 +1,18 @@
+# [2.5.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.4.1...v2.5.0) (2019-06-04)
+
+
+### Bug Fixes
+
+* update dependcies ([ee8e336](https://github.com/informatievlaanderen/municipality-registry/commit/ee8e336))
+* update grar common import to 7.2 ([ff2e839](https://github.com/informatievlaanderen/municipality-registry/commit/ff2e839))
+* use HttpApiProxyBase ([6dd911a](https://github.com/informatievlaanderen/municipality-registry/commit/6dd911a))
+* use updated command processor in Importer ([6686bef](https://github.com/informatievlaanderen/municipality-registry/commit/6686bef))
+
+
+### Features
+
+* setup crab import infrastructure ([1f22334](https://github.com/informatievlaanderen/municipality-registry/commit/1f22334))
+
 ## [2.4.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.4.0...v2.4.1) (2019-06-03)
 
 
