@@ -1,4 +1,3 @@
-
 using Microsoft.Extensions.Logging;
 
 namespace MunicipalityRegistry.Importer
@@ -22,17 +21,16 @@ namespace MunicipalityRegistry.Importer
             using (var client = CreateImportClient())
             {
                 foreach (var import in imports)
-                    foreach (var command in import.Commands)
-                    {
-                        client
-                            .PostAsync(
-                                Config.ImportEndpoint,
-                                CreateJsonContent(Serializer.Serialize(command))
-                            )
-                            .GetAwaiter()
-                            .GetResult()
-                            .EnsureSuccessStatusCode();
-                    }
+                foreach (var command in import.Commands)
+                {
+                    client
+                        .PostAsync(
+                            Config.ImportEndpoint,
+                            CreateJsonContent(Serializer.Serialize(command)))
+                        .GetAwaiter()
+                        .GetResult()
+                        .EnsureSuccessStatusCode();
+                }
             }
         }
     }
