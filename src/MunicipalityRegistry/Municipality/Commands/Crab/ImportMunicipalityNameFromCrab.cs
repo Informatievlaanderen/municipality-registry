@@ -44,13 +44,13 @@ namespace MunicipalityRegistry.Municipality.Commands.Crab
             => Deterministic.Create(Namespace, $"ImportMunicipalityNameFromCrab-{ToString()}");
 
         public override string ToString() =>
-            ToStringBuilder.ToString(IdentityFields());
+            ToStringBuilder.ToString(IdentityFields);
 
         private IEnumerable<object> IdentityFields()
         {
             yield return MunicipalityId;
             yield return MunicipalityName;
-            yield return Lifetime;
+            yield return Lifetime.BeginDateTime.Print();
             yield return Timestamp;
             yield return Operator;
             yield return Modification;
