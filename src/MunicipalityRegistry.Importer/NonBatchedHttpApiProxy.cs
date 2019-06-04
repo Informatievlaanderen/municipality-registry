@@ -1,10 +1,9 @@
-using Microsoft.Extensions.Logging;
-
 namespace MunicipalityRegistry.Importer
 {
     using System.Collections.Generic;
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing;
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.Api;
+    using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
 
     public class NonBatchedHttpApiProxy : HttpApiProxyBase
