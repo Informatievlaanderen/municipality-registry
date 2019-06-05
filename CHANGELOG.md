@@ -1,3 +1,11 @@
+## [2.5.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.5.0...v2.5.1) (2019-06-05)
+
+
+### Bug Fixes
+
+* revert - use only lifetime begindate in indentifiers ([5cb7209](https://github.com/informatievlaanderen/municipality-registry/commit/5cb7209))
+* use only lifetime begindate in indentifiers ([f53a152](https://github.com/informatievlaanderen/municipality-registry/commit/f53a152))
+
 # [2.5.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.4.1...v2.5.0) (2019-06-04)
 
 
