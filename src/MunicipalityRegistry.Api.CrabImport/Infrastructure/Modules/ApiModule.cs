@@ -40,8 +40,8 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
                 .RegisterModule(new IdempotencyModule(
                     _services,
                     _configuration.GetSection(IdempotencyConfiguration.Section).Get<IdempotencyConfiguration>().ConnectionString,
-                    new IdempotencyMigrationsTableInfo(Schema.Default),
-                    new IdempotencyTableInfo(Schema.Default),
+                    new IdempotencyMigrationsTableInfo(Schema.Import),
+                    new IdempotencyTableInfo(Schema.Import),
                     _loggerFactory))
 
                 .RegisterModule(new EventHandlingModule(typeof(DomainAssemblyMarker).Assembly, eventSerializerSettings))
@@ -53,7 +53,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
                 .RegisterModule(new CrabImportModule(
                     _services,
                     _configuration.GetConnectionString("CrabImport"),
-                    Schema.Default,
+                    Schema.Import,
                     _loggerFactory));
 
             containerBuilder.Populate(_services);
