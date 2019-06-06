@@ -64,7 +64,7 @@ namespace MunicipalityRegistry.Municipality.Commands.Crab
             yield return SecondaryLanguage;
             yield return FacilityLanguage;
             yield return Geometry;
-            yield return Lifetime;
+            yield return Lifetime.BeginDateTime.Print();
             yield return Timestamp;
             yield return Operator;
             yield return Modification;
