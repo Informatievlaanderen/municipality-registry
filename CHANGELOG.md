@@ -1,3 +1,10 @@
+## [2.5.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.5.1...v2.5.2) (2019-06-06)
+
+
+### Bug Fixes
+
+* fix failing test in commit f53a15 ([5ff1577](https://github.com/informatievlaanderen/municipality-registry/commit/5ff1577))
+
 ## [2.5.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.5.0...v2.5.1) (2019-06-05)
 
 
