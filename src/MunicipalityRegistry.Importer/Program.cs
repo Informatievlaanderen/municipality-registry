@@ -2,7 +2,6 @@ namespace MunicipalityRegistry.Importer
 {
     using System;
     using System.Diagnostics;
-    using System.Linq;
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing;
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.CommandLine;
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.Serilog;
