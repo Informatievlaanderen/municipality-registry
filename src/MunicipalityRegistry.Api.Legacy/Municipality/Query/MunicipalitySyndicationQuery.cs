@@ -33,7 +33,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         public string NameGerman { get; }
         public string NameEnglish { get; }
         public Organisation? Organisation { get; }
-        public Plan? Plan { get; }
+        public string Reason { get; }
         public string EventDataAsXml { get; }
 
         public MunicipalitySyndicationQueryResult(
@@ -44,7 +44,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
             Instant recordCreatedAt,
             Instant lastChangedOn,
             Organisation? organisation,
-            Plan? plan)
+            string reason)
         {
             ContainsEvent = false;
             ContainsObject = false;
@@ -56,7 +56,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
             RecordCreatedAt = recordCreatedAt;
             LastChangedOn = lastChangedOn;
             Organisation = organisation;
-            Plan = plan;
+            Reason = reason;
         }
 
         public MunicipalitySyndicationQueryResult(
@@ -67,7 +67,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
             Instant recordCreatedAt,
             Instant lastChangedOn,
             Organisation? organisation,
-            Plan? plan,
+            string reason,
             string eventDataAsXml)
             : this(municipalityId,
                 position,
@@ -76,7 +76,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                 recordCreatedAt,
                 lastChangedOn,
                 organisation,
-                plan)
+                reason)
         {
             ContainsEvent = true;
             EventDataAsXml = eventDataAsXml;
@@ -98,7 +98,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
             string nameGerman,
             string nameEnglish,
             Organisation? organisation,
-            Plan? plan) :
+            string reason) :
             this(
                 municipalityId,
                 position,
@@ -107,7 +107,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                 recordCreatedAt,
                 lastChangedOn,
                 organisation,
-                plan)
+                reason)
         {
             ContainsObject = true;
 
@@ -137,7 +137,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
             string nameGerman,
             string nameEnglish,
             Organisation? organisation,
-            Plan? plan,
+            string reason,
             string eventDataAsXml) :
             this(
                 municipalityId,
@@ -155,7 +155,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                 nameGerman,
                 nameEnglish,
                 organisation,
-                plan)
+                reason)
         {
             ContainsEvent = true;
 
@@ -200,7 +200,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                         x.NameGerman,
                         x.NameEnglish,
                         x.Organisation,
-                        x.Plan,
+                        x.Reason,
                         x.EventDataAsXml);
 
                 if (_embedEvent)
@@ -212,7 +212,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                        x.RecordCreatedAt,
                        x.LastChangedOn,
                        x.Organisation,
-                       x.Plan,
+                       x.Reason,
                        x.EventDataAsXml);
 
                 if (_embedObject)
@@ -232,7 +232,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                         x.NameGerman,
                         x.NameEnglish,
                         x.Organisation,
-                        x.Plan);
+                        x.Reason);
 
                 return x => new MunicipalitySyndicationQueryResult(
                     x.MunicipalityId,
@@ -242,7 +242,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                     x.RecordCreatedAt,
                     x.LastChangedOn,
                     x.Organisation,
-                    x.Plan);
+                    x.Reason);
             }
         }
 

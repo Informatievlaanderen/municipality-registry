@@ -64,7 +64,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
             item.Modification = provenance.Modification;
             item.Operator = provenance.Operator;
             item.Organisation = provenance.Organisation;
-            item.Plan = provenance.Plan;
+            item.Reason = provenance.Reason;
         }
 
         public static void SetEventData<T>(this MunicipalitySyndicationItem syndicationItem, T message)

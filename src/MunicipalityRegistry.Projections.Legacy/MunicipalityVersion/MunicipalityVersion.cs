@@ -35,7 +35,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
         public Modification? Modification { get; set; }
         public string Operator { get; set; }
         public Organisation? Organisation { get; set; }
-        public Plan? Plan { get; set; }
+        public string Reason { get; set; }
 
         public MunicipalityVersion CloneAndApplyEventInfo(
             long newPosition,
@@ -64,7 +64,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
                 Modification = Modification,
                 Operator = Operator,
                 Organisation = Organisation,
-                Plan = Plan
+                Reason = Reason
             };
 
             editFunc(newItem);
@@ -104,7 +104,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
             builder.Property(x => x.Modification);
             builder.Property(x => x.Operator);
             builder.Property(x => x.Organisation);
-            builder.Property(x => x.Plan);
+            builder.Property(x => x.Reason);
 
             builder.Ignore(x => x.VersionTimestamp);
             builder.Ignore(x => x.OfficialLanguages);
