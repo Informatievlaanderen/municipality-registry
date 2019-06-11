@@ -58,7 +58,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
         {
             municipalityVersion.Organisation = provenance.Organisation;
             municipalityVersion.Application = provenance.Application;
-            municipalityVersion.Plan = provenance.Plan;
+            municipalityVersion.Reason = provenance.Reason;
             municipalityVersion.Modification = provenance.Modification;
             municipalityVersion.Operator = provenance.Operator;
             municipalityVersion.VersionTimestamp = provenance.Timestamp;

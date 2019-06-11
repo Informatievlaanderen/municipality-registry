@@ -100,7 +100,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                     municipality.NameEnglish,
                     municipality.LastChangedOn.ToBelgianDateTimeOffset(),
                     municipality.Organisation,
-                    municipality.Plan);
+                    municipality.Reason);
             }
 
             if (municipality.ContainsEvent)
@@ -182,7 +182,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
             string nameEnglish,
             DateTimeOffset version,
             Organisation? organisation,
-            Plan? plan)
+            string reason)
         {
             MunicipalityId = municipalityId;
             Identificator = new Identificator(naamruimte, nisCode, version);
@@ -200,7 +200,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
 
             MunicipalityNames = gemeenteNamen.Where(x => !string.IsNullOrEmpty(x.Spelling)).ToList();
 
-            Provenance = new Provenance(organisation, plan);
+            Provenance = new Provenance(organisation, new Reason(reason));
         }
     }
 

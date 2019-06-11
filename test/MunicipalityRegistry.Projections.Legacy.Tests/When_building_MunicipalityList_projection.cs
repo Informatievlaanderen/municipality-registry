@@ -26,7 +26,7 @@ namespace MunicipalityRegistry.Projections.Legacy.Tests
         private readonly Provenance _provenance = new Provenance(
             Instant.FromDateTimeOffset(new DateTimeOffset(new DateTime(2019, 10, 23, 14, 25, 34))),
             Application.BPost,
-            Plan.CentralManagementCrab,
+            Reason.CentralManagementCrab,
             new Operator("test"),
             Modification.Update,
             Organisation.Aiv);
