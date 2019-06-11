@@ -1,3 +1,15 @@
+# [2.6.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.5.2...v2.6.0) (2019-06-11)
+
+
+### Bug Fixes
+
+* correct sync example ([0261c04](https://github.com/informatievlaanderen/municipality-registry/commit/0261c04))
+
+
+### Features
+
+* upgrade provenance package Plan -> Reason ([a300071](https://github.com/informatievlaanderen/municipality-registry/commit/a300071))
+
 ## [2.5.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.5.1...v2.5.2) (2019-06-06)
 
 
