@@ -245,12 +245,12 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
 <![CDATA[<Content xmlns:i=""http://www.w3.org/2001/XMLSchema-instance"">
 <Event>
     <MunicipalityWasRegistered>
-    <MunicipalityId>3793d1d5-6eb4-580c-b1db-37a8c5f43ca7</MunicipalityId><NisCode>23101</NisCode><Provenance><Timestamp>2002-08-13T15:32:32Z</Timestamp><Modification>Insert</Modification><Organisation>Ngi</Organisation><Plan>CentralManagementCrab</Plan></Provenance>
+    <MunicipalityId>3793d1d5-6eb4-580c-b1db-37a8c5f43ca7</MunicipalityId><NisCode>23101</NisCode><Provenance><Timestamp>2002-08-13T15:32:32Z</Timestamp><Modification>Insert</Modification><Organisation>Ngi</Organisation><Reden>CentralManagementCrab</Reden></Provenance>
     </MunicipalityWasRegistered>
 </Event>
 <Object>
     <Id>3793d1d5-6eb4-580c-b1db-37a8c5f43ca7</Id>
-    <Identificator><Id>http://data.vlaanderen.be/id/gemeente/23101</Id><Naamruimte>http://data.vlaanderen.be/id/gemeente</Naamruimte><ObjectId>23101</ObjectId><VersieId>2002-08-13T17:32:32+02:00</VersieId></Identificator><OfficieleTalen /><FaciliteitenTalen /><Gemeentenamen /><GemeenteStatus i:nil=""true"" /><Creatie><Organisatie>Nationaal Geografisch Instituut</Organisatie><Plan>Centrale bijhouding CRAB</Plan></Creatie>
+    <Identificator><Id>http://data.vlaanderen.be/id/gemeente/23101</Id><Naamruimte>http://data.vlaanderen.be/id/gemeente</Naamruimte><ObjectId>23101</ObjectId><VersieId>2002-08-13T17:32:32+02:00</VersieId></Identificator><OfficieleTalen /><FaciliteitenTalen /><Gemeentenamen /><GemeenteStatus i:nil=""true"" /><Creatie><Organisatie>Nationaal Geografisch Instituut</Organisatie><Reden>Centrale bijhouding CRAB</Reden></Creatie>
 </Object>
 </Content>]]>
       </content>
