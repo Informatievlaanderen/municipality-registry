@@ -1,8 +1,8 @@
 type file
 version 1.0.0
 
-id Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Projector
-title Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Projector
+id Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Projector
+title Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Projector
 
 authors Basisregisters Vlaanderen
 owners agentschap Informatie Vlaanderen <https://vlaanderen.be/informatie-vlaanderen>
@@ -22,7 +22,7 @@ dependencies
     Be.Vlaanderen.Basisregisters.Projector ~> 3.1
 
 files
-  MunicipalityRegistry.Api.Projector.dll => lib\netcoreapp2.2
-  MunicipalityRegistry.Api.Projector.pdb => lib\netcoreapp2.2
-  MunicipalityRegistry.Api.Projector.xml => lib\netcoreapp2.2
-  MunicipalityRegistry.Api.Projector.xml => content
+  MunicipalityRegistry.Projector.dll => lib\netcoreapp2.2
+  MunicipalityRegistry.Projector.pdb => lib\netcoreapp2.2
+  MunicipalityRegistry.Projector.xml => lib\netcoreapp2.2
+  MunicipalityRegistry.Projector.xml => content

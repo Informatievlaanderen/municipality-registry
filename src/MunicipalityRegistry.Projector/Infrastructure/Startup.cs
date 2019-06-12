@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Projector.Infrastructure
+namespace MunicipalityRegistry.Projector.Infrastructure
 {
     using System;
     using System.Linq;

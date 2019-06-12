@@ -155,7 +155,7 @@
       },
       {
         "path": "@semantic-release/exec",
-        "cmd": "node packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-nuget.js dist/nuget/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Projector.${nextRelease.version}.nupkg"
+        "cmd": "node packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-nuget.js dist/nuget/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Projector.${nextRelease.version}.nupkg"
       },
       {
         "path": "@semantic-release/exec",
