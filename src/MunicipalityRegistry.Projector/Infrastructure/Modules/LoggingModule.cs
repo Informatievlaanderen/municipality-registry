@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Projector.Infrastructure.Modules
+namespace MunicipalityRegistry.Projector.Infrastructure.Modules
 {
     using System;
     using Autofac;

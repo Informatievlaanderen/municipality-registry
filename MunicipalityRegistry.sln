@@ -43,7 +43,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MunicipalityRegistry.Projec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MunicipalityRegistry.Api.Extract", "src\MunicipalityRegistry.Api.Extract\MunicipalityRegistry.Api.Extract.csproj", "{490AEAC8-8262-4115-99F4-4EF2DE2EB780}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MunicipalityRegistry.Api.Projector", "src\MunicipalityRegistry.Api.Projector\MunicipalityRegistry.Api.Projector.csproj", "{058187CF-C83C-4A4B-A9F0-EAE811F2F199}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MunicipalityRegistry.Projector", "src\MunicipalityRegistry.Projector\MunicipalityRegistry.Projector.csproj", "{058187CF-C83C-4A4B-A9F0-EAE811F2F199}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "adr", "adr", "{32B5DF70-E927-4C77-B47E-0AF9D239586C}"
 	ProjectSection(SolutionItems) = preProject

@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Projector.Infrastructure.Configuration
+namespace MunicipalityRegistry.Projector.Infrastructure.Configuration
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;

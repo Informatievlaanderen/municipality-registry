@@ -66,7 +66,7 @@ Target "Test_Solution" (fun _ -> test "MunicipalityRegistry")
 
 Target "Publish_Solution" (fun _ ->
   [
-    "MunicipalityRegistry.Api.Projector"
+    "MunicipalityRegistry.Projector"
     "MunicipalityRegistry.Api.Legacy"
     "MunicipalityRegistry.Api.Extract"
     "MunicipalityRegistry.Api.CrabImport"
@@ -77,13 +77,13 @@ Target "Publish_Solution" (fun _ ->
 
 Target "Pack_Solution" (fun _ ->
   [
-    "MunicipalityRegistry.Api.Projector"
+    "MunicipalityRegistry.Projector"
     "MunicipalityRegistry.Api.Legacy"
     "MunicipalityRegistry.Api.Extract"
     "MunicipalityRegistry.Api.CrabImport"
   ] |> List.iter pack)
 
-Target "Containerize_ApiProjector" (fun _ -> containerize "MunicipalityRegistry.Api.Projector" "api-projector")
+Target "Containerize_ApiProjector" (fun _ -> containerize "MunicipalityRegistry.Projector" "api-projector")
 Target "PushContainer_ApiProjector" (fun _ -> push "api-projector")
 
 Target "Containerize_ApiLegacy" (fun _ -> containerize "MunicipalityRegistry.Api.Legacy" "api-legacy")

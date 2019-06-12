@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Projector.Projections
+namespace MunicipalityRegistry.Projector.Projections
 {
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.Projector.ConnectedProjections;

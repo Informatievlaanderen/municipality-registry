@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Projector.Infrastructure
+namespace MunicipalityRegistry.Projector.Infrastructure
 {
     using Be.Vlaanderen.Basisregisters.Api;
     using Microsoft.AspNetCore.Hosting;
