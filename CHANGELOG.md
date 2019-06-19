@@ -1,3 +1,12 @@
+## [2.6.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.6.1...v2.6.2) (2019-06-19)
+
+
+### Bug Fixes
+
+* set crab import api endpoint port ([4b4a81a](https://github.com/informatievlaanderen/municipality-registry/commit/4b4a81a))
+* update GrAr common to lastest fix ([3f48235](https://github.com/informatievlaanderen/municipality-registry/commit/3f48235))
+* upgrade  grar-common to 9.0 ([c14ff71](https://github.com/informatievlaanderen/municipality-registry/commit/c14ff71))
+
 ## [2.6.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.6.0...v2.6.1) (2019-06-12)
 
 # [2.6.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.5.2...v2.6.0) (2019-06-11)
