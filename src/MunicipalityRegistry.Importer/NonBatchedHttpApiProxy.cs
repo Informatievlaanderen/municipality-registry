@@ -1,3 +1,5 @@
+using System.Reflection;
+
 namespace MunicipalityRegistry.Importer
 {
     using System.Collections.Generic;
@@ -8,11 +10,13 @@ namespace MunicipalityRegistry.Importer
 
     public class NonBatchedHttpApiProxy : HttpApiProxyBase
     {
+        private static readonly ImportFeed Feed = (ImportFeed)Assembly.GetExecutingAssembly().GetName().Name;
+
         public NonBatchedHttpApiProxy(
             ILogger logger,
             JsonSerializer serializer,
             IHttpApiProxyConfig config)
-            : base(logger, serializer, config)
+            : base(logger, serializer, config, Feed)
         { }
 
         public override void ImportBatch<TKey>(IEnumerable<KeyImport<TKey>> imports)
