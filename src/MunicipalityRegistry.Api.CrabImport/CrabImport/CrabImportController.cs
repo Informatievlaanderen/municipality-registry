@@ -8,6 +8,7 @@ namespace MunicipalityRegistry.Api.CrabImport.CrabImport
     using Be.Vlaanderen.Basisregisters.CommandHandling;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing;
+    using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.Api.Messages;
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.CrabImport;
     using Infrastructure;
     using Microsoft.AspNetCore.Http;
@@ -60,17 +61,19 @@ namespace MunicipalityRegistry.Api.CrabImport.CrabImport
                 cancellationToken);
         }
 
-        [HttpGet("batch/current")]
+        [HttpGet("batch/{feed}")]
         public IActionResult GetBatchStatus(
-            [FromServices] CrabImportContext context)
+            [FromServices] CrabImportContext context,
+            [FromRoute] string feed)
         {
-            return Ok(context.LastBatch);
+            var status = context.LastBatchFor((ImportFeed)feed);
+            return Ok(status);
         }
 
-        [HttpPost("batch/current")]
+        [HttpPost("batch")]
         public IActionResult SetBatchStatus(
             [FromServices] CrabImportContext context,
-            [FromBody] ImportBatchStatus batchStatus)
+            [FromBody] BatchStatusUpdate batchStatus)
         {
             context.SetCurrent(batchStatus);
             context.SaveChanges();
