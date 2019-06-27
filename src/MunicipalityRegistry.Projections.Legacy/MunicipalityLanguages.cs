@@ -5,8 +5,8 @@ namespace MunicipalityRegistry.Projections.Legacy
 
     public class MunicipalityLanguagesBase
     {
-        public static string OfficialLanguagesBackingPropertyName = nameof(OfficialLanguagesAsString);
-        public static string FacilitiesLanguagesBackingPropertyName = nameof(FacilitiesLanguagesAsString);
+        public const string OfficialLanguagesBackingPropertyName = nameof(OfficialLanguagesAsString);
+        public const string FacilitiesLanguagesBackingPropertyName = nameof(FacilitiesLanguagesAsString);
 
         public IReadOnlyCollection<Language> OfficialLanguages
         {
