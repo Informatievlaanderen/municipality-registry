@@ -1,3 +1,11 @@
+## [2.6.4](https://github.com/informatievlaanderen/municipality-registry/compare/v2.6.3...v2.6.4) (2019-06-28)
+
+
+### Bug Fixes
+
+* reference correct packages for documentation ([0fcc434](https://github.com/informatievlaanderen/municipality-registry/commit/0fcc434))
+* reference correct packages for documentation ([7b915b7](https://github.com/informatievlaanderen/municipality-registry/commit/7b915b7))
+
 ## [2.6.3](https://github.com/informatievlaanderen/municipality-registry/compare/v2.6.2...v2.6.3) (2019-06-27)
 
 ## [2.6.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.6.1...v2.6.2) (2019-06-19)
