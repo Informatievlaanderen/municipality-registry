@@ -16,7 +16,7 @@ description Municipality Registry.
 
 dependencies
   framework: netstandard20
-    Be.Vlaanderen.Basisregisters.GrAr.Legacy ~> 10.0
+    Be.Vlaanderen.Basisregisters.GrAr.Legacy >= LOCKEDVERSION
 
 files
   MunicipalityRegistry.Api.Legacy.dll => lib\netcoreapp2.2

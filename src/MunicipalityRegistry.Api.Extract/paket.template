@@ -16,7 +16,7 @@ description Municipality Registry.
 
 dependencies
   framework: netstandard20
-    Be.Vlaanderen.Basisregisters.Shaperon ~> 4.0
+    Be.Vlaanderen.Basisregisters.Shaperon >= LOCKEDVERSION
 
 files
   MunicipalityRegistry.Api.Extract.dll => lib\netcoreapp2.2
