@@ -1,3 +1,10 @@
+# [2.7.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.6.4...v2.7.0) (2019-07-05)
+
+
+### Features
+
+* upgrade Be.Vlaanderen.Basisregisters.Api ([63fcab9](https://github.com/informatievlaanderen/municipality-registry/commit/63fcab9))
+
 ## [2.6.4](https://github.com/informatievlaanderen/municipality-registry/compare/v2.6.3...v2.6.4) (2019-06-28)
 
 
