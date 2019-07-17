@@ -1,3 +1,10 @@
+## [2.7.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.7.0...v2.7.1) (2019-07-17)
+
+
+### Bug Fixes
+
+* do not hardcode logging to console ([d6dcfa8](https://github.com/informatievlaanderen/municipality-registry/commit/d6dcfa8))
+
 # [2.7.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.6.4...v2.7.0) (2019-07-05)
 
 
