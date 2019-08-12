@@ -194,6 +194,13 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
                     },
                     ct);
             });
+
+            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
         }
 
         private static void UpdateNameByLanguage(MunicipalityListItem municipalityListItem, Language? language, string name)
@@ -242,5 +249,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
 
         private static void UpdateVersionTimestamp(MunicipalityListItem municipalityListItem, Instant timestamp)
             => municipalityListItem.VersionTimestamp = timestamp;
+
+        private static void DoNothing() { }
     }
 }

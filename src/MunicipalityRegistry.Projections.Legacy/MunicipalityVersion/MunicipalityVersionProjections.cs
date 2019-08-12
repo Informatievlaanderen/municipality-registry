@@ -150,6 +150,13 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
                     version => version.Status = MunicipalityStatus.Retired,
                     ct);
             });
+
+            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
         }
 
         private static void SetName(MunicipalityVersion municipality, Language language, string name)
@@ -193,5 +200,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
                     throw new ArgumentOutOfRangeException(nameof(language), language, null);
             }
         }
+
+        private static void DoNothing() { }
     }
 }

@@ -98,6 +98,21 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
                     },
                     ct);
             });
+
+            When<Envelope<MunicipalityBecameCurrent>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityWasRetired>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityWasCorrectedToRetired>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityWasCorrectedToCurrent>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
         }
 
         private static void UpdateNameByLanguage(MunicipalityName municipalityName, Language language, string name)
@@ -128,5 +143,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
 
         private static void UpdateVersionTimestamp(MunicipalityName municipalityNameItem, Instant versionTimestamp)
             => municipalityNameItem.VersionTimestamp = versionTimestamp;
+
+        private static void DoNothing() { }
     }
 }
