@@ -1,3 +1,10 @@
+## [2.8.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.8.0...v2.8.1) (2019-08-12)
+
+
+### Bug Fixes
+
+* force build ([25541ba](https://github.com/informatievlaanderen/municipality-registry/commit/25541ba))
+
 # [2.8.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.7.2...v2.8.0) (2019-08-12)
 
 
