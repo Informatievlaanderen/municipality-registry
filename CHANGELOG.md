@@ -1,3 +1,10 @@
+# [2.8.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.7.2...v2.8.0) (2019-08-12)
+
+
+### Features
+
+* add missing event handlers where nothing was expected [#27](https://github.com/informatievlaanderen/municipality-registry/issues/27) ([2d0f439](https://github.com/informatievlaanderen/municipality-registry/commit/2d0f439))
+
 ## [2.7.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.7.1...v2.7.2) (2019-08-09)
 
 ## [2.7.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.7.0...v2.7.1) (2019-07-17)
