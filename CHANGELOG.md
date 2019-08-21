@@ -1,3 +1,10 @@
+# [2.9.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.8.1...v2.9.0) (2019-08-21)
+
+
+### Features
+
+* use new tracing with parent span support ([f56604f](https://github.com/informatievlaanderen/municipality-registry/commit/f56604f))
+
 ## [2.8.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.8.0...v2.8.1) (2019-08-12)
 
 
