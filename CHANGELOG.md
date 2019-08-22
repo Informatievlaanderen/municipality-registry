@@ -1,3 +1,12 @@
+## [2.9.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.9.0...v2.9.1) (2019-08-22)
+
+
+### Bug Fixes
+
+* bosa empty body does not crash anymore GR-855 ([2bed0cb](https://github.com/informatievlaanderen/municipality-registry/commit/2bed0cb))
+* bosa exact filter takes exact name into account ([10e6728](https://github.com/informatievlaanderen/municipality-registry/commit/10e6728))
+* return empty response when request has invalid data GR-856 ([d32016d](https://github.com/informatievlaanderen/municipality-registry/commit/d32016d))
+
 # [2.9.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.8.1...v2.9.0) (2019-08-21)
 
 
