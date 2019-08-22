@@ -201,11 +201,11 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
 
         public MunicipalityNameFilter(BosaMunicipalityRequest request)
         {
-            NisCode = request.GemeenteCode?.ObjectId;
-            Version = request.GemeenteCode?.VersieId;
-            Name = request.Gemeentenaam?.Spelling;
-            Language = (Language?) request.Gemeentenaam?.Taal;
-            IsContainsFilter = (request.Gemeentenaam?.SearchType ?? BosaSearchType.Bevat) == BosaSearchType.Bevat;
+            NisCode = request?.GemeenteCode?.ObjectId;
+            Version = request?.GemeenteCode?.VersieId;
+            Name = request?.Gemeentenaam?.Spelling;
+            Language = (Language?) request?.Gemeentenaam?.Taal;
+            IsContainsFilter = (request?.Gemeentenaam?.SearchType ?? BosaSearchType.Bevat) == BosaSearchType.Bevat;
         }
     }
 }
