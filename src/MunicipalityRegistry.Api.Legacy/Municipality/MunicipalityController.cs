@@ -198,6 +198,9 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             [FromBody] BosaMunicipalityRequest request,
             CancellationToken cancellationToken = default)
         {
+            if (Request.ContentLength.HasValue && Request.ContentLength > 0 && request == null)
+                return Ok(new MunicipalityBosaResponse());
+
             var filtering = new MunicipalityNameFilter(request);
             var sorting = new SortingHeader(string.Empty, SortOrder.Ascending);
             var pagination = new PaginationRequest(0, 1000);
