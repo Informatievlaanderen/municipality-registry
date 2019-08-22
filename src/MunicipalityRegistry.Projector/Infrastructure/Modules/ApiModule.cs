@@ -13,6 +13,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
     using MunicipalityRegistry.Infrastructure;
     using MunicipalityRegistry.Projections.Extract;
     using MunicipalityRegistry.Projections.Extract.MunicipalityExtract;
@@ -82,7 +83,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                     _configuration,
                     _loggerFactory)
                 .RegisterProjections<MunicipalityExtractProjections, ExtractContext>(
-                    () => new MunicipalityExtractProjections(DbaseCodePage.Western_European_ANSI.ToEncoding()));
+                    context => new MunicipalityExtractProjections(context.Resolve<IOptions<ExtractConfig>>(), DbaseCodePage.Western_European_ANSI.ToEncoding()));
         }
 
         private void RegisterLastChangedProjections(ContainerBuilder builder)

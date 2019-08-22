@@ -101,7 +101,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                                     tags: new[] {DatabaseTag, "sql", "sqlserver"});
                             }
                         }
-                    });
+                    })
+                .Configure<ExtractConfig>(_configuration.GetSection("Extract"));
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new LoggingModule(_configuration, services));

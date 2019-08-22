@@ -8,18 +8,20 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
     using System;
     using System.Linq;
     using System.Text;
+    using Microsoft.Extensions.Options;
 
     public class MunicipalityExtractProjections : ConnectedProjection<ExtractContext>
     {
-        // TODO: Probably need to get these from enums and data vlaanderen from config
+        // TODO: Probably need to get these from enums from config
         private const string InUse = "InGebruik";
         private const string Retired = "Gehistoreerd";
-        private const string IdUri = "https://data.vlaanderen.be/id/gemeente";
 
+        private readonly ExtractConfig _extractConfig;
         private readonly Encoding _encoding;
 
-        public MunicipalityExtractProjections(Encoding encoding)
+        public MunicipalityExtractProjections(IOptions<ExtractConfig> extractConfig, Encoding encoding)
         {
+            _extractConfig = extractConfig.Value;
             _encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
 
             When<Envelope<MunicipalityWasRegistered>>(async (context, message, ct) =>
@@ -33,7 +35,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                         DbaseRecord = new MunicipalityDbaseRecord
                         {
                             gemeenteid = { Value = message.Message.NisCode },
-                            id = { Value = $"{IdUri}/{message.Message.NisCode}" },
+                            id = { Value = $"{_extractConfig.DataVlaanderenNamespace}/{message.Message.NisCode}" },
                             versieid = { Value = message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset().DateTime }
                         }.ToBytes(_encoding)
                     }, ct);
@@ -249,7 +251,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
         private void UpdateId(MunicipalityExtractItem municipality, string id)
             => UpdateRecord(municipality, record =>
             {
-                record.id.Value = $"{IdUri}/{id}";
+                record.id.Value = $"{_extractConfig.DataVlaanderenNamespace}/{id}";
                 record.gemeenteid.Value = id;
             });
 
