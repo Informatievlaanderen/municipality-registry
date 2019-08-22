@@ -1,3 +1,10 @@
+# [2.11.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.10.0...v2.11.0) (2019-08-22)
+
+
+### Features
+
+* bump to .net 2.2.6 ([586fd3e](https://github.com/informatievlaanderen/municipality-registry/commit/586fd3e))
+
 # [2.10.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.9.1...v2.10.0) (2019-08-22)
 
 
