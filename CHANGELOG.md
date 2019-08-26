@@ -1,3 +1,10 @@
+## [2.11.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.1...v2.11.2) (2019-08-26)
+
+
+### Bug Fixes
+
+* use fixed datadog tracing ([8c0d6ae](https://github.com/informatievlaanderen/municipality-registry/commit/8c0d6ae))
+
 ## [2.11.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.0...v2.11.1) (2019-08-26)
 
 
