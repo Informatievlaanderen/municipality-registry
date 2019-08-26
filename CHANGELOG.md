@@ -1,3 +1,11 @@
+## [2.11.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.0...v2.11.1) (2019-08-26)
+
+
+### Bug Fixes
+
+* fix swagger ([ecc4ccf](https://github.com/informatievlaanderen/municipality-registry/commit/ecc4ccf))
+* fix typescript code generation ([32de48b](https://github.com/informatievlaanderen/municipality-registry/commit/32de48b))
+
 # [2.11.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.10.0...v2.11.0) (2019-08-22)
 
 
