@@ -154,7 +154,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
                         },
                         TypeScriptClientOptions =
                         {
-                            ClassName = "MunicipalityRegistry"
+                            ClassName = "MunicipalityRegistryCrabImport"
                         }
                     },
                     MiddlewareHooks =

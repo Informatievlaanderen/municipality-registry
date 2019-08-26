@@ -150,7 +150,7 @@ namespace MunicipalityRegistry.Api.Extract.Infrastructure
                         },
                         TypeScriptClientOptions =
                         {
-                            ClassName = "MunicipalityRegistry"
+                            ClassName = "MunicipalityRegistryExtract"
                         }
                     },
                     MiddlewareHooks =

@@ -165,7 +165,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                         },
                         TypeScriptClientOptions =
                         {
-                            ClassName = "MunicipalityRegistry"
+                            ClassName = "MunicipalityRegistryProjector"
                         }
                     },
                     MiddlewareHooks =
