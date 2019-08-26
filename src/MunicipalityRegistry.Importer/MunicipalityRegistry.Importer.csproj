@@ -506,7 +506,7 @@
     <When Condition="($(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2') Or ($(TargetFrameworkIdentifier) == '.NETCoreApp' And $(TargetFrameworkVersion) == 'v2.2') Or ($(TargetFrameworkIdentifier) == '.NETStandard' And $(TargetFrameworkVersion) == 'v2.0')">
       <ItemGroup>
         <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
-          <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.Abstractions\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+          <HintPath>..\..\packages\Microsoft.Extensions.Dependencyinjection.Abstractions\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

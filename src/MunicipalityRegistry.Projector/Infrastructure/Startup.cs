@@ -157,7 +157,16 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                     Api =
                     {
                         VersionProvider = apiVersionProvider,
-                        Info = groupName => $"Basisregisters Vlaanderen - Municipality Registry API {groupName}"
+                        Info = groupName => $"Basisregisters Vlaanderen - Municipality Registry API {groupName}",
+                        CSharpClientOptions =
+                        {
+                            ClassName = "MunicipalityRegistryProjector",
+                            Namespace = "Be.Vlaanderen.Basisregisters"
+                        },
+                        TypeScriptClientOptions =
+                        {
+                            ClassName = "MunicipalityRegistry"
+                        }
                     },
                     MiddlewareHooks =
                     {
