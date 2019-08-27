@@ -1,3 +1,10 @@
+## [2.11.4](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.3...v2.11.4) (2019-08-27)
+
+
+### Bug Fixes
+
+* make datadog tracing check more for nulls ([b56eb93](https://github.com/informatievlaanderen/municipality-registry/commit/b56eb93))
+
 ## [2.11.3](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.2...v2.11.3) (2019-08-27)
 
 
