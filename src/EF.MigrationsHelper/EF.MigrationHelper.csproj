@@ -26,7 +26,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MunicipalityRegistry.Projections.Extract\MunicipalityRegistry.Projections.Extract.csproj" />
+    <ProjectReference Include="..\MunicipalityRegistry.Projections.LastChangedList\MunicipalityRegistry.Projections.LastChangedList.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Projections.Legacy\MunicipalityRegistry.Projections.Legacy.csproj" />
+    <ProjectReference Include="..\MunicipalityRegistry.Projector\MunicipalityRegistry.Projector.csproj" />
   </ItemGroup>
 
   <Import Project="..\..\.paket\Paket.Restore.targets" />
