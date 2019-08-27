@@ -1,3 +1,11 @@
+## [2.11.3](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.2...v2.11.3) (2019-08-27)
+
+
+### Bug Fixes
+
+* use new desiredstate columns for extract projections ([2268f95](https://github.com/informatievlaanderen/municipality-registry/commit/2268f95))
+* use new desiredstate columns for legacy projections ([fe6ee2d](https://github.com/informatievlaanderen/municipality-registry/commit/fe6ee2d))
+
 ## [2.11.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.1...v2.11.2) (2019-08-26)
 
 
