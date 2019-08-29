@@ -1,3 +1,10 @@
+## [2.11.5](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.4...v2.11.5) (2019-08-29)
+
+
+### Bug Fixes
+
+* use columnstore for legacy syndication ([a03ac01](https://github.com/informatievlaanderen/municipality-registry/commit/a03ac01))
+
 ## [2.11.4](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.3...v2.11.4) (2019-08-27)
 
 
