@@ -11,7 +11,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
     /// </summary>
     public class MunicipalityName
     {
-        public static string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
+        public const string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
 
         public Guid MunicipalityId { get; set; }
         public string NisCode { get; set; }

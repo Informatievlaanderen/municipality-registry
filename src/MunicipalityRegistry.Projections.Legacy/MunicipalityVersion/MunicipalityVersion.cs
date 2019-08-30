@@ -9,7 +9,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
 
     public class MunicipalityVersion : MunicipalityLanguagesBase
     {
-        public static string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
+        public const string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
 
         public Guid? MunicipalityId { get; set; }
         public string NisCode { get; set; }

@@ -9,7 +9,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
 
     public class MunicipalityExtractItem
     {
-        public static string OfficialLanguagesBackingPropertyName = nameof(OfficialLanguagesAsString);
+        public const string OfficialLanguagesBackingPropertyName = nameof(OfficialLanguagesAsString);
 
         public Guid? MunicipalityId { get; set; }
         public string NisCode { get; set; }
@@ -51,7 +51,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
 
     public class MunicipalityExtractItemConfiguration : IEntityTypeConfiguration<MunicipalityExtractItem>
     {
-        public const string TableName = "Municipality";
+        private const string TableName = "Municipality";
 
         public void Configure(EntityTypeBuilder<MunicipalityExtractItem> builder)
         {

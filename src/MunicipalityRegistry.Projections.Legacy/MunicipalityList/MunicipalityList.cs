@@ -10,8 +10,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
 
     public class MunicipalityListItem
     {
-        public static string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
-        public static string OfficialLanguagesBackingPropertyName = nameof(OfficialLanguagesAsString);
+        public const string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
+        public const string OfficialLanguagesBackingPropertyName = nameof(OfficialLanguagesAsString);
 
         public Guid? MunicipalityId { get; set; }
         public string NisCode { get; set; }
