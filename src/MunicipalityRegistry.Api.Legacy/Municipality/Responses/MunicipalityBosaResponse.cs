@@ -33,15 +33,19 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// De identificator van de gemeente.
         /// </summary>
         [DataMember(Name = "Identificator", Order = 1)]
-        public Identificator Identificator { get; set; }
+        public Identificator Identificator { get; private set; }
 
         /// <summary>
         /// Een lijst van namen van de gemeente, per taal.
         /// </summary>
         [DataMember(Name = "Gemeentenamen", Order = 2)]
-        public List<Gemeentenaam> Gemeentenamen { get; set; }
+        public List<Gemeentenaam> Gemeentenamen { get; private set; }
 
-        public MunicipalityBosaItemResponse(string id, string naamruimte, DateTimeOffset version, IEnumerable<GeografischeNaam> geografischeNamen)
+        public MunicipalityBosaItemResponse(
+            string id,
+            string naamruimte,
+            DateTimeOffset version,
+            IEnumerable<GeografischeNaam> geografischeNamen)
         {
             Identificator = new Identificator(naamruimte, id, version);
             Gemeentenamen = geografischeNamen.Select(g => new Gemeentenaam(g)).ToList();

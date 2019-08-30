@@ -30,7 +30,8 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure.Modules
                 .RegisterModule(new DataDogModule(_configuration))
                 .RegisterModule(new LegacyModule(_configuration, _services, _loggerFactory));
 
-            containerBuilder.Populate(_services);
+            containerBuilder
+                .Populate(_services);
         }
     }
 }

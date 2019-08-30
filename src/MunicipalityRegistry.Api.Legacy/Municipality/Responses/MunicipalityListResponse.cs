@@ -39,25 +39,25 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// De identificator van de gemeente.
         /// </summary>
         [DataMember(Name = "Identificator", Order = 1)]
-        public Identificator Identificator { get; set; }
+        public Identificator Identificator { get; private set; }
 
         /// <summary>
         /// De URL die naar de details van de meest recente versie van een enkele gemeente leidt.
         /// </summary>
         [DataMember(Name = "Detail", Order = 2)]
-        public Uri Detail { get; set; }
+        public Uri Detail { get; private set; }
 
         /// <summary>
         /// De naam van de gemeente in het Nederlands.
         /// </summary>
         [DataMember(Name = "Gemeentenaam", Order = 3)]
-        public Gemeentenaam Gemeentenaam { get; set; }
+        public Gemeentenaam Gemeentenaam { get; private set; }
 
         /// <summary>
         /// De fase in het leven van de gemeente.
         /// </summary>
         [DataMember(Name = "GemeenteStatus", Order = 4)]
-        public GemeenteStatus? GemeenteStatus { get; set; }
+        public GemeenteStatus? GemeenteStatus { get; private set; }
 
         public MunicipalityListItemResponse(
             string id,

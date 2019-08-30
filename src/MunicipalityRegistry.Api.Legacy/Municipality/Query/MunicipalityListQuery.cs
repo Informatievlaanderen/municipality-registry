@@ -9,15 +9,16 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
     using Projections.Legacy;
     using Projections.Legacy.MunicipalityList;
 
-    public class MunicipalityListQuery : Query<MunicipalityListItem, MunicipalityFilter>
+    public class MunicipalityListQuery :
+        Query<MunicipalityListItem, MunicipalityListFilter, MunicipalityListItem>
     {
         private readonly LegacyContext _context;
 
-        protected override ISorting Sorting => new MunicipalitySorting();
+        protected override ISorting Sorting => new MunicipalityListSorting();
 
         public MunicipalityListQuery(LegacyContext context) => _context = context;
 
-        protected override IQueryable<MunicipalityListItem> Filter(FilteringHeader<MunicipalityFilter> filtering)
+        protected override IQueryable<MunicipalityListItem> Filter(FilteringHeader<MunicipalityListFilter> filtering)
         {
             var municipalities = _context
                 .MunicipalityList
@@ -43,24 +44,24 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
 
             return municipalities;
         }
-
-        internal class MunicipalitySorting : ISorting
-        {
-            public IEnumerable<string> SortableFields { get; } = new[]
-            {
-                nameof(MunicipalityListItem.NisCode),
-                nameof(MunicipalityListItem.DefaultName),
-                nameof(MunicipalityListItem.NameDutch),
-                nameof(MunicipalityListItem.NameEnglish),
-                nameof(MunicipalityListItem.NameFrench),
-                nameof(MunicipalityListItem.NameGerman)
-            };
-
-            public SortingHeader DefaultSortingHeader { get; } = new SortingHeader(nameof(MunicipalityListItem.NisCode), SortOrder.Ascending);
-        }
     }
 
-    public class MunicipalityFilter
+    public class MunicipalityListSorting : ISorting
+    {
+        public IEnumerable<string> SortableFields { get; } = new[]
+        {
+            nameof(MunicipalityListItem.NisCode),
+            nameof(MunicipalityListItem.DefaultName),
+            nameof(MunicipalityListItem.NameDutch),
+            nameof(MunicipalityListItem.NameEnglish),
+            nameof(MunicipalityListItem.NameFrench),
+            nameof(MunicipalityListItem.NameGerman)
+        };
+
+        public SortingHeader DefaultSortingHeader { get; } = new SortingHeader(nameof(MunicipalityListItem.NisCode), SortOrder.Ascending);
+    }
+
+    public class MunicipalityListFilter
     {
         public string NisCode { get; set; }
         public string NameDutch { get; set; }

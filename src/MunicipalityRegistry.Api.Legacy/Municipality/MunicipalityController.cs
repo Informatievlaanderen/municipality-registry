@@ -108,7 +108,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             Taal? taal,
             CancellationToken cancellationToken = default)
         {
-            var filtering = Request.ExtractFilteringRequest<MunicipalityFilter>();
+            var filtering = Request.ExtractFilteringRequest<MunicipalityListFilter>();
             var sorting = Request.ExtractSortingRequest();
             var pagination = Request.ExtractPaginationRequest();
 
@@ -201,12 +201,12 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             if (Request.ContentLength.HasValue && Request.ContentLength > 0 && request == null)
                 return Ok(new MunicipalityBosaResponse());
 
-            var filtering = new MunicipalityNameFilter(request);
+            var filtering = new MunicipalityBosaFilter(request);
             var sorting = new SortingHeader(string.Empty, SortOrder.Ascending);
             var pagination = new PaginationRequest(0, 1000);
 
             var filteredMunicipalities = new MunicipalityBosaQuery(context).Fetch(
-                new FilteringHeader<MunicipalityNameFilter>(filtering),
+                new FilteringHeader<MunicipalityBosaFilter>(filtering),
                 sorting,
                 pagination);
 

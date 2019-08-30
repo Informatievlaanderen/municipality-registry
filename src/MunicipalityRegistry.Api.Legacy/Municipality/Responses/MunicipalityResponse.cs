@@ -20,31 +20,31 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// De identificator van de gemeente.
         /// </summary>
         [DataMember(Name = "Identificator", Order = 1)]
-        public Identificator Identificator { get; set; }
+        public Identificator Identificator { get; private set; }
 
         /// <summary>
         /// De officiële talen van de gemeente.
         /// </summary>
         [DataMember(Name = "OfficieleTalen", Order = 2)]
-        public List<Taal> OfficialLanguages { get; set; }
+        public List<Taal> OfficialLanguages { get; private set; }
 
         /// <summary>
         /// De faciliteiten talen van de gemeente.
         /// </summary>
         [DataMember(Name = "FaciliteitenTalen", Order = 3)]
-        public List<Taal> FacilitiesLanguages { get; set; }
+        public List<Taal> FacilitiesLanguages { get; private set; }
 
         /// <summary>
         /// De officiële namen van de gemeente.
         /// </summary>
         [DataMember(Name = "Gemeentenamen", Order = 4)]
-        public List<GeografischeNaam> Gemeentenamen { get; set; }
+        public List<GeografischeNaam> Gemeentenamen { get; private set; }
 
         /// <summary>
         /// De fase in het leven van de gemeente.
         /// </summary>
         [DataMember(Name = "GemeenteStatus", Order = 5)]
-        public GemeenteStatus GemeenteStatus { get; set; }
+        public GemeenteStatus GemeenteStatus { get; private set; }
 
         public MunicipalityResponse(
             string naamruimte,

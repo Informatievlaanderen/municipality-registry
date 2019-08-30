@@ -163,14 +163,14 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         }
     }
 
-    public class MunicipalitySyndicationQuery : Query<MunicipalitySyndicationItem, MunicipalitySyndicationFilter,
-        MunicipalitySyndicationQueryResult>
+    public class MunicipalitySyndicationQuery :
+        Query<MunicipalitySyndicationItem, MunicipalitySyndicationFilter, MunicipalitySyndicationQueryResult>
     {
         private readonly LegacyContext _context;
         private readonly bool _embedEvent;
         private readonly bool _embedObject;
 
-        protected override ISorting Sorting => new MunicipalitySorting();
+        protected override ISorting Sorting => new MunicipalitySyndicationSorting();
 
         public MunicipalitySyndicationQuery(LegacyContext context, bool embedEvent, bool embedObject)
         {
@@ -260,16 +260,16 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
 
             return municipalities;
         }
+    }
 
-        internal class MunicipalitySorting : ISorting
+    public class MunicipalitySyndicationSorting : ISorting
+    {
+        public IEnumerable<string> SortableFields { get; } = new[]
         {
-            public IEnumerable<string> SortableFields { get; } = new[]
-            {
-                nameof(MunicipalitySyndicationItem.Position)
-            };
+            nameof(MunicipalitySyndicationItem.Position)
+        };
 
-            public SortingHeader DefaultSortingHeader { get; } = new SortingHeader(nameof(MunicipalitySyndicationItem.Position), SortOrder.Ascending);
-        }
+        public SortingHeader DefaultSortingHeader { get; } = new SortingHeader(nameof(MunicipalitySyndicationItem.Position), SortOrder.Ascending);
     }
 
     public class MunicipalitySyndicationFilter

@@ -16,13 +16,13 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
 
     public class MunicipalityBosaQueryResult
     {
-        public Guid MunicipalityId { get; set; }
-        public string NisCode { get; set; }
-        public string NameDutch { get; set; }
-        public string NameFrench { get; set; }
-        public string NameGerman { get; set; }
-        public string NameEnglish { get; set; }
-        public DateTimeOffset Version { get; set; }
+        public Guid MunicipalityId { get; }
+        public string NisCode { get; }
+        public string NameDutch { get; }
+        public string NameFrench { get; }
+        public string NameGerman { get; }
+        public string NameEnglish { get;  }
+        public DateTimeOffset Version { get;  }
 
         public MunicipalityBosaQueryResult(
             Guid municipalityId,
@@ -62,11 +62,11 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         }
     }
 
-    public class MunicipalityBosaQuery : Query<MunicipalityName, MunicipalityNameFilter, MunicipalityBosaQueryResult>
+    public class MunicipalityBosaQuery : Query<MunicipalityName, MunicipalityBosaFilter, MunicipalityBosaQueryResult>
     {
         private readonly LegacyContext _context;
 
-        protected override ISorting Sorting => new MunicipalityNameSorting();
+        protected override ISorting Sorting => new MunicipalityBosaSorting();
 
         public MunicipalityBosaQuery(LegacyContext context) => _context = context;
 
@@ -80,7 +80,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                 x.NameGerman,
                 x.NameEnglish);
 
-        protected override IQueryable<MunicipalityName> Filter(FilteringHeader<MunicipalityNameFilter> filtering)
+        protected override IQueryable<MunicipalityName> Filter(FilteringHeader<MunicipalityBosaFilter> filtering)
         {
             var municipalities = _context
                 .MunicipalityName
@@ -180,7 +180,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         }
     }
 
-    internal class MunicipalityNameSorting : ISorting
+    public class MunicipalityBosaSorting : ISorting
     {
         public IEnumerable<string> SortableFields { get; } = new[]
         {
@@ -191,15 +191,15 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
             new SortingHeader(nameof(MunicipalityName.NisCode), SortOrder.Ascending);
     }
 
-    public class MunicipalityNameFilter
+    public class MunicipalityBosaFilter
     {
-        public string NisCode { get; set; }
-        public DateTimeOffset? Version { get; set; }
-        public string Name { get; set; }
-        public Language? Language { get; set; }
-        public bool IsContainsFilter { get; set; }
+        public string NisCode { get; }
+        public DateTimeOffset? Version { get; }
+        public string Name { get; }
+        public Language? Language { get; }
+        public bool IsContainsFilter { get; }
 
-        public MunicipalityNameFilter(BosaMunicipalityRequest request)
+        public MunicipalityBosaFilter(BosaMunicipalityRequest request)
         {
             NisCode = request?.GemeenteCode?.ObjectId;
             Version = request?.GemeenteCode?.VersieId;

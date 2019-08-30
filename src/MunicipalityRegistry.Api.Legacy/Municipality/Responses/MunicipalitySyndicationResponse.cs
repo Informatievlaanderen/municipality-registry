@@ -85,6 +85,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                 return "No data embedded";
 
             var content = new SyndicationContent();
+
             if (municipality.ContainsObject)
             {
                 content.Object = new MunicipalitySyndicationContent(
@@ -117,10 +118,10 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     [DataContract(Name = "Content", Namespace = "")]
     public class SyndicationContent : SyndicationContentBase
     {
-        [DataMember(Name = "Event")]
+        [DataMember(Name = "Event", Order = 1)]
         public XmlElement Event { get; set; }
 
-        [DataMember(Name = "Object")]
+        [DataMember(Name = "Object", Order = 2)]
         public MunicipalitySyndicationContent Object { get; set; }
     }
 
@@ -131,43 +132,43 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// De technische id van de gemeente.
         /// </summary>
         [DataMember(Name = "Id", Order = 1)]
-        public Guid MunicipalityId { get; set; }
+        public Guid MunicipalityId { get; private set; }
 
         /// <summary>
         /// De identificator van de gemeente.
         /// </summary>
         [DataMember(Name = "Identificator", Order = 2)]
-        public Identificator Identificator { get; set; }
+        public Identificator Identificator { get; private set; }
 
         /// <summary>
         /// De officiële talen van de gemeente.
         /// </summary>
         [DataMember(Name = "OfficieleTalen", Order = 3)]
-        public List<Taal> OfficialLanguages { get; set; }
+        public List<Taal> OfficialLanguages { get; private set; }
 
         /// <summary>
         /// De faciliteiten talen van de gemeente.
         /// </summary>
         [DataMember(Name = "FaciliteitenTalen", Order = 4)]
-        public List<Taal> FacilitiesLanguages { get; set; }
+        public List<Taal> FacilitiesLanguages { get; private set; }
 
         /// <summary>
         /// De officiële namen van de gemeente.
         /// </summary>
         [DataMember(Name = "Gemeentenamen", Order = 5)]
-        public List<GeografischeNaam> MunicipalityNames { get; set; }
+        public List<GeografischeNaam> MunicipalityNames { get; private set; }
 
         /// <summary>
         /// De fase in het leven van de gemeente.
         /// </summary>
         [DataMember(Name = "GemeenteStatus", Order = 6)]
-        public GemeenteStatus? MunicipalityStatus { get; set; }
+        public GemeenteStatus? MunicipalityStatus { get; private set; }
 
         /// <summary>
         /// Creatie data ivm het item.
         /// </summary>
         [DataMember(Name = "Creatie", Order = 7)]
-        public Provenance Provenance { get; set; }
+        public Provenance Provenance { get; private set; }
 
         public MunicipalitySyndicationContent(
             Guid municipalityId,
