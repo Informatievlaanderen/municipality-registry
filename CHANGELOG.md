@@ -1,3 +1,10 @@
+## [2.11.6](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.5...v2.11.6) (2019-08-30)
+
+
+### Bug Fixes
+
+* report correct version number ([afd8d5b](https://github.com/informatievlaanderen/municipality-registry/commit/afd8d5b))
+
 ## [2.11.5](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.4...v2.11.5) (2019-08-29)
 
 
