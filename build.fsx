@@ -67,8 +67,7 @@ Target "Restore_Solution" (fun _ -> restore "MunicipalityRegistry")
 
 Target "Build_Solution" (fun _ ->
   setVersions "SolutionInfo.cs"
-  build "MunicipalityRegistry"
-)
+  build "MunicipalityRegistry")
 
 Target "Test_Solution" (fun _ -> test "MunicipalityRegistry")
 
