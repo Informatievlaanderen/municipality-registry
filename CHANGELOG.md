@@ -1,3 +1,10 @@
+## [2.11.7](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.6...v2.11.7) (2019-09-03)
+
+
+### Bug Fixes
+
+* update problemdetails for xml response GR-829 ([a10e864](https://github.com/informatievlaanderen/municipality-registry/commit/a10e864))
+
 ## [2.11.6](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.5...v2.11.6) (2019-08-30)
 
 
