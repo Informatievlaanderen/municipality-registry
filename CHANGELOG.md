@@ -1,3 +1,10 @@
+## [2.11.9](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.8...v2.11.9) (2019-09-05)
+
+
+### Bug Fixes
+
+* initial jira version ([4a16ea3](https://github.com/informatievlaanderen/municipality-registry/commit/4a16ea3))
+
 ## [2.11.8](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.7...v2.11.8) (2019-09-05)
 
 
