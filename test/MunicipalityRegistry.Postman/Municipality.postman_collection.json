@@ -1,0 +1,2909 @@
+{
+	"info": {
+		"_postman_id": "74514987-c284-444e-af5a-2c07c6221d0d",
+		"name": "Legacy Endpoints - Municipality",
+		"description": "Hieronder staan alle testen van het legacy endpoint rond gemeenten.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Detail - Happy flow",
+			"item": [
+				{
+					"name": "Municipality-detail-responsetime",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "66740fa7-7cb4-4705-b095-f74f84441bb0",
+								"exec": [
+									"var responsetime = pm.variables.get(\"responsetime\");",
+									"",
+									"pm.test(\"Response time is <= \"+responsetime+\"ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(responsetime);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/31005",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"31005"
+							]
+						},
+						"description": "De responsetijd van een request is algemeen beslist binnen AIV dat dit < 250ms.\nDeze test controleert of dit het geval is of niet."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-status-in-use",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fd68673-379e-423e-b3fc-41889d97e11d",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"",
+									"pm.test(\"De status is correct.\", function() {",
+									"    pm.expect(jsonData.gemeenteStatus).to.be.eql(\"inGebruik\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/52074",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"52074"
+							]
+						},
+						"description": "Gemeente met:\n- status = 'inGebruik'."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-status-historiated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fd68673-379e-423e-b3fc-41889d97e11d",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"",
+									"pm.test(\"De status is correct.\", function() {",
+									"    pm.expect(jsonData.gemeenteStatus).to.eql(\"gehistoreerd\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/72025",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"72025"
+							]
+						},
+						"description": "Gemeente met:\n- status = 'gehistoreerd'."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-municipalityname-nl&fr",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d04bcb1-79a0-40cf-b62f-95dd9c48eac0",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var identificator = JSON.parse(pm.variables.get(\"identificator\")); ",
+									"var gemeentenamen = JSON.parse(pm.variables.get(\"gemeentenamen\"));",
+									"var gemeentenamen0 = JSON.parse(pm.variables.get(\"gemeentenamen0\"));",
+									"var gemeentenamen1 = JSON.parse(pm.variables.get(\"gemeentenamen1\"));",
+									"var taalnl = pm.variables.get(\"taalnl\"); var taalNL = pm.variables.get(\"taalNL\"); var taalNl = pm.variables.get(\"taalNl\");",
+									"var taalfr = pm.variables.get(\"taalfr\"); var taalFR = pm.variables.get(\"taalFR\"); var taalFr = pm.variables.get(\"taalFr\");",
+									"var taalde = pm.variables.get(\"taalde\"); var taalDE = pm.variables.get(\"taalDE\"); var taalDe = pm.variables.get(\"taalDe\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"",
+									"//variabele waarden, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '55004';",
+									"var gemeentenaamnl = \"'s Gravenbrakel\";",
+									"var gemeentenaamfr = 'Braine-le-Comte';",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Er worden \"+jsonData.gemeentenamen.length+\" items getoond.\", function() {",
+									"  pm.expect(jsonData.gemeentenamen.length).to.eql(2);",
+									"});",
+									"",
+									"pm.test(\"De taal '\"+taalnl+\"' van de '\"+taalnl+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen0.taal).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de '\"+taalnl+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen0.spelling).to.eql(gemeentenaamnl);",
+									"});",
+									"",
+									"pm.test(\"De taal '\"+taalfr+\"' van de '\"+taalfr+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen1.taal).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de '\"+taalfr+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen1.spelling).to.eql(gemeentenaamfr);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/55004",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"55004"
+							]
+						},
+						"description": "Gemeente met:\n- 1 gemeentenaam aanwezig in de taal 'fr'.\n- 1 gemeentenaam aanwezig in de taal 'nl'.\n- De officiële taal van deze gemeente = fr.\n- Er is maar 1 officiële taal voor deze gemeente aanwezig.\n- Er is geen faciliteitstaal aanwezig voor deze gemeente."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-municipalityname-nl&fr-.json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d04bcb1-79a0-40cf-b62f-95dd9c48eac0",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var identificator = JSON.parse(pm.variables.get(\"identificator\")); ",
+									"var gemeentenamen = JSON.parse(pm.variables.get(\"gemeentenamen\"));",
+									"var gemeentenamen0 = JSON.parse(pm.variables.get(\"gemeentenamen0\"));",
+									"var gemeentenamen1 = JSON.parse(pm.variables.get(\"gemeentenamen1\"));",
+									"var taalnl = pm.variables.get(\"taalnl\"); var taalNL = pm.variables.get(\"taalNL\"); var taalNl = pm.variables.get(\"taalNl\");",
+									"var taalfr = pm.variables.get(\"taalfr\"); var taalFR = pm.variables.get(\"taalFR\"); var taalFr = pm.variables.get(\"taalFr\");",
+									"var taalde = pm.variables.get(\"taalde\"); var taalDE = pm.variables.get(\"taalDE\"); var taalDe = pm.variables.get(\"taalDe\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"",
+									"//variabele waarden, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '55004';",
+									"var gemeentenaamnl = \"'s Gravenbrakel\";",
+									"var gemeentenaamfr = 'Braine-le-Comte';",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Er worden \"+jsonData.gemeentenamen.length+\" items getoond.\", function() {",
+									"  pm.expect(jsonData.gemeentenamen.length).to.eql(2);",
+									"});",
+									"",
+									"pm.test(\"De taal '\"+taalnl+\"' van de '\"+taalnl+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen0.taal).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de '\"+taalnl+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen0.spelling).to.eql(gemeentenaamnl);",
+									"});",
+									"",
+									"pm.test(\"De taal '\"+taalfr+\"' van de '\"+taalfr+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen1.taal).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de '\"+taalfr+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen1.spelling).to.eql(gemeentenaamfr);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/55004.json",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"55004.json"
+							]
+						},
+						"description": "Gemeente met:\n- 1 gemeentenaam aanwezig in de taal 'fr'.\n- 1 gemeentenaam aanwezig in de taal 'nl'.\n- De officiële taal van deze gemeente = fr.\n- Er is maar 1 officiële taal voor deze gemeente aanwezig.\n- Er is geen faciliteitstaal aanwezig voor deze gemeente.\n\nEr is binnen AIV beslist dat de respons van de API slechts in een aantal formaten wordt ondersteund. \nJSON is daar 1 van. \nDeze test controleert of het JSON formaat wordt ondersteund & of in het JSON formaat de respons inhoudelijk volledig correct is ingevuld.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-municipalityname-nl&fr-formaat*/*",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d04bcb1-79a0-40cf-b62f-95dd9c48eac0",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var identificator = JSON.parse(pm.variables.get(\"identificator\")); ",
+									"var gemeentenamen = JSON.parse(pm.variables.get(\"gemeentenamen\"));",
+									"var gemeentenamen0 = JSON.parse(pm.variables.get(\"gemeentenamen0\"));",
+									"var gemeentenamen1 = JSON.parse(pm.variables.get(\"gemeentenamen1\"));",
+									"var taalnl = pm.variables.get(\"taalnl\"); var taalNL = pm.variables.get(\"taalNL\"); var taalNl = pm.variables.get(\"taalNl\");",
+									"var taalfr = pm.variables.get(\"taalfr\"); var taalFR = pm.variables.get(\"taalFR\"); var taalFr = pm.variables.get(\"taalFr\");",
+									"var taalde = pm.variables.get(\"taalde\"); var taalDE = pm.variables.get(\"taalDE\"); var taalDe = pm.variables.get(\"taalDe\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"",
+									"//variabele waarden, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '55004';",
+									"var gemeentenaamnl = \"'s Gravenbrakel\";",
+									"var gemeentenaamfr = 'Braine-le-Comte';",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Er worden \"+jsonData.gemeentenamen.length+\" items getoond.\", function() {",
+									"  pm.expect(jsonData.gemeentenamen.length).to.eql(2);",
+									"});",
+									"",
+									"pm.test(\"De taal '\"+taalnl+\"' van de '\"+taalnl+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen0.taal).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de '\"+taalnl+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen0.spelling).to.eql(gemeentenaamnl);",
+									"});",
+									"",
+									"pm.test(\"De taal '\"+taalfr+\"' van de '\"+taalfr+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen1.taal).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de '\"+taalfr+\"' vertaling is correct.\", function() {",
+									"    pm.expect(gemeentenamen1.spelling).to.eql(gemeentenaamfr);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/55004",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"55004"
+							]
+						},
+						"description": "Gemeente met:\n- 1 gemeentenaam aanwezig in de taal 'fr'.\n- 1 gemeentenaam aanwezig in de taal 'nl'.\n- De officiële taal van deze gemeente = fr.\n- Er is maar 1 officiële taal voor deze gemeente aanwezig.\n- Er is geen faciliteitstaal aanwezig voor deze gemeente.\n\nEr is binnen AIV beslist dat de respons van de API slechts in een aantal formaten wordt ondersteund. \nJSON is daar 1 van. \nDeze test controleert of het JSON formaat wordt ondersteund & of in het JSON formaat de respons inhoudelijk volledig correct is ingevuld.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-municipalityname-nl-officiallanguage-nl-no-facilitylanguage-geo-nl",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aceb3a0e-2556-479f-b9c3-de726e6bda30",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var identificator = JSON.parse(pm.variables.get(\"identificator\")); ",
+									"var gemeentenamen = JSON.parse(pm.variables.get(\"gemeentenamen\"));",
+									"var gemeentenamen0 = JSON.parse(pm.variables.get(\"gemeentenamen0\"));",
+									"var officieletalen0 = JSON.parse(pm.variables.get(\"officieletalen0\"));",
+									"var faciliteitentalen = JSON.parse(pm.variables.get(\"faciliteitentalen\"));",
+									"var taalnl = pm.variables.get(\"taalnl\"); var taalNL = pm.variables.get(\"taalNL\"); var taalNl = pm.variables.get(\"taalNl\");",
+									"var faciliteitentaal = pm.variables.get(\"geenfaciliteitentaal\");",
+									"var officieletaal = pm.variables.get(\"eenofficieletaal\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"",
+									"//variabele waarden, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '11001';",
+									"var gemeentenaamnl = 'Aartselaar';",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+officieletaal+\" officiële taal voor deze gemeente aanwezig, namelijk '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(officieletalen0).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De arraylengte van de faciliteitentalen = \"+faciliteitentaal+\".\", function() {",
+									"    pm.expect(faciliteitentalen.length).to.equal(faciliteitentaal);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+jsonData.gemeentenamen.length+\" gemeentenaam aanwezig.\", function() {",
+									"  pm.expect(jsonData.gemeentenamen.length).to.eql(1);",
+									"});",
+									"",
+									"pm.test(\"De gemeentenaam staat in de taal '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(gemeentenamen0.taal).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de gemeentenaam is correct: \"+gemeentenaamnl+\".\", function() {",
+									"    pm.expect(gemeentenamen0.spelling).to.eql(gemeentenaamnl);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/11001",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"11001"
+							]
+						},
+						"description": "Gemeente met:\n- 1 gemeentenaam aanwezig in de taal 'nl'.\n- De officiële taal van deze gemeente = nl.\n- Er is maar 1 officiële taal voor deze gemeente aanwezig.\n- Deze gemeente is geen faciliteitengemeente, dus er is geen faciliteitentaal aanwezig."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-municiplaityname-fr-officilalanguage-fr-no-facilitylanguage-geo-fr",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7ad57dad-e4d7-4008-bf5a-342eb0a55ad8",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var identificator = JSON.parse(pm.variables.get(\"identificator\")); ",
+									"var gemeentenamen = JSON.parse(pm.variables.get(\"gemeentenamen\"));",
+									"var gemeentenamen0 = JSON.parse(pm.variables.get(\"gemeentenamen0\"));",
+									"var officieletalen0 = JSON.parse(pm.variables.get(\"officieletalen0\"));",
+									"var faciliteitentalen = JSON.parse(pm.variables.get(\"faciliteitentalen\"));",
+									"var taalfr = pm.variables.get(\"taalfr\"); var taalFR = pm.variables.get(\"taalFR\"); var taalFr = pm.variables.get(\"taalFr\");",
+									"var faciliteitentaal = pm.variables.get(\"geenfaciliteitentaal\");",
+									"var officieletaal = pm.variables.get(\"eenofficieletaal\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"",
+									"//variabele waarden, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '52074';",
+									"var gemeentenaamfr = 'Aiseau-Presles';",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+officieletaal+\" officiële taal voor deze gemeente aanwezig, namelijk '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(officieletalen0).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De arraylengte van de faciliteitentalen = \"+faciliteitentaal+\".\", function() {",
+									"    pm.expect(faciliteitentalen.length).to.equal(faciliteitentaal);",
+									"});",
+									"",
+									"pm.test(\"Er is maar \"+jsonData.gemeentenamen.length+\" gemeentenaam aanwezig.\", function() {",
+									"  pm.expect(jsonData.gemeentenamen.length).to.eql(1);",
+									"});",
+									"",
+									"pm.test(\"De gemeentenaam staat in de taal '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(gemeentenamen0.taal).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de gemeentenaam is correct: \"+gemeentenaamfr+\".\", function() {",
+									"    pm.expect(gemeentenamen0.spelling).to.eql(gemeentenaamfr);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/52074",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"52074"
+							]
+						},
+						"description": "Gemeente met:\n- 1 gemeentenaam aanwezig in de taal 'fr'.\n- De officiële taal van deze gemeente = fr.\n- Er is maar 1 officiële taal voor deze gemeente aanwezig.\n- Deze gemeente is geen faciliteitengemeente, dus er is geen faciliteitentaal aanwezig."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-municipalityname-nl&fr-officiallanguage-nl&fr-no-facilityname-geo-nl&fr",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6d04bcb1-79a0-40cf-b62f-95dd9c48eac0",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var identificator = JSON.parse(pm.variables.get(\"identificator\")); ",
+									"var gemeentenamen = JSON.parse(pm.variables.get(\"gemeentenamen\"));",
+									"var gemeentenamen0 = JSON.parse(pm.variables.get(\"gemeentenamen0\"));",
+									"var gemeentenamen1 = JSON.parse(pm.variables.get(\"gemeentenamen1\"));",
+									"var officieletalen0 = JSON.parse(pm.variables.get(\"officieletalen0\"));",
+									"var officieletalen1 = JSON.parse(pm.variables.get(\"officieletalen1\"));",
+									"var faciliteitentalen = JSON.parse(pm.variables.get(\"faciliteitentalen\"));",
+									"var taalnl = pm.variables.get(\"taalnl\"); var taalNL = pm.variables.get(\"taalNL\"); var taalNl = pm.variables.get(\"taalNl\");",
+									"var taalfr = pm.variables.get(\"taalfr\"); var taalFR = pm.variables.get(\"taalFR\"); var taalFr = pm.variables.get(\"taalFr\");",
+									"var faciliteitentaal = pm.variables.get(\"geenfaciliteitentaal\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"",
+									"//variabele waarden, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '21004';",
+									"var gemeentenaamnl = 'Brussel';",
+									"var gemeentenaamfr = 'Bruxelles';",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"De 1ste officiële taal van deze gemeente = nl.\", function() {",
+									"    pm.expect(officieletalen0).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De 2de officiële taal van deze gemeente = fr.\", function() {",
+									"    pm.expect(officieletalen1).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De arraylengte van de faciliteitentalen = \"+faciliteitentaal+\".\", function() {",
+									"    pm.expect(faciliteitentalen.length).to.equal(faciliteitentaal);",
+									"});",
+									"",
+									"pm.test(\"Er worden \"+jsonData.gemeentenamen.length+\" items getoond.\", function() {",
+									"  pm.expect(jsonData.gemeentenamen.length).to.eql(2);",
+									"});",
+									"",
+									"pm.test(\"De 1ste gemeentenaam staat in de taal '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(gemeentenamen0.taal).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 1ste gemeentenaam is correct: \"+gemeentenaamnl+\".\", function() {",
+									"    pm.expect(gemeentenamen0.spelling).to.eql(gemeentenaamnl);",
+									"});",
+									"",
+									"pm.test(\"De 2de gemeentenaam staat in de taal '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(gemeentenamen1.taal).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 1ste gemeentenaam is correct: \"+gemeentenaamfr+\".\", function() {",
+									"    pm.expect(gemeentenamen1.spelling).to.eql(gemeentenaamfr);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/21004",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"21004"
+							]
+						},
+						"description": "Gemeente met:\n- 1 gemeentenaam aanwezig in de taal 'fr'.\n- 1 gemeentenaam aanwezig in de taal 'nl'.\n- De officiële taal van deze gemeente = fr.\n- Er is maar 1 officiële taal voor deze gemeente aanwezig.\n- Er is geen faciliteitstaal aanwezig voor deze gemeente."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-municipalityname-fr&de-officiallanguage-de-facilitylanguage-fr-geo-fr&de",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c69135f9-a00b-4f6f-a6b2-25d73ef887fc",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var identificator = JSON.parse(pm.variables.get(\"identificator\")); ",
+									"var gemeentenamen = JSON.parse(pm.variables.get(\"gemeentenamen\"));",
+									"var gemeentenamen0 = JSON.parse(pm.variables.get(\"gemeentenamen0\"));",
+									"var gemeentenamen1 = JSON.parse(pm.variables.get(\"gemeentenamen1\"));",
+									"var officieletalen0 = JSON.parse(pm.variables.get(\"officieletalen0\"));",
+									"var faciliteitentalen = JSON.parse(pm.variables.get(\"faciliteitentalen\"));",
+									"var faciliteitentalen0 = JSON.parse(pm.variables.get(\"faciliteitentalen0\"));",
+									"var taalfr = pm.variables.get(\"taalfr\"); var taalFR = pm.variables.get(\"taalFR\"); var taalFr = pm.variables.get(\"taalFr\");",
+									"var taalde = pm.variables.get(\"taalde\"); var taalDE = pm.variables.get(\"taalDE\"); var taalDe = pm.variables.get(\"taalDe\");",
+									"var faciliteitentaal = pm.variables.get(\"eenfaciliteitentaal\");",
+									"var officieletaal = pm.variables.get(\"eenofficieletaal\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"",
+									"//variabele waarden, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '63023';",
+									"var gemeentenaamfr = 'Eupen';",
+									"var gemeentenaamde = 'Eupen';",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+officieletaal+\" officiële taal voor deze gemeente aanwezig, namelijk '\"+taalde+\"'.\", function() {",
+									"    pm.expect(officieletalen0).to.be.oneOf([taalde, taalDE, taalDe]);",
+									"});",
+									"",
+									"pm.test(\"De arraylengte van de faciliteitentalen = \"+faciliteitentaal+\".\", function() {",
+									"    pm.expect(faciliteitentalen.length).to.equal(faciliteitentaal);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+faciliteitentaal+\" faciliteitstaal aanwezig voor deze gemeente, namelijk '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(faciliteitentalen0).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"Er zijn \"+jsonData.gemeentenamen.length+\" gemeentenamen aanwezig.\", function() {",
+									"  pm.expect(jsonData.gemeentenamen.length).to.eql(2);",
+									"});",
+									"",
+									"pm.test(\"De 1ste gemeentenaam staat in de taal '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(gemeentenamen0.taal).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 1ste gemeentenaam is correct: \"+gemeentenaamfr+\".\", function() {",
+									"    pm.expect(gemeentenamen0.spelling).to.eql(gemeentenaamfr);",
+									"});",
+									"",
+									"pm.test(\"De 2de gemeentenaam staat in de taal '\"+taalde+\"'.\", function() {",
+									"    pm.expect(gemeentenamen1.taal).to.be.oneOf([taalde, taalDE, taalDe]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 2de gemeentenaam is correct \"+gemeentenaamde+\".\", function() {",
+									"    pm.expect(gemeentenamen1.spelling).to.eql(gemeentenaamde);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/63023",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"63023"
+							]
+						},
+						"description": "Gemeente met:\n- 1 gemeentenaam aanwezig in de taal 'fr'.\n- 1 gemeentenaam aanwezig in de taal 'de'.\n- De officiële taal van deze gemeente = de.\n- Er is maar 1 officiële taal voor deze gemeente aanwezig.\n- Er is 1 faciliteitstaal voor deze gemeenten aanwezig = 'fr'."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-municipalityname-nl&fr-officiallanguage-fr-facilitylanguage-nl",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c69135f9-a00b-4f6f-a6b2-25d73ef887fc",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var identificator = JSON.parse(pm.variables.get(\"identificator\")); ",
+									"var gemeentenamen = JSON.parse(pm.variables.get(\"gemeentenamen\"));",
+									"var gemeentenamen0 = JSON.parse(pm.variables.get(\"gemeentenamen0\"));",
+									"var gemeentenamen1 = JSON.parse(pm.variables.get(\"gemeentenamen1\"));",
+									"var officieletalen0 = JSON.parse(pm.variables.get(\"officieletalen0\"));",
+									"var faciliteitentalen = JSON.parse(pm.variables.get(\"faciliteitentalen\"));",
+									"var faciliteitentalen0 = JSON.parse(pm.variables.get(\"faciliteitentalen0\"));",
+									"var taalnl = pm.variables.get(\"taalnl\"); var taalNL = pm.variables.get(\"taalNL\"); var taalNl = pm.variables.get(\"taalNl\");",
+									"var taalfr = pm.variables.get(\"taalfr\"); var taalFR = pm.variables.get(\"taalFR\"); var taalFr = pm.variables.get(\"taalFr\");",
+									"var faciliteitentaal = pm.variables.get(\"eenfaciliteitentaal\");",
+									"var officieletaal = pm.variables.get(\"eenofficieletaal\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"",
+									"//variabele waarden, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '55010';",
+									"var gemeentenaamnl = 'Edingen';",
+									"var gemeentenaamfr = 'Enghien';",
+									"",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+officieletaal+\" officiële taal voor deze gemeente aanwezig, namelijk '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(officieletalen0).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De arraylengte van de faciliteitentalen = \"+faciliteitentaal+\".\", function() {",
+									"    pm.expect(faciliteitentalen.length).to.equal(faciliteitentaal);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+faciliteitentaal+\" faciliteitstaal aanwezig voor deze gemeente, namelijk '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(faciliteitentalen0).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"Er zijn \"+jsonData.gemeentenamen.length+\" gemeentenamen aanwezig.\", function() {",
+									"  pm.expect(jsonData.gemeentenamen.length).to.eql(2);",
+									"});",
+									"",
+									"pm.test(\"De 1ste gemeentenaam staat in de taal '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(gemeentenamen0.taal).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 1ste gemeentenaam is correct.\", function() {",
+									"    pm.expect(gemeentenamen0.spelling).to.eql(gemeentenaamnl);",
+									"});",
+									"",
+									"pm.test(\"De 2de gemeentenaam staat in de taal '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(gemeentenamen1.taal).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 2de gemeentenaam is correct.\", function() {",
+									"    pm.expect(gemeentenamen1.spelling).to.eql(gemeentenaamfr);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/55010",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"55010"
+							]
+						},
+						"description": "Gemeente met:\n- 1 gemeentenaam aanwezig in de taal 'fr'.\n- 1 gemeentenaam aanwezig in de taal 'nl'.\n- De officiële taal van deze gemeente = fr.\n- Er is maar 1 officiële taal voor deze gemeente aanwezig.\n- Er is 1 faciliteitstaal voor deze gemeenten aanwezig = 'nl'."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-municipalityname-nl&fr-officiallanguage-nl-facilitylanguage-fr",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c69135f9-a00b-4f6f-a6b2-25d73ef887fc",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var identificator = JSON.parse(pm.variables.get(\"identificator\")); ",
+									"var gemeentenamen = JSON.parse(pm.variables.get(\"gemeentenamen\"));",
+									"var gemeentenamen0 = JSON.parse(pm.variables.get(\"gemeentenamen0\"));",
+									"var gemeentenamen1 = JSON.parse(pm.variables.get(\"gemeentenamen1\"));",
+									"var officieletalen0 = JSON.parse(pm.variables.get(\"officieletalen0\"));",
+									"var faciliteitentalen = JSON.parse(pm.variables.get(\"faciliteitentalen\"));",
+									"var faciliteitentalen0 = JSON.parse(pm.variables.get(\"faciliteitentalen0\"));",
+									"var taalnl = pm.variables.get(\"taalnl\"); var taalNL = pm.variables.get(\"taalNL\"); var taalNl = pm.variables.get(\"taalNl\");",
+									"var taalfr = pm.variables.get(\"taalfr\"); var taalFR = pm.variables.get(\"taalFR\"); var taalFr = pm.variables.get(\"taalFr\");",
+									"var faciliteitentaal = pm.variables.get(\"eenfaciliteitentaal\");",
+									"var officieletaal = pm.variables.get(\"eenofficieletaal\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"",
+									"//variabele waarden, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '45041';",
+									"var gemeentenaamnl = 'Ronse';",
+									"var gemeentenaamfr = 'Renaix';",
+									"",
+									"pm.variables.get(\"variable_key\");",
+									"",
+									"pm.variables.get(\"variable_key\")",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+officieletaal+\" officiële taal voor deze gemeente aanwezig, namelijk '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(officieletalen0).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De arraylengte van de faciliteitentalen = \"+faciliteitentaal+\".\", function() {",
+									"    pm.expect(faciliteitentalen.length).to.equal(faciliteitentaal);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+faciliteitentaal+\" faciliteitstaal aanwezig voor deze gemeente, namelijk '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(faciliteitentalen0).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"Er zijn \"+jsonData.gemeentenamen.length+\" gemeentenamen aanwezig.\", function() {",
+									"  pm.expect(jsonData.gemeentenamen.length).to.eql(2);",
+									"});",
+									"",
+									"pm.test(\"De 1ste gemeentenaam staat in de taal '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(gemeentenamen0.taal).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 1ste gemeentenaam is correct.\", function() {",
+									"    pm.expect(gemeentenamen0.spelling).to.eql(gemeentenaamnl);",
+									"});",
+									"",
+									"pm.test(\"De 2de gemeentenaam staat in de taal '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(gemeentenamen1.taal).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 2de gemeentenaam is correct.\", function() {",
+									"    pm.expect(gemeentenamen1.spelling).to.eql(gemeentenaamfr);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/45041",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"45041"
+							]
+						},
+						"description": "Gemeente met:\n- 1 gemeentenaam aanwezig in de taal 'fr'.\n- 1 gemeentenaam aanwezig in de taal 'nl'.\n- De officiële taal van deze gemeente = nl.\n- Er is maar 1 officiële taal voor deze gemeente aanwezig.\n- Er is 1 faciliteitstaal voor deze gemeenten aanwezig = 'fr'."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-municipalityname-nl,fr&de-officiallanguage-fr-facilitylanguage-de-geo-nl&fr&de",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c69135f9-a00b-4f6f-a6b2-25d73ef887fc",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var identificator = JSON.parse(pm.variables.get(\"identificator\")); ",
+									"var gemeentenamen = JSON.parse(pm.variables.get(\"gemeentenamen\"));",
+									"var gemeentenamen0 = JSON.parse(pm.variables.get(\"gemeentenamen0\"));",
+									"var gemeentenamen1 = JSON.parse(pm.variables.get(\"gemeentenamen1\"));",
+									"var gemeentenamen2 = JSON.parse(pm.variables.get(\"gemeentenamen2\"));",
+									"var officieletalen0 = JSON.parse(pm.variables.get(\"officieletalen0\"));",
+									"var faciliteitentalen = JSON.parse(pm.variables.get(\"faciliteitentalen\"));",
+									"var faciliteitentalen0 = JSON.parse(pm.variables.get(\"faciliteitentalen0\"));",
+									"var taalnl = pm.variables.get(\"taalnl\"); var taalNL = pm.variables.get(\"taalNL\"); var taalNl = pm.variables.get(\"taalNl\");",
+									"var taalfr = pm.variables.get(\"taalfr\"); var taalFR = pm.variables.get(\"taalFR\"); var taalFr = pm.variables.get(\"taalFr\");",
+									"var taalde = pm.variables.get(\"taalde\"); var taalDE = pm.variables.get(\"taalDE\"); var taalDe = pm.variables.get(\"taalDe\");",
+									"var faciliteitentaal = pm.variables.get(\"eenfaciliteitentaal\");",
+									"var officieletaal = pm.variables.get(\"eenofficieletaal\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"",
+									"//variabele waarden, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '63080';",
+									"var gemeentenaamnl = 'Weismes';",
+									"var gemeentenaamfr = 'Waimes';",
+									"var gemeentenaamde = 'Waimes';",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+officieletaal+\" officiële taal voor deze gemeente aanwezig, namelijk '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(officieletalen0).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De arraylengte van de faciliteitentalen = \"+faciliteitentaal+\".\", function() {",
+									"    pm.expect(faciliteitentalen.length).to.equal(faciliteitentaal);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+faciliteitentaal+\" faciliteitstaal aanwezig voor deze gemeente, namelijk '\"+taalde+\"'.\", function() {",
+									"    pm.expect(faciliteitentalen0).to.be.oneOf([taalde, taalDE, taalDe]);",
+									"});",
+									"",
+									"pm.test(\"Er zijn \"+jsonData.gemeentenamen.length+\" gemeentenamen aanwezig.\", function() {",
+									"  pm.expect(jsonData.gemeentenamen.length).to.eql(3);",
+									"});",
+									"",
+									"pm.test(\"De 1ste gemeentenaam staat in de taal '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(gemeentenamen0.taal).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 1ste gemeentenaam is correct.\", function() {",
+									"    pm.expect(gemeentenamen0.spelling).to.eql(gemeentenaamnl);",
+									"});",
+									"",
+									"pm.test(\"De 2de gemeentenaam staat in de taal '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(gemeentenamen1.taal).to.be.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 2de gemeentenaam is correct.\", function() {",
+									"    pm.expect(gemeentenamen1.spelling).to.eql(gemeentenaamfr);",
+									"});",
+									"",
+									"pm.test(\"De 3de gemeentenaam staat in de taal '\"+taalde+\"'.\", function() {",
+									"    pm.expect(gemeentenamen2.taal).to.be.oneOf([taalde, taalDE, taalDe]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 3de gemeentenaam is correct.\", function() {",
+									"    pm.expect(gemeentenamen2.spelling).to.eql(gemeentenaamde);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "c4072c11-a52f-4e82-9bab-4d861ab1ceda",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/63080",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"63080"
+							]
+						},
+						"description": "Gemeente met:\n- 1 gemeentenaam aanwezig in de taal 'fr'.\n- 1 gemeentenaam aanwezig in de taal 'nl'.\n- 1 gemeentenaam aanwezig in de taal 'de'.\n- De officiële taal van deze gemeente = fr.\n- Er is maar 1 officiële taal voor deze gemeente aanwezig.\n- Er is 1 faciliteitstaal voor deze gemeenten aanwezig = 'de'."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-municipalityname-nl&fr&de-officiallanguage-nl-no-facilitylanguage",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8d00aea8-6745-4a82-b485-f35dba32dc20",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var identificator = JSON.parse(pm.variables.get(\"identificator\")); ",
+									"var gemeentenamen = JSON.parse(pm.variables.get(\"gemeentenamen\"));",
+									"var gemeentenamen0 = JSON.parse(pm.variables.get(\"gemeentenamen0\"));",
+									"var gemeentenamen1 = JSON.parse(pm.variables.get(\"gemeentenamen1\"));",
+									"var gemeentenamen2 = JSON.parse(pm.variables.get(\"gemeentenamen2\"));",
+									"var officieletalen0 = JSON.parse(pm.variables.get(\"officieletalen0\"));",
+									"var faciliteitentalen = JSON.parse(pm.variables.get(\"faciliteitentalen\"));",
+									"var taalnl = pm.variables.get(\"taalnl\"); var taalNL = pm.variables.get(\"taalNL\"); var taalNl = pm.variables.get(\"taalNl\");",
+									"var taalfr = pm.variables.get(\"taalfr\"); var taalFR = pm.variables.get(\"taalFR\"); var taalFr = pm.variables.get(\"taalFr\");",
+									"var taalde = pm.variables.get(\"taalde\"); var taalDE = pm.variables.get(\"taalDE\"); var taalDe = pm.variables.get(\"taalDe\");",
+									"var faciliteitentaal = pm.variables.get(\"geenfaciliteitentaal\");",
+									"var officieletaal = pm.variables.get(\"eenofficieletaal\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"",
+									"//variabele waarden, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '31005';",
+									"var gemeentenaamnl = 'Brugge';",
+									"var gemeentenaamfr = 'Bruges';",
+									"var gemeentenaamde = 'Brügge';",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Er is \"+officieletaal+\" officiële taal voor deze gemeente aanwezig, namelijk '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(officieletalen0).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De arraylengte van de faciliteitentalen = \"+faciliteitentaal+\".\", function() {",
+									"    pm.expect(faciliteitentalen.length).to.equal(faciliteitentaal);",
+									"});",
+									"",
+									"pm.test(\"Er worden \"+jsonData.gemeentenamen.length+\" items getoond.\", function() {",
+									"  pm.expect(jsonData.gemeentenamen.length).to.eql(3);",
+									"});",
+									"",
+									"pm.test(\"De 1ste gemeentenaam staat in de taal '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(gemeentenamen0.taal).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 1ste gemeentenaam is correct.\", function() {",
+									"    pm.expect(gemeentenamen0.spelling).to.eql(gemeentenaamnl);",
+									"});",
+									"",
+									"pm.test(\"De 2de gemeentenaam staat in de taal '\"+taalfr+\"'.\", function() {",
+									"    pm.expect(gemeentenamen1.taal).to.oneOf([taalfr, taalFR, taalFr]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 2de gemeentenaam is correct.\", function() {",
+									"    pm.expect(gemeentenamen1.spelling).to.eql(gemeentenaamfr);",
+									"});",
+									"",
+									"pm.test(\"De 3de gemeentenaam staat in de taal '\"+taalde+\"'.\", function() {",
+									"    pm.expect(gemeentenamen2.taal).to.be.oneOf([taalde, taalDE, taalDe]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de 3de gemeentenaam is correct.\", function() {",
+									"    pm.expect(gemeentenamen2.spelling).to.eql(gemeentenaamde);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/31005",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"31005"
+							]
+						},
+						"description": "Gemeente met:\n- 1 gemeentenaam aanwezig in de taal 'fr'.\n- 1 gemeentenaam aanwezig in de taal 'de'.\n- 1 gemeentenaam aanwezig in de taal 'nl'.\n- De officiële taal van deze gemeente = nl.\n- Er is maar 1 officiële taal voor deze gemeente aanwezig.\n- Er is geen faciliteitstaal aanwezig voor deze gemeente."
+					},
+					"response": []
+				}
+			],
+			"description": "Hieronder staan alle testen van het legacy endpoint 'detail' van gemeenten die betrekking hebben op de happy flow.\nDit houdt in dat enkel positieve testen hier aanwezig zijn. \nAl deze testen hebben ook allemaal een aantal testen gemeenschappelijk & deze zijn daarom op een hoger niveau gedefinieerd (zie tab 'Tests' om te weten wat deze gemeenschappelijke testen zijn.).\n",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "259c66f3-be00-45ab-a8af-6930e267a0d4",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "83eadc2f-1134-441a-bb3b-8aa86f42445a",
+						"type": "text/javascript",
+						"exec": [
+							"//Hieronder staan alle algemene testen voor deze folder.",
+							"//Per request gaan deze testen ook uitgevoerd worden.",
+							"var jsonData = pm.response.json();",
+							"var identificator = jsonData.identificator;",
+							"var gemeentenamen = jsonData.gemeentenamen;",
+							"var gemeentenamen0 = jsonData.gemeentenamen[0];",
+							"var gemeentenamen1 = jsonData.gemeentenamen[1];",
+							"var gemeentenamen2 = jsonData.gemeentenamen[2];",
+							"var officieletalen0 = jsonData.officieleTalen[0];",
+							"var officieletalen1 = jsonData.officieleTalen[1];",
+							"var faciliteitentalen = jsonData.faciliteitenTalen;",
+							"var faciliteitentalen0 = jsonData.faciliteitenTalen[0];",
+							"",
+							"//geen faciliteitentaal aanwezig.",
+							"var geenfaciliteitentaal =  0;",
+							"",
+							"//1 faciliteitentaal aanwezig.",
+							"var eenfaciliteitentaal = 1;",
+							"",
+							"//1 officiële taal aanwezig.",
+							"var eenofficieletaal = 1;",
+							"",
+							"pm.variables.set(\"jsonData\", JSON.stringify(jsonData));",
+							"pm.variables.set(\"identificator\", JSON.stringify(identificator));",
+							"pm.variables.set(\"gemeentenamen\", JSON.stringify(gemeentenamen));",
+							"pm.variables.set(\"gemeentenamen0\", JSON.stringify(gemeentenamen0));",
+							"pm.variables.set(\"gemeentenamen1\", JSON.stringify(gemeentenamen1));",
+							"pm.variables.set(\"gemeentenamen2\", JSON.stringify(gemeentenamen2));",
+							"pm.variables.set(\"officieletalen0\", JSON.stringify(officieletalen0));",
+							"pm.variables.set(\"officieletalen1\", JSON.stringify(officieletalen1));",
+							"pm.variables.set(\"faciliteitentalen\", JSON.stringify(faciliteitentalen));",
+							"pm.variables.set(\"faciliteitentalen0\", JSON.stringify(faciliteitentalen0));",
+							"pm.variables.set(\"geenfaciliteitentaal\", geenfaciliteitentaal);",
+							"pm.variables.set(\"eenfaciliteitentaal\", eenfaciliteitentaal);",
+							"pm.variables.set(\"eenofficieletaal\", eenofficieletaal);",
+							"",
+							"var naamruimte = pm.variables.get(\"naamruimte\");",
+							"var contenttypejson = pm.globals.get(\"contenttypejson\");",
+							"",
+							"pm.test(\"Status code is '200'\", function(){",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"De header 'Content-Type' is aanwezig.\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Het formaat van de respons is JSON.\", function () {",
+							"    postman.getResponseHeader('Content-Type') === contenttypejson;",
+							"});",
+							"",
+							"//De naamruimte is per folder ook overal dezelfde.",
+							"pm.test(\"De naamruimte is correct.\", function() {",
+							"  pm.expect(identificator.naamruimte).to.eql(naamruimte);",
+							"});",
+							"",
+							"//Niscode van gemeenten bestaat altijd uit 5 cijfers. Test om te controleren of het objectid effectief uit 5 cijfers bestaat.",
+							"pm.test(\"Het formaat van het objectId is correct (NIS-code, altijd 5 cijfers).\", function() {",
+							"    pm.expect(identificator.objectId).to.match(/(\\d{5})/);",
+							"});",
+							"",
+							"//Reguliere expressie om te controleren of de datum van het formaat jjjj-mm-ddT00:00:00.000+00:00.",
+							"pm.test(\"Het formaat van de versie is correct.\", function() {",
+							"    pm.expect(identificator.versieId).to.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2}(?:\\.\\d*)?)[+-](\\d{2}):(\\d{2})/);",
+							"});",
+							"",
+							"//Bij detail gemeenten 2 statussen mogelijk: 'in gebruik' of 'gehistoreerd'. Voor de algemene testen maakt dit niet uit welke status het is, zolang de status maar ingevuld is. Vandaar dat de test is 'oneOf'. Er zijn echter wel 2 requests aanwezig, die specifiek op een status gaan testen.",
+							"pm.test(\"De status is ofwel 'InGebruik' ofwel 'Gehistoreerd'\", function(){",
+							"    pm.expect(jsonData.gemeenteStatus).to.be.oneOf([\"inGebruik\", \"gehistoreerd\", \"InGebruik\", \"Gehistoreerd\"]);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "OffsetLimit - Happy flow",
+			"item": [
+				{
+					"name": "Municipality-offset(150)-limit(5)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a514594-666f-4a5e-9fd1-80be8f2e6694",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var gemeenten = JSON.parse(pm.variables.get(\"gemeenten\"));",
+									"var gemeenten0 = JSON.parse(pm.variables.get(\"gemeenten0\"));",
+									"var identificator0 = JSON.parse(pm.variables.get(\"identificator0\")); ",
+									"var volgende = pm.variables.get(\"volgende\");",
+									"var limit = parseInt(pm.request.url.query.get(\"limit\"));",
+									"var offset = parseInt(pm.request.url.query.get(\"offset\"));",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var omgeving = pm.variables.get(\"omgeving\");",
+									"var niscodegemeente = '24130';",
+									"var nextoffset = limit + offset;",
+									"",
+									"pm.test(\"De volgende offset die getoond wordt = \"+nextoffset+\" & de volgende limit die getoond wordt = '\"+limit+\"'.\", function() {",
+									"    pm.expect(volgende).to.eql(omgeving+\"?offset=\"+nextoffset+\"&limit=\"+limit);",
+									"});",
+									"",
+									"pm.test(\"Gemeenten heeft de correcte arraylengte.\", function() {",
+									"   ((pm.expect(gemeenten.length).to.equal(limit)));",
+									"});",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator0.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectid van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.objectId).to.eql(niscodegemeente);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}?offset=150&limit=5",
+							"host": [
+								"{{URL}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "150"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Offset heeft een waarde & limit heeft een waarde.\nDus vanaf de offset waarde de volgende aantal getoond = limit."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(150)-limit(5)-.json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a514594-666f-4a5e-9fd1-80be8f2e6694",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var gemeenten = JSON.parse(pm.variables.get(\"gemeenten\"));",
+									"var gemeenten0 = JSON.parse(pm.variables.get(\"gemeenten0\"));",
+									"var identificator0 = JSON.parse(pm.variables.get(\"identificator0\")); ",
+									"var volgende = pm.variables.get(\"volgende\");",
+									"var limit = parseInt(pm.request.url.query.get(\"limit\"));",
+									"var offset = parseInt(pm.request.url.query.get(\"offset\"));",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var omgeving = pm.variables.get(\"omgeving\");",
+									"var niscodegemeente = '24130';",
+									"var nextoffset = limit + offset;",
+									"",
+									"pm.test(\"De volgende offset die getoond wordt = \"+nextoffset+\" & de volgende limit die getoond wordt = '\"+limit+\"'.\", function() {",
+									"    pm.expect(volgende).to.eql(omgeving+\"?offset=\"+nextoffset+\"&limit=\"+limit);",
+									"});",
+									"",
+									"pm.test(\"Gemeenten heeft de correcte arraylengte.\", function() {",
+									"   ((pm.expect(gemeenten.length).to.equal(limit)));",
+									"});",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator0.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectid van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.objectId).to.eql(niscodegemeente);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}.json?offset=150&limit=5",
+							"host": [
+								"{{URL}}",
+								"json"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "150"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Offset heeft een waarde & limit heeft een waarde.\nDus vanaf de offset waarde de volgende aantal getoond = limit.\n\nEr is binnen AIV beslist dat de respons van de API slechts in een aantal formaten wordt ondersteund. \nJSON is daar 1 van. \nDeze test controleert of het JSON formaat wordt ondersteund & of in het JSON formaat de respons inhoudelijk volledig correct is ingevuld."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(150)-limit(5)-formaat*/*",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5a514594-666f-4a5e-9fd1-80be8f2e6694",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var gemeenten = JSON.parse(pm.variables.get(\"gemeenten\"));",
+									"var gemeenten0 = JSON.parse(pm.variables.get(\"gemeenten0\"));",
+									"var identificator0 = JSON.parse(pm.variables.get(\"identificator0\")); ",
+									"var volgende = pm.variables.get(\"volgende\");",
+									"var limit = parseInt(pm.request.url.query.get(\"limit\"));",
+									"var offset = parseInt(pm.request.url.query.get(\"offset\"));",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var omgeving = pm.variables.get(\"omgeving\");",
+									"var niscodegemeente = '24130';",
+									"var nextoffset = limit + offset;",
+									"",
+									"pm.test(\"De volgende offset die getoond wordt = \"+nextoffset+\" & de volgende limit die getoond wordt = '\"+limit+\"'.\", function() {",
+									"    pm.expect(volgende).to.eql(omgeving+\"?offset=\"+nextoffset+\"&limit=\"+limit);",
+									"});",
+									"",
+									"pm.test(\"Gemeenten heeft de correcte arraylengte.\", function() {",
+									"   ((pm.expect(gemeenten.length).to.equal(limit)));",
+									"});",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator0.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectid van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.objectId).to.eql(niscodegemeente);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}?offset=150&limit=5",
+							"host": [
+								"{{URL}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "150"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						},
+						"description": "Offset heeft een waarde & limit heeft een waarde.\nDus vanaf de offset waarde de volgende aantal getoond = limit.\n\nEr is binnen AIV beslist dat de respons van de API slechts in een aantal formaten wordt ondersteund. \nJSON is daar 1 van. \nDeze test controleert of het JSON formaat wordt ondersteund & of in het JSON formaat de respons inhoudelijk volledig correct is ingevuld."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(3)-no-limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5e39ba7d-af15-45cd-acb9-23823b70a231",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var gemeenten = JSON.parse(pm.variables.get(\"gemeenten\"));",
+									"var gemeenten0 = JSON.parse(pm.variables.get(\"gemeenten0\"));",
+									"var identificator0 = JSON.parse(pm.variables.get(\"identificator0\")); ",
+									"var volgende = pm.variables.get(\"volgende\");",
+									"var standaardlimit = pm.variables.get(\"standaardlimit\");",
+									"var offset = parseInt(pm.request.url.query.get(\"offset\"));",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var omgeving = pm.variables.get(\"omgeving\");",
+									"var niscodegemeente = '11005';",
+									"var nextoffset = standaardlimit + offset;",
+									"",
+									"pm.test(\"De volgende offset die getoond wordt = '\"+nextoffset+\"' & de volgende limit die getoond wordt = '\"+standaardlimit+\"'.\", function() {",
+									"    pm.expect(volgende).to.eql(omgeving+\"?offset=\"+nextoffset+\"&limit=\"+standaardlimit);",
+									"});",
+									"",
+									"pm.test(\"gemeenten heeft de correcte arraylengte\", function() {",
+									"    pm.expect(gemeenten.length).to.equal(standaardlimit);",
+									"});",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator0.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectid van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.objectId).to.eql(niscodegemeente);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}?offset=3",
+							"host": [
+								"{{URL}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "3",
+									"description": "Vanaf dit nummer beginnen met weergeven."
+								}
+							]
+						},
+						"description": "Enkel de offset wordt meegegeven, dit houdt dus in de dat limit terugvalt op de default limit aantallen. In dit geval is dit 100.\nDus vanaf de offset waarde de volgende 100.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-no-offset-no-limit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "63afd6a9-ea33-47d7-90d7-78e5227930a5",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var gemeenten = JSON.parse(pm.variables.get(\"gemeenten\"));",
+									"var gemeenten0 = JSON.parse(pm.variables.get(\"gemeenten0\"));",
+									"var identificator0 = JSON.parse(pm.variables.get(\"identificator0\"));",
+									"var volgende = pm.variables.get(\"volgende\");",
+									"var standaardlimit = pm.variables.get(\"standaardlimit\");",
+									"var standaardoffset = pm.variables.get(\"standaardoffset\");",
+									"var eerstegemeente = pm.variables.get(\"eerstegemeente\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var omgeving = pm.variables.get(\"omgeving\");",
+									"var nextoffset = standaardlimit + standaardoffset;",
+									"",
+									"pm.test(\"De volgende offset die getoond wordt = '\"+nextoffset+\"' & de volgende limit die getoond wordt = '\"+standaardlimit+\"'.\", function() {",
+									"    pm.expect(volgende).to.eql(omgeving+\"?offset=\"+nextoffset+\"&limit=\"+standaardlimit);",
+									"});",
+									"",
+									"pm.test(\"gemeenten heeft de correcte arraylengte\", function() {",
+									"    pm.expect(gemeenten.length).to.equal(standaardlimit);",
+									"});",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator0.id).to.eql(naamruimte+\"/\"+eerstegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectid van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.objectId).to.eql(eerstegemeente);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}",
+							"host": [
+								"{{URL}}"
+							]
+						},
+						"description": "Als er geen offset of limit wordt meegegeven dan valt de limit terug op de default limit aantallen. In dit geval is dit 100.\nDus vanaf de eerste waarde de volgende 100."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(0)-limit(500)-officiallylanguage",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b896470-6c74-4a22-8d80-bfcaad0dec4d",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var gemeenten = JSON.parse(pm.variables.get(\"gemeenten\"));",
+									"var gemeenten0 = JSON.parse(pm.variables.get(\"gemeenten0\"));",
+									"var identificator0 = JSON.parse(pm.variables.get(\"identificator0\")); ",
+									"var volgende = pm.variables.get(\"volgende\");",
+									"var maxlimit = pm.variables.get(\"maxlimit\");",
+									"var offset = parseInt(pm.request.url.query.get(\"offset\"));",
+									"var niscodegemeente = pm.variables.get(\"eerstegemeente\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var omgeving = pm.variables.get(\"omgeving\");",
+									"var nextoffset = offset + maxlimit;",
+									"var taalnl = pm.variables.get(\"taalnl\"); var taalNL = pm.variables.get(\"taalNL\"); var taalNl = pm.variables.get(\"taalNl\");",
+									"",
+									"pm.test(\"De volgende offset die getoond wordt = '\"+nextoffset+\"' & de volgende limit die getoond wordt = '\"+maxlimit+\"'.\", function() {",
+									"    pm.expect(volgende).to.eql(omgeving+\"?offset=\"+nextoffset+\"&limit=\"+maxlimit);",
+									"});",
+									"",
+									"pm.test(\"gemeenten heeft de correcte arraylengte\", function() {",
+									"    pm.expect(gemeenten.length).to.equal(maxlimit);",
+									"});",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator0.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectid van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het id van de gemeente is correct.\", function(){",
+									"    pm.expect(identificator0.id).to.eql(\"https://data.vlaanderen.be/id/gemeente/\"+niscodegemeente);",
+									"});",
+									"",
+									"//1 officiële taal aanwezig & deze is NL voor deze gemeente.",
+									"var gemeentenaam0 = gemeenten0.gemeentenaam;",
+									"var geografischenaam0 = gemeentenaam0.geografischeNaam;",
+									"var taal0 = geografischenaam0.taal;",
+									"",
+									"pm.test(\"De taal voor deze gemeente is '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(taal0).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"//1 officiële taal aanwezig & deze is FR voor deze gemeente.",
+									"var gemeenten6 = jsonData.gemeenten[6];",
+									"var gemeentenaam6 = gemeenten6.gemeentenaam;",
+									"var geografischenaam6 = gemeentenaam6.geografischeNaam;",
+									"var taal6 = geografischenaam6.taal;",
+									"",
+									"pm.test(\"De taal voor deze gemeente is '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(taal6).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"//1 officiële taal aanwezig & deze is DE voor deze gemeente.",
+									"var gemeenten10 = jsonData.gemeenten[10];",
+									"var gemeentenaam10 = gemeenten10.gemeentenaam;",
+									"var geografischenaam10 = gemeentenaam10.geografischeNaam;",
+									"var taal10 = geografischenaam10.taal;",
+									"",
+									"pm.test(\"De taal voor deze gemeente is '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(taal10).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"//2 officiële talen aanwezig & de eerste officiële taal is NL voor deze gemeente.",
+									"var gemeenten12 = jsonData.gemeenten[12];",
+									"var gemeentenaam12 = gemeenten12.gemeentenaam;",
+									"var geografischenaam12 = gemeentenaam12.geografischeNaam;",
+									"var taal12 = geografischenaam12.taal;",
+									"",
+									"pm.test(\"De taal voor deze gemeente is '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(taal12).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}?offset=0&limit={{maxlimit}}",
+							"host": [
+								"{{URL}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Vanaf dit nummer beginnen met weergeven."
+								},
+								{
+									"key": "limit",
+									"value": "{{maxlimit}}",
+									"description": "Het aantal dat mag getoond worden.\n"
+								}
+							]
+						},
+						"description": "500 is de het limit aantal dat mogelijk is.\nDus dit moet aanvaard worden & effectief 500 getoond worden vanaf de opgegeven offsetwaarde.\nOok wordt er in deze test de 'officialy language' getest.\nDit houdt in dat in de lijst van gemeenten de taal & de gemeentenaam = de eerste officiële taal van de gemeente."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(0)-limit(500)-.json",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b896470-6c74-4a22-8d80-bfcaad0dec4d",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var gemeenten = JSON.parse(pm.variables.get(\"gemeenten\"));",
+									"var gemeenten0 = JSON.parse(pm.variables.get(\"gemeenten0\"));",
+									"var identificator0 = JSON.parse(pm.variables.get(\"identificator0\")); ",
+									"var volgende = pm.variables.get(\"volgende\");",
+									"var maxlimit = pm.variables.get(\"maxlimit\");",
+									"var offset = parseInt(pm.request.url.query.get(\"offset\"));",
+									"var niscodegemeente = pm.variables.get(\"eerstegemeente\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var omgeving = pm.variables.get(\"omgeving\");",
+									"var nextoffset = offset + maxlimit;",
+									"",
+									"pm.test(\"De volgende offset die getoond wordt = '\"+nextoffset+\"' & de volgende limit die getoond wordt = '\"+maxlimit+\"'.\", function() {",
+									"    pm.expect(volgende).to.eql(omgeving+\"?offset=\"+nextoffset+\"&limit=\"+maxlimit);",
+									"});",
+									"",
+									"pm.test(\"gemeenten heeft de correcte arraylengte\", function() {",
+									"    pm.expect(gemeenten.length).to.equal(maxlimit);",
+									"});",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator0.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectid van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.objectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het id van de gemeente is correct.\", function(){",
+									"    pm.expect(identificator0.id).to.eql(\"https://data.vlaanderen.be/id/gemeente/\"+niscodegemeente);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}.json?offset=0&limit={{maxlimit}}",
+							"host": [
+								"{{URL}}",
+								"json"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Vanaf dit nummer beginnen met weergeven."
+								},
+								{
+									"key": "limit",
+									"value": "{{maxlimit}}",
+									"description": "Het aantal dat mag getoond worden.\n"
+								}
+							]
+						},
+						"description": "500 is de het limit aantal dat mogelijk is.\nDus dit moet aanvaard worden & effectief 500 getoond worden vanaf de opgegeven offsetwaarde.\n\nEr is binnen AIV beslist dat de respons van de API slechts in een aantal formaten wordt ondersteund. \nJSON is daar 1 van. \nDeze test controleert of het JSON formaat wordt ondersteund & of in het JSON formaat de respons inhoudelijk volledig correct is ingevuld."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(500)-limit(200)-limit-bigger-then-elements-in-array",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b896470-6c74-4a22-8d80-bfcaad0dec4d",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var gemeenten = JSON.parse(pm.variables.get(\"gemeenten\"));",
+									"var volgende = pm.variables.get(\"volgende\");",
+									"var offset = parseInt(pm.request.url.query.get(\"offset\"));",
+									"var totaalAantal = pm.variables.get(\"totaalAantal\");",
+									"",
+									"pm.test(\"De respons heeft het veld 'Volgende' niet omdat de limit > is dan het aantal elementen in de array.\", function() {",
+									"   pm.response.to.not.have.jsonBody(\"Volgende\");",
+									"});",
+									"",
+									"pm.test(\"De arraylengte van straatnamen = totaalAantal-de ingegeven offset, omdat de limit > is dan het aantal elementen in de array.  .\", function() {",
+									"    pm.expect(gemeenten.length).to.equal(totaalAantal -offset);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}?offset=500&limit=200",
+							"host": [
+								"{{URL}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "500",
+									"description": "Vanaf dit nummer beginnen met weergeven."
+								},
+								{
+									"key": "limit",
+									"value": "200",
+									"description": "Het aantal dat mag getoond worden.\n"
+								}
+							]
+						},
+						"description": "Offset heeft een waarde & limit heeft een waarde.\nDus vanaf de offset waarde de volgende aantal getoond = limit.\nDe andere test die wordt gedaan is dat als een limit wordt opgegeven die > is dan de elementen nog beschikbaar in de array dat het veld 'volgende' = null + de arraylengte = het aantal elementen nog beschikbaar & niet gelijk aan de opgegeven limit waarde."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(0)-limit(501)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a61f3541-a4e9-40b8-ae89-673759ab1491",
+								"exec": [
+									"var jsonData = JSON.parse(pm.variables.get(\"jsonData\"));",
+									"var gemeenten = JSON.parse(pm.variables.get(\"gemeenten\"));",
+									"var gemeenten0 = JSON.parse(pm.variables.get(\"gemeenten0\"));",
+									"var identificator0 = JSON.parse(pm.variables.get(\"identificator0\")); ",
+									"var volgende = pm.variables.get(\"volgende\");",
+									"var offset = parseInt(pm.request.url.query.get(\"offset\"));",
+									"var maxlimit = pm.variables.get(\"maxlimit\");",
+									"var niscodegemeente = pm.variables.get(\"eerstegemeente\");",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var omgeving = pm.variables.get(\"omgeving\");",
+									"var nextoffset = offset+maxlimit;",
+									"",
+									"pm.test(\"De volgende offset die getoond wordt = '\"+nextoffset+\"' & de volgende limit die getoond wordt = '\"+maxlimit+\"'.\", function() {",
+									"    pm.expect(jsonData.volgende).to.eql(omgeving+\"?offset=\"+nextoffset+\"&limit=\"+maxlimit);",
+									"});",
+									"",
+									"pm.test(\"gemeenten heeft de correcte arraylengte\", function() {",
+									"    pm.expect(gemeenten.length).to.equal(maxlimit);",
+									"});",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator0.id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"Het objectid van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.objectId).to.eql(niscodegemeente);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}?offset=0&limit=501",
+							"host": [
+								"{{URL}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Vanaf dit nummer beginnen met weergeven."
+								},
+								{
+									"key": "limit",
+									"value": "501",
+									"description": "Het aantal dat mag getoond worden.\n"
+								}
+							]
+						},
+						"description": "500 is het max limit aantal dat mogelijk is.\n501 elementen worden er dus niet getoond, maar er worden er effectief 500 getoond vanaf de opgegeven offsetwaarde.\n\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(0)-limit(3)-responsetime",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b896470-6c74-4a22-8d80-bfcaad0dec4d",
+								"exec": [
+									"var responsetime = pm.variables.get(\"responsetime\");",
+									"",
+									"pm.test(\"Response time is <= \"+responsetime+\"ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(responsetime);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}?offset=0&limit=3",
+							"host": [
+								"{{URL}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Vanaf dit nummer beginnen met weergeven."
+								},
+								{
+									"key": "limit",
+									"value": "3",
+									"description": "Het aantal dat mag getoond worden.\n"
+								}
+							]
+						},
+						"description": "De responsetijd van een request is algemeen beslist binnen AIV dat dit < 250ms.\nDeze test controleert of dit het geval is of niet.\nDit is voor een request met een laag aantal aan getoonde waarden."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(0)-limit(500)-responsetime",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b896470-6c74-4a22-8d80-bfcaad0dec4d",
+								"exec": [
+									"var responsetime = pm.variables.get(\"responsetime\");",
+									"",
+									"pm.test(\"Response time is <= \"+responsetime+\"ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(responsetime);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}?offset=0&limit={{maxlimit}}",
+							"host": [
+								"{{URL}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Vanaf dit nummer beginnen met weergeven."
+								},
+								{
+									"key": "limit",
+									"value": "{{maxlimit}}",
+									"description": "Het aantal dat mag getoond worden.\n"
+								}
+							]
+						},
+						"description": "De responsetijd van een request is algemeen beslist binnen AIV dat dit < 250ms.\nDeze test controleert of dit het geval is of niet.\nDit is voor een request met het max aantal aan getoonde waarden."
+					},
+					"response": []
+				}
+			],
+			"description": "Hieronder staan alle testen van het legacy endpoint 'offset/limit' van gemeenten die betrekking hebben op de happy flow.\nDit houdt in dat enkel positieve testen hier aanwezig zijn. \nAl deze testen hebben ook allemaal een aantal testen gemeenschappelijk & deze zijn daarom op een hoger niveau gedefinieerd (zie tab 'Tests' om te weten wat deze gemeenschappelijke testen zijn.).",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4f994f65-835a-4d86-a748-5d39b2967d7f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b33f81c2-a01e-46fa-99ca-361502b90143",
+						"type": "text/javascript",
+						"exec": [
+							"//Hieronder staan alle algemene testen voor deze folder.",
+							"//Per request gaan deze testen ook uitgevoerd worden.",
+							"var jsonData = pm.response.json();",
+							"var identificator = jsonData.identificator;",
+							"var gemeenten = jsonData.gemeenten;",
+							"var gemeenten0 = jsonData.gemeenten[0];",
+							"var identificator0 = gemeenten0.identificator;",
+							"var totaalAantal = jsonData.totaalAantal;",
+							"var Crabaantalgemeenten = 596;",
+							"var volgende = jsonData.volgende;",
+							"var _ = require('lodash');",
+							"",
+							"//allereerste gemeente in de array (op plaats 0).",
+							"var eerstegemeente ='11001';",
+							"",
+							"pm.variables.set(\"jsonData\", JSON.stringify(jsonData));",
+							"pm.variables.set(\"identificator\", JSON.stringify(identificator));",
+							"pm.variables.set(\"gemeenten\", JSON.stringify(gemeenten));",
+							"pm.variables.set(\"gemeenten0\", JSON.stringify(gemeenten0));",
+							"pm.variables.set(\"identificator0\", JSON.stringify(identificator0));",
+							"pm.variables.set(\"volgende\", volgende);",
+							"pm.variables.set(\"eerstegemeente\", eerstegemeente);",
+							"pm.variables.set(\"totaalAantal\", totaalAantal);",
+							"",
+							"var naamruimte = pm.variables.get(\"naamruimte\");",
+							"var contenttypejson = pm.globals.get(\"contenttypejson\");",
+							"",
+							"pm.test(\"Status code is '200'\", function(){",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"De header 'Content-Type' is aanwezig.\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Het formaat van de respons is JSON.\", function () {",
+							"    postman.getResponseHeader('Content-Type') === contenttypejson;",
+							"});",
+							"",
+							"pm.test(\"Gemeenten is een array.\", function() {",
+							"    pm.expect(gemeenten).to.be.an('array');",
+							"});",
+							"",
+							"//Niscode van gemeenten bestaat altijd uit 5 cijfers. Test om te controleren of het objectid effectief uit 5 cijfers bestaat.",
+							"pm.test(\"Het formaat van het objectId van de eerste gemeente is correct (NIS-code, altijd 5 cijfers).\", function() {",
+							"    pm.expect(identificator0.objectId).to.match(/(\\d{5})/);",
+							"});",
+							"",
+							"//Reguliere expressie om te controleren of de datum van het formaat jjjj-mm-ddT00:00:00.000+00:00.",
+							"pm.test(\"Het formaat van de versie van de eerste gemeente is correct.\", function() {",
+							"    pm.expect(identificator0.versieId).to.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2}(?:\\.\\d*)?)[+-](\\d{2}):(\\d{2})/);",
+							"});",
+							"",
+							"//De naamruimte is per folder ook overal dezelfde",
+							"pm.test(\"De naamruimte van de eerste gemeente is correct.\", function() {",
+							"    pm.expect(identificator0.naamruimte).to.eql(naamruimte);",
+							"});",
+							"",
+							"pm.test(\"Het totaal aantal komt overeen met de tabel CRAB odb.tblGemeente\", function() {",
+							"    pm.expect(totaalAantal).to.eql(Crabaantalgemeenten);",
+							"});",
+							"",
+							"pm.test('De ids van gemeentenamen staat correct gesoteerd van klein naar groot',()=>{",
+							"    var expectedSortedOrder = _.orderBy(gemeenten, ['identificator.objectId'], ['ASC']);",
+							"    pm.expect(gemeenten).to.be.eql(expectedSortedOrder);",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Detail - Alternative flow",
+			"item": [
+				{
+					"name": "Municipality-detail-response-status-406",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aceb3a0e-2556-479f-b9c3-de726e6bda30",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var type = pm.variables.get(\"type\");",
+									"var title = pm.variables.get(\"title\");",
+									"var onbestaandformaat = pm.variables.get(\"onbestaandformaat\");",
+									"var typecorrect = pm.variables.get(\"typecorrect\");",
+									"var titelcorrect = pm.variables.get(\"titelcorrect\");",
+									"var detailcorrect = pm.variables.get(\"detailcorrect\");",
+									"var statuscode = pm.variables.get(\"statuscode\");",
+									"",
+									"pm.test(typecorrect, function() {",
+									"    pm.expect(jsonData.type).to.eql(type);",
+									"});",
+									"",
+									"pm.test(titelcorrect, function() {",
+									"    pm.expect(jsonData.title).to.eql(title);",
+									"});",
+									"",
+									"pm.test(detailcorrect, function() {",
+									"    pm.expect(jsonData.detail).to.eql(onbestaandformaat);",
+									"});",
+									"",
+									"pm.test(statuscode+\":'406'\", function(){",
+									"  pm.response.to.have.status(406);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/javascript",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/11001",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"11001"
+							]
+						},
+						"description": "Controleer dat als in de URI van de API een formaat wordt meegegeven dat geen 'XML' of 'JSON' is dat er als respons een error 406 wordt getoond.\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-response-status-404-1111111",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aceb3a0e-2556-479f-b9c3-de726e6bda30",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var type = pm.variables.get(\"type\");",
+									"var title = pm.variables.get(\"title\");",
+									"var onbestaandegemeente = pm.variables.get(\"onbestaandegemeente\");",
+									"var typecorrect = pm.variables.get(\"typecorrect\");",
+									"var titelcorrect = pm.variables.get(\"titelcorrect\");",
+									"var detailcorrect = pm.variables.get(\"detailcorrect\");",
+									"var statuscode = pm.variables.get(\"statuscode\");",
+									"",
+									"// Standaardtest in Postman voor de 404. Dit verwacht dat er een 404 wordt terug gestuurd.",
+									"pm.test(\"Er wordt een error 404 als respons gegeven.\", function() {",
+									"    pm.response.to.be.notFound;",
+									"});",
+									"",
+									"pm.test(typecorrect, function() {",
+									"    pm.expect(jsonData.type).to.eql(type);",
+									"});",
+									"",
+									"pm.test(titelcorrect, function() {",
+									"    pm.expect(jsonData.title).to.eql(title);",
+									"});",
+									"",
+									"pm.test(detailcorrect, function() {",
+									"    pm.expect(jsonData.detail).to.eql(onbestaandegemeente);",
+									"});",
+									"",
+									"pm.test(statuscode+\":'404'\", function(){",
+									"  pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/1111111",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"1111111"
+							]
+						},
+						"description": "Controleer dat als een niscode wordt gegeven die niet bestaat dat er een 404 error wordt teruggestuurd.\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-response-status-404-aaaa",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aceb3a0e-2556-479f-b9c3-de726e6bda30",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var type = pm.variables.get(\"type\");",
+									"var title = pm.variables.get(\"title\");",
+									"var onbestaandegemeente = pm.variables.get(\"onbestaandegemeente\");",
+									"var typecorrect = pm.variables.get(\"typecorrect\");",
+									"var titelcorrect = pm.variables.get(\"titelcorrect\");",
+									"var detailcorrect = pm.variables.get(\"detailcorrect\");",
+									"var statuscode = pm.variables.get(\"statuscode\");",
+									"",
+									"// Standaardtest in Postman voor de 404. Dit verwacht dat er een 404 wordt terug gestuurd.",
+									"pm.test(\"Er wordt een error 404 als respons gegeven.\", function() {",
+									"    pm.response.to.be.notFound;",
+									"});",
+									"",
+									"pm.test(typecorrect, function() {",
+									"    pm.expect(jsonData.type).to.eql(type);",
+									"});",
+									"",
+									"pm.test(titelcorrect, function() {",
+									"    pm.expect(jsonData.title).to.eql(title);",
+									"});",
+									"",
+									"pm.test(detailcorrect, function() {",
+									"    pm.expect(jsonData.detail).to.eql(onbestaandegemeente);",
+									"});",
+									"",
+									"pm.test(statuscode+\": '404'\", function(){",
+									"  pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/aaaa",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"aaaa"
+							]
+						},
+						"description": "Controleer dat als een niscode wordt gegeven die niet bestaat dat er een 404 error wordt teruggestuurd.\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-response-status-304",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aceb3a0e-2556-479f-b9c3-de726e6bda30",
+								"exec": [
+									"var statuscode = pm.variables.get(\"statuscode\");",
+									"",
+									"pm.test(statuscode+\":'304'\", function(){",
+									"  pm.response.to.have.status(304);",
+									"  });",
+									" "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "If-None-Match",
+								"value": "\"81D34F4ED2277DB21FA6A6C35FFFF544\"",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/11001",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"11001"
+							]
+						},
+						"description": "Controleer dat als een request met niscode wordt gestuurd & direct daarna opnieuw (zonder browser te sluiten) dat de error 304 wordt teruggestuurd.\nVoor de gebruiker is een error 304 visueel niet zichtbaar, deze zien namelijk de respons status 200.\nStap 1: Open F12, Ga naar de URL van een nieuw gekozen ID. \nStap 2: Ga naar de tab 'Network'.\nStap 3: Resultaat: Bij de naam van het ID staat de status '200'.\nStap 4: Druk nu op F5.\nStap 5: Resultaat: Bij de naam van het ID staat nu de status '304'.\n\nStatus 304 kan gesimuleerd worden door de waarde van de 'If-None-Match' mee te geven als header.\n\nLet wel: De developers moeten dit wel beschikbaar stellen dat dit mogelijk is.\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-detail-format-.xml",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aceb3a0e-2556-479f-b9c3-de726e6bda30",
+								"exec": [
+									"var jsonDatatoxml = xml2Json(responseBody);",
+									"var identificator = jsonDatatoxml.GemeenteDetail.Identificator;",
+									"var gemeentestatus = jsonDatatoxml.GemeenteDetail.GemeenteStatus;",
+									"var officieletalen = jsonDatatoxml.GemeenteDetail.OfficieleTalen;",
+									"var faciliteitentalen = jsonDatatoxml.GemeenteDetail.FaciliteitenTalen;",
+									"var gemeentenamen = jsonDatatoxml.GemeenteDetail.Gemeentenamen;",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var contenttypexml= pm.globals.get(\"contenttypexml\");",
+									"//variabele waarde, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '11001';",
+									"var gemeentenaamnl = 'Aartselaar';",
+									"",
+									"var taalnl = pm.variables.get(\"taalnl\"); var taalNL = pm.variables.get(\"taalNL\"); var taalNl = pm.variables.get(\"taalNl\");",
+									"var taalfr = pm.variables.get(\"taalfr\"); var taalFR = pm.variables.get(\"taalFR\"); var taalFr = pm.variables.get(\"taalFr\");",
+									"var taalde = pm.variables.get(\"taalde\"); var taalDE = pm.variables.get(\"taalDE\"); var taalDe = pm.variables.get(\"taalDe\");",
+									"",
+									"pm.test(\"De id is correct.\", function() {",
+									"    pm.expect(identificator.Id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"De naamruimte is correct.\", function() {",
+									"  pm.expect(identificator.Naamruimte).to.eql(naamruimte);",
+									"});",
+									"",
+									"//Niscode van gemeenten bestaat altijd uit 5 cijfers. Test om te controleren of het objectid effectief uit 5 cijfers bestaat.",
+									"pm.test(\"Het formaat van het objectId is correct (NIS-code, altijd 5 cijfers).\", function() {",
+									"    pm.expect(identificator.ObjectId).to.match(/(\\d{5})/);",
+									"});",
+									"",
+									"pm.test(\"Het objectId is correct.\", function() {",
+									"    pm.expect(identificator.ObjectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"//Reguliere expressie om te controleren of de datum van het formaat jjjj-mm-ddT00:00:00.000+00:00.",
+									"pm.test(\"Het formaat van de versie is correct.\", function() {",
+									"    pm.expect(identificator.VersieId).to.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2}(?:\\.\\d*)?)[+-](\\d{2}):(\\d{2})/);",
+									"});",
+									"",
+									"pm.test(\"Status code is '200'\", function(){",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"De header 'Content-Type' is aanwezig.\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Het formaat van de respons is XML.\", function () {",
+									"     pm.expect(pm.response.headers.get('Content-Type')).to.eql(contenttypexml);",
+									"});",
+									"",
+									"pm.test(\"Er is 1 officiële taal voor deze gemeente aanwezig, namelijk '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(officieletalen.Taal).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De arraylengte van de faciliteitentalen = \"+faciliteitentalen.length+\".\", function() {",
+									"    pm.expect(faciliteitentalen.length).to.equal(0);",
+									"});",
+									"",
+									"pm.test(\"De gemeentenaam staat in de taal '\"+taalnl+\"'.\", function() {",
+									"    pm.expect(gemeentenamen.GeografischeNaam.Taal).to.be.oneOf([taalnl, taalNL, taalNl]);",
+									"});",
+									"",
+									"pm.test(\"De spelling van de gemeentenaam is correct: \"+gemeentenaamnl+\".\", function() {",
+									"    pm.expect(gemeentenamen.GeografischeNaam.Spelling).to.eql(gemeentenaamnl);",
+									"});",
+									"",
+									"//Bij detail gemeenten 2 statussen mogelijk: 'in gebruik' of 'gehistoreerd'. Voor de algemene testen maakt dit niet uit welke status het is, zolang de status maar ingevuld is. Vandaar dat de test is 'oneOf'. Er zijn echter wel 2 requests aanwezig, die specifiek op een status gaan testen.",
+									"pm.test(\"De status is ofwel 'InGebruik' ofwel 'Gehistoreerd'\", function(){",
+									"    pm.expect(gemeentestatus).to.be.oneOf([\"inGebruik\", \"gehistoreerd\", \"InGebruik\", \"Gehistoreerd\"]);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/11001.xml",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"11001.xml"
+							]
+						},
+						"description": "Er is binnen AIV beslist dat de respons van de API slechts in een aantal formaten wordt ondersteund. \nXML is daar 1 van. \nDeze test controleert of het XML formaat wordt ondersteund & of in het XML formaat de respons inhoudelijk volledig correct is ingevuld.\n\n(De reden waarom deze test niet bij de happy flow zit, is omdat de gemeenschappelijke testen gedefinieerd op folderniveau voor JSON formaat zijn & niet voor xml formaat.)"
+					},
+					"response": []
+				}
+			],
+			"description": "Hieronder staan alle testen van het legacy endpoint 'detail' van gemeenten die betrekking hebben op de alternatieve flow.\nDit houdt in dat enkel testen die niet onder de folder 'happy flow' konden gedefineerd worden, onder deze folder staan. \nDit zijn ook request die geen gemeenschappelijke testen hebben. ",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e159a36b-40e8-42f7-b766-64bcea354b25",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "12df8708-6a11-40c9-adc8-81b382c9996f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "OffsetLimit - Alternative flow",
+			"item": [
+				{
+					"name": "Municipality-offset(130)-limit(0)-empty-array",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "195d8a58-9340-4e5b-9284-4ab330ef40c6",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var gemeenten = jsonData.gemeenten;",
+									"var totaalAantal = jsonData.totaalAantal;",
+									"var contenttypejson = pm.globals.get(\"contenttypejson\");",
+									"var volgende = jsonData.volgende;",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var omgeving = pm.variables.get(\"omgeving\");",
+									"var limit = parseInt(pm.request.url.query.get(\"limit\"));",
+									"var offset = parseInt(pm.request.url.query.get(\"offset\"));",
+									"var nextoffset = limit + offset;",
+									"var Crabaantalgemeenten = 596;",
+									"",
+									"pm.test(\"Het totaal aantal komt overeen met de tabel CRAB odb.tblGemeente\", function() {",
+									"    pm.expect(totaalAantal).to.eql(Crabaantalgemeenten);",
+									"});",
+									"",
+									"pm.test(\"Status code is '200'\", function(){",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"De header 'Content-Type' is aanwezig.\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Het formaat van de respons is JSON.\", function () {",
+									"    postman.getResponseHeader('Content-Type') === contenttypejson;",
+									"});",
+									"",
+									"pm.test(\"Gemeenten is een array.\", function() {",
+									"    pm.expect(gemeenten).to.be.an('array');",
+									"});",
+									"",
+									"pm.test(\"gemeenten is '[]'\", function(){",
+									"pm.expect(jsonData.gemeenten).to.be.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"De volgende offset die getoond wordt = \"+nextoffset+\" & de volgende limit die getoond wordt = '\"+limit+\"'.\", function() {",
+									"    pm.expect(volgende).to.eql(omgeving+\"?offset=\"+nextoffset+\"&limit=\"+limit);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}?offset=130&limit=0",
+							"host": [
+								"{{URL}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "130",
+									"description": "Vanaf dit nummer beginnen met weergeven."
+								},
+								{
+									"key": "limit",
+									"value": "0",
+									"description": "Het aantal dat mag getoond worden.\n"
+								}
+							]
+						},
+						"description": "Limit waarde 0 moet aanvaard worden. \nRespons status = 200 & er wordt dan een lege array teruggegeven."
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(0)-limit(3)-response-status-406",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b896470-6c74-4a22-8d80-bfcaad0dec4d",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"var type = pm.variables.get(\"type\");",
+									"var title = pm.variables.get(\"title\");",
+									"var typecorrect = pm.variables.get(\"typecorrect\");",
+									"var titelcorrect = pm.variables.get(\"titelcorrect\");",
+									"var detailcorrect = pm.variables.get(\"detailcorrect\");",
+									"var statuscode = pm.variables.get(\"statuscode\");",
+									"var onbestaandformaat = pm.variables.get(\"onbestaandformaat\"); ",
+									"",
+									"pm.test(statuscode+ \" '406'\", function(){",
+									"  pm.response.to.have.status(406);",
+									"});",
+									"",
+									"pm.test(titelcorrect, function() {",
+									"    pm.expect(jsonData.title).to.eql(title);",
+									"});",
+									"",
+									"pm.test(detailcorrect, function() {",
+									"    pm.expect(jsonData.detail).to.eql(onbestaandformaat);",
+									"});",
+									"",
+									"pm.test(typecorrect, function() {",
+									"    pm.expect(jsonData.type).to.eql(type);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							},
+							{
+								"key": "Accept",
+								"value": "application/javascript",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}?offset=0&limit=3",
+							"host": [
+								"{{URL}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0",
+									"description": "Vanaf dit nummer beginnen met weergeven."
+								},
+								{
+									"key": "limit",
+									"value": "3",
+									"description": "Het aantal dat mag getoond worden.\n"
+								}
+							]
+						},
+						"description": "Controleer dat als in de URI van de API een formaat wordt meegegeven dat geen 'XML' of 'JSON' is dat er als respons een error 406 wordt getoond.\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(130)-limit(10)-response-status-304",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "195d8a58-9340-4e5b-9284-4ab330ef40c6",
+								"exec": [
+									"var statuscode = pm.variables.get(\"statuscode\");",
+									"",
+									"pm.test(statuscode+\":'304'\", function(){",
+									"  pm.response.to.have.status(304);",
+									"  });",
+									" "
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "If-None-Match",
+								"type": "text",
+								"value": "\"1497390BD120FD54510A233FD6024465\""
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{apikey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}?offset=130&limit=10",
+							"host": [
+								"{{URL}}"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "130",
+									"description": "Vanaf dit nummer beginnen met weergeven."
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Het aantal dat mag getoond worden.\n"
+								}
+							]
+						},
+						"description": "Controleer dat als een request wordt gestuurd & direct daarna opnieuw (zonder browser te sluiten) dat de error 304 wordt teruggestuurd.\nVoor de gebruiker is een error 304 visueel niet zichtbaar, deze zien namelijk de respons status 200.\nStap 1: Open F12, Ga naar de URL van een nieuw gekozen ID. \nStap 2: Ga naar de tab 'Network'.\nStap 3: Resultaat: Bij de naam van het ID staat de status '200'.\nStap 4: Druk nu op F5.\nStap 5: Resultaat: Bij de naam van het ID staat nu de status '304'.\n\nStatus 304 kan gesimuleerd worden door de waarde van de 'If-None-Match' mee te geven als header.\n\nLet wel: De developers moeten dit wel beschikbaar stellen dat dit mogelijk is.\n\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-offset(0)-limit(3)-format-.xml",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aceb3a0e-2556-479f-b9c3-de726e6bda30",
+								"exec": [
+									"var jsonData = xml2Json(responseBody);",
+									"var identificator0 = jsonData.GemeenteCollectie.Gemeenten.GemeenteCollectieItem[0].Identificator;",
+									"var statuscode = pm.variables.get(\"statuscode\");",
+									"var gemeenten = jsonData.GemeenteCollectie.Gemeenten.GemeenteCollectieItem;",
+									"var gemeenten0 = jsonData.GemeenteCollectie.Gemeenten.GemeenteCollectieItem[0];",
+									"var volgende = jsonData.GemeenteCollectie.Volgende;",
+									"var limit = parseInt(pm.request.url.query.get(\"limit\"));",
+									"var offset = parseInt(pm.request.url.query.get(\"offset\"));",
+									"var nextoffset = limit + offset;",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var omgeving = pm.variables.get(\"omgeving\");",
+									"var contenttypexml= pm.globals.get(\"contenttypexml\");",
+									"",
+									"//variabele waarde, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '11001';",
+									"",
+									"pm.test(\"Het id van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.Id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"De naamruimte van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.Naamruimte).to.eql(naamruimte);",
+									"});",
+									"",
+									"//Niscode van gemeenten bestaat altijd uit 5 cijfers. Test om te controleren of het objectid effectief uit 5 cijfers bestaat.",
+									"pm.test(\"Het formaat van het objectId van de eerste gemeente is correct (NIS-code, altijd 5 cijfers).\", function() {",
+									"    pm.expect(identificator0.ObjectId).to.match(/(\\d{5})/);",
+									"});",
+									"",
+									"pm.test(\"Het objectid van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.ObjectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"//Reguliere expressie om te controleren of de datum van het formaat jjjj-mm-ddT00:00:00.000+00:00.",
+									"pm.test(\"Het formaat van de versie van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.VersieId).to.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2}(?:\\.\\d*)?)[+-](\\d{2}):(\\d{2})/);",
+									"});",
+									"",
+									"pm.test(statuscode+ \" '200'\", function(){",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"De header 'Content-Type' is aanwezig.\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Het formaat van de respons is XML.\", function () {",
+									"      pm.expect(pm.response.headers.get('Content-Type')).to.eql(contenttypexml);",
+									"});",
+									"",
+									"pm.test(\"Gemeenten heeft de correcte arraylengte.\", function() {",
+									"   ((pm.expect(gemeenten.length).to.equal(limit)));",
+									"});",
+									"",
+									"pm.test(\"De volgende offset die getoond wordt = \"+nextoffset+\" & de volgende limit die getoond wordt = '\"+limit+\"'.\", function() {",
+									"    pm.expect(volgende).to.eql(omgeving+\"?offset=\"+nextoffset+\"&limit=\"+limit);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}.xml?offset=0&limit=3",
+							"host": [
+								"{{URL}}",
+								"xml"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						},
+						"description": "Offset heeft een waarde & limit heeft een waarde.\nDus vanaf de offset waarde de volgende aantal getoond = limit.\n\nEr is binnen AIV beslist dat de respons van de API slechts in een aantal formaten wordt ondersteund. \nXML is daar 1 van. \nDeze test controleert of het XML formaat wordt ondersteund & of in het XML formaat de respons inhoudelijk volledig correct is ingevuld.\n\n(De reden waarom deze test niet bij de happy flow zit, is omdat de gemeenschappelijke testen gedefinieerd op folderniveau voor JSON formaat zijn & niet voor xml formaat.)"
+					},
+					"response": []
+				},
+				{
+					"name": "Municipality-no-offset-no-limit-format-.xml",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "63afd6a9-ea33-47d7-90d7-78e5227930a5",
+								"exec": [
+									"var jsonData = xml2Json(responseBody);",
+									"var identificator0 = jsonData.GemeenteCollectie.Gemeenten.GemeenteCollectieItem[0].Identificator;",
+									"var statuscode = pm.variables.get(\"statuscode\");",
+									"var gemeenten = jsonData.GemeenteCollectie.Gemeenten.GemeenteCollectieItem;",
+									"var gemeenten0 = jsonData.GemeenteCollectie.Gemeenten.GemeenteCollectieItem[0];",
+									"var volgende = jsonData.GemeenteCollectie.Volgende;",
+									"var naamruimte = pm.variables.get(\"naamruimte\");",
+									"var omgeving = pm.variables.get(\"omgeving\");",
+									"var contenttypexml= pm.globals.get(\"contenttypexml\");",
+									"",
+									"//standaardlimiet wanneer geen limiet is meegegeven = 100.",
+									"var standaardlimit = 100;",
+									"",
+									"//standaardoffset wanneer geen offset is meegegeven = 0.",
+									"var standaardoffset = 0;",
+									"",
+									"var nextoffset = standaardlimit + standaardoffset;",
+									"",
+									"//variabele waarde, zo moet er maar op 1 plaats dit aangepast worden indien nodig.",
+									"var niscodegemeente = '11001';",
+									"",
+									"pm.test(\"Het id van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.Id).to.eql(naamruimte+\"/\"+niscodegemeente);",
+									"});",
+									"",
+									"pm.test(\"De naamruimte van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.Naamruimte).to.eql(naamruimte);",
+									"});",
+									"",
+									"//Niscode van gemeenten bestaat altijd uit 5 cijfers. Test om te controleren of het objectid effectief uit 5 cijfers bestaat.",
+									"pm.test(\"Het formaat van het objectId van de eerste gemeente is correct (NIS-code, altijd 5 cijfers).\", function() {",
+									"    pm.expect(identificator0.ObjectId).to.match(/(\\d{5})/);",
+									"});",
+									"",
+									"pm.test(\"Het objectid van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.ObjectId).to.eql(niscodegemeente);",
+									"});",
+									"",
+									"//Reguliere expressie om te controleren of de datum van het formaat jjjj-mm-ddT00:00:00.000+00:00.",
+									"pm.test(\"Het formaat van de versie van de eerste gemeente is correct.\", function() {",
+									"    pm.expect(identificator0.VersieId).to.match(/(\\d{4})-(\\d{2})-(\\d{2})T(\\d{2}):(\\d{2}):(\\d{2}(?:\\.\\d*)?)[+-](\\d{2}):(\\d{2})/);",
+									"});",
+									"",
+									"pm.test(statuscode+ \" '200'\", function(){",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"De header 'Content-Type' is aanwezig.\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});",
+									"",
+									"pm.test(\"Het formaat van de respons is XML.\", function () {",
+									"      pm.expect(pm.response.headers.get('Content-Type')).to.eql(contenttypexml);",
+									"});",
+									"",
+									"pm.test(\"Gemeenten heeft de correcte arraylengte.\", function() {",
+									"   ((pm.expect(gemeenten.length).to.equal(standaardlimit)));",
+									"});",
+									"",
+									"pm.test(\"De volgende offset die getoond wordt = \"+nextoffset+\" & de volgende limit die getoond wordt = '\"+standaardlimit+\"'.\", function() {",
+									"    pm.expect(volgende).to.eql(omgeving+\"?offset=\"+nextoffset+\"&limit=\"+standaardlimit);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"type": "text",
+								"value": "{{apikey}}"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}.xml",
+							"host": [
+								"{{URL}}",
+								"xml"
+							]
+						},
+						"description": "Als er geen offset of limit wordt meegegeven dan valt de limit terug op de default limit aantallen. In dit geval is dit 100.\nDus vanaf de eerste waarde de volgende 100.\n\nEr is binnen AIV beslist dat de respons van de API slechts in een aantal formaten wordt ondersteund. \nXML is daar 1 van. \nDeze test controleert of het XML formaat wordt ondersteund & of in het XML formaat de respons inhoudelijk volledig correct is ingevuld.\n\n(De reden waarom deze test niet bij de happy flow zit, is omdat de gemeenschappelijke testen gedefinieerd op folderniveau voor JSON formaat zijn & niet voor xml formaat.)"
+					},
+					"response": []
+				}
+			],
+			"description": "Hieronder staan alle testen van het legacy endpoint 'offset/limit' van gemeenten die betrekking hebben op de alternatieve flow.\nDit houdt in dat enkel testen die niet onder de folder 'happy flow' konden gedefineerd worden, onder deze folder staan. \nDit zijn ook request die geen gemeenschappelijke testen hebben. ",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "45a5df3b-4d72-407c-92d3-150bb516545e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "d416308d-2704-461d-ab2c-5caa6846f011",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "db183a77-9ecc-4106-b4f2-84a5261e9c6e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c1987dde-8666-4750-b4ac-8d197dad2a56",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "739f71df-0d5b-4392-90c7-c7ae1ddfa30a",
+			"key": "onbestaandegemeente",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "2648b629-d76a-4bbb-ac61-93daaba99ca6",
+			"key": "naamruimte",
+			"value": "https://data.vlaanderen.be/id/gemeente",
+			"type": "string"
+		},
+		{
+			"id": "45b7e150-9bf9-45b5-8a51-2ed1f66eeb46",
+			"key": "omgeving",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

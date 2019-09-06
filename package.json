@@ -26,11 +26,13 @@
     "husky": "3.0.4",
     "merge": "1.2.1",
     "semantic-release": "15.13.23",
-    "lodash": "4.17.15"
+    "lodash": "4.17.15",
+    "newman": "4.5.4"
   },
   "scripts": {
     "commit": "git-cz",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "postman": "newman run test/MunicipalityRegistry.Postman/Municipality.postman_collection.json -e test/MunicipalityRegistry.Postman/Municipality-Production.postman_environment.json -r cli --color off --disable-unicode"
   },
   "husky": {
     "hooks": {
