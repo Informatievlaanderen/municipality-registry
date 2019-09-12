@@ -41,12 +41,12 @@ nuget Be.Vlaanderen.Basisregisters.CommandHandling.SqlStreamStore ~> 3.2
 nuget Be.Vlaanderen.Basisregisters.EventHandling ~> 1.1
 nuget Be.Vlaanderen.Basisregisters.EventHandling.Autofac ~> 1.1
 
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList ~> 4.4
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore ~> 4.4
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac ~> 4.4
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner ~> 4.4
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector ~> 4.4
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector.Testing ~> 4.4
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList ~> 4.5
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore ~> 4.5
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac ~> 4.5
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner ~> 4.5
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector ~> 4.5
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector.Testing ~> 4.5
 
 nuget Be.Vlaanderen.Basisregisters.Projector ~> 3.3
 
@@ -69,9 +69,9 @@ nuget EntityFramework 6.2.0
 nuget Microsoft.SqlServer.Types 13.0.4001 // Don't update: requires version 13.0.4001 for legacy reasons
 
 // DOCS STUFF
-nuget Structurizr.Core 0.9.0
-nuget Structurizr.Client 0.9.0
-nuget Structurizr.AdrTools 0.9.0
+nuget Structurizr.Core 0.9.1
+nuget Structurizr.Client 0.9.1
+nuget Structurizr.AdrTools 0.9.1
 
 // TEST STUFF
 nuget Microsoft.NET.Test.Sdk 16.2.0
