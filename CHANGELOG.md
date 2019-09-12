@@ -1,3 +1,15 @@
+# [2.12.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.9...v2.12.0) (2019-09-12)
+
+
+### Bug Fixes
+
+* temporarly disable removewhere in docs ([2666693](https://github.com/informatievlaanderen/municipality-registry/commit/2666693))
+
+
+### Features
+
+* keep track of how many times lastchanged has errored ([b36c34d](https://github.com/informatievlaanderen/municipality-registry/commit/b36c34d))
+
 ## [2.11.9](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.8...v2.11.9) (2019-09-05)
 
 
