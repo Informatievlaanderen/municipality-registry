@@ -1,3 +1,10 @@
+## [2.12.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.12.0...v2.12.1) (2019-09-13)
+
+
+### Bug Fixes
+
+* update redis lastchangedlist to log time of lasterror ([519f77f](https://github.com/informatievlaanderen/municipality-registry/commit/519f77f))
+
 # [2.12.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.11.9...v2.12.0) (2019-09-12)
 
 
