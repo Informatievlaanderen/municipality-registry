@@ -17,6 +17,7 @@ namespace MunicipalityRegistry.Importer
         public int BufferSize => Settings.Default.BufferSize;
         public int NrOfConsumers => Settings.Default.NrOfConsumers;
         public int BatchSize => Settings.Default.BatchSize;
+        public bool WaitForUserInput => Settings.Default.WaitForUserInput;
         public TimeSpan TimeMargin => Settings.Default.TimeMargin;
 
         public override string ToString() => $"{Environment.NewLine}" +

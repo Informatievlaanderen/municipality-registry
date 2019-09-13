@@ -16,12 +16,12 @@ namespace MunicipalityRegistry.Importer
 
         private static void Main(string[] args)
         {
+            var settings = new SettingsBasedConfig();
             try
             {
                 var options = new ImportOptions(
                     args,
-                    errors => WaitForExit("Could not parse commandline options."));
-                var settings = new SettingsBasedConfig();
+                    errors => WaitForExit(settings, "Could not parse commandline options."));
 
                 MapLogging.Log = s => _commandCounter++;
 
@@ -41,19 +41,19 @@ namespace MunicipalityRegistry.Importer
                     .UseDefaultSerializerSettingsForCrabImports()
                     .Build();
 
-                WaitForStart();
+                WaitForStart(settings);
 
                 commandProcessor.Run(options, settings);
 
-                WaitForExit();
+                WaitForExit(settings);
             }
             catch (Exception exception)
             {
-                WaitForExit("General error occurred", exception);
+                WaitForExit(settings, "General error occurred", exception);
             }
         }
 
-        private static void WaitForExit(string errorMessage = null, Exception exception = null)
+        private static void WaitForExit(ICommandProcessorConfig settings, string errorMessage = null, Exception exception = null)
         {
             if (!string.IsNullOrEmpty(errorMessage))
                 Console.Error.WriteLine(errorMessage);
@@ -70,8 +70,11 @@ namespace MunicipalityRegistry.Importer
                 Console.WriteLine(summary);
             }
 
-            Console.WriteLine("Done! Press ENTER key to exit...");
-            ConsoleExtensions.WaitFor(ConsoleKey.Enter);
+            if (settings.WaitForUserInput)
+            {
+                Console.WriteLine("Done! Press ENTER key to exit...");
+                ConsoleExtensions.WaitFor(ConsoleKey.Enter);
+            }
 
             if (!string.IsNullOrEmpty(errorMessage))
                 Environment.Exit(1);
@@ -79,10 +82,14 @@ namespace MunicipalityRegistry.Importer
             Environment.Exit(0);
         }
 
-        private static void WaitForStart()
+        private static void WaitForStart(ICommandProcessorConfig settings)
         {
-            Console.WriteLine("Press ENTER key to start the CRAB Import...");
-            ConsoleExtensions.WaitFor(ConsoleKey.Enter);
+            if (settings.WaitForUserInput)
+            {
+                Console.WriteLine("Press ENTER key to start the CRAB Import...");
+                ConsoleExtensions.WaitFor(ConsoleKey.Enter);
+            }
+
             _stopwatch = Stopwatch.StartNew();
         }
     }
