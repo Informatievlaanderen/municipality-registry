@@ -105,7 +105,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
             }
 
             municipalities = CompareByCompareType(municipalities,
-                filtering.Filter.Name.SanitizeForBosaSearch(),
+                filtering.Filter.Name,
                 filtering.Filter.Language,
                 filtering.Filter.IsContainsFilter);
 
