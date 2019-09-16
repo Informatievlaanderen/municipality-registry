@@ -1,3 +1,10 @@
+## [2.13.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.13.0...v2.13.1) (2019-09-16)
+
+
+### Bug Fixes
+
+* return empty array instead of null BOSA GR-861 ([7cea07c](https://github.com/informatievlaanderen/municipality-registry/commit/7cea07c))
+
 # [2.13.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.12.1...v2.13.0) (2019-09-13)
 
 
