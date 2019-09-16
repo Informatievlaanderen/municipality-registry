@@ -1,3 +1,10 @@
+## [2.13.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.13.1...v2.13.2) (2019-09-16)
+
+
+### Bug Fixes
+
+* correct bosa exact search GR-857 ([d0ad344](https://github.com/informatievlaanderen/municipality-registry/commit/d0ad344))
+
 ## [2.13.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.13.0...v2.13.1) (2019-09-16)
 
 
