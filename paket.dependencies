@@ -50,9 +50,9 @@ nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector.Testing ~> 4.5
 
 nuget Be.Vlaanderen.Basisregisters.Projector ~> 3.3
 
-nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac ~> 3.7
-nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.Sql ~> 3.7
-nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.SqlStreamStore ~> 3.7
+nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac ~> 3.9
+nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.Sql ~> 3.9
+nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.SqlStreamStore ~> 3.9
 
 nuget Be.Vlaanderen.Basisregisters.Crab ~> 1.1
 
@@ -69,9 +69,9 @@ nuget EntityFramework 6.2.0
 nuget Microsoft.SqlServer.Types 13.0.4001 // Don't update: requires version 13.0.4001 for legacy reasons
 
 // DOCS STUFF
-nuget Structurizr.Core 0.9.1
-nuget Structurizr.Client 0.9.1
-nuget Structurizr.AdrTools 0.9.1
+nuget Structurizr.Core 0.9.2
+nuget Structurizr.Client 0.9.2
+nuget Structurizr.AdrTools 0.9.2
 
 // TEST STUFF
 nuget Microsoft.NET.Test.Sdk 16.2.0
