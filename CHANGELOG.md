@@ -1,3 +1,10 @@
+## [2.13.3](https://github.com/informatievlaanderen/municipality-registry/compare/v2.13.2...v2.13.3) (2019-09-16)
+
+
+### Bug Fixes
+
+* use generic dbtraceconnection ([be286f3](https://github.com/informatievlaanderen/municipality-registry/commit/be286f3))
+
 ## [2.13.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.13.1...v2.13.2) (2019-09-16)
 
 
