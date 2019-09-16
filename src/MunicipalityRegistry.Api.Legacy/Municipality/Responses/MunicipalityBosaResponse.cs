@@ -24,6 +24,11 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// </summary>
         [DataMember(Name = "TotaalAantal", Order = 2)]
         public long TotaalAantal { get; set; }
+
+        public MunicipalityBosaResponse()
+        {
+            Gemeenten = new List<MunicipalityBosaItemResponse>();
+        }
     }
 
     [DataContract(Name = "GemeenteCollectieItem", Namespace = "")]
