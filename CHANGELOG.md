@@ -1,3 +1,10 @@
+## [2.13.4](https://github.com/informatievlaanderen/municipality-registry/compare/v2.13.3...v2.13.4) (2019-09-17)
+
+
+### Bug Fixes
+
+* fix contains search ([493e9f1](https://github.com/informatievlaanderen/municipality-registry/commit/493e9f1))
+
 ## [2.13.3](https://github.com/informatievlaanderen/municipality-registry/compare/v2.13.2...v2.13.3) (2019-09-16)
 
 
