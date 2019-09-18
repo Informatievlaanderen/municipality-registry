@@ -6,7 +6,6 @@ namespace MunicipalityRegistry.Municipality
     using Be.Vlaanderen.Basisregisters.AggregateSource;
     using Be.Vlaanderen.Basisregisters.Crab;
     using Events;
-    using GeoAPI.Geometries;
     using NetTopologySuite;
     using NetTopologySuite.Geometries;
     using NetTopologySuite.Geometries.Implementation;
