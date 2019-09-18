@@ -1,3 +1,10 @@
+# [2.14.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.13.4...v2.14.0) (2019-09-18)
+
+
+### Features
+
+* upgrade NTS and Shaperon package ([4a893b9](https://github.com/informatievlaanderen/municipality-registry/commit/4a893b9))
+
 ## [2.13.4](https://github.com/informatievlaanderen/municipality-registry/compare/v2.13.3...v2.13.4) (2019-09-17)
 
 
