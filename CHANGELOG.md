@@ -1,3 +1,10 @@
+## [2.14.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.14.0...v2.14.1) (2019-09-19)
+
+
+### Bug Fixes
+
+* upgrade shaperon ([816b52c](https://github.com/informatievlaanderen/municipality-registry/commit/816b52c))
+
 # [2.14.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.13.4...v2.14.0) (2019-09-18)
 
 
