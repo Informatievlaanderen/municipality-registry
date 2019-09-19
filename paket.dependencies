@@ -56,13 +56,13 @@ nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.SqlStreamStore ~> 3.9
 
 nuget Be.Vlaanderen.Basisregisters.Crab ~> 1.1
 
-nuget Be.Vlaanderen.Basisregisters.GrAr.Common ~> 12.0
-nuget Be.Vlaanderen.Basisregisters.GrAr.Import ~> 12.0
-nuget Be.Vlaanderen.Basisregisters.GrAr.Legacy ~> 12.0
-nuget Be.Vlaanderen.Basisregisters.GrAr.Provenance ~> 12.0
-nuget Be.Vlaanderen.Basisregisters.GrAr.Extracts ~> 12.0
+nuget Be.Vlaanderen.Basisregisters.GrAr.Common ~> 12.1
+nuget Be.Vlaanderen.Basisregisters.GrAr.Import ~> 12.1
+nuget Be.Vlaanderen.Basisregisters.GrAr.Legacy ~> 12.1
+nuget Be.Vlaanderen.Basisregisters.GrAr.Provenance ~> 12.1
+nuget Be.Vlaanderen.Basisregisters.GrAr.Extracts ~> 12.1
 
-nuget Be.Vlaanderen.Basisregisters.Shaperon ~> 5.0
+nuget Be.Vlaanderen.Basisregisters.Shaperon ~> 6.0
 
 // .NET CLASSIC STUFF
 nuget EntityFramework 6.2.0
