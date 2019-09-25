@@ -294,7 +294,7 @@ NUGET
     Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac (4.5.2)
       Autofac.Extensions.DependencyInjection (>= 4.4)
       Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore (4.5.2)
-    Be.Vlaanderen.Basisregisters.Projector (4.1.1)
+    Be.Vlaanderen.Basisregisters.Projector (4.2)
       Autofac (>= 4.9.4)
       Autofac.Extensions.DependencyInjection (>= 4.4)
       Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector (>= 4.3 < 5.0)

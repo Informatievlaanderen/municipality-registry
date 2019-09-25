@@ -8,6 +8,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
+    using Be.Vlaanderen.Basisregisters.Projector;
     using Configuration;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -170,6 +171,15 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                     MiddlewareHooks =
                     {
                         AfterMiddleware = x => x.UseMiddleware<AddNoCacheHeadersMiddleware>(),
+                    }
+                })
+
+                .UseProjectionsManager(new ProjectionsManagerOptions
+                {
+                    Common =
+                    {
+                        ServiceProvider = serviceProvider,
+                        ApplicationLifetime = appLifetime
                     }
                 });
         }
