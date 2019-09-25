@@ -1,3 +1,10 @@
+## [2.15.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.0...v2.15.1) (2019-09-25)
+
+
+### Bug Fixes
+
+* auto resume projections ([2344f41](https://github.com/informatievlaanderen/municipality-registry/commit/2344f41))
+
 # [2.15.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.14.1...v2.15.0) (2019-09-25)
 
 
