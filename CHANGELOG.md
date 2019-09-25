@@ -1,3 +1,10 @@
+# [2.15.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.14.1...v2.15.0) (2019-09-25)
+
+
+### Features
+
+* upgrade projector and removed explicit start of projections ([7196725](https://github.com/informatievlaanderen/municipality-registry/commit/7196725))
+
 ## [2.14.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.14.0...v2.14.1) (2019-09-19)
 
 
