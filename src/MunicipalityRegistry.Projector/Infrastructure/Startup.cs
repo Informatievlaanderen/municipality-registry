@@ -8,7 +8,6 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
-    using Be.Vlaanderen.Basisregisters.Projector.ConnectedProjections;
     using Configuration;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -173,9 +172,6 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                         AfterMiddleware = x => x.UseMiddleware<AddNoCacheHeadersMiddleware>(),
                     }
                 });
-
-            var projectionsManager = serviceProvider.GetRequiredService<IConnectedProjectionsManager>();
-            projectionsManager.Start();
         }
 
         private static string GetApiLeadingText(ApiVersionDescription description)
