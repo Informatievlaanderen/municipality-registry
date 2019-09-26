@@ -1,3 +1,10 @@
+## [2.15.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.1...v2.15.2) (2019-09-26)
+
+
+### Bug Fixes
+
+* update asset to fix importer ([fced6f0](https://github.com/informatievlaanderen/municipality-registry/commit/fced6f0))
+
 ## [2.15.1](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.0...v2.15.1) (2019-09-25)
 
 
