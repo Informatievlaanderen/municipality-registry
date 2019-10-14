@@ -22,6 +22,13 @@ To fill up the database for the first time:
 * Run `MunicipalityRegistry.Api.CrabImport` (`MunicipalityRegistry.sln`)
 * Run `MunicipalityRegistry.Importer` (`MunicipalityRegistryImporter.sln`) with `init -c -l Trace` as flags.
 
+#### Projections
+
+To start the projections for the first time:
+
+* Run `MunicipalityRegistry.Projector` (`MunicipalityRegistry.sln`)
+* Send a `POST` to `http://localhost:2006/v1/projections/start/all`
+
 ### Generating documentation
 
 We use Structurizr to generate our documentation and populate our architecture decisions. All of this can be found in the [Structurizr](https://github.com/Informatievlaanderen/municipality-registry/tree/master/docs/MunicipalityRegistry.Structurizr) console application.
