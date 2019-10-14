@@ -1,3 +1,11 @@
+## [2.15.3](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.2...v2.15.3) (2019-10-14)
+
+
+### Bug Fixes
+
+* push to correct docker repo ([cc99622](https://github.com/informatievlaanderen/municipality-registry/commit/cc99622))
+* push to correct docker repo ([7f21ac6](https://github.com/informatievlaanderen/municipality-registry/commit/7f21ac6))
+
 ## [2.15.2](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.1...v2.15.2) (2019-09-26)
 
 
