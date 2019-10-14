@@ -15,7 +15,12 @@
 
 ### Getting started
 
-TODO: More to come :)
+#### Initialisation
+
+To fill up the database for the first time:
+
+* Run `MunicipalityRegistry.Api.CrabImport` (`MunicipalityRegistry.sln`)
+* Run `MunicipalityRegistry.Importer` (`MunicipalityRegistryImporter.sln`) with `init -c -l Trace` as flags.
 
 ### Generating documentation
 
