@@ -38,7 +38,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// De identificator van de gemeente.
         /// </summary>
         [DataMember(Name = "Identificator", Order = 1)]
-        public Identificator Identificator { get; private set; }
+        public GemeenteIdentificator Identificator { get; private set; }
 
         /// <summary>
         /// Een lijst van namen van de gemeente, per taal.
@@ -52,7 +52,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
             DateTimeOffset version,
             IEnumerable<GeografischeNaam> geografischeNamen)
         {
-            Identificator = new Identificator(naamruimte, id, version);
+            Identificator = new GemeenteIdentificator(naamruimte, id, version);
             Gemeentenamen = geografischeNamen.Select(g => new Gemeentenaam(g)).ToList();
         }
     }

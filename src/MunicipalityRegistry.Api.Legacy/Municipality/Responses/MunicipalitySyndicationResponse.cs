@@ -138,7 +138,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// De identificator van de gemeente.
         /// </summary>
         [DataMember(Name = "Identificator", Order = 2)]
-        public Identificator Identificator { get; private set; }
+        public GemeenteIdentificator Identificator { get; private set; }
 
         /// <summary>
         /// De officiële talen van de gemeente.
@@ -186,7 +186,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
             string reason)
         {
             MunicipalityId = municipalityId;
-            Identificator = new Identificator(naamruimte, nisCode, version);
+            Identificator = new GemeenteIdentificator(naamruimte, nisCode, version);
             MunicipalityStatus = status?.ConvertFromMunicipalityStatus();
             OfficialLanguages = officialLanguages.Select(x => x.ConvertFromLanguage()).ToList();
             FacilitiesLanguages = facilitiesLanguages.Select(x => x.ConvertFromLanguage()).ToList();

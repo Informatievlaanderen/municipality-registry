@@ -39,7 +39,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// De identificator van de gemeente.
         /// </summary>
         [DataMember(Name = "Identificator", Order = 1)]
-        public Identificator Identificator { get; private set; }
+        public GemeenteIdentificator Identificator { get; private set; }
 
         /// <summary>
         /// De URL die naar de details van de meest recente versie van een enkele gemeente leidt.
@@ -67,7 +67,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
             GeografischeNaam geografischeNaam,
             MunicipalityStatus? municipalityStatus)
         {
-            Identificator = new Identificator(naamruimte, id, version);
+            Identificator = new GemeenteIdentificator(naamruimte, id, version);
             Detail = new Uri(string.Format(detail, id));
             Gemeentenaam = new Gemeentenaam(geografischeNaam);
             GemeenteStatus = municipalityStatus?.ConvertFromMunicipalityStatus();
