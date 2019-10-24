@@ -1,3 +1,10 @@
+## [2.15.5](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.4...v2.15.5) (2019-10-24)
+
+
+### Bug Fixes
+
+* update grar common ([7fcb47c](https://github.com/informatievlaanderen/municipality-registry/commit/7fcb47c))
+
 ## [2.15.4](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.3...v2.15.4) (2019-10-24)
 
 
