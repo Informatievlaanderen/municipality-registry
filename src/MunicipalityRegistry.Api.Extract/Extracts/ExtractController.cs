@@ -19,7 +19,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
     [ApiExplorerSettings(GroupName = "Extract")]
     public class ExtractController : ApiController
     {
-        public const string ZipName = "gemeenten";
+        public const string ZipName = "Gemeente";
 
         /// <summary>
         /// Vraag een dump van het volledige register op.
