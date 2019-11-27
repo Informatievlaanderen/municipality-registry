@@ -1,3 +1,10 @@
+## [2.15.7](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.6...v2.15.7) (2019-11-27)
+
+
+### Bug Fixes
+
+* extract filename is now Gemeente.dbf ([ada7133](https://github.com/informatievlaanderen/municipality-registry/commit/ada7133))
+
 ## [2.15.6](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.5...v2.15.6) (2019-10-24)
 
 ## [2.15.5](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.4...v2.15.5) (2019-10-24)
