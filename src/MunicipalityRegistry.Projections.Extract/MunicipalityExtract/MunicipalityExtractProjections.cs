@@ -8,6 +8,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
     using System;
     using System.Linq;
     using System.Text;
+    using Be.Vlaanderen.Basisregisters.GrAr.Extracts;
     using Microsoft.Extensions.Options;
 
     public class MunicipalityExtractProjections : ConnectedProjection<ExtractContext>
@@ -36,7 +37,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                         {
                             gemeenteid = { Value = message.Message.NisCode },
                             id = { Value = $"{_extractConfig.DataVlaanderenNamespace}/{message.Message.NisCode}" },
-                            versieid = { Value = message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset().DateTime }
+                            versieid = { Value = message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset().FromDateTimeOffset() }
                         }.ToBytes(_encoding)
                     }, ct);
             });
@@ -256,7 +257,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
             });
 
         private void UpdateVersie(MunicipalityExtractItem municipality, Instant timestamp)
-            => UpdateRecord(municipality, record => record.versieid.Value = timestamp.ToBelgianDateTimeOffset().DateTime);
+            => UpdateRecord(municipality, record => record.versieid.SetValue(timestamp.ToBelgianDateTimeOffset()));
 
         private void UpdateRecord(MunicipalityExtractItem municipality, Action<MunicipalityDbaseRecord> updateFunc)
         {

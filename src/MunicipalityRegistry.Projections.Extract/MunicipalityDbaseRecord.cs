@@ -8,7 +8,7 @@ namespace MunicipalityRegistry.Projections.Extract
 
         public DbaseString id { get; }
         public DbaseString gemeenteid { get; }
-        public DbaseDateTime versieid { get; }
+        public DbaseString versieid { get; }
         public DbaseString gemeentenm { get; }
         public DbaseString status { get; }
 
@@ -16,7 +16,7 @@ namespace MunicipalityRegistry.Projections.Extract
         {
             id = new DbaseString(Schema.id);
             gemeenteid = new DbaseString(Schema.gemeenteid);
-            versieid = new DbaseDateTime(Schema.versieid);
+            versieid = new DbaseString(Schema.versieid);
             gemeentenm = new DbaseString(Schema.gemeentenm);
             status = new DbaseString(Schema.status);
 
