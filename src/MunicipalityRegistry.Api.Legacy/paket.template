@@ -15,17 +15,17 @@ licenseUrl https://opensource.org/licenses/EUPL-1.2
 description Municipality Registry.
 
 dependencies
-  framework: netstandard20
+  framework: netcoreapp31
     Be.Vlaanderen.Basisregisters.GrAr.Legacy >= LOCKEDVERSION
 
 files
-  MunicipalityRegistry.Api.Legacy.dll => lib\netcoreapp2.2
-  MunicipalityRegistry.Api.Legacy.pdb => lib\netcoreapp2.2
-  MunicipalityRegistry.Api.Legacy.xml => lib\netcoreapp2.2
+  MunicipalityRegistry.Api.Legacy.dll => lib\netcoreapp3.1
+  MunicipalityRegistry.Api.Legacy.pdb => lib\netcoreapp3.1
+  MunicipalityRegistry.Api.Legacy.xml => lib\netcoreapp3.1
   MunicipalityRegistry.Api.Legacy.xml => content
 
-  MunicipalityRegistry.Projections.Legacy.dll => lib\netcoreapp2.2
-  MunicipalityRegistry.Projections.Legacy.pdb => lib\netcoreapp2.2
+  MunicipalityRegistry.Projections.Legacy.dll => lib\netcoreapp3.1
+  MunicipalityRegistry.Projections.Legacy.pdb => lib\netcoreapp3.1
 
-  MunicipalityRegistry.dll => lib\netcoreapp2.2
-  MunicipalityRegistry.pdb => lib\netcoreapp2.2
+  MunicipalityRegistry.dll => lib\netcoreapp3.1
+  MunicipalityRegistry.pdb => lib\netcoreapp3.1

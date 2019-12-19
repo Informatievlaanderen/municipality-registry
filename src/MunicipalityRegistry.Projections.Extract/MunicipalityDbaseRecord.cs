@@ -6,19 +6,19 @@ namespace MunicipalityRegistry.Projections.Extract
     {
         public static readonly MunicipalityDbaseSchema Schema = new MunicipalityDbaseSchema();
 
-        public DbaseString id { get; }
-        public DbaseString gemeenteid { get; }
-        public DbaseString versieid { get; }
-        public DbaseString gemeentenm { get; }
-        public DbaseString status { get; }
+        public DbaseCharacter id { get; }
+        public DbaseCharacter gemeenteid { get; }
+        public DbaseCharacter versieid { get; }
+        public DbaseCharacter gemeentenm { get; }
+        public DbaseCharacter status { get; }
 
         public MunicipalityDbaseRecord()
         {
-            id = new DbaseString(Schema.id);
-            gemeenteid = new DbaseString(Schema.gemeenteid);
-            versieid = new DbaseString(Schema.versieid);
-            gemeentenm = new DbaseString(Schema.gemeentenm);
-            status = new DbaseString(Schema.status);
+            id = new DbaseCharacter(Schema.id);
+            gemeenteid = new DbaseCharacter(Schema.gemeenteid);
+            versieid = new DbaseCharacter(Schema.versieid);
+            gemeentenm = new DbaseCharacter(Schema.gemeentenm);
+            status = new DbaseCharacter(Schema.status);
 
             Values = new DbaseFieldValue[]
             {

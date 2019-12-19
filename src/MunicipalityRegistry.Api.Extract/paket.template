@@ -15,14 +15,14 @@ licenseUrl https://opensource.org/licenses/EUPL-1.2
 description Municipality Registry.
 
 dependencies
-  framework: netstandard20
+  framework: netcoreapp31
     Be.Vlaanderen.Basisregisters.Shaperon >= LOCKEDVERSION
 
 files
-  MunicipalityRegistry.Api.Extract.dll => lib\netcoreapp2.2
-  MunicipalityRegistry.Api.Extract.pdb => lib\netcoreapp2.2
-  MunicipalityRegistry.Api.Extract.xml => lib\netcoreapp2.2
+  MunicipalityRegistry.Api.Extract.dll => lib\netcoreapp3.1
+  MunicipalityRegistry.Api.Extract.pdb => lib\netcoreapp3.1
+  MunicipalityRegistry.Api.Extract.xml => lib\netcoreapp3.1
   MunicipalityRegistry.Api.Extract.xml => content
 
-  MunicipalityRegistry.Projections.Extract.dll => lib\netcoreapp2.2
-  MunicipalityRegistry.Projections.Extract.pdb => lib\netcoreapp2.2
+  MunicipalityRegistry.Projections.Extract.dll => lib\netcoreapp3.1
+  MunicipalityRegistry.Projections.Extract.pdb => lib\netcoreapp3.1
