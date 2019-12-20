@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.8...v3.0.0) (2019-12-20)
+
+
+### Code Refactoring
+
+* upgrade to netcoreapp31 ([a998148](https://github.com/informatievlaanderen/municipality-registry/commit/a998148))
+
+
+### BREAKING CHANGES
+
+* Upgrade to .NET Core 3.1
+
 ## [2.15.8](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.7...v2.15.8) (2019-11-28)
 
 ## [2.15.7](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.6...v2.15.7) (2019-11-27)
