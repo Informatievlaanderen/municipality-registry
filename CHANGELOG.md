@@ -1,3 +1,10 @@
+# [3.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.0.0...v3.1.0) (2020-01-02)
+
+
+### Features
+
+* allow only one projector instance ([a04f06d](https://github.com/informatievlaanderen/municipality-registry/commit/a04f06d))
+
 # [3.0.0](https://github.com/informatievlaanderen/municipality-registry/compare/v2.15.8...v3.0.0) (2019-12-20)
 
 
