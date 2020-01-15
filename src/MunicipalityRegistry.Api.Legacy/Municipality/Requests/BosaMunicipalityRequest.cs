@@ -11,9 +11,9 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Requests
         public ZoekIdentifier GemeenteCode { get; set; }
     }
 
-    public class MunicipalityBosaRequestExamples : IExamplesProvider
+    public class MunicipalityBosaRequestExamples : IExamplesProvider<BosaMunicipalityRequest>
     {
-        public object GetExamples()
+        public BosaMunicipalityRequest GetExamples()
             => new BosaMunicipalityRequest
             {
                 Gemeentenaam = new ZoekGeografischeNaam

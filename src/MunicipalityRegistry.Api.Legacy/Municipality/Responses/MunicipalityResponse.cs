@@ -75,14 +75,14 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         }
     }
 
-    public class MunicipalityResponseExamples : IExamplesProvider
+    public class MunicipalityResponseExamples : IExamplesProvider<MunicipalityResponse>
     {
         private readonly ResponseOptions _responseOptions;
 
         public MunicipalityResponseExamples(IOptions<ResponseOptions> responseOptionsProvider)
             => _responseOptions = responseOptionsProvider.Value;
 
-        public object GetExamples()
+        public MunicipalityResponse GetExamples()
             => new MunicipalityResponse(
                 _responseOptions.Naamruimte,
                 GemeenteStatus.InGebruik,
@@ -96,9 +96,9 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                 DateTimeOffset.Now);
     }
 
-    public class MunicipalityNotFoundResponseExamples : IExamplesProvider
+    public class MunicipalityNotFoundResponseExamples : IExamplesProvider<ProblemDetails>
     {
-        public object GetExamples()
+        public ProblemDetails GetExamples()
             => new ProblemDetails
             {
                 HttpStatus = StatusCodes.Status404NotFound,

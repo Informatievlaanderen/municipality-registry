@@ -11,12 +11,12 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
         public const string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
 
         public Guid? MunicipalityId { get; set; }
-        public string NisCode { get; set; }
+        public string? NisCode { get; set; }
 
-        public string NameDutch { get; set; }
-        public string NameFrench { get; set; }
-        public string NameGerman { get; set; }
-        public string NameEnglish { get; set; }
+        public string? NameDutch { get; set; }
+        public string? NameFrench { get; set; }
+        public string? NameGerman { get; set; }
+        public string? NameEnglish { get; set; }
 
         public MunicipalityStatus? Status { get; set; }
 
@@ -37,7 +37,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
         {
             b.ToTable(TableName, Schema.Legacy)
                 .HasKey(x => x.MunicipalityId)
-                .ForSqlServerIsClustered(false);
+                .IsClustered(false);
 
             b.Property(x => x.NisCode);
 

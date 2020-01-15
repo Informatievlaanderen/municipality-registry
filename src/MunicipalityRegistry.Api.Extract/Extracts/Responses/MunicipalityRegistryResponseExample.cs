@@ -3,7 +3,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts.Responses
     using System;
     using Swashbuckle.AspNetCore.Filters;
 
-    public class MunicipalityRegistryResponseExample : IExamplesProvider
+    public class MunicipalityRegistryResponseExample : IExamplesProvider<object>
     {
         public object GetExamples()
             => new

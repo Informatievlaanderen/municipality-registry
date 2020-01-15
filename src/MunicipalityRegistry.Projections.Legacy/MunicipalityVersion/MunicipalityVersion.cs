@@ -12,12 +12,12 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
         public const string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
 
         public Guid? MunicipalityId { get; set; }
-        public string NisCode { get; set; }
+        public string? NisCode { get; set; }
 
-        public string NameDutch { get; set; }
-        public string NameFrench { get; set; }
-        public string NameGerman { get; set; }
-        public string NameEnglish { get; set; }
+        public string? NameDutch { get; set; }
+        public string? NameFrench { get; set; }
+        public string? NameGerman { get; set; }
+        public string? NameEnglish { get; set; }
 
         public MunicipalityStatus? Status { get; set; }
 
@@ -33,9 +33,9 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
 
         public Application? Application { get; set; }
         public Modification? Modification { get; set; }
-        public string Operator { get; set; }
+        public string? Operator { get; set; }
         public Organisation? Organisation { get; set; }
-        public string Reason { get; set; }
+        public string? Reason { get; set; }
 
         public MunicipalityVersion CloneAndApplyEventInfo(
             long newPosition,
@@ -81,7 +81,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
         {
             builder.ToTable(TableName, Schema.Legacy)
                 .HasKey(x => new { x.MunicipalityId, x.Position })
-                .ForSqlServerIsClustered(false);
+                .IsClustered(false);
 
             builder.Property(x => x.Position);
             builder.Property(x => x.NisCode);
@@ -110,7 +110,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityVersion
             builder.Ignore(x => x.OfficialLanguages);
             builder.Ignore(x => x.FacilitiesLanguages);
 
-            builder.HasIndex(x => x.NisCode).ForSqlServerIsClustered();
+            builder.HasIndex(x => x.NisCode).IsClustered();
             builder.HasIndex(x => x.MunicipalityId);
             builder.HasIndex(x => x.Position);
         }
