@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.1.0...v3.1.1) (2020-01-15)
+
+
+### Bug Fixes
+
+* get registry api's working again ([dcc3396](https://github.com/informatievlaanderen/municipality-registry/commit/dcc3396))
+
 # [3.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.0.0...v3.1.0) (2020-01-02)
 
 
