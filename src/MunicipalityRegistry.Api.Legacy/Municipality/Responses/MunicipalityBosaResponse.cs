@@ -57,14 +57,14 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         }
     }
 
-    public class MunicipalityBosaResponseExamples : IExamplesProvider
+    public class MunicipalityBosaResponseExamples : IExamplesProvider<MunicipalityBosaResponse>
     {
         private readonly ResponseOptions _responseOptions;
 
         public MunicipalityBosaResponseExamples(IOptions<ResponseOptions> responseOptionsProvider)
             => _responseOptions = responseOptionsProvider.Value;
 
-        public object GetExamples()
+        public MunicipalityBosaResponse GetExamples()
         {
             var municipalityExamples = new List<MunicipalityBosaItemResponse>
             {

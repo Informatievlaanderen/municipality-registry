@@ -14,19 +14,19 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
         public const string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
 
         public Guid MunicipalityId { get; set; }
-        public string NisCode { get; set; }
+        public string? NisCode { get; set; }
 
-        public string NameDutch { get; set; }
-        public string NameDutchSearch { get; set; }
+        public string? NameDutch { get; set; }
+        public string? NameDutchSearch { get; set; }
 
-        public string NameFrench { get; set; }
-        public string NameFrenchSearch { get; set; }
+        public string? NameFrench { get; set; }
+        public string? NameFrenchSearch { get; set; }
 
-        public string NameGerman { get; set; }
-        public string NameGermanSearch { get; set; }
+        public string? NameGerman { get; set; }
+        public string? NameGermanSearch { get; set; }
 
-        public string NameEnglish { get; set; }
-        public string NameEnglishSearch { get; set; }
+        public string? NameEnglish { get; set; }
+        public string? NameEnglishSearch { get; set; }
 
         public bool IsFlemishRegion { get; set; }
 
@@ -47,7 +47,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
         {
             builder.ToTable(TableName, Schema.Legacy)
                 .HasKey(p => p.MunicipalityId)
-                .ForSqlServerIsClustered(false);
+                .IsClustered(false);
 
             builder.Property(p => p.NisCode);
             builder.Property(p => p.NameDutch);
@@ -65,7 +65,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
 
             builder.Ignore(x => x.VersionTimestamp);
 
-            builder.HasIndex(p => p.NisCode).ForSqlServerIsClustered();
+            builder.HasIndex(p => p.NisCode).IsClustered();
             builder.HasIndex(MunicipalityName.VersionTimestampBackingPropertyName);
             builder.HasIndex(p => p.IsFlemishRegion);
 

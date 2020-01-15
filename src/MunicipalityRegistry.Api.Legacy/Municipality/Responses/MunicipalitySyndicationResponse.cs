@@ -205,7 +205,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         }
     }
 
-    public class MunicipalitySyndicationResponseExamples : IExamplesProvider
+    public class MunicipalitySyndicationResponseExamples : IExamplesProvider<object>
     {
         private readonly ResponseOptions _responseOptions;
 

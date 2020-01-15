@@ -14,13 +14,13 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
         public const string OfficialLanguagesBackingPropertyName = nameof(OfficialLanguagesAsString);
 
         public Guid? MunicipalityId { get; set; }
-        public string NisCode { get; set; }
+        public string? NisCode { get; set; }
 
-        public string DefaultName { get; set; }
-        public string NameDutch { get; set; }
-        public string NameFrench { get; set; }
-        public string NameGerman { get; set; }
-        public string NameEnglish { get; set; }
+        public string? DefaultName { get; set; }
+        public string? NameDutch { get; set; }
+        public string? NameFrench { get; set; }
+        public string? NameGerman { get; set; }
+        public string? NameEnglish { get; set; }
 
         public MunicipalityStatus? Status { get; set; }
 
@@ -30,7 +30,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
             set => OfficialLanguagesAsString = JsonConvert.SerializeObject(value);
         }
 
-        private string OfficialLanguagesAsString { get; set; }
+        private string? OfficialLanguagesAsString { get; set; }
 
         private DateTimeOffset VersionTimestampAsDateTimeOffset { get; set; }
 
@@ -70,7 +70,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
         {
             b.ToTable(TableName, Schema.Legacy)
                 .HasKey(x => x.MunicipalityId)
-                .ForSqlServerIsClustered(false);
+                .IsClustered(false);
 
             b.Property(x => x.NisCode);
 
@@ -91,7 +91,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
 
             b.Property(x => x.Status);
 
-            b.HasIndex(x => x.DefaultName).ForSqlServerIsClustered();
+            b.HasIndex(x => x.DefaultName).IsClustered();
         }
     }
 }

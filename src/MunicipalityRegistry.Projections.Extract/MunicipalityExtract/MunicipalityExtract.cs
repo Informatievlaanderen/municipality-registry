@@ -12,12 +12,12 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
         public const string OfficialLanguagesBackingPropertyName = nameof(OfficialLanguagesAsString);
 
         public Guid? MunicipalityId { get; set; }
-        public string NisCode { get; set; }
+        public string? NisCode { get; set; }
         public byte[] DbaseRecord { get; set; }
-        public string NameDutch { get; set; }
-        public string NameFrench { get; set; }
-        public string NameEnglish { get; set; }
-        public string NameGerman { get; set; }
+        public string? NameDutch { get; set; }
+        public string? NameFrench { get; set; }
+        public string? NameEnglish { get; set; }
+        public string? NameGerman { get; set; }
 
         public IReadOnlyCollection<Language> OfficialLanguages
         {
@@ -25,7 +25,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
             set => OfficialLanguagesAsString = JsonConvert.SerializeObject(value);
         }
 
-        private string OfficialLanguagesAsString { get; set; }
+        private string? OfficialLanguagesAsString { get; set; }
 
         public void AddOfficialLanguage(Language language)
         {
@@ -57,7 +57,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
         {
             builder.ToTable(TableName, Schema.Extract)
                 .HasKey(p => p.MunicipalityId)
-                .ForSqlServerIsClustered(false);
+                .IsClustered(false);
 
             builder.Property(p => p.NisCode);
             builder.Property(p => p.DbaseRecord);
@@ -70,7 +70,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
 
             builder.Ignore(p => p.OfficialLanguages);
 
-            builder.HasIndex(p => p.NisCode).ForSqlServerIsClustered();
+            builder.HasIndex(p => p.NisCode).IsClustered();
         }
     }
 }

@@ -13,14 +13,14 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
         public long Position { get; set; }
 
         public Guid? MunicipalityId { get; set; }
-        public string NisCode { get; set; }
-        public string ChangeType { get; set; }
+        public string? NisCode { get; set; }
+        public string? ChangeType { get; set; }
 
-        public string DefaultName { get; set; }
-        public string NameDutch { get; set; }
-        public string NameFrench { get; set; }
-        public string NameGerman { get; set; }
-        public string NameEnglish { get; set; }
+        public string? DefaultName { get; set; }
+        public string? NameDutch { get; set; }
+        public string? NameFrench { get; set; }
+        public string? NameGerman { get; set; }
+        public string? NameEnglish { get; set; }
 
         public MunicipalityStatus? Status { get; set; }
 
@@ -41,10 +41,10 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
 
         public Application? Application { get; set; }
         public Modification? Modification { get; set; }
-        public string Operator { get; set; }
+        public string? Operator { get; set; }
         public Organisation? Organisation { get; set; }
-        public string Reason { get; set; }
-        public string EventDataAsXml { get; set; }
+        public string? Reason { get; set; }
+        public string? EventDataAsXml { get; set; }
 
         public MunicipalitySyndicationItem CloneAndApplyEventInfo(
             long newPosition,
@@ -95,7 +95,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
         {
             b.ToTable(TableName, Schema.Legacy)
                 .HasKey(x => x.Position)
-                .ForSqlServerIsClustered();
+                .IsClustered(false);
 
             b.Property(x => x.Position).ValueGeneratedNever();
             b.HasIndex(x => x.Position).IsColumnStore($"CI_{TableName}_Position");

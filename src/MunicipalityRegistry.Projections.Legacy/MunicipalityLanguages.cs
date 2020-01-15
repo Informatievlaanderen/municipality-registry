@@ -20,8 +20,8 @@ namespace MunicipalityRegistry.Projections.Legacy
             set => FacilitiesLanguagesAsString = JsonConvert.SerializeObject(value);
         }
 
-        private string FacilitiesLanguagesAsString { get; set; }
-        private string OfficialLanguagesAsString { get; set; }
+        private string? FacilitiesLanguagesAsString { get; set; }
+        private string? OfficialLanguagesAsString { get; set; }
 
         public void AddOfficialLanguage(Language language)
         {
