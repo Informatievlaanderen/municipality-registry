@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.1.1...v3.2.0) (2020-02-01)
+
+
+### Features
+
+* upgrade netcoreapp31 and dependencies ([c139b9a](https://github.com/informatievlaanderen/municipality-registry/commit/c139b9a))
+
 ## [3.1.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.1.0...v3.1.1) (2020-01-15)
 
 
