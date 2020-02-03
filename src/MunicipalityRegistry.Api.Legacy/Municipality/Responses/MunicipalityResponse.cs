@@ -107,6 +107,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         public ProblemDetails GetExamples()
             => new ProblemDetails
             {
+                ProblemTypeUri = "urn:be.vlaanderen.basisregisters.api:municipality:not-found",
                 HttpStatus = StatusCodes.Status404NotFound,
                 Title = ProblemDetails.DefaultTitle,
                 Detail = "Onbestaande gemeente.",
