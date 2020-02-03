@@ -1,3 +1,10 @@
+## [3.2.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.1...v3.2.2) (2020-02-03)
+
+
+### Bug Fixes
+
+* specify non nullable responses ([1275b6a](https://github.com/informatievlaanderen/municipality-registry/commit/1275b6a))
+
 ## [3.2.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.0...v3.2.1) (2020-02-03)
 
 
