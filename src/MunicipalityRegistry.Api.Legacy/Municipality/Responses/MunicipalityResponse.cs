@@ -10,6 +10,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using Infrastructure.Options;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Options;
+    using Newtonsoft.Json;
     using Swashbuckle.AspNetCore.Filters;
     using ProblemDetails = Be.Vlaanderen.Basisregisters.BasicApiProblem.ProblemDetails;
 
@@ -20,30 +21,35 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// De identificator van de gemeente.
         /// </summary>
         [DataMember(Name = "Identificator", Order = 1)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public GemeenteIdentificator Identificator { get; private set; }
 
         /// <summary>
         /// De officiële talen van de gemeente.
         /// </summary>
         [DataMember(Name = "OfficieleTalen", Order = 2)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public List<Taal> OfficialLanguages { get; private set; }
 
         /// <summary>
         /// De faciliteiten talen van de gemeente.
         /// </summary>
         [DataMember(Name = "FaciliteitenTalen", Order = 3)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public List<Taal> FacilitiesLanguages { get; private set; }
 
         /// <summary>
         /// De officiële namen van de gemeente.
         /// </summary>
         [DataMember(Name = "Gemeentenamen", Order = 4)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public List<GeografischeNaam> Gemeentenamen { get; private set; }
 
         /// <summary>
         /// De fase in het leven van de gemeente.
         /// </summary>
         [DataMember(Name = "GemeenteStatus", Order = 5)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public GemeenteStatus GemeenteStatus { get; private set; }
 
         public MunicipalityResponse(

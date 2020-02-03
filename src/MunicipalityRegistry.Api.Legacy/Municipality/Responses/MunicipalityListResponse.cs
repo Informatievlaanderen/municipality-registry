@@ -8,6 +8,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using Convertors;
     using Infrastructure.Options;
     using Microsoft.Extensions.Options;
+    using Newtonsoft.Json;
     using Swashbuckle.AspNetCore.Filters;
 
     [DataContract(Name = "GemeenteCollectie", Namespace = "")]
@@ -17,18 +18,21 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// De verzameling van gemeentes.
         /// </summary>
         [DataMember(Name = "Gemeenten", Order = 1)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public List<MunicipalityListItemResponse> Gemeenten { get; set; }
 
         /// <summary>
         /// Het totaal aantal gemeenten die overeenkomen met de vraag.
         /// </summary>
         [DataMember(Name = "TotaalAantal", Order = 2)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public long TotaalAantal { get; set; }
 
         /// <summary>
         /// De URL voor het ophalen van de volgende verzameling.
         /// </summary>
         [DataMember(Name = "Volgende", Order = 3, EmitDefaultValue = false)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public Uri Volgende { get; set; }
     }
 
@@ -39,24 +43,28 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// De identificator van de gemeente.
         /// </summary>
         [DataMember(Name = "Identificator", Order = 1)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public GemeenteIdentificator Identificator { get; private set; }
 
         /// <summary>
         /// De URL die naar de details van de meest recente versie van een enkele gemeente leidt.
         /// </summary>
         [DataMember(Name = "Detail", Order = 2)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public Uri Detail { get; private set; }
 
         /// <summary>
         /// De naam van de gemeente in het Nederlands.
         /// </summary>
         [DataMember(Name = "Gemeentenaam", Order = 3)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public Gemeentenaam Gemeentenaam { get; private set; }
 
         /// <summary>
         /// De fase in het leven van de gemeente.
         /// </summary>
         [DataMember(Name = "GemeenteStatus", Order = 4)]
+        [JsonProperty(Required = Required.DisallowNull)]
         public GemeenteStatus? GemeenteStatus { get; private set; }
 
         public MunicipalityListItemResponse(
