@@ -1,3 +1,10 @@
+## [3.2.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.3...v3.2.4) (2020-02-03)
+
+
+### Bug Fixes
+
+* add type to problemdetails ([081fccc](https://github.com/informatievlaanderen/municipality-registry/commit/081fccc))
+
 ## [3.2.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.2...v3.2.3) (2020-02-03)
 
 
