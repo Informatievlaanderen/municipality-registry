@@ -1,3 +1,10 @@
+## [3.2.5](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.4...v3.2.5) (2020-02-04)
+
+
+### Bug Fixes
+
+* instanceuri error examples now shows url ([c3c5fc1](https://github.com/informatievlaanderen/municipality-registry/commit/c3c5fc1))
+
 ## [3.2.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.3...v3.2.4) (2020-02-03)
 
 
