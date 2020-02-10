@@ -1,3 +1,10 @@
+## [3.2.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.5...v3.2.6) (2020-02-10)
+
+
+### Bug Fixes
+
+* JSON default value for nullable field ([743c795](https://github.com/informatievlaanderen/municipality-registry/commit/743c795))
+
 ## [3.2.5](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.4...v3.2.5) (2020-02-04)
 
 
