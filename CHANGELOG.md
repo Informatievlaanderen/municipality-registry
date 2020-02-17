@@ -1,3 +1,10 @@
+## [3.2.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.6...v3.2.7) (2020-02-17)
+
+
+### Bug Fixes
+
+* update packages to fix json order ([b77b01f](https://github.com/informatievlaanderen/municipality-registry/commit/b77b01f))
+
 ## [3.2.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.5...v3.2.6) (2020-02-10)
 
 
