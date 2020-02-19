@@ -60,7 +60,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
             b.Property(x => x.NameGerman);
             b.Property(x => x.NameEnglish);
 
-            b.HasIndex(x => x.NisCode).ForSqlServerIsClustered();
+            b.HasIndex(x => x.NisCode).IsClustered();
         }
     }
 }
