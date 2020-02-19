@@ -1,3 +1,10 @@
+## [3.2.9](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.8...v3.2.9) (2020-02-19)
+
+
+### Bug Fixes
+
+* order by is now in api's + add clustered indexes ([323dc90](https://github.com/informatievlaanderen/municipality-registry/commit/323dc90))
+
 ## [3.2.8](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.7...v3.2.8) (2020-02-17)
 
 
