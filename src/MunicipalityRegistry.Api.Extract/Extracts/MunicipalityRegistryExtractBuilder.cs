@@ -12,6 +12,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
         {
             var extractItems = context
                 .MunicipalityExtract
+                .OrderBy(x => x.NisCode)
                 .AsNoTracking();
 
             return ExtractBuilder.CreateDbfFile<MunicipalityDbaseRecord>(

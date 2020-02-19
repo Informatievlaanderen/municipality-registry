@@ -250,6 +250,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         {
             var municipalities = _context
                 .MunicipalitySyndication
+                .OrderBy(x => x.Position)
                 .AsNoTracking();
 
             if (!filtering.ShouldFilter)

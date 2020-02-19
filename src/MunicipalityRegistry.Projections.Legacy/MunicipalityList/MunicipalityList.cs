@@ -91,7 +91,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
 
             b.Property(x => x.Status);
 
-            b.HasIndex(x => x.DefaultName).IsClustered();
+            b.HasIndex(x => x.DefaultName);
+            b.HasIndex(x => x.NisCode).IsClustered();
         }
     }
 }

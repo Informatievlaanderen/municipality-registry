@@ -22,6 +22,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         {
             var municipalities = _context
                 .MunicipalityList
+                .OrderBy(x => x.NisCode)
                 .AsNoTracking();
 
             if (!filtering.ShouldFilter)

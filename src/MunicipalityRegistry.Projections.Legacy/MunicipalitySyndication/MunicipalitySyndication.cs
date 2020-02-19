@@ -95,7 +95,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
         {
             b.ToTable(TableName, Schema.Legacy)
                 .HasKey(x => x.Position)
-                .IsClustered(false);
+                .IsClustered();
 
             b.Property(x => x.Position).ValueGeneratedNever();
             b.HasIndex(x => x.Position).IsColumnStore($"CI_{TableName}_Position");
