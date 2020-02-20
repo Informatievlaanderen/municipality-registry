@@ -1,3 +1,10 @@
+## [3.2.10](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.9...v3.2.10) (2020-02-20)
+
+
+### Bug Fixes
+
+* update grar common ([f5d5f02](https://github.com/informatievlaanderen/municipality-registry/commit/f5d5f02))
+
 ## [3.2.9](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.8...v3.2.9) (2020-02-19)
 
 
