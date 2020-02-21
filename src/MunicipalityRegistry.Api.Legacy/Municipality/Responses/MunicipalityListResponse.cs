@@ -24,9 +24,9 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         /// <summary>
         /// Het totaal aantal gemeenten die overeenkomen met de vraag.
         /// </summary>
-        [DataMember(Name = "TotaalAantal", Order = 2)]
-        [JsonProperty(Required = Required.DisallowNull)]
-        public long TotaalAantal { get; set; }
+        //[DataMember(Name = "TotaalAantal", Order = 2)]
+        //[JsonProperty(Required = Required.DisallowNull)]
+        //public long TotaalAantal { get; set; }
 
         /// <summary>
         /// De URL voor het ophalen van de volgende verzameling.
@@ -113,7 +113,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
             return new MunicipalityListResponse
             {
                 Gemeenten = municipalitySamples,
-                TotaalAantal = 2,
                 Volgende = new Uri(string.Format(_responseOptions.VolgendeUrl, 2, 10))
             };
         }
