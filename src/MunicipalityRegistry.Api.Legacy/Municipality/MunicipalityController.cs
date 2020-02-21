@@ -129,7 +129,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                             new GeografischeNaam(m.DefaultName, m.OfficialLanguages.FirstOrDefault().ConvertFromLanguage()),
                             m.Status))
                         .ToListAsync(cancellationToken),
-                    TotaalAantal = pagedMunicipalities.PaginationInfo.TotalItems,
                     Volgende = BuildVolgendeUri(pagedMunicipalities.PaginationInfo, responseOptions.Value.VolgendeUrl)
                 });
         }
@@ -222,7 +221,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                                 m.Version,
                                 GetGemeentenamenByLanguage(m, filtering.Language)))
                         .ToListAsync(cancellationToken),
-                    TotaalAantal = filteredMunicipalities.PaginationInfo.TotalItems
                 });
         }
 
@@ -289,7 +287,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             var offset = paginationInfo.Offset;
             var limit = paginationInfo.Limit;
 
-            return offset + limit < paginationInfo.TotalItems
+            return paginationInfo.HasNextPage
                 ? new Uri(string.Format(volgendeUrlBase, offset + limit, limit))
                 : null;
         }
