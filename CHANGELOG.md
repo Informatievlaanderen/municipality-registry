@@ -1,3 +1,10 @@
+## [3.2.11](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.10...v3.2.11) (2020-02-21)
+
+
+### Performance Improvements
+
+* increase performance by removing count from lists ([536c3b2](https://github.com/informatievlaanderen/municipality-registry/commit/536c3b2))
+
 ## [3.2.10](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.9...v3.2.10) (2020-02-20)
 
 
