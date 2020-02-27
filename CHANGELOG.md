@@ -1,3 +1,10 @@
+## [3.2.12](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.11...v3.2.12) (2020-02-27)
+
+
+### Bug Fixes
+
+* update json serialization dependencies ([2d314c9](https://github.com/informatievlaanderen/municipality-registry/commit/2d314c9))
+
 ## [3.2.11](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.10...v3.2.11) (2020-02-21)
 
 
