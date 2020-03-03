@@ -1,3 +1,11 @@
+## [3.2.13](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.12...v3.2.13) (2020-03-03)
+
+
+### Bug Fixes
+
+* bump netcore to 3.1.2 ([a9c6c8a](https://github.com/informatievlaanderen/municipality-registry/commit/a9c6c8a))
+* update dockerid detection ([e202181](https://github.com/informatievlaanderen/municipality-registry/commit/e202181))
+
 ## [3.2.12](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.11...v3.2.12) (2020-02-27)
 
 
