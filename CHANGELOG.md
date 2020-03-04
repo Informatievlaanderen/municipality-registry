@@ -1,3 +1,10 @@
+## [3.2.14](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.13...v3.2.14) (2020-03-04)
+
+
+### Bug Fixes
+
+* bump netcore dockerfiles ([605b0a0](https://github.com/informatievlaanderen/municipality-registry/commit/605b0a0))
+
 ## [3.2.13](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.12...v3.2.13) (2020-03-03)
 
 
