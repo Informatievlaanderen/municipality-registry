@@ -1,3 +1,10 @@
+## [3.2.16](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.15...v3.2.16) (2020-03-05)
+
+
+### Bug Fixes
+
+* force build ([f3fe5db](https://github.com/informatievlaanderen/municipality-registry/commit/f3fe5db))
+
 ## [3.2.15](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.14...v3.2.15) (2020-03-05)
 
 
