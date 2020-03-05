@@ -1,3 +1,10 @@
+## [3.2.15](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.14...v3.2.15) (2020-03-05)
+
+
+### Bug Fixes
+
+* update grar common to fix provenance ([a1392d7](https://github.com/informatievlaanderen/municipality-registry/commit/a1392d7))
+
 ## [3.2.14](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.13...v3.2.14) (2020-03-04)
 
 
