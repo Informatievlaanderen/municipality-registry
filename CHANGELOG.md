@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.16...v3.3.0) (2020-03-06)
+
+
+### Features
+
+* add totaal aantal endpoint ([a83f14d](https://github.com/informatievlaanderen/municipality-registry/commit/a83f14d))
+
 ## [3.2.16](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.15...v3.2.16) (2020-03-05)
 
 
