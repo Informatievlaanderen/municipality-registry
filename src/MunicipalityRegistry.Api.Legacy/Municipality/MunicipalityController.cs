@@ -152,20 +152,18 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             var filtering = Request.ExtractFilteringRequest<MunicipalityListFilter>();
             var sorting = Request.ExtractSortingRequest();
             var pagination = Request.ExtractPaginationRequest();
-            int total;
-
-            if (filtering.ShouldFilter)
-                total = await new MunicipalityListQuery(context)
-                    .Fetch(filtering, sorting, pagination)
-                    .Items
-                    .CountAsync(cancellationToken);
-            else
-                total = await context.MunicipalityList.CountAsync(cancellationToken);
 
             return Ok(
                 new TotaalAantalResponse
                 {
-                    Aantal = total
+                    Aantal = filtering.ShouldFilter
+                        ? await new MunicipalityListQuery(context)
+                            .Fetch(filtering, sorting, pagination)
+                            .Items
+                            .CountAsync(cancellationToken)
+                        : await context
+                            .MunicipalityList
+                            .CountAsync(cancellationToken)
                 });
         }
 
