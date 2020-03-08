@@ -1,3 +1,10 @@
+## [3.3.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.3.0...v3.3.1) (2020-03-08)
+
+
+### Bug Fixes
+
+* format code for total count ([5b8db7d](https://github.com/informatievlaanderen/municipality-registry/commit/5b8db7d))
+
 # [3.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.2.16...v3.3.0) (2020-03-06)
 
 
