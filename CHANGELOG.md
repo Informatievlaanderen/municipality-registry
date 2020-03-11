@@ -1,3 +1,10 @@
+## [3.3.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.3.1...v3.3.2) (2020-03-11)
+
+
+### Bug Fixes
+
+* count municipalities now count correctly ([4dac113](https://github.com/informatievlaanderen/municipality-registry/commit/4dac113))
+
 ## [3.3.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.3.0...v3.3.1) (2020-03-08)
 
 
