@@ -151,7 +151,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
         {
             var filtering = Request.ExtractFilteringRequest<MunicipalityListFilter>();
             var sorting = Request.ExtractSortingRequest();
-            var pagination = Request.ExtractPaginationRequest();
+            var pagination = new NoPaginationRequest();
 
             return Ok(
                 new TotaalAantalResponse
