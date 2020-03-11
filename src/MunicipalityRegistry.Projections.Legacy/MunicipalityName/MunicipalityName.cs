@@ -30,7 +30,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
 
         public bool IsFlemishRegion { get; set; }
 
-        private DateTimeOffset VersionTimestampAsDateTimeOffset { get; set; }
+        public DateTimeOffset VersionTimestampAsDateTimeOffset { get; set; }
 
         public Instant VersionTimestamp
         {
