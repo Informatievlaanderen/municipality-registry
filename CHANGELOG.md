@@ -1,3 +1,10 @@
+## [3.3.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.3.2...v3.3.3) (2020-03-11)
+
+
+### Bug Fixes
+
+* bosa version filter for version ([36e75db](https://github.com/informatievlaanderen/municipality-registry/commit/36e75db))
+
 ## [3.3.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.3.1...v3.3.2) (2020-03-11)
 
 
