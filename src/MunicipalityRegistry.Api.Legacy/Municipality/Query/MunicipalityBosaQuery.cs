@@ -94,7 +94,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                 municipalities = municipalities.Where(m => m.NisCode == filtering.Filter.NisCode);
 
             if (filtering.Filter.Version.HasValue)
-                municipalities = municipalities.Where(m => m.VersionTimestamp.ToDateTimeOffset() == filtering.Filter.Version);
+                municipalities = municipalities.Where(m => m.VersionTimestampAsDateTimeOffset == filtering.Filter.Version);
 
             if (string.IsNullOrEmpty(filtering.Filter.Name))
             {
