@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Importer.Crab
+namespace MunicipalityRegistry.Importer.Console.Crab
 {
     using System;
     using System.Collections.Generic;
@@ -10,11 +10,11 @@ namespace MunicipalityRegistry.Importer.Crab
     {
         private static readonly string DeletedBewerking = CrabBewerking.Verwijdering.Code;
 
-        public static List<int> GetChangedGemeenteIdsBetween(DateTime since, DateTime until)
+        public static List<int> GetChangedGemeenteIdsBetween(DateTime since, DateTime until, Func<CRABEntities> crabEntitiesFactory)
         {
             var gemeenteIds = new List<int>();
 
-            using (var crabEntities = new CRABEntities())
+            using (var crabEntities = crabEntitiesFactory())
             {
                 crabEntities
                     .tblGemeente

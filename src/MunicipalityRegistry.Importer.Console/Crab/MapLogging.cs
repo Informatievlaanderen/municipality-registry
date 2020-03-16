@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Importer.Crab
+namespace MunicipalityRegistry.Importer.Console.Crab
 {
     using System;
 

@@ -1,5 +1,5 @@
 
-namespace MunicipalityRegistry.Importer
+namespace MunicipalityRegistry.Importer.Console
 {
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.Api;
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.Json;

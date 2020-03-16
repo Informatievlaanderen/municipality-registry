@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Importer
+namespace MunicipalityRegistry.Importer.Console
 {
     using System;
     using System.Collections.Generic;
@@ -12,10 +12,11 @@ namespace MunicipalityRegistry.Importer
 
     internal class MunicipalityCommandGenerator : ICommandGenerator<int>
     {
+        private readonly Func<CRABEntities> _crabEntitiesFactory;
         public string Name => GetType().Name;
 
         public IEnumerable<int> GetChangedKeys(DateTime from, DateTime until) =>
-            CrabQueries.GetChangedGemeenteIdsBetween(from, until);
+            CrabQueries.GetChangedGemeenteIdsBetween(from, until, _crabEntitiesFactory);
 
         public IEnumerable<dynamic> GenerateInitCommandsFor(int key, DateTime from, DateTime until) =>
             CreateCommands(key, from, until);
@@ -23,14 +24,19 @@ namespace MunicipalityRegistry.Importer
         public IEnumerable<dynamic> GenerateUpdateCommandsFor(int key, DateTime from, DateTime until) =>
             CreateCommands(key, from, until);
 
-        private static List<dynamic> CreateCommands(int gemeenteId, DateTime from, DateTime until)
+        public MunicipalityCommandGenerator(Func<CRABEntities> crabEntitiesFactory)
+        {
+            _crabEntitiesFactory = crabEntitiesFactory;
+        }
+
+        private List<dynamic> CreateCommands(int gemeenteId, DateTime from, DateTime until)
         {
             var importGemeenteCommands = new List<ImportMunicipalityFromCrab>();
             var importGemeenteHistCommands = new List<ImportMunicipalityFromCrab>();
             var importGemeenteNaamCommands = new List<ImportMunicipalityNameFromCrab>();
             var importGemeenteNaamHistCommands = new List<ImportMunicipalityNameFromCrab>();
 
-            using (var crabEntities = new CRABEntities())
+            using (var crabEntities = _crabEntitiesFactory())
             {
                 var gemeente = GemeenteQueries.GetTblGemeentesByGemeenteIds(crabEntities, new HashSet<int> { gemeenteId }).SingleOrDefault();
                 var gemeenteHists = GemeenteQueries.GetTblGemeenteHistByGemeenteByGemeente(crabEntities, gemeente);

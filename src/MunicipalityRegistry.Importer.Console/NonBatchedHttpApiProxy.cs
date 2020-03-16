@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Importer
+namespace MunicipalityRegistry.Importer.Console
 {
     using System.Collections.Generic;
     using System.Reflection;
