@@ -21,22 +21,22 @@
 
   <ItemGroup>
     <Reference Include="Aiv.Vbr.CentraalBeheer.Crab">
-      <HintPath>..\..\..\parcel-registry\assets\crab2vbr\Aiv.Vbr.CentraalBeheer.Crab.dll</HintPath>
+      <HintPath>..\..\assets\crab2vbr\Aiv.Vbr.CentraalBeheer.Crab.dll</HintPath>
     </Reference>
     <Reference Include="Aiv.Vbr.Common">
-      <HintPath>..\..\..\parcel-registry\assets\crab2vbr\Aiv.Vbr.Common.dll</HintPath>
+      <HintPath>..\..\assets\crab2vbr\Aiv.Vbr.Common.dll</HintPath>
     </Reference>
     <Reference Include="Aiv.Vbr.CrabModel">
-      <HintPath>..\..\..\parcel-registry\assets\crab2vbr\Aiv.Vbr.CrabModel.dll</HintPath>
+      <HintPath>..\..\assets\crab2vbr\Aiv.Vbr.CrabModel.dll</HintPath>
     </Reference>
     <Reference Include="Aiv.Vbr.Domain.Model">
-      <HintPath>..\..\..\parcel-registry\assets\crab2vbr\Aiv.Vbr.Domain.Model.dll</HintPath>
+      <HintPath>..\..\assets\crab2vbr\Aiv.Vbr.Domain.Model.dll</HintPath>
     </Reference>
     <Reference Include="Aiv.Vbr.DomainModel.Operations">
-      <HintPath>..\..\..\parcel-registry\assets\crab2vbr\Aiv.Vbr.DomainModel.Operations.dll</HintPath>
+      <HintPath>..\..\assets\crab2vbr\Aiv.Vbr.DomainModel.Operations.dll</HintPath>
     </Reference>
     <Reference Include="Aiv.Vbr.Shared">
-      <HintPath>..\..\..\parcel-registry\assets\crab2vbr\Aiv.Vbr.Shared.dll</HintPath>
+      <HintPath>..\..\assets\crab2vbr\Aiv.Vbr.Shared.dll</HintPath>
     </Reference>
   </ItemGroup>
 
