@@ -9,6 +9,12 @@ source https://api.nuget.org/v3/index.json
 // source https://informatievlaanderen.myget.org/F/nuget-mirror/api/v3/index.json username: "%MYGET_FEED_USER%" password: "%MYGET_FEED_PASS%" authtype: "basic"
 
 // PRODUCTION STUFF
+nuget Microsoft.Extensions.Configuration 3.1.2
+nuget Microsoft.Extensions.Configuration.CommandLine 3.1.2
+nuget Microsoft.Extensions.Configuration.FileExtensions 3.1.2
+nuget Microsoft.Extensions.Configuration.EnvironmentVariables 3.1.2
+nuget Microsoft.Extensions.Configuration.Json 3.1.2
+
 nuget AspNetCore.HealthChecks.SqlServer 3.0.0
 
 nuget NetTopologySuite 2.0.0

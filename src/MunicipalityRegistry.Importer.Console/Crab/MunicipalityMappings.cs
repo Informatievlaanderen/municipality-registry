@@ -1,12 +1,12 @@
-namespace MunicipalityRegistry.Importer.Crab
+namespace MunicipalityRegistry.Importer.Console.Crab
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Aiv.Vbr.CentraalBeheer.Crab.Entity;
     using Aiv.Vbr.CrabModel;
     using Be.Vlaanderen.Basisregisters.Crab;
     using Municipality.Commands.Crab;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using CrabLifetime = Be.Vlaanderen.Basisregisters.Crab.CrabLifetime;
 
     internal class MunicipalityMappings
