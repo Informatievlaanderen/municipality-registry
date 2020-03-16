@@ -164,8 +164,8 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
                     }
                 })
 
-            .UseIdempotencyDatabaseMigrations()
-            .UseCrabImportMigrations();
+                .UseIdempotencyDatabaseMigrations()
+                .UseCrabImportMigrations();
 
             StartupHelpers.CheckDatabases(healthCheckService, DatabaseTag).GetAwaiter().GetResult();
         }
