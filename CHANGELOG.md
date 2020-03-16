@@ -1,3 +1,15 @@
+# [3.4.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.3.3...v3.4.0) (2020-03-16)
+
+
+### Bug Fixes
+
+* reference crab2vbr in correct folder ([8053852](https://github.com/informatievlaanderen/municipality-registry/commit/8053852))
+
+
+### Features
+
+* upgrade importer to netcore 3 ([3e16b74](https://github.com/informatievlaanderen/municipality-registry/commit/3e16b74))
+
 ## [3.3.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.3.2...v3.3.3) (2020-03-11)
 
 
