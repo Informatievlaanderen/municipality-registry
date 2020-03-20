@@ -1,3 +1,10 @@
+## [3.4.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.4.0...v3.4.1) (2020-03-20)
+
+
+### Bug Fixes
+
+* update grar common to fix versie id type ([66fa757](https://github.com/informatievlaanderen/municipality-registry/commit/66fa757))
+
 # [3.4.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.3.3...v3.4.0) (2020-03-16)
 
 
