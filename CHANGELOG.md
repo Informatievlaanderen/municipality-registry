@@ -1,3 +1,10 @@
+## [3.4.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.4.1...v3.4.2) (2020-03-23)
+
+
+### Bug Fixes
+
+* use correct build user ([4cf243f](https://github.com/informatievlaanderen/municipality-registry/commit/4cf243f))
+
 ## [3.4.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.4.0...v3.4.1) (2020-03-20)
 
 
