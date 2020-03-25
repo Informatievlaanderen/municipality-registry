@@ -1,10 +1,13 @@
 namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Be.Vlaanderen.Basisregisters.Api.Search;
     using Be.Vlaanderen.Basisregisters.Api.Search.Filtering;
     using Be.Vlaanderen.Basisregisters.Api.Search.Sorting;
+    using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
+    using Convertors;
     using Microsoft.EntityFrameworkCore;
     using Projections.Legacy;
     using Projections.Legacy.MunicipalityList;
@@ -43,6 +46,18 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
             if (!string.IsNullOrEmpty(filtering.Filter.NameGerman))
                 municipalities = municipalities.Where(m => m.NameGerman.Contains(filtering.Filter.NameGerman));
 
+            if (!string.IsNullOrEmpty(filtering.Filter.Status))
+            {
+                if (Enum.TryParse(typeof(GemeenteStatus), filtering.Filter.Status, true, out var status))
+                {
+                    var municipalityStatus = ((GemeenteStatus) status).ConvertFromGemeenteStatus();
+                    municipalities = municipalities.Where(m => m.Status.HasValue && m.Status.Value == municipalityStatus);
+                }
+                else
+                    //have to filter on EF cannot return new List<>().AsQueryable() cause non-EF provider does not support .CountAsync()
+                    municipalities = municipalities.Where(m => m.Status.HasValue && (int)m.Status.Value == -1);
+            }
+
             return municipalities;
         }
     }
@@ -69,5 +84,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         public string NameFrench { get; set; }
         public string NameGerman { get; set; }
         public string NameEnglish { get; set; }
+        public string Status { get; set; }
     }
 }
