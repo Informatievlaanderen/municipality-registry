@@ -19,5 +19,18 @@ namespace MunicipalityRegistry.Api.Legacy.Convertors
                     return GemeenteStatus.InGebruik;
             }
         }
+
+        public static MunicipalityStatus ConvertFromGemeenteStatus(this GemeenteStatus status)
+        {
+            switch (status)
+            {
+                case GemeenteStatus.Gehistoreerd:
+                    return MunicipalityStatus.Retired;
+
+                default:
+                case GemeenteStatus.InGebruik:
+                    return MunicipalityStatus.Current;
+            }
+        }
     }
 }
