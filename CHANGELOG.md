@@ -1,3 +1,10 @@
+# [3.5.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.4.2...v3.5.0) (2020-03-25)
+
+
+### Features
+
+* add status filter on list ([425304f](https://github.com/informatievlaanderen/municipality-registry/commit/425304f))
+
 ## [3.4.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.4.1...v3.4.2) (2020-03-23)
 
 
