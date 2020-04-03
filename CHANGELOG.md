@@ -1,3 +1,10 @@
+# [3.6.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.5.0...v3.6.0) (2020-04-03)
+
+
+### Features
+
+* upgrade projection handling to include errmessage lastchangedlist ([48d44c5](https://github.com/informatievlaanderen/municipality-registry/commit/48d44c5))
+
 # [3.5.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.4.2...v3.5.0) (2020-03-25)
 
 
