@@ -53,6 +53,7 @@ namespace MunicipalityRegistry.Importer.Console
                     .UseApiProxyFactory(logger => new NonBatchedHttpApiProxyFactory(logger, settings))
                     .UseCommandProcessorConfig(settings)
                     .UseDefaultSerializerSettingsForCrabImports()
+                    .UseImportFeed(new ImportFeed { Name = settings.FeedName })
                     .Build();
 
                 WaitForStart(settings);
