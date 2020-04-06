@@ -1,3 +1,10 @@
+## [3.6.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.0...v3.6.1) (2020-04-06)
+
+
+### Bug Fixes
+
+* set name for importer feedname ([82ab0ba](https://github.com/informatievlaanderen/municipality-registry/commit/82ab0ba))
+
 # [3.6.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.5.0...v3.6.0) (2020-04-03)
 
 
