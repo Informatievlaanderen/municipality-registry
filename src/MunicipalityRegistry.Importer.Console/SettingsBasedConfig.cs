@@ -33,6 +33,7 @@ namespace MunicipalityRegistry.Importer.Console
         public int BatchSize { get; }
         public bool WaitForUserInput { get; }
         public TimeSpan TimeMargin { get; }
+        public string FeedName { get; }
 
         public override string ToString() => $"{Environment.NewLine}" +
                                              $"BaseUrl: {BaseUrl}{Environment.NewLine}" +
@@ -45,7 +46,9 @@ namespace MunicipalityRegistry.Importer.Console
                                              $"NrOfProducers: {NrOfProducers}{Environment.NewLine}" +
                                              $"BufferSize: {BufferSize}{Environment.NewLine}" +
                                              $"NrOfConsumers: {NrOfConsumers}{Environment.NewLine}" +
-                                             $"BatchSize: {BatchSize}";
+                                             $"BatchSize: {BatchSize}" +
+                                             $"WaitForUserInput: {WaitForUserInput}" +
+                                             $"FeedName: {FeedName}";
 
         public int Deserialize(string key) => int.Parse(key);
     }
