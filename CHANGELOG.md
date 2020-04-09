@@ -1,3 +1,10 @@
+## [3.6.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.1...v3.6.2) (2020-04-09)
+
+
+### Bug Fixes
+
+* update packages for import batch timestamps correction ([50599c1](https://github.com/informatievlaanderen/municipality-registry/commit/50599c1))
+
 ## [3.6.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.0...v3.6.1) (2020-04-06)
 
 
