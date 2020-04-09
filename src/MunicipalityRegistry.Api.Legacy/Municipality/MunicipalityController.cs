@@ -194,9 +194,9 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             var pagination = Request.ExtractPaginationRequest();
 
             var pagedMunicipalities = new MunicipalitySyndicationQuery(
-                context,
-                filtering.Filter?.ContainsEvent ?? false,
-                filtering.Filter?.ContainsObject ?? false)
+                    context,
+                    filtering.Filter?.ContainsEvent ?? false,
+                    filtering.Filter?.ContainsObject ?? false)
                 .Fetch(filtering, sorting, pagination);
 
             Response.AddPagedQueryResultHeaders(pagedMunicipalities);
