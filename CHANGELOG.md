@@ -1,3 +1,10 @@
+## [3.6.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.2...v3.6.3) (2020-04-10)
+
+
+### Bug Fixes
+
+* update packages ([38424eb](https://github.com/informatievlaanderen/municipality-registry/commit/38424eb))
+
 ## [3.6.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.1...v3.6.2) (2020-04-09)
 
 
