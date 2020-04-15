@@ -1,3 +1,10 @@
+## [3.6.13](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.12...v3.6.13) (2020-04-15)
+
+
+### Bug Fixes
+
+* try to create jira version ([0244a3e](https://github.com/informatievlaanderen/municipality-registry/commit/0244a3e))
+
 ## [3.6.12](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.11...v3.6.12) (2020-04-15)
 
 
