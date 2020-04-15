@@ -14,8 +14,6 @@ jobs:
     steps:
     - name: Checkout Code
       uses: actions/checkout@v2.1.0
-      with:
-        persist-credentials: true
       
     - name: Cache Paket
       uses: actions/cache@v1.1.2
@@ -57,3 +55,5 @@ jobs:
     
     - name: Run Semantic Release (master)
       run: npx semantic-release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
