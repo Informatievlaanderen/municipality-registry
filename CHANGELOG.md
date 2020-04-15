@@ -1,3 +1,11 @@
+## [3.6.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.6...v3.6.7) (2020-04-15)
+
+
+### Bug Fixes
+
+* publish to nuget ([f2a1ac8](https://github.com/informatievlaanderen/municipality-registry/commit/f2a1ac8))
+* use REPOSITORY_NAME ([f544b6d](https://github.com/informatievlaanderen/municipality-registry/commit/f544b6d))
+
 ## [3.6.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.5...v3.6.6) (2020-04-15)
 
 
