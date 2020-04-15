@@ -1,3 +1,14 @@
+## [3.6.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.5...v3.6.6) (2020-04-15)
+
+
+### Bug Fixes
+
+* avoid duplicate ids in github actions ([e2add32](https://github.com/informatievlaanderen/municipality-registry/commit/e2add32))
+* build on push master ([ff13fad](https://github.com/informatievlaanderen/municipality-registry/commit/ff13fad))
+* pass in docker registry ([e9a2d6b](https://github.com/informatievlaanderen/municipality-registry/commit/e9a2d6b))
+* try out github actions ([4b1e694](https://github.com/informatievlaanderen/municipality-registry/commit/4b1e694))
+* use 3.1.102 dotnet for now ([1d8dfd3](https://github.com/informatievlaanderen/municipality-registry/commit/1d8dfd3))
+
 ## [3.6.5](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.4...v3.6.5) (2020-04-15)
 
 
