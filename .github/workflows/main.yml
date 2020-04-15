@@ -83,7 +83,7 @@ jobs:
       env:
         BUILD_DOCKER_REGISTRY: ${{ secrets.BUILD_DOCKER_REGISTRY }}
         BITBUCKET_COMMIT: ${{ github.sha }}
-        CIRCLE_PROJECT_REPONAME: ${{ env.GITHUB_REPOSITORY }}
+        CIRCLE_PROJECT_REPONAME: ${{ env.REPOSITORY_NAME }}
         CONFLUENCE_USERNAME: david.cumps@vlaanderen.be
         CONFLUENCE_PASSWORD: ${{ secrets.CONFLUENCE_PASSWORD }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
