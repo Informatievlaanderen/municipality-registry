@@ -1,3 +1,12 @@
+## [3.6.9](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.8...v3.6.9) (2020-04-15)
+
+
+### Bug Fixes
+
+* cleanup build ([2a7ad4f](https://github.com/informatievlaanderen/municipality-registry/commit/2a7ad4f))
+* only build for linux ([19ae206](https://github.com/informatievlaanderen/municipality-registry/commit/19ae206))
+* pack for linux ([405fb71](https://github.com/informatievlaanderen/municipality-registry/commit/405fb71))
+
 ## [3.6.8](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.7...v3.6.8) (2020-04-15)
 
 
