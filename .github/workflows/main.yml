@@ -174,6 +174,9 @@ jobs:
       shell: bash
       run: ./packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-jira.sh
       env:
+        CIRCLE_PROJECT_REPONAME: ${{ env.REPOSITORY_NAME }}
+        CONFLUENCE_USERNAME: david.cumps@vlaanderen.be
+        CONFLUENCE_PASSWORD: ${{ secrets.CONFLUENCE_PASSWORD }}
         JIRA_PREFIX: Municipality
         JIRA_PROJECT: GRAR
         JIRA_VERSION: ${{ env.RELEASE_VERSION }}
