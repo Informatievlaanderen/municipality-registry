@@ -1,3 +1,10 @@
+## [3.6.12](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.11...v3.6.12) (2020-04-15)
+
+
+### Bug Fixes
+
+* try and push to confluence, utf8 issue ([2bb50f5](https://github.com/informatievlaanderen/municipality-registry/commit/2bb50f5))
+
 ## [3.6.11](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.10...v3.6.11) (2020-04-15)
 
 
