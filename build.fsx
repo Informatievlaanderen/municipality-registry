@@ -2,13 +2,12 @@
 version 5.241.6
 framework: netstandard20
 source https://api.nuget.org/v3/index.json
-nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 3.3.5 //"
+nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 4.0.1 //"
 
 #load "packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/build-generic.fsx"
 
 open Fake.Core
 open Fake.Core.TargetOperators
-open Fake.IO.FileSystemOperators
 open ``Build-generic``
 
 // The buildserver passes in `BITBUCKET_BUILD_NUMBER` as an integer to version the results

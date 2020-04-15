@@ -85,8 +85,8 @@ jobs:
       run: npx semantic-release
       env:
         BUILD_DOCKER_REGISTRY: ${{ secrets.BUILD_DOCKER_REGISTRY }}
-        BITBUCKET_COMMIT: ${{ github.sha }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GIT_COMMIT: ${{ github.sha }}
         GIT_USERNAME: release-bot
         GIT_AUTHOR_NAME: release-bot
         GIT_COMMITTER_NAME: release-bot
@@ -95,7 +95,7 @@ jobs:
         GIT_COMMITTER_EMAIL: informatie.vlaanderen@vlaanderen.be
 
     - name: Set Release Version
-      run: echo ::set-env name=RELEASE_VERSION::$(cat $WORKSPACE/semver)
+      run: echo ::set-env name=RELEASE_VERSION::$(cat semver)
       shell: bash
 
     - name: Configure AWS credentials (Staging)
