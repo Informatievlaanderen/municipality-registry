@@ -13,6 +13,16 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v2.1.0
 
+    - name: Cache NPM
+      uses: actions/cache@v1.1.2
+      env:
+        cache-name: cache-npm
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          
     - name: Cache Paket
       uses: actions/cache@v1.1.2
       env:
@@ -23,27 +33,30 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-build-${{ env.cache-name }}-
 
-    - name: Cache NPM
+    - name: Cache Python
       uses: actions/cache@v1.1.2
       env:
-        cache-name: cache-npm
+        cache-name: cache-pip
       with:
-        path: ~/.npm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-build-${{ env.cache-name }}
+      
     - name: Parse repository name
       run: echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
       shell: bash
   
-    - name: Setup Node.js environment
+    - name: Setup Node.js
       uses: actions/setup-node@v1.4.1
 
-    - name: Install .NET Core
+    - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.102
+
+    - name: Set up Python
+      uses: actions/setup-python@v1.2.0
+      with:
+        python-version: '3.x'
 
     - name: Node version
       shell: bash
@@ -52,6 +65,10 @@ jobs:
     - name: .NET version
       shell: bash
       run: dotnet --info
+
+    - name: Python version
+      shell: bash
+      run: python --version
 
     - name: Configure AWS credentials (Staging)
       uses: aws-actions/configure-aws-credentials@v1
@@ -73,11 +90,17 @@ jobs:
     - name: Login to Amazon ECR (Production)
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Install NPM dependencies (master)
+    - name: Install NPM dependencies
       shell: bash
       run: npm install
 
-    - name: Run Semantic Release (master)
+    - name: Install Python dependencies
+      shell: bash
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests markdown argparse
+
+    - name: Run Semantic Release
       shell: bash
       run: npx semantic-release
       env:
