@@ -1,3 +1,10 @@
+## [3.6.14](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.13...v3.6.14) (2020-04-15)
+
+
+### Bug Fixes
+
+* authenticate to jira ([62edf86](https://github.com/informatievlaanderen/municipality-registry/commit/62edf86))
+
 ## [3.6.13](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.12...v3.6.13) (2020-04-15)
 
 
