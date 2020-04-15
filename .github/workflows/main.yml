@@ -55,7 +55,6 @@ jobs:
         aws-region: eu-west-1
 
     - name: Login to Amazon ECR (Staging)
-      id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Configure AWS credentials (Production)
@@ -66,7 +65,6 @@ jobs:
         aws-region: eu-west-1
 
     - name: Login to Amazon ECR (Production)
-      id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Install NPM dependencies (master)
