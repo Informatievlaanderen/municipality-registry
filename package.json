@@ -115,11 +115,7 @@
       },
       {
         "path": "@semantic-release/exec",
-        "cmd": "mkdir -p workspace"
-      },
-      {
-        "path": "@semantic-release/exec",
-        "cmd": "echo ${nextRelease.version} > workspace/semver"
+        "cmd": "echo ${nextRelease.version} > semver"
       },
       {
         "path": "@semantic-release/exec",
