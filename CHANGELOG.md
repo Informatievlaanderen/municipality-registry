@@ -1,3 +1,12 @@
+## [3.6.8](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.7...v3.6.8) (2020-04-15)
+
+
+### Bug Fixes
+
+* dont push during build ([6375f30](https://github.com/informatievlaanderen/municipality-registry/commit/6375f30))
+* install python dependencies ([466169a](https://github.com/informatievlaanderen/municipality-registry/commit/466169a))
+* push containers to staging ([7e35eed](https://github.com/informatievlaanderen/municipality-registry/commit/7e35eed))
+
 ## [3.6.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.6...v3.6.7) (2020-04-15)
 
 
