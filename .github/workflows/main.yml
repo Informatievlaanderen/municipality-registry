@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  watch:
+    types: [started]
+  #push:
+  #  branches: [ master ]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2.1.0
+      
+    - name: Cache Paket
+      uses: actions/cache@v1.1.2
+      env:
+        cache-name: cache-paket
+      with:
+        path: packages
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('paket.lock') }}
+
+    - name: Cache Node
+      uses: actions/cache@v1.1.2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v1.4.1
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.201
+
+    - name: Node version
+      run: node --version
+
+    - name: .NET version
+      run: dotnet --info
+
+
+    - name: Install NPM dependencies (master)
+      run: npm install
+    
+    - name: Run Semantic Release (master)
+      run: npx semantic-release
