@@ -1,3 +1,10 @@
+## [3.6.15](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.14...v3.6.15) (2020-04-15)
+
+
+### Bug Fixes
+
+* bye bye circleci ([74d54dd](https://github.com/informatievlaanderen/municipality-registry/commit/74d54dd))
+
 ## [3.6.14](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.13...v3.6.14) (2020-04-15)
 
 
