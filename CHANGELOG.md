@@ -1,3 +1,10 @@
+## [3.6.10](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.9...v3.6.10) (2020-04-15)
+
+
+### Bug Fixes
+
+* try and push to confluence ([ff66712](https://github.com/informatievlaanderen/municipality-registry/commit/ff66712))
+
 ## [3.6.9](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.8...v3.6.9) (2020-04-15)
 
 
