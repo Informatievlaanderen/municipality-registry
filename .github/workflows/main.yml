@@ -73,6 +73,8 @@ jobs:
     - name: Run Semantic Release (master)
       run: npx semantic-release
       env:
+        BUILD_DOCKER_REGISTRY: ${{ secrets.BUILD_DOCKER_REGISTRY }}
+        BITBUCKET_COMMIT: ${{ github.sha }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GIT_USERNAME: release-bot
         GIT_AUTHOR_NAME: release-bot
@@ -85,7 +87,7 @@ jobs:
 
     - name: Copy containers to production
       run: |
-        SEMVER=$(cat semver)
+        SEMVER=$(cat $WORKSPACE/semver)
         docker tag  $BUILD_DOCKER_REGISTRY/municipality-registry/api-legacy:$SEMVER $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/api-legacy:$SEMVER
         docker push $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/api-legacy:$SEMVER
 
@@ -98,5 +100,6 @@ jobs:
         docker tag  $BUILD_DOCKER_REGISTRY/municipality-registry/projector:$SEMVER $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/projector:$SEMVER
         docker push $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/projector:$SEMVER
       env:
+        WORKSPACE: ${{ github.workspace }}
         BUILD_DOCKER_REGISTRY: ${{ secrets.BUILD_DOCKER_REGISTRY }}
         BUILD_DOCKER_REGISTRY_PRD: ${{ secrets.BUILD_DOCKER_REGISTRY_PRD }}
