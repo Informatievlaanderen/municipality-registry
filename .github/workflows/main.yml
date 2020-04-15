@@ -1,10 +1,8 @@
 name: CI
 
 on:
-  watch:
-    types: [started]
-  #push:
-  #  branches: [ master ]
+  push:
+    branches: [ master ]
 
 jobs:
   build:
