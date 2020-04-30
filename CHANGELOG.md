@@ -1,3 +1,10 @@
+## [3.6.17](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.16...v3.6.17) (2020-04-30)
+
+
+### Bug Fixes
+
+* revert to build for linux + windows ([cceec2b](https://github.com/informatievlaanderen/municipality-registry/commit/cceec2b))
+
 ## [3.6.16](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.15...v3.6.16) (2020-04-28)
 
 
