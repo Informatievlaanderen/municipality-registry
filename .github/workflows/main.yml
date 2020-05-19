@@ -159,7 +159,7 @@ jobs:
         node packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-nuget.js dist/nuget/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Projector.$SEMVER.nupkg
       env:
         SEMVER: ${{ env.RELEASE_VERSION }}
-        NUGET_HOST: ${{ env.NUGET_HOST }}
+        NUGET_HOST: ${{ secrets.NUGET_HOST }}
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
     - name: Publish to Confluence
