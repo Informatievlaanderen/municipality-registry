@@ -12,11 +12,11 @@ namespace MunicipalityRegistry.Projections.Extract
 
         public MunicipalityDbaseSchema() => Fields = new[]
         {
-            DbaseField.CreateStringField(new DbaseFieldName(nameof(id)), new DbaseFieldLength(50)),
-            DbaseField.CreateStringField(new DbaseFieldName(nameof(gemeenteid)), new DbaseFieldLength(5)),
-            DbaseField.CreateStringField(new DbaseFieldName(nameof(versieid)), new DbaseFieldLength(25)),
-            DbaseField.CreateStringField(new DbaseFieldName(nameof(gemeentenm)), new DbaseFieldLength(40)),
-            DbaseField.CreateStringField(new DbaseFieldName(nameof(status)), new DbaseFieldLength(50))
+            DbaseField.CreateCharacterField(new DbaseFieldName(nameof(id)), new DbaseFieldLength(50)),
+            DbaseField.CreateCharacterField(new DbaseFieldName(nameof(gemeenteid)), new DbaseFieldLength(5)),
+            DbaseField.CreateCharacterField(new DbaseFieldName(nameof(versieid)), new DbaseFieldLength(25)),
+            DbaseField.CreateCharacterField(new DbaseFieldName(nameof(gemeentenm)), new DbaseFieldLength(40)),
+            DbaseField.CreateCharacterField(new DbaseFieldName(nameof(status)), new DbaseFieldLength(50))
         };
     }
 }
