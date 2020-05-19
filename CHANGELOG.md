@@ -1,3 +1,10 @@
+## [3.6.19](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.18...v3.6.19) (2020-05-19)
+
+
+### Bug Fixes
+
+* push to nuget ([9c28db4](https://github.com/informatievlaanderen/municipality-registry/commit/9c28db4babc6ed3cf1219d364a9ce062105c2337))
+
 ## [3.6.18](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.17...v3.6.18) (2020-05-19)
 
 
