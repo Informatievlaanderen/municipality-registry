@@ -1,3 +1,10 @@
+## [3.6.20](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.19...v3.6.20) (2020-05-20)
+
+
+### Bug Fixes
+
+* don't build on forked repos ([2030b73](https://github.com/informatievlaanderen/municipality-registry/commit/2030b7324628d5260c204bbca736e02a63d18bf7))
+
 ## [3.6.19](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.18...v3.6.19) (2020-05-19)
 
 
