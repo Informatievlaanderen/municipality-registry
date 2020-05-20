@@ -1,4 +1,4 @@
-# Municipality Registry [![Build Status](./workflows/CI/badge.svg)](./actions)
+# Municipality Registry [![Build Status](https://github.com/Informatievlaanderen/municipality-registry/workflows/CI/badge.svg)](https://github.com/Informatievlaanderen/municipality-registry/actions)
 
 ## Goal
 
