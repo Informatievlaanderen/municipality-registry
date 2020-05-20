@@ -1,4 +1,4 @@
-# Municipality Registry
+# Municipality Registry [![Build Status](./workflows/CI/badge.svg)](./actions)
 
 ## Goal
 
