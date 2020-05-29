@@ -1,3 +1,10 @@
+## [3.6.22](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.21...v3.6.22) (2020-05-29)
+
+
+### Bug Fixes
+
+* update dependencies GRAR-752 ([be91b51](https://github.com/informatievlaanderen/municipality-registry/commit/be91b5156b84f89dab84dbdaa9d95eef60b71bf6))
+
 ## [3.6.21](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.20...v3.6.21) (2020-05-20)
 
 
