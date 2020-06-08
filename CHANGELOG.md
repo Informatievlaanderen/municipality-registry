@@ -1,3 +1,10 @@
+## [3.6.23](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.22...v3.6.23) (2020-06-08)
+
+
+### Bug Fixes
+
+* build msil version for public api ([65ff512](https://github.com/informatievlaanderen/municipality-registry/commit/65ff51264f6d511b417009eca297aa0676cad7f0))
+
 ## [3.6.22](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.21...v3.6.22) (2020-05-29)
 
 
