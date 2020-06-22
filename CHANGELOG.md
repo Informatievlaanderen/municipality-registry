@@ -1,3 +1,10 @@
+## [3.6.25](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.24...v3.6.25) (2020-06-22)
+
+
+### Bug Fixes
+
+* configure baseurls for all problemdetails GRAR-1358 GRAR-1357 ([17b5670](https://github.com/informatievlaanderen/municipality-registry/commit/17b56708d3c5f7138e0a35accf372ace6017b88e))
+
 ## [3.6.24](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.23...v3.6.24) (2020-06-19)
 
 
