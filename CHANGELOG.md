@@ -1,3 +1,10 @@
+## [3.6.27](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.26...v3.6.27) (2020-06-30)
+
+
+### Bug Fixes
+
+* remove offset and add from to next uri GRAR-1418 ([210b13c](https://github.com/informatievlaanderen/municipality-registry/commit/210b13c24cdfa661434449f0c55541c22339eaef))
+
 ## [3.6.26](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.25...v3.6.26) (2020-06-23)
 
 
