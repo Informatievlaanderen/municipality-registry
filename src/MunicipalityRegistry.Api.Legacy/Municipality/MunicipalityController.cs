@@ -129,7 +129,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                             new GeografischeNaam(m.DefaultName, m.OfficialLanguages.FirstOrDefault().ConvertFromLanguage()),
                             m.Status))
                         .ToListAsync(cancellationToken),
-                    Volgende = BuildVolgendeUri(pagedMunicipalities.PaginationInfo, responseOptions.Value.VolgendeUrl)
+                    Volgende = BuildNextUri(pagedMunicipalities.PaginationInfo, responseOptions.Value.VolgendeUrl)
                 });
         }
 
@@ -193,13 +193,12 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             var sorting = Request.ExtractSortingRequest();
             var pagination = Request.ExtractPaginationRequest();
 
-            var pagedMunicipalities = new MunicipalitySyndicationQuery(
-                context,
-                filtering.Filter?.ContainsEvent ?? false,
-                filtering.Filter?.ContainsObject ?? false)
+            var pagedMunicipalities =
+                new MunicipalitySyndicationQuery(
+                    context,
+                    filtering.Filter?.ContainsEvent ?? false,
+                    filtering.Filter?.ContainsObject ?? false)
                 .Fetch(filtering, sorting, pagination);
-
-            Response.AddPagedQueryResultHeaders(pagedMunicipalities);
 
             return new ContentResult
             {
@@ -303,11 +302,21 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                     new Uri(syndicationConfiguration["Self"]),
                     syndicationConfiguration.GetSection("Related").GetChildren().Select(c => c.Value).ToArray());
 
-                var nextUri = BuildVolgendeUri(pagedMunicipalities.PaginationInfo, syndicationConfiguration["NextUri"]);
+                var municipalities = await pagedMunicipalities.Items.ToListAsync();
+
+                var highestPosition = municipalities.Any()
+                    ? municipalities.Max(x => x.Position)
+                    : (long?)null;
+
+                var nextUri = BuildNextSyncUri(
+                    pagedMunicipalities.PaginationInfo.Limit,
+                    highestPosition + 1,
+                    syndicationConfiguration["NextUri"]);
+
                 if (nextUri != null)
                     await writer.Write(new SyndicationLink(nextUri, GrArAtomLinkTypes.Next));
 
-                foreach (var municipality in pagedMunicipalities.Items)
+                foreach (var municipality in municipalities)
                     await writer.WriteMunicipality(responseOptions, formatter, syndicationConfiguration["Category"], municipality);
 
                 xmlWriter.Flush();
@@ -316,13 +325,20 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             return sw.ToString();
         }
 
-        private static Uri BuildVolgendeUri(PaginationInfo paginationInfo, string volgendeUrlBase)
+        private static Uri BuildNextUri(PaginationInfo paginationInfo, string nextUrlBase)
         {
             var offset = paginationInfo.Offset;
             var limit = paginationInfo.Limit;
 
             return paginationInfo.HasNextPage
-                ? new Uri(string.Format(volgendeUrlBase, offset + limit, limit))
+                ? new Uri(string.Format(nextUrlBase, offset + limit, limit))
+                : null;
+        }
+
+        private static Uri BuildNextSyncUri(int limit, long? from, string nextUrlBase)
+        {
+            return from.HasValue
+                ? new Uri(string.Format(nextUrlBase, from.Value, limit))
                 : null;
         }
     }
