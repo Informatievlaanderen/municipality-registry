@@ -45,6 +45,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
         public Organisation? Organisation { get; set; }
         public string? Reason { get; set; }
         public string? EventDataAsXml { get; set; }
+        public DateTimeOffset SyndicationItemCreatedAt { get; set; }
 
         public MunicipalitySyndicationItem CloneAndApplyEventInfo(
             long newPosition,
@@ -126,6 +127,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
             b.Property(x => x.Organisation);
             b.Property(x => x.Reason);
             b.Property(x => x.EventDataAsXml);
+            b.Property(x => x.SyndicationItemCreatedAt).IsRequired();
 
             b.Ignore(x => x.RecordCreatedAt);
             b.Ignore(x => x.LastChangedOn);
