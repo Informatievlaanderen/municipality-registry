@@ -1,3 +1,10 @@
+# [3.7.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.27...v3.7.0) (2020-07-01)
+
+
+### Features
+
+* refactored metadata for atom feed ([bc70d97](https://github.com/informatievlaanderen/municipality-registry/commit/bc70d977ab2b68c802fdd415c9f64908d8a0823a))
+
 ## [3.6.27](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.26...v3.6.27) (2020-06-30)
 
 
