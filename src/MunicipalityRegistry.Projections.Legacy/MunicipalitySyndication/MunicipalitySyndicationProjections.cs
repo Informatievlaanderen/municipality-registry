@@ -1,5 +1,6 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
 {
+    using System;
     using System.Linq;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
@@ -19,6 +20,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                     RecordCreatedAt = message.Message.Provenance.Timestamp,
                     LastChangedOn = message.Message.Provenance.Timestamp,
                     ChangeType = message.EventName,
+                    SyndicationItemCreatedAt = DateTimeOffset.UtcNow
                 };
 
                 newMunicipalitySyndicationItem.ApplyProvenance(message.Message.Provenance);
