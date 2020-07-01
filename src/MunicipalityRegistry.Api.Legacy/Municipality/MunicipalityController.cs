@@ -294,13 +294,9 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                 var formatter = new AtomFormatter(null, xmlWriter.Settings) { UseCDATA = true };
                 var writer = new AtomFeedWriter(xmlWriter, null, formatter);
                 var syndicationConfiguration = configuration.GetSection("Syndication");
+                var atomConfiguration = AtomFeedConfigurationBuilder.CreateFrom(syndicationConfiguration, DateTimeOffset.Now);
 
-                await writer.WriteDefaultMetadata(
-                    syndicationConfiguration["Id"],
-                    syndicationConfiguration["Title"],
-                    Assembly.GetEntryAssembly().GetName().Version.ToString(),
-                    new Uri(syndicationConfiguration["Self"]),
-                    syndicationConfiguration.GetSection("Related").GetChildren().Select(c => c.Value).ToArray());
+                await writer.WriteDefaultMetadata(atomConfiguration);
 
                 var municipalities = await pagedMunicipalities.Items.ToListAsync();
 
