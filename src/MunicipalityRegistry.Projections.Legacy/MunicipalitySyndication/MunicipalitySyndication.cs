@@ -79,7 +79,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                 Modification = Modification,
                 Operator = Operator,
                 Organisation = Organisation,
-                Reason = Reason
+                Reason = Reason,
+                SyndicationItemCreatedAt = DateTimeOffset.UtcNow
             };
 
             editFunc(newItem);

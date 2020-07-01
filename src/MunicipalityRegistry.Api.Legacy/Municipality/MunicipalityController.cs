@@ -193,6 +193,16 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             var sorting = Request.ExtractSortingRequest();
             var pagination = Request.ExtractPaginationRequest();
 
+            var lastFeedUpdate = await context
+                .MunicipalitySyndication
+                .AsNoTracking()
+                .OrderByDescending(item => item.Position)
+                .Select(item => item.SyndicationItemCreatedAt)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            if (lastFeedUpdate == default)
+                lastFeedUpdate = new DateTimeOffset(2020, 1, 1, 0, 0, 0, TimeSpan.Zero);
+
             var pagedMunicipalities =
                 new MunicipalitySyndicationQuery(
                     context,
@@ -202,7 +212,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
 
             return new ContentResult
             {
-                Content = await BuildAtomFeed(pagedMunicipalities, responseOptions, configuration),
+                Content = await BuildAtomFeed(lastFeedUpdate, pagedMunicipalities, responseOptions, configuration),
                 ContentType = MediaTypeNames.Text.Xml,
                 StatusCode = StatusCodes.Status200OK
             };
@@ -283,6 +293,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
         }
 
         private static async Task<string> BuildAtomFeed(
+            DateTimeOffset lastUpdate,
             PagedQueryable<MunicipalitySyndicationQueryResult> pagedMunicipalities,
             IOptions<ResponseOptions> responseOptions,
             IConfiguration configuration)
@@ -294,7 +305,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                 var formatter = new AtomFormatter(null, xmlWriter.Settings) { UseCDATA = true };
                 var writer = new AtomFeedWriter(xmlWriter, null, formatter);
                 var syndicationConfiguration = configuration.GetSection("Syndication");
-                var atomConfiguration = AtomFeedConfigurationBuilder.CreateFrom(syndicationConfiguration, DateTimeOffset.Now);
+                var atomConfiguration = AtomFeedConfigurationBuilder.CreateFrom(syndicationConfiguration, lastUpdate);
 
                 await writer.WriteDefaultMetadata(atomConfiguration);
 
