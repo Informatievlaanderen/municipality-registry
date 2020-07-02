@@ -1,3 +1,13 @@
+## [3.7.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.7.0...v3.7.1) (2020-07-02)
+
+
+### Bug Fixes
+
+* add SyndicationItemCreatedAt GRAR-1442 ([6bac92b](https://github.com/informatievlaanderen/municipality-registry/commit/6bac92b5a17231c91aca56d8823cec35ea170f88))
+* get updated value from projections GRAR-1442 ([b186ad1](https://github.com/informatievlaanderen/municipality-registry/commit/b186ad1e0784fc73b39f2d9fe4939357d45b70b3))
+* update packages GRAR-1442 ([f236448](https://github.com/informatievlaanderen/municipality-registry/commit/f2364488e28d19a8d7bdf99d825552228087f855))
+* update streamstore ([d8e2f1a](https://github.com/informatievlaanderen/municipality-registry/commit/d8e2f1adea51a5abc180e3d505be589747d098fd))
+
 # [3.7.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.6.27...v3.7.0) (2020-07-01)
 
 
