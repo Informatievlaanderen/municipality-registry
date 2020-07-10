@@ -1,3 +1,10 @@
+## [3.7.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.7.2...v3.7.3) (2020-07-10)
+
+
+### Bug Fixes
+
+* correct author, entry links atom feed + example GRAR-1443 GRAR-1447 ([ff01068](https://github.com/informatievlaanderen/municipality-registry/commit/ff01068c32741a5adb844ba83129e0d5a3c61a58))
+
 ## [3.7.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.7.1...v3.7.2) (2020-07-10)
 
 
