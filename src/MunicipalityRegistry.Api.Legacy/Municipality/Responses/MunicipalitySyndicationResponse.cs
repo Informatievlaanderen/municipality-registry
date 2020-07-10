@@ -4,7 +4,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using System.Net.Mime;
     using System.Runtime.Serialization;
     using System.Threading.Tasks;
     using System.Xml;
@@ -40,8 +39,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                 Description = BuildDescription(municipality, responseOptions.Value.Naamruimte)
             };
 
-            // TODO: Hier moet prolly version nog ergens in
-            // TODO: AD: Waarschijnlijk niet hier maar wel in een sync endpoint voor externe gebruikers
             if (!string.IsNullOrWhiteSpace(municipality.NisCode))
             {
                 item.AddLink(
@@ -49,22 +46,22 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                         new Uri($"{responseOptions.Value.Naamruimte}/{municipality.NisCode}"),
                         AtomLinkTypes.Related));
 
-                item.AddLink(
-                    new SyndicationLink(
-                        new Uri(string.Format(responseOptions.Value.DetailUrl, municipality.NisCode)),
-                        AtomLinkTypes.Self));
+                //item.AddLink(
+                //    new SyndicationLink(
+                //        new Uri(string.Format(responseOptions.Value.DetailUrl, municipality.NisCode)),
+                //        AtomLinkTypes.Self));
 
-                item.AddLink(
-                    new SyndicationLink(
-                        new Uri(string.Format($"{responseOptions.Value.DetailUrl}.xml", municipality.NisCode)),
-                        AtomLinkTypes.Alternate)
-                    { MediaType = MediaTypeNames.Application.Xml });
+                //item.AddLink(
+                //    new SyndicationLink(
+                //        new Uri(string.Format($"{responseOptions.Value.DetailUrl}.xml", municipality.NisCode)),
+                //        AtomLinkTypes.Alternate)
+                //    { MediaType = MediaTypeNames.Application.Xml });
 
-                item.AddLink(
-                    new SyndicationLink(
-                            new Uri(string.Format($"{responseOptions.Value.DetailUrl}.json", municipality.NisCode)),
-                        AtomLinkTypes.Alternate)
-                    { MediaType = MediaTypeNames.Application.Json });
+                //item.AddLink(
+                //    new SyndicationLink(
+                //            new Uri(string.Format($"{responseOptions.Value.DetailUrl}.json", municipality.NisCode)),
+                //        AtomLinkTypes.Alternate)
+                //    { MediaType = MediaTypeNames.Application.Json });
             }
 
             item.AddCategory(
@@ -72,8 +69,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
 
             item.AddContributor(
                 new SyndicationPerson(
-                    "agentschap Informatie Vlaanderen",
-                    "informatie.vlaanderen@vlaanderen.be",
+                    municipality.Organisation?.ToName(),
+                    string.Empty,
                     AtomContributorTypes.Author));
 
             await writer.Write(item);
@@ -216,32 +213,30 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         {
             return $@"<?xml version=""1.0"" encoding=""utf-8""?>
 <feed xmlns=""http://www.w3.org/2005/Atom"">
-  <id>https://basisregisters.vlaanderen/syndication/feed/municipality.atom</id>
-  <title>Basisregisters Vlaanderen - Gemeenteregister</title>
-  <subtitle>Basisregisters Vlaanderen stelt u in staat om alles te weten te komen rond: de Belgische gemeenten; de Belgische postcodes; de Vlaamse straatnamen; de Vlaamse adressen; de Vlaamse gebouwen en gebouweenheden; de Vlaamse percelen; de Vlaamse organisaties en organen; de Vlaamse dienstverlening.</subtitle>
-  <generator uri=""https://basisregisters.vlaanderen"" version=""2.0.0.0"">Basisregisters Vlaanderen</generator>
-  <rights>Copyright (c) 2017-2018, Informatie Vlaanderen</rights>
+  <id>https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten.atom</id>
+  <title>Basisregisters Vlaanderen - feed 'gemeenten'</title>
+  <subtitle>Deze Atom feed geeft leestoegang tot events op de resource 'gemeenten'.</subtitle>
+  <generator>Basisregisters Vlaanderen</generator>
+  <rights>Gratis hergebruik volgens https://overheid.vlaanderen.be/sites/default/files/documenten/ict-egov/licenties/hergebruik/modellicentie_gratis_hergebruik_v1_0.html</rights>
   <updated>2018-10-05T14:06:53Z</updated>
   <author>
     <name>agentschap Informatie Vlaanderen</name>
     <email>informatie.vlaanderen@vlaanderen.be</email>
   </author>
-  <link href=""https://basisregisters.vlaanderen/syndication/feed/municipality.atom"" rel=""self"" />
-  <link href=""https://legacy.staging-basisregisters.vlaanderen/"" rel=""related"" />
+  <link href=""https://api.basisregisters.dev-vlaanderen.be/v1/feeds/gemeenten"" rel=""self""/>
+  <link href=""https://api.basisregisters.dev-vlaanderen.be/v1/feeds/gemeenten.atom"" rel =""alternate"" type = ""application/atom+xml"" />
+  <link href=""https://api.basisregisters.dev-vlaanderen.be/v1/feeds/gemeenten.xml"" rel = ""alternate"" type = ""application/xml"" />
+  <link href=""https://docs.basisregisters.dev-vlaanderen.be/"" rel = ""related"" />
   <entry>
     <id>4</id>
     <title>MunicipalityNisCodeWasDefined-4</title>
     <updated>2018-10-04T13:12:17Z</updated>
     <published>2018-10-04T13:12:17Z</published>
     <link href=""{_responseOptions.Naamruimte}/23101"" rel=""related"" />
-    <link href=""https://basisregisters.vlaanderen.be/api/v1/gemeenten/23101"" rel=""self"" />
-    <link href=""https://basisregisters.vlaanderen.be/api/v1/gemeenten/23101.xml"" rel=""alternate"" type=""application/xml"" />
-    <link href=""https://basisregisters.vlaanderen.be/api/v1/gemeenten/23101.json"" rel=""alternate"" type=""application/json"" />
     <author>
       <name>agentschap Informatie Vlaanderen</name>
-      <email>informatie.vlaanderen@vlaanderen.be</email>
     </author>
-    <category term=""https://data.vlaanderen.be/ns/gemeente"" />
+    <category term=""gemeenten"" />
     <content>
 <![CDATA[<Content xmlns:i=""http://www.w3.org/2001/XMLSchema-instance"">
 <Event>
@@ -254,7 +249,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     <Identificator><Id>http://data.vlaanderen.be/id/gemeente/23101</Id><Naamruimte>http://data.vlaanderen.be/id/gemeente</Naamruimte><ObjectId>23101</ObjectId><VersieId>2002-08-13T17:32:32+02:00</VersieId></Identificator><OfficieleTalen /><FaciliteitenTalen /><Gemeentenamen /><GemeenteStatus i:nil=""true"" /><Creatie><Organisatie>Nationaal Geografisch Instituut</Organisatie><Reden>Centrale bijhouding CRAB</Reden></Creatie>
 </Object>
 </Content>]]>
-      </content>
+    </content>
   </entry>
 </feed>";
         }
