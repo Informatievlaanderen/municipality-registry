@@ -1,3 +1,10 @@
+## [3.7.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.7.1...v3.7.2) (2020-07-10)
+
+
+### Bug Fixes
+
+* enums were not correctly serialized in syndication event GRAR-1490 ([26b909a](https://github.com/informatievlaanderen/municipality-registry/commit/26b909a2c2228a4135546b6710f5f21bd2fe19ce))
+
 ## [3.7.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.7.0...v3.7.1) (2020-07-02)
 
 
