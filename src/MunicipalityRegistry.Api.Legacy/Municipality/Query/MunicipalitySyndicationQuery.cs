@@ -172,11 +172,11 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
 
         protected override ISorting Sorting => new MunicipalitySyndicationSorting();
 
-        public MunicipalitySyndicationQuery(LegacyContext context, bool embedEvent, bool embedObject)
+        public MunicipalitySyndicationQuery(LegacyContext context, EmbedValue embed)
         {
             _context = context;
-            _embedEvent = embedEvent;
-            _embedObject = embedObject;
+            _embedEvent = embed?.Event ?? false;
+            _embedObject = embed?.Object ?? false;
         }
 
         protected override Expression<Func<MunicipalitySyndicationItem, MunicipalitySyndicationQueryResult>> Transformation
@@ -276,12 +276,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
     public class MunicipalitySyndicationFilter
     {
         public long? Position { get; set; }
-        public string Embed { get; set; }
-
-        public bool ContainsEvent =>
-            Embed.Contains("event", StringComparison.OrdinalIgnoreCase);
-
-        public bool ContainsObject =>
-            Embed.Contains("object", StringComparison.OrdinalIgnoreCase);
+        public EmbedValue Embed { get; set; }
     }
 }
