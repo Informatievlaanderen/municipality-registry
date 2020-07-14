@@ -1,3 +1,11 @@
+## [3.7.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.7.3...v3.7.4) (2020-07-13)
+
+
+### Bug Fixes
+
+* update dependencies ([a55f01c](https://github.com/informatievlaanderen/municipality-registry/commit/a55f01c4f22dad2d52f5c27583d1908d52d5c08c))
+* use typed embed value GRAR-1465 ([6d05c83](https://github.com/informatievlaanderen/municipality-registry/commit/6d05c83e9df18e672e2255e6f6518afb65e5459b))
+
 ## [3.7.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.7.2...v3.7.3) (2020-07-10)
 
 
