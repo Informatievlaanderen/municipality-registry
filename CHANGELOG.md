@@ -1,3 +1,10 @@
+# [3.8.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.7.4...v3.8.0) (2020-07-14)
+
+
+### Features
+
+* add timestamp to sync provenance ([#79](https://github.com/informatievlaanderen/municipality-registry/issues/79)) ([688c1bb](https://github.com/informatievlaanderen/municipality-registry/commit/688c1bb79a270a96593993dd78215bc7992f65d3))
+
 ## [3.7.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.7.3...v3.7.4) (2020-07-13)
 
 
