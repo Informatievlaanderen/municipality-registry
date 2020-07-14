@@ -198,7 +198,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
 
             MunicipalityNames = gemeenteNamen.Where(x => !string.IsNullOrEmpty(x.Spelling)).ToList();
 
-            Provenance = new Provenance(organisation, new Reason(reason));
+            Provenance = new Provenance(version, organisation, new Reason(reason));
         }
     }
 
