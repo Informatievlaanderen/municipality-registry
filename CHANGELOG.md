@@ -1,3 +1,10 @@
+## [3.8.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.0...v3.8.1) (2020-07-19)
+
+
+### Bug Fixes
+
+* move to 3.1.6 ([fd57c3d](https://github.com/informatievlaanderen/municipality-registry/commit/fd57c3dc534bd3b9094fe9b2e5946b901a1f0492))
+
 # [3.8.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.7.4...v3.8.0) (2020-07-14)
 
 
