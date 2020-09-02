@@ -1,3 +1,10 @@
+## [3.8.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.1...v3.8.2) (2020-09-02)
+
+
+### Bug Fixes
+
+* upgrade common to fix sync author ([d5cdaa1](https://github.com/informatievlaanderen/municipality-registry/commit/d5cdaa11badacfe3e62cf87475ca2e1215154ace))
+
 ## [3.8.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.0...v3.8.1) (2020-07-19)
 
 
