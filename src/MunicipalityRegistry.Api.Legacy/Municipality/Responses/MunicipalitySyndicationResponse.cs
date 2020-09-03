@@ -69,7 +69,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
 
             item.AddContributor(
                 new SyndicationPerson(
-                    municipality.Organisation?.ToName(),
+                    municipality.Organisation == null ? Organisation.Unknown.ToName() : municipality.Organisation.Value.ToName(),
                     string.Empty,
                     AtomContributorTypes.Author));
 
