@@ -1,3 +1,10 @@
+## [3.8.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.2...v3.8.3) (2020-09-03)
+
+
+### Bug Fixes
+
+* sync null organisation defaults to unknown ([a09925a](https://github.com/informatievlaanderen/municipality-registry/commit/a09925aec2c938f48cea8e9bed31af33e59a1cbf))
+
 ## [3.8.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.1...v3.8.2) (2020-09-02)
 
 
