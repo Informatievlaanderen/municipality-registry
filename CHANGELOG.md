@@ -1,3 +1,10 @@
+## [3.8.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.5...v3.8.6) (2020-09-11)
+
+
+### Bug Fixes
+
+* remove Modification from xml GRAR-1529 ([2f7373d](https://github.com/informatievlaanderen/municipality-registry/commit/2f7373d54db2c885ac97bf2a6affac54a7db4e3d))
+
 ## [3.8.5](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.4...v3.8.5) (2020-09-11)
 
 
