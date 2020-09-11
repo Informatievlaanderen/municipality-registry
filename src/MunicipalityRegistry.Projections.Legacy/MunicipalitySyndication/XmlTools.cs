@@ -12,17 +12,24 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
     public static class XmlTools
     {
         private static readonly Type[] WriteTypes = {
-            typeof(string), typeof(DateTime), typeof(Enum),
-            typeof(decimal), typeof(Guid), typeof(Instant),
-            typeof(LocalDate), typeof(LocalDateTime), typeof(DateTimeOffset),
-            typeof(Organisation), typeof(Modification)
+            typeof(string),
+            typeof(DateTime),
+            typeof(Enum),
+            typeof(decimal),
+            typeof(Guid),
+            typeof(Instant),
+            typeof(LocalDate),
+            typeof(LocalDateTime),
+            typeof(DateTimeOffset),
+            typeof(Organisation)
         };
 
         /// <summary>
         /// Preferred way to exclude properties
         /// </summary>
         private static readonly Type[] ExcludeTypes = {
-            typeof(Application)
+            typeof(Application),
+            typeof(Modification)
         };
 
         /// <summary>
