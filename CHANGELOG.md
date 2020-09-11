@@ -1,3 +1,10 @@
+## [3.8.5](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.4...v3.8.5) (2020-09-11)
+
+
+### Bug Fixes
+
+* update packages to fix null operator/reason GRAR-1535 ([ecc70f1](https://github.com/informatievlaanderen/municipality-registry/commit/ecc70f1010513b1fd3ce4e549c8830da5466fde8))
+
 ## [3.8.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.3...v3.8.4) (2020-09-10)
 
 
