@@ -1,0 +1,32 @@
+version: 2
+
+updates:
+- package-ecosystem: github-actions
+  directory: "/"
+  schedule:
+    interval: daily
+
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+
+- package-ecosystem: docker
+  directory: "/src/MunicipalityRegistry.Api.CrabImport"
+  schedule:
+    interval: daily
+
+- package-ecosystem: docker
+  directory: "/src/MunicipalityRegistry.Api.Extract"
+  schedule:
+    interval: daily
+
+- package-ecosystem: docker
+  directory: "/src/MunicipalityRegistry.Api.Legacy"
+  schedule:
+    interval: daily
+
+- package-ecosystem: docker
+  directory: "/src/MunicipalityRegistry.Projector"
+  schedule:
+    interval: daily

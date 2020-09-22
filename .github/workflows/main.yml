@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -168,7 +169,7 @@ jobs:
         node packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-nuget.js dist/nuget/$REGISTRY.Api.CrabImport.$SEMVER.nupkg
         node packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-nuget.js dist/nuget/$REGISTRY.Projector.$SEMVER.nupkg
       env:
-        REGISTRY: Be.Vlaanderen.Basisregisters.MunicipalityRegistry 
+        REGISTRY: Be.Vlaanderen.Basisregisters.MunicipalityRegistry
         SEMVER: ${{ env.RELEASE_VERSION }}
         NUGET_HOST: ${{ secrets.NUGET_HOST }}
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
