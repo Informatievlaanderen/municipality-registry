@@ -1,3 +1,10 @@
+# [3.9.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.7...v3.9.0) (2020-09-22)
+
+
+### Features
+
+* add import status endpoint GRAR-1400 ([59075ad](https://github.com/informatievlaanderen/municipality-registry/commit/59075ad1b252489f860da11067ca03e43fe919f5))
+
 ## [3.8.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.6...v3.8.7) (2020-09-22)
 
 
