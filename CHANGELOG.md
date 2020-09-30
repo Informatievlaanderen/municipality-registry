@@ -1,3 +1,10 @@
+# [3.10.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.9.0...v3.10.0) (2020-09-30)
+
+
+### Features
+
+* add cache status to projector api ([3511df9](https://github.com/informatievlaanderen/municipality-registry/commit/3511df959ab10e6a1ef41b101197ecbb4d69c206))
+
 # [3.9.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.8.7...v3.9.0) (2020-09-22)
 
 
