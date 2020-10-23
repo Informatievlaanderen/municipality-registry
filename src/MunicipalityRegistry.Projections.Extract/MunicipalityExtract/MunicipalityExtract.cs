@@ -13,7 +13,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
 
         public Guid? MunicipalityId { get; set; }
         public string? NisCode { get; set; }
-        public byte[] DbaseRecord { get; set; }
+        public byte[]? DbaseRecord { get; set; }
         public string? NameDutch { get; set; }
         public string? NameFrench { get; set; }
         public string? NameEnglish { get; set; }
