@@ -1,3 +1,10 @@
+# [3.11.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.10.0...v3.11.0) (2020-10-26)
+
+
+### Features
+
+* update projector with new gap detection + status api ([91765d6](https://github.com/informatievlaanderen/municipality-registry/commit/91765d63046ae14ff6b4bec266214753f40bd024))
+
 # [3.10.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.9.0...v3.10.0) (2020-09-30)
 
 
