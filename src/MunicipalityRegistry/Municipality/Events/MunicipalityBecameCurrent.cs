@@ -5,11 +5,14 @@ namespace MunicipalityRegistry.Municipality.Events
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Newtonsoft.Json;
 
+    [EventTags(Tags.Sync)]
     [EventName("MunicipalityBecameCurrent")]
     [EventDescription("De gemeente werd in gebruik genomen.")]
     public class MunicipalityBecameCurrent : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityBecameCurrent(

@@ -126,8 +126,8 @@ namespace MunicipalityRegistry.Structurizr
         }
 
         private static string FormatDescription(string description, IEnumerable<string> properties)
-            //=> $"{description}{Environment.NewLine}{string.Join(", ", properties)}";
-            => $"{description}";
+            => $"{description}{Environment.NewLine}{string.Join(Environment.NewLine, properties)}";
+            //=> $"{description}";
 
         private static void ConfigureStyles(ViewSet views)
         {
@@ -325,7 +325,14 @@ namespace MunicipalityRegistry.Structurizr
                 Description = x.GetCustomAttribute<EventDescriptionAttribute>().Value,
                 //Description = x.FullName.Replace("MunicipalityRegistry.Municipality.Events.", string.Empty),
                 Type = x,
-                Properties = x.GetProperties().Select(y => y.Name).ToList()
+                Properties = x.GetProperties().Select(y =>
+                {
+                    var description = y.GetCustomAttribute<EventPropertyDescriptionAttribute>()?.Value;
+
+                    return string.IsNullOrWhiteSpace(description)
+                        ? y.Name
+                        : $"{y.Name} ({description})";
+                }).ToList()
             });
         }
 
