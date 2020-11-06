@@ -1,3 +1,14 @@
+## [3.11.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.0...v3.11.1) (2020-11-06)
+
+
+### Bug Fixes
+
+* logging ([e0ff676](https://github.com/informatievlaanderen/municipality-registry/commit/e0ff676712aa103dcae20f619b491158543ad90b))
+* logging ([06d6196](https://github.com/informatievlaanderen/municipality-registry/commit/06d61966625a463b24aee68d9cd6ac586fe393d5))
+* logging ([a666d65](https://github.com/informatievlaanderen/municipality-registry/commit/a666d654a85c4db4df1e525467d9a05fb0a2c3a7))
+* logging ([0e4be17](https://github.com/informatievlaanderen/municipality-registry/commit/0e4be173b0905b08fefaed607c7eefc0f2a07089))
+* logging ([68d426f](https://github.com/informatievlaanderen/municipality-registry/commit/68d426fa95b7f9f3868dcd41a2672c0221e31abc))
+
 # [3.11.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.10.0...v3.11.0) (2020-10-26)
 
 
