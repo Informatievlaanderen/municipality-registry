@@ -188,7 +188,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                     ct);
             });
 
-            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) => DoNothing());
             When<Envelope<MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) => DoNothing());
             When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => DoNothing());
             When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => DoNothing());

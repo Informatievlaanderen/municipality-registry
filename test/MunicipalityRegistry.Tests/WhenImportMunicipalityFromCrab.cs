@@ -55,7 +55,7 @@ namespace MunicipalityRegistry.Tests
             var municipalitySecondOfficialLanguageWasAdded = new MunicipalityOfficialLanguageWasAdded(_municipalityId, Language.French);
             ((ISetProvenance)municipalitySecondOfficialLanguageWasAdded).SetProvenance(CreateProvenance(1));
 
-            var facilityLanguageWasAdded = new MunicipalityFacilitiesLanguageWasAdded(_municipalityId, Language.English);
+            var facilityLanguageWasAdded = new MunicipalityFacilityLanguageWasAdded(_municipalityId, Language.English);
             ((ISetProvenance)facilityLanguageWasAdded).SetProvenance(CreateProvenance(1));
 
             var municipalityWasDrawn = new MunicipalityWasDrawn(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb));

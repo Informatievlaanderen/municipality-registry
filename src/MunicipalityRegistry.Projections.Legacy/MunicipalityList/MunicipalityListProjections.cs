@@ -125,7 +125,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
                     ct);
             });
 
-            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityListItem(
                     message.Message.MunicipalityId,
@@ -136,7 +136,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
                     ct);
             });
 
-            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityListItem(
                     message.Message.MunicipalityId,
