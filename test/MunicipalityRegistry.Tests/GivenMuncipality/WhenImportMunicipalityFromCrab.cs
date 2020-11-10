@@ -242,13 +242,13 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
 
-            var municipalityExistingFacilityLanguage = new MunicipalityFacilitiesLanguageWasAdded(_municipalityId, Language.French);
+            var municipalityExistingFacilityLanguage = new MunicipalityFacilityLanguageWasAdded(_municipalityId, Language.French);
             ((ISetProvenance)municipalityExistingFacilityLanguage).SetProvenance(CreateProvenance(1));
 
             var municipalityFacilityLanguageWasRemoved = new MunicipalityFacilitiesLanguageWasRemoved(_municipalityId, Language.French);
             ((ISetProvenance)municipalityFacilityLanguageWasRemoved).SetProvenance(CreateProvenance(1));
 
-            var municipalityFacilityLanguageWasAdded = new MunicipalityFacilitiesLanguageWasAdded(_municipalityId, Language.German);
+            var municipalityFacilityLanguageWasAdded = new MunicipalityFacilityLanguageWasAdded(_municipalityId, Language.German);
             ((ISetProvenance)municipalityFacilityLanguageWasAdded).SetProvenance(CreateProvenance(1));
 
             Assert(
@@ -283,7 +283,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
 
-            var municipalityExistingFacilityLanguage = new MunicipalityFacilitiesLanguageWasAdded(_municipalityId, Language.French);
+            var municipalityExistingFacilityLanguage = new MunicipalityFacilityLanguageWasAdded(_municipalityId, Language.French);
             ((ISetProvenance)municipalityExistingFacilityLanguage).SetProvenance(CreateProvenance(1));
 
             var municipalityFacilityLanguageWasRemoved = new MunicipalityFacilitiesLanguageWasRemoved(_municipalityId, Language.French);

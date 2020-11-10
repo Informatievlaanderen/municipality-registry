@@ -126,7 +126,7 @@ namespace MunicipalityRegistry.Municipality
         private void CheckChangedFacilityLanguages(Language? facilityLanguage)
         {
             if (facilityLanguage.HasValue && !_facilitiesLanguages.Contains(facilityLanguage.Value))
-                ApplyChange(new MunicipalityFacilitiesLanguageWasAdded(_municipalityId, facilityLanguage.Value));
+                ApplyChange(new MunicipalityFacilityLanguageWasAdded(_municipalityId, facilityLanguage.Value));
 
             if (!facilityLanguage.HasValue && _facilitiesLanguages.Any())
                 ApplyChange(new MunicipalityFacilitiesLanguageWasRemoved(_municipalityId, _facilitiesLanguages.Single()));

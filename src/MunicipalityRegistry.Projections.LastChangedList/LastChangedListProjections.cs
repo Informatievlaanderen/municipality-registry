@@ -77,7 +77,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
                 await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
             });
 
-            When<Envelope<MunicipalityFacilitiesLanguageWasAdded>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) =>
             {
                 await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
             });

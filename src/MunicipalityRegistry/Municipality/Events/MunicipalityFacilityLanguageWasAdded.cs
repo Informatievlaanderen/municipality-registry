@@ -7,13 +7,13 @@ namespace MunicipalityRegistry.Municipality.Events
 
     [EventName("MunicipalityFacilityLanguageWasAdded")]
     [EventDescription("Een faciliteiten taal van de gemeente werd toegevoegd.")]
-    public class MunicipalityFacilitiesLanguageWasAdded : IHasProvenance, ISetProvenance
+    public class MunicipalityFacilityLanguageWasAdded : IHasProvenance, ISetProvenance
     {
         public Guid MunicipalityId { get; }
         public Language Language { get; }
         public ProvenanceData Provenance { get; private set; }
 
-        public MunicipalityFacilitiesLanguageWasAdded(
+        public MunicipalityFacilityLanguageWasAdded(
             MunicipalityId municipalityId,
             Language language)
         {
@@ -22,7 +22,7 @@ namespace MunicipalityRegistry.Municipality.Events
         }
 
         [JsonConstructor]
-        private MunicipalityFacilitiesLanguageWasAdded(
+        private MunicipalityFacilityLanguageWasAdded(
             Guid municipalityId,
             Language language,
             ProvenanceData provenance) :
