@@ -1,3 +1,11 @@
+## [3.11.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.1...v3.11.2) (2020-11-12)
+
+
+### Bug Fixes
+
+* serialize eventname value attribute as xml attribute GRAR-1620 ([2774d3e](https://github.com/informatievlaanderen/municipality-registry/commit/2774d3e46c91a0589a4494792bee1c975f3ec280))
+* set event name when register muni in sync ([17c4992](https://github.com/informatievlaanderen/municipality-registry/commit/17c4992dbfc126a9c847afa435652fb32d02b42a))
+
 ## [3.11.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.0...v3.11.1) (2020-11-06)
 
 
