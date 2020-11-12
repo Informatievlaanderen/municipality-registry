@@ -24,7 +24,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                 };
 
                 newMunicipalitySyndicationItem.ApplyProvenance(message.Message.Provenance);
-                newMunicipalitySyndicationItem.SetEventData(message.Message);
+                newMunicipalitySyndicationItem.SetEventData(message.Message, message.EventName);
 
                 await context
                     .MunicipalitySyndication
