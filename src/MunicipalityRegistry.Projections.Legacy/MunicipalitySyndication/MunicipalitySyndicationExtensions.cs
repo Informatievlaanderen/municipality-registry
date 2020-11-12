@@ -2,11 +2,9 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
 {
     using System;
     using System.Linq;
-    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
     using System.Xml.Linq;
-    using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
@@ -35,7 +33,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                 applyEventInfoOn);
 
             newMunicipalitySyndicationItem.ApplyProvenance(provenance);
-            newMunicipalitySyndicationItem.SetEventData(message.Message);
+            newMunicipalitySyndicationItem.SetEventData(message.Message, message.EventName);
 
             await context
                 .MunicipalitySyndication
@@ -69,8 +67,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
             item.Reason = provenance.Reason;
         }
 
-        public static void SetEventData<T>(this MunicipalitySyndicationItem syndicationItem, T message)
-            => syndicationItem.EventDataAsXml = message.ToXml(message.GetType().GetCustomAttribute<EventNameAttribute>()!.Value).ToString(SaveOptions.DisableFormatting);
+        public static void SetEventData<T>(this MunicipalitySyndicationItem syndicationItem, T message, string eventName)
+            => syndicationItem.EventDataAsXml = message.ToXml(eventName).ToString(SaveOptions.DisableFormatting);
 
         private static ProjectionItemNotFoundException<MunicipalitySyndicationProjections> DatabaseItemNotFound(Guid municipalityId)
             => new ProjectionItemNotFoundException<MunicipalitySyndicationProjections>(municipalityId.ToString("D"));
