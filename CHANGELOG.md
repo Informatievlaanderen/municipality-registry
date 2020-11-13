@@ -1,3 +1,11 @@
+## [3.11.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.2...v3.11.3) (2020-11-13)
+
+
+### Bug Fixes
+
+* display sync response example as correct xml GRAR-1599 ([62a6fb9](https://github.com/informatievlaanderen/municipality-registry/commit/62a6fb98501abfdec38ef0e1d3aa658f0458d6ad))
+* upgrade swagger GRAR-1599 ([101be21](https://github.com/informatievlaanderen/municipality-registry/commit/101be216eeb05a586e9beae32aafecf341197f59))
+
 ## [3.11.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.1...v3.11.2) (2020-11-12)
 
 
