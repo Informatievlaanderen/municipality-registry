@@ -202,56 +202,66 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         }
     }
 
-    public class MunicipalitySyndicationResponseExamples : IExamplesProvider<object>
+    public class MunicipalitySyndicationResponseExamples : IExamplesProvider<XmlElement>
     {
-        private readonly ResponseOptions _responseOptions;
-
-        public MunicipalitySyndicationResponseExamples(IOptions<ResponseOptions> responseOptionsProvider)
-            => _responseOptions = responseOptionsProvider.Value;
-
-        public object GetExamples()
-        {
-            return $@"<?xml version=""1.0"" encoding=""utf-8""?>
+        private const string RawXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <feed xmlns=""http://www.w3.org/2005/Atom"">
-  <id>https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten.atom</id>
-  <title>Basisregisters Vlaanderen - feed 'gemeenten'</title>
-  <subtitle>Deze Atom feed geeft leestoegang tot events op de resource 'gemeenten'.</subtitle>
-  <generator>Basisregisters Vlaanderen</generator>
-  <rights>Gratis hergebruik volgens https://overheid.vlaanderen.be/sites/default/files/documenten/ict-egov/licenties/hergebruik/modellicentie_gratis_hergebruik_v1_0.html</rights>
-  <updated>2018-10-05T14:06:53Z</updated>
-  <author>
-    <name>agentschap Informatie Vlaanderen</name>
-    <email>informatie.vlaanderen@vlaanderen.be</email>
-  </author>
-  <link href=""https://api.basisregisters.dev-vlaanderen.be/v1/feeds/gemeenten"" rel=""self""/>
-  <link href=""https://api.basisregisters.dev-vlaanderen.be/v1/feeds/gemeenten.atom"" rel =""alternate"" type = ""application/atom+xml"" />
-  <link href=""https://api.basisregisters.dev-vlaanderen.be/v1/feeds/gemeenten.xml"" rel = ""alternate"" type = ""application/xml"" />
-  <link href=""https://docs.basisregisters.dev-vlaanderen.be/"" rel = ""related"" />
-  <entry>
-    <id>4</id>
-    <title>MunicipalityNisCodeWasDefined-4</title>
-    <updated>2018-10-04T13:12:17Z</updated>
-    <published>2018-10-04T13:12:17Z</published>
-    <link href=""{_responseOptions.Naamruimte}/23101"" rel=""related"" />
+    <id>https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten.atom</id>
+    <title>Basisregisters Vlaanderen - feed 'gemeenten'</title>
+    <subtitle>Deze Atom feed geeft leestoegang tot events op de resource 'gemeenten'.</subtitle>
+    <generator uri=""https://basisregisters.vlaanderen.be"" version=""2.3.11.0"">Basisregisters Vlaanderen</generator>
+    <rights>Gratis hergebruik volgens https://overheid.vlaanderen.be/sites/default/files/documenten/ict-egov/licenties/hergebruik/modellicentie_gratis_hergebruik_v1_0.html</rights>
+    <updated>2020-10-15T08:48:33Z</updated>
     <author>
-      <name>agentschap Informatie Vlaanderen</name>
+        <name>agentschap Informatie Vlaanderen</name>
+        <email>informatie.vlaanderen@vlaanderen.be</email>
+    </author>
+    <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten"" rel=""self"" />
+    <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten.atom"" rel=""alternate"" type=""application/atom+xml"" />
+    <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten.xml"" rel=""alternate"" type=""application/xml"" />
+    <link href=""https://docs.basisregisters.vlaanderen.be/"" rel=""related"" />
+    <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten?from=2&amp;limit=100&amp;embed=event,object"" rel=""next"" />
+    <entry>
+        <id>0</id>
+        <title>MunicipalityWasRegistered-0</title>
+        <updated>2002-08-13T17:32:32+02:00</updated>
+        <published>2002-08-13T17:32:32+02:00</published>
+        <link href=""https://data.vlaanderen.be/id/gemeente/45057"" rel=""related"" />
+        <author>
+            <name>Nationaal Geografisch Instituut</name>
+        </author>
+        <category term=""gemeenten"" />
+        <content>
+            <![CDATA[<Content xmlns:i=""http://www.w3.org/2001/XMLSchema-instance""><Event><MunicipalityWasRegistered><MunicipalityId>2dcf67c9-d440-57c3-b2c5-612f03561b18</MunicipalityId><NisCode>45057</NisCode><Provenance><Timestamp>2002-08-13T15:32:32Z</Timestamp><Organisation>Ngi</Organisation><Reason>Centrale bijhouding CRAB</Reason></Provenance>
+    </MunicipalityWasRegistered>
+  </Event><Object><Id>2dcf67c9-d440-57c3-b2c5-612f03561b18</Id><Identificator><Id>https://data.vlaanderen.be/id/gemeente/45057</Id><Naamruimte>https://data.vlaanderen.be/id/gemeente</Naamruimte><ObjectId>45057</ObjectId><VersieId>2002-08-13T17:32:32+02:00</VersieId></Identificator><OfficieleTalen /><FaciliteitenTalen /><Gemeentenamen /><GemeenteStatus i:nil=""true"" /><Creatie><Tijdstip>2002-08-13T17:32:32+02:00</Tijdstip><Organisatie>Nationaal Geografisch Instituut</Organisatie><Reden>Centrale bijhouding CRAB</Reden></Creatie>
+  </Object></Content>]]>
+</content>
+</entry>
+<entry>
+    <id>1</id>
+    <title>MunicipalityOfficialLanguageWasAdded-1</title>
+    <updated>2002-08-13T17:32:32+02:00</updated>
+    <published>2002-08-13T17:32:32+02:00</published>
+    <link href=""https://data.vlaanderen.be/id/gemeente/45057"" rel=""related"" />
+    <author>
+        <name>Nationaal Geografisch Instituut</name>
     </author>
     <category term=""gemeenten"" />
     <content>
-<![CDATA[<Content xmlns:i=""http://www.w3.org/2001/XMLSchema-instance"">
-<Event>
-    <MunicipalityWasRegistered>
-    <MunicipalityId>3793d1d5-6eb4-580c-b1db-37a8c5f43ca7</MunicipalityId><NisCode>23101</NisCode><Provenance><Timestamp>2002-08-13T15:32:32Z</Timestamp><Modification>Insert</Modification><Organisation>Ngi</Organisation><Reden>CentralManagementCrab</Reden></Provenance>
-    </MunicipalityWasRegistered>
-</Event>
-<Object>
-    <Id>3793d1d5-6eb4-580c-b1db-37a8c5f43ca7</Id>
-    <Identificator><Id>http://data.vlaanderen.be/id/gemeente/23101</Id><Naamruimte>http://data.vlaanderen.be/id/gemeente</Naamruimte><ObjectId>23101</ObjectId><VersieId>2002-08-13T17:32:32+02:00</VersieId></Identificator><OfficieleTalen /><FaciliteitenTalen /><Gemeentenamen /><GemeenteStatus i:nil=""true"" /><Creatie><Organisatie>Nationaal Geografisch Instituut</Organisatie><Reden>Centrale bijhouding CRAB</Reden></Creatie>
-</Object>
-</Content>]]>
-    </content>
-  </entry>
+        <![CDATA[<Content xmlns:i=""http://www.w3.org/2001/XMLSchema-instance""><Event><MunicipalityOfficialLanguageWasAdded><MunicipalityId>2dcf67c9-d440-57c3-b2c5-612f03561b18</MunicipalityId><Language>Dutch</Language><Provenance><Timestamp>2002-08-13T15:32:32Z</Timestamp><Organisation>Ngi</Organisation><Reason>Centrale bijhouding CRAB</Reason></Provenance>
+    </MunicipalityOfficialLanguageWasAdded>
+  </Event><Object><Id>2dcf67c9-d440-57c3-b2c5-612f03561b18</Id><Identificator><Id>https://data.vlaanderen.be/id/gemeente/45057</Id><Naamruimte>https://data.vlaanderen.be/id/gemeente</Naamruimte><ObjectId>45057</ObjectId><VersieId>2002-08-13T17:32:32+02:00</VersieId></Identificator><OfficieleTalen><Taal>nl</Taal></OfficieleTalen><FaciliteitenTalen /><Gemeentenamen /><GemeenteStatus i:nil=""true"" /><Creatie><Tijdstip>2002-08-13T17:32:32+02:00</Tijdstip><Organisatie>Nationaal Geografisch Instituut</Organisatie><Reden>Centrale bijhouding CRAB</Reden></Creatie>
+  </Object></Content>]]>
+</content>
+</entry>
 </feed>";
+
+        public XmlElement GetExamples()
+        {
+            var example = new XmlDocument();
+            example.LoadXml(RawXml);
+            return example.DocumentElement;
         }
     }
 }
