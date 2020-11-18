@@ -1,3 +1,10 @@
+## [3.11.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.3...v3.11.4) (2020-11-18)
+
+
+### Bug Fixes
+
+* remove set-env usage in gh-actions ([535fc69](https://github.com/informatievlaanderen/municipality-registry/commit/535fc69d66dc2a8d783b6fdd7d93f20effc801be))
+
 ## [3.11.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.2...v3.11.3) (2020-11-13)
 
 
