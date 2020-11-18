@@ -6,11 +6,16 @@ namespace MunicipalityRegistry.Municipality.Events
     using Newtonsoft.Json;
 
     [EventName("MunicipalityFacilityLanguageWasAdded")]
-    [EventDescription("Een faciliteiten taal van de gemeente werd toegevoegd.")]
+    [EventDescription("Een faciliteitentaal van de gemeente werd toegevoegd.")]
     public class MunicipalityFacilityLanguageWasAdded : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+        
+        [EventPropertyDescription("Faciliteitentaal van de gemeente.")]
         public Language Language { get; }
+        
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityFacilityLanguageWasAdded(
