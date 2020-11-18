@@ -7,12 +7,13 @@ namespace MunicipalityRegistry.Municipality.Events
 
     [EventTags(Tags.Sync)]
     [EventName("MunicipalityBecameCurrent")]
-    [EventDescription("De gemeente werd in gebruik genomen.")]
+    [EventDescription("De gemeente kreeg status 'in gebruik'.")]
     public class MunicipalityBecameCurrent : IHasProvenance, ISetProvenance
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
 
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityBecameCurrent(
