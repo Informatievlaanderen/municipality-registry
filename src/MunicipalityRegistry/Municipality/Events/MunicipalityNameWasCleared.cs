@@ -12,7 +12,7 @@ namespace MunicipalityRegistry.Municipality.Events
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
         
-        [EventPropertyDescription("Taal (voluit, EN) waarin de officiële naam staat.")]
+        [EventPropertyDescription("Taal (voluit, EN) waarvoor de officiële naam gewist werd.")]
         public Language Language { get; }
         
         [EventPropertyDescription("Metadata bij het event.")]
