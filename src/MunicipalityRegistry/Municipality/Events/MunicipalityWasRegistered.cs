@@ -6,11 +6,16 @@ namespace MunicipalityRegistry.Municipality.Events
     using Newtonsoft.Json;
 
     [EventName("MunicipalityWasRegistered")]
-    [EventDescription("De gemeente werd aangemaakt.")]
+    [EventDescription("De gemeente werd aangemaakt in het register.")]
     public class MunicipalityWasRegistered : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+        
+        [EventPropertyDescription("NIS-code (= objectidentificator) van de gemeente.")]
         public string NisCode { get; }
+        
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityWasRegistered(
