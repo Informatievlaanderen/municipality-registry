@@ -7,11 +7,16 @@ namespace MunicipalityRegistry.Municipality.Events
     using NodaTime;
 
     [EventName("MunicipalityWasCorrectedToRetired")]
-    [EventDescription("De gemeente werd gehistoriseerd via correctie.")]
+    [EventDescription("De gemeente kreeg status 'gehistoreerd' (via correctie).")]
     public class MunicipalityWasCorrectedToRetired : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+        
+        [EventPropertyDescription("Administratief tijdstip waarop de gemeente status ‘gehistoreerd’ kreeg (info uit CRAB).")]
         public Instant RetirementDate { get; }
+        
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityWasCorrectedToRetired(
