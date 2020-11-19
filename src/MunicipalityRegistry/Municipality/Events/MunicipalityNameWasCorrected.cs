@@ -6,12 +6,19 @@ namespace MunicipalityRegistry.Municipality.Events
     using Newtonsoft.Json;
 
     [EventName("MunicipalityNameWasCorrected")]
-    [EventDescription("De gemeente kreeg een naam toegewezen in een bepaalde taal via correctie.")]
+    [EventDescription("De naam van de gemeente (in een bepaalde taal) werd gecorrigeerd.")]
     public class MunicipalityNameWasCorrected : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+        
+        [EventPropertyDescription("Officiële spelling van de gemeente.")]
         public string Name { get; }
+        
+        [EventPropertyDescription("Taal (voluit, EN) waarin de officiële naam staat.")]
         public Language Language { get; }
+        
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityNameWasCorrected(
