@@ -9,8 +9,13 @@
     [EventDescription("Een officiële taal van de gemeente werd verwijderd.")]
     public class MunicipalityOfficialLanguageWasRemoved : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+        
+        [EventPropertyDescription("Officiële taal van de gemeente.")]
         public Language Language { get; }
+        
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityOfficialLanguageWasRemoved(
