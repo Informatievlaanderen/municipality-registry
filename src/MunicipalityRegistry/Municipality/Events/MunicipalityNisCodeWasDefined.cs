@@ -6,11 +6,16 @@ namespace MunicipalityRegistry.Municipality.Events
     using Newtonsoft.Json;
 
     [EventName("MunicipalityNisCodeWasDefined")]
-    [EventDescription("De NIS code van de gemeente werd gedefiniëerd.")]
+    [EventDescription("De persistente lokale identificator (NIS-code) van de gemeente werd bepaald.")]
     public class MunicipalityNisCodeWasDefined : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+        
+        [EventPropertyDescription("NIS-code (= objectidentificator) van de gemeente.")]
         public string NisCode { get; }
+        
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityNisCodeWasDefined(
