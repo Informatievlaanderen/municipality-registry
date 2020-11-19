@@ -6,10 +6,13 @@ namespace MunicipalityRegistry.Municipality.Events
     using Newtonsoft.Json;
 
     [EventName("MunicipalityWasCorrectedToCurrent")]
-    [EventDescription("De gemeente werd in gebruik genomen via correctie.")]
+    [EventDescription("De gemeente kreeg status 'in gebruik' (via correctie).")]
     public class MunicipalityWasCorrectedToCurrent : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+        
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityWasCorrectedToCurrent(
