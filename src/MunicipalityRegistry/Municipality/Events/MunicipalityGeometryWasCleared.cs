@@ -6,10 +6,13 @@ namespace MunicipalityRegistry.Municipality.Events
     using Newtonsoft.Json;
 
     [EventName("MunicipalityGeometryWasCleared")]
-    [EventDescription("De geometrie van de gemeentegrenzen werd verwijderd.")]
+    [EventDescription("De grenzen van de gemeente werden gewist.")]
     public class MunicipalityGeometryWasCleared : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+        
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityGeometryWasCleared(
