@@ -14,7 +14,6 @@ namespace MunicipalityRegistry.Municipality.Events
         public Guid MunicipalityId { get; }
         
         [EventPropertyDescription("Extended WKB-voorstelling van de gemeentegrenzen.")]
-        [EventPropertyDescription("...")]
         public string ExtendedWkbGeometry { get; }
         
         [EventPropertyDescription("Metadata bij het event.")]
