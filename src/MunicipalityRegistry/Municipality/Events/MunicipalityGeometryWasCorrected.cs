@@ -7,11 +7,17 @@ namespace MunicipalityRegistry.Municipality.Events
     using Newtonsoft.Json;
 
     [EventName("MunicipalityGeometryWasCorrected")]
-    [EventDescription("De geometrie voor de gemeentegrenzen werd gecorrigeerd.")]
+    [EventDescription("De grenzen van de gemeente werden gecorrigeerd.")]
     public class MunicipalityGeometryWasCorrected : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+        
+        [EventPropertyDescription("Extended WKB-voorstelling van de gemeentegrenzen.")]
+        [EventPropertyDescription("...")]
         public string ExtendedWkbGeometry { get; }
+        
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityGeometryWasCorrected(
