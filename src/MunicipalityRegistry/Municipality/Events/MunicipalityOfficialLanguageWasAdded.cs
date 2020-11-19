@@ -9,8 +9,13 @@ namespace MunicipalityRegistry.Municipality.Events
     [EventDescription("Een officiële taal van de gemeente werd toegevoegd.")]
     public class MunicipalityOfficialLanguageWasAdded : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+        
+        [EventPropertyDescription("Officiële taal van de gemeente.")]
         public Language Language { get; }
+        
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityOfficialLanguageWasAdded(
