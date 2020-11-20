@@ -6,11 +6,16 @@ namespace MunicipalityRegistry.Municipality.Events
     using Newtonsoft.Json;
 
     [EventName("MunicipalityNameWasCorrectedToCleared")]
-    [EventDescription("De naam van de gemeente werd verwijderd voor een bepaalde taal via correctie.")]
+    [EventDescription("De naam van de gemeente (in een bepaalde taal) werd gewist (via correctie).")]
     public class MunicipalityNameWasCorrectedToCleared : IHasProvenance, ISetProvenance
     {
+        [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
+        
+        [EventPropertyDescription("Taal (voluit, EN) waarvoor de officiële naam gewist werd.")]
         public Language Language { get; }
+        
+        [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
         public MunicipalityNameWasCorrectedToCleared(
