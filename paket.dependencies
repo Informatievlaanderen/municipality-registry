@@ -76,6 +76,9 @@ nuget AutoFixture 4.14.0
 nuget AutoFixture.Xunit2 4.14.0
 nuget FluentAssertions 5.10.3
 
+//spike
+nuget dotNetRDF 2.6.0
+
 // BUILD STUFF
 nuget SourceLink.Embed.AllSourceFiles 2.8.3 copy_local: true
 nuget SourceLink.Copy.PdbFiles 2.8.3 copy_local: true

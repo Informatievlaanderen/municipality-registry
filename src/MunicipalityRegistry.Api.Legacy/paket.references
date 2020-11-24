@@ -4,5 +4,7 @@ Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac
 
 AspNetCore.HealthChecks.SqlServer
 
+dotNetRDF
+
 SourceLink.Embed.AllSourceFiles
 SourceLink.Copy.PdbFiles
