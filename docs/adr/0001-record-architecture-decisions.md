@@ -21,3 +21,4 @@ We will keep ADRs in the project repository under `docs/adr/NNNN-explanation-of-
 ## Consequences
 
 See Michael Nygard's article, linked above.
+
