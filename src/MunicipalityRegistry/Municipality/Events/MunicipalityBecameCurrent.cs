@@ -5,7 +5,7 @@ namespace MunicipalityRegistry.Municipality.Events
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Newtonsoft.Json;
 
-    [EventTags(Tags.Sync)]
+    [EventTags(EventTag.For.Sync)]
     [EventName("MunicipalityBecameCurrent")]
     [EventDescription("De gemeente kreeg status 'in gebruik'.")]
     public class MunicipalityBecameCurrent : IHasProvenance, ISetProvenance
