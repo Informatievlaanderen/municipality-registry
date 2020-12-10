@@ -31,8 +31,8 @@ nuget Be.Vlaanderen.Basisregisters.CommandHandling 5.0.9
 nuget Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency 5.0.9
 nuget Be.Vlaanderen.Basisregisters.CommandHandling.SqlStreamStore 5.0.9
 
-nuget Be.Vlaanderen.Basisregisters.EventHandling 2.3.0
-nuget Be.Vlaanderen.Basisregisters.EventHandling.Autofac 2.3.0
+nuget Be.Vlaanderen.Basisregisters.EventHandling 3.0.2
+nuget Be.Vlaanderen.Basisregisters.EventHandling.Autofac 3.0.2
 
 nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList 7.0.0
 nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore 7.0.0
