@@ -1,3 +1,10 @@
+## [3.11.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.5...v3.11.6) (2020-12-10)
+
+
+### Bug Fixes
+
+* update eventhandling for eventtag attribute GRAR-1612 ([1bb3bb1](https://github.com/informatievlaanderen/municipality-registry/commit/1bb3bb15046f9e479ccb33ae6372f4834c82f4d0))
+
 ## [3.11.5](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.4...v3.11.5) (2020-12-04)
 
 
