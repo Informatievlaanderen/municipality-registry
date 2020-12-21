@@ -1,13 +1,14 @@
 #r "paket:
-version 5.241.6
+version 6.0.0-beta8
 framework: netstandard20
 source https://api.nuget.org/v3/index.json
-nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 4.2.3 //"
+nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 5.0.1 //"
 
 #load "packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/build-generic.fsx"
 
 open Fake.Core
 open Fake.Core.TargetOperators
+open Fake.IO.FileSystemOperators
 open ``Build-generic``
 
 let product = "Basisregisters Vlaanderen"
@@ -18,10 +19,11 @@ let dockerRepository = "municipality-registry"
 let assemblyVersionNumber = (sprintf "2.%s")
 let nugetVersionNumber = (sprintf "%s")
 
-let build = buildSolution assemblyVersionNumber
+let buildSource = build assemblyVersionNumber
+let buildTest = buildTest assemblyVersionNumber
 let setVersions = (setSolutionVersions assemblyVersionNumber product copyright company)
 let test = testSolution
-let publish = publish assemblyVersionNumber
+let publishSource = publish assemblyVersionNumber
 let pack = pack nugetVersionNumber
 let containerize = containerize dockerRepository
 let push = push dockerRepository
@@ -34,9 +36,24 @@ Target.create "Restore_Solution" (fun _ -> restore "MunicipalityRegistry")
 
 Target.create "Build_Solution" (fun _ ->
   setVersions "SolutionInfo.cs"
-  build "MunicipalityRegistry")
+  buildSource "MunicipalityRegistry.Projector"
+  buildSource "MunicipalityRegistry.Api.Legacy"
+  buildSource "MunicipalityRegistry.Api.Extract"
+  buildSource "MunicipalityRegistry.Api.CrabImport"
+  buildSource "MunicipalityRegistry.Projections.Legacy"
+  buildSource "MunicipalityRegistry.Projections.Extract"
+  buildSource "MunicipalityRegistry.Projections.LastChangedList"
+  buildTest "MunicipalityRegistry.Projections.Legacy.Tests"
+  buildTest "MunicipalityRegistry.Tests"
+)
 
-Target.create "Test_Solution" (fun _ -> test "MunicipalityRegistry")
+Target.create "Test_Solution" (fun _ ->
+    [
+        "test" @@ "MunicipalityRegistry.Tests"
+        "test" @@ "MunicipalityRegistry.Projections.Legacy.Tests"
+    ] |> List.iter testWithDotNet
+)
+
 
 Target.create "Publish_Solution" (fun _ ->
   [
@@ -47,7 +64,7 @@ Target.create "Publish_Solution" (fun _ ->
     "MunicipalityRegistry.Projections.Legacy"
     "MunicipalityRegistry.Projections.Extract"
     "MunicipalityRegistry.Projections.LastChangedList"
-  ] |> List.iter publish)
+  ] |> List.iter publishSource)
 
 Target.create "Pack_Solution" (fun _ ->
   [

@@ -8,6 +8,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac;
     using Be.Vlaanderen.Basisregisters.Projector;
+    using Be.Vlaanderen.Basisregisters.Projector.ConnectedProjections;
     using Be.Vlaanderen.Basisregisters.Projector.Modules;
     using Be.Vlaanderen.Basisregisters.Shaperon;
     using Microsoft.Extensions.Configuration;
@@ -83,7 +84,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                     _configuration,
                     _loggerFactory)
                 .RegisterProjections<MunicipalityExtractProjections, ExtractContext>(
-                    context => new MunicipalityExtractProjections(context.Resolve<IOptions<ExtractConfig>>(), DbaseCodePage.Western_European_ANSI.ToEncoding()));
+                    context => new MunicipalityExtractProjections(context.Resolve<IOptions<ExtractConfig>>(), DbaseCodePage.Western_European_ANSI.ToEncoding()), ConnectedProjectionSettings.Default);
         }
 
         private void RegisterLastChangedProjections(ContainerBuilder builder)
@@ -99,7 +100,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                 .RegisterProjectionMigrator<LastChangedListContextMigrationFactory>(
                     _configuration,
                     _loggerFactory)
-                .RegisterProjections<LastChangedListProjections, LastChangedListContext>();
+                .RegisterProjections<LastChangedListProjections, LastChangedListContext>(ConnectedProjectionSettings.Default);
         }
 
         private void RegisterLegacyProjections(ContainerBuilder builder)
@@ -114,11 +115,11 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                 .RegisterProjectionMigrator<LegacyContextMigrationFactory>(
                     _configuration,
                     _loggerFactory)
-                .RegisterProjections<MunicipalityDetailProjections, LegacyContext>()
-                .RegisterProjections<MunicipalityListProjections, LegacyContext>()
-                .RegisterProjections<MunicipalityNameProjections, LegacyContext>()
-                .RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>()
-                .RegisterProjections<MunicipalityVersionProjections, LegacyContext>();
+                .RegisterProjections<MunicipalityDetailProjections, LegacyContext>(ConnectedProjectionSettings.Default)
+                .RegisterProjections<MunicipalityListProjections, LegacyContext>(ConnectedProjectionSettings.Default)
+                .RegisterProjections<MunicipalityNameProjections, LegacyContext>(ConnectedProjectionSettings.Default)
+                .RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>(ConnectedProjectionSettings.Default)
+                .RegisterProjections<MunicipalityVersionProjections, LegacyContext>(ConnectedProjectionSettings.Default);
         }
     }
 }
