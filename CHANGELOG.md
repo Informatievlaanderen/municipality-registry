@@ -1,3 +1,10 @@
+## [3.11.8](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.7...v3.11.8) (2020-12-28)
+
+
+### Bug Fixes
+
+* update basisregisters api dependency ([84faaa7](https://github.com/informatievlaanderen/municipality-registry/commit/84faaa7b186e19670f5015d2de135bf659ae2f1e))
+
 ## [3.11.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.6...v3.11.7) (2020-12-21)
 
 
