@@ -1,3 +1,10 @@
+## [3.11.9](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.8...v3.11.9) (2021-01-07)
+
+
+### Bug Fixes
+
+* update deps ([7609145](https://github.com/informatievlaanderen/municipality-registry/commit/7609145e0361ae065fbe05b5e9c23534f033d576))
+
 ## [3.11.8](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.7...v3.11.8) (2020-12-28)
 
 
