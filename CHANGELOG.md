@@ -1,3 +1,10 @@
+## [3.11.10](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.9...v3.11.10) (2021-01-07)
+
+
+### Bug Fixes
+
+* improve cache status page GRAR-1734 ([e6081e2](https://github.com/informatievlaanderen/municipality-registry/commit/e6081e2727e1d3e75ef65881c428685ca7659e0e))
+
 ## [3.11.9](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.8...v3.11.9) (2021-01-07)
 
 
