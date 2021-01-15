@@ -1,3 +1,10 @@
+## [3.11.12](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.11...v3.11.12) (2021-01-15)
+
+
+### Bug Fixes
+
+* revert "fix: unescape characters in feed docs GRAR-1741" ([568404e](https://github.com/informatievlaanderen/municipality-registry/commit/568404eaaf1badf444a4f34af9b2da4be1beebf8))
+
 ## [3.11.11](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.10...v3.11.11) (2021-01-15)
 
 
