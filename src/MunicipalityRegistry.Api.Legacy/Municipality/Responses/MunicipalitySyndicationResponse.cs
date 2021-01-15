@@ -220,7 +220,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten.atom"" rel=""alternate"" type=""application/atom+xml"" />
     <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten.xml"" rel=""alternate"" type=""application/xml"" />
     <link href=""https://docs.basisregisters.vlaanderen.be/"" rel=""related"" />
-    <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten?from=2&limit=100&embed=event,object"" rel=""next"" />
+    <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten?from=2&amp;limit=100&amp;embed=event,object"" rel=""next"" />
     <entry>
         <id>0</id>
         <title>MunicipalityWasRegistered-0</title>
