@@ -1,3 +1,10 @@
+## [3.11.13](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.12...v3.11.13) (2021-01-29)
+
+
+### Bug Fixes
+
+* remove sync alternate links ([9a35e76](https://github.com/informatievlaanderen/municipality-registry/commit/9a35e76c9b1f57b57263b1f65d584e9cdfed7892))
+
 ## [3.11.12](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.11...v3.11.12) (2021-01-15)
 
 
