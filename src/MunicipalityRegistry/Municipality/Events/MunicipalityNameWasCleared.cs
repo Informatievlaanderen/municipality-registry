@@ -5,16 +5,17 @@ namespace MunicipalityRegistry.Municipality.Events
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Newtonsoft.Json;
 
+    [EventTags(EventTag.For.Sync)]
     [EventName("MunicipalityNameWasCleared")]
     [EventDescription("De naam van de gemeente (in een bepaalde taal) werd gewist.")]
     public class MunicipalityNameWasCleared : IHasProvenance, ISetProvenance
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
-        
+
         [EventPropertyDescription("Taal (voluit, EN) waarvoor de officiële naam gewist werd.")]
         public Language Language { get; }
-        
+
         [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
