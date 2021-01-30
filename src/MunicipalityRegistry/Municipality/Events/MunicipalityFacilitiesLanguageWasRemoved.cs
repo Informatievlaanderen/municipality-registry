@@ -5,16 +5,17 @@ namespace MunicipalityRegistry.Municipality.Events
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Newtonsoft.Json;
 
+    [EventTags(EventTag.For.Sync)]
     [EventName("MunicipalityFacilityLanguageWasRemoved")]
     [EventDescription("Een faciliteitentaal van de gemeente werd verwijderd.")]
     public class MunicipalityFacilitiesLanguageWasRemoved : IHasProvenance, ISetProvenance
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
-        
+
         [EventPropertyDescription("Faciliteitentaal van de gemeente.")]
         public Language Language { get; }
-        
+
         [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 

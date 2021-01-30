@@ -6,16 +6,17 @@ namespace MunicipalityRegistry.Municipality.Events
     using Newtonsoft.Json;
     using NodaTime;
 
+    [EventTags(EventTag.For.Sync)]
     [EventName("MunicipalityWasCorrectedToRetired")]
     [EventDescription("De gemeente kreeg status 'gehistoreerd' (via correctie).")]
     public class MunicipalityWasCorrectedToRetired : IHasProvenance, ISetProvenance
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
-        
+
         [EventPropertyDescription("Administratief tijdstip waarop de gemeente status ‘gehistoreerd’ kreeg.")]
         public Instant RetirementDate { get; }
-        
+
         [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
