@@ -1,3 +1,10 @@
+# [3.12.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.13...v3.12.0) (2021-01-30)
+
+
+### Features
+
+* add sync tags to events GRAR-1713 ([b317027](https://github.com/informatievlaanderen/municipality-registry/commit/b317027acb5c06f24f1510d0504e7e81141849f0))
+
 ## [3.11.13](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.12...v3.11.13) (2021-01-29)
 
 
