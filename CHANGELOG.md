@@ -1,3 +1,10 @@
+## [3.12.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.12.0...v3.12.1) (2021-02-02)
+
+
+### Bug Fixes
+
+* move to 5.0.2 ([a11fd2a](https://github.com/informatievlaanderen/municipality-registry/commit/a11fd2aa3c85c085c0d70a6a544e8e41be06ca03))
+
 # [3.12.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.11.13...v3.12.0) (2021-01-30)
 
 
