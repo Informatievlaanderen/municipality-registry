@@ -1,3 +1,10 @@
+## [3.12.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.12.1...v3.12.2) (2021-02-11)
+
+
+### Bug Fixes
+
+* update api with use of problemdetailshelper GRAR-1814 ([be9939d](https://github.com/informatievlaanderen/municipality-registry/commit/be9939d6dd785f32e54b3d7cf6bdf9e7cf881d24))
+
 ## [3.12.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.12.0...v3.12.1) (2021-02-02)
 
 
