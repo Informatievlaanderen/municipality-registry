@@ -2,6 +2,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
 {
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
+    using Be.Vlaanderen.Basisregisters.Api.Exceptions;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Be.Vlaanderen.Basisregisters.EventHandling;
@@ -55,6 +56,10 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
                     _configuration.GetConnectionString("CrabImport"),
                     Schema.Import,
                     _loggerFactory));
+
+            containerBuilder
+                .RegisterType<ProblemDetailsHelper>()
+                .AsSelf();
 
             containerBuilder.Populate(_services);
         }
