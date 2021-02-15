@@ -3,6 +3,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
+    using Be.Vlaanderen.Basisregisters.Api.Exceptions;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.EventHandling.Autofac;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
@@ -48,6 +49,10 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
             builder.RegisterModule(new DataDogModule(_configuration));
 
             RegisterProjectionSetup(builder);
+
+            builder
+                .RegisterType<ProblemDetailsHelper>()
+                .AsSelf();
 
             builder.Populate(_services);
         }
