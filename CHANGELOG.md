@@ -1,3 +1,10 @@
+## [3.12.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.12.2...v3.12.3) (2021-02-15)
+
+
+### Bug Fixes
+
+* register problem details helper for projector GRAR-1814 ([5d97293](https://github.com/informatievlaanderen/municipality-registry/commit/5d9729332261f75807181a1935445918e52c8512))
+
 ## [3.12.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.12.1...v3.12.2) (2021-02-11)
 
 
