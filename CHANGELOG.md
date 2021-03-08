@@ -1,3 +1,10 @@
+## [3.12.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.12.3...v3.12.4) (2021-03-08)
+
+
+### Bug Fixes
+
+* remove municipality versions GRAR-1876 ([aa418bc](https://github.com/informatievlaanderen/municipality-registry/commit/aa418bc9b0dbb189aa17ce58f9cd5e4dfd7625f1))
+
 ## [3.12.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.12.2...v3.12.3) (2021-02-15)
 
 
