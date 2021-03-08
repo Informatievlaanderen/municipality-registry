@@ -12,7 +12,6 @@ namespace MunicipalityRegistry.Projections.Legacy
 
         public DbSet<MunicipalityListItem> MunicipalityList { get; set; }
         public DbSet<MunicipalityDetail.MunicipalityDetail> MunicipalityDetail { get; set; }
-        public DbSet<MunicipalityVersion.MunicipalityVersion> MunicipalityVersions { get; set; }
         public DbSet<MunicipalityName.MunicipalityName> MunicipalityName { get; set; }
         public DbSet<MunicipalitySyndicationItem> MunicipalitySyndication { get; set; }
 
