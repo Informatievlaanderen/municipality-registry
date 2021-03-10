@@ -5,6 +5,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
     using Municipality.Events;
     using NodaTime;
 
+    [ConnectedProjectionName("Legacy - MunicipalityDetail")]
+    [ConnectedProjectionDescription("Gemeente detail data.")]
     public class MunicipalityDetailProjections : ConnectedProjection<LegacyContext>
     {
         public MunicipalityDetailProjections()

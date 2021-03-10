@@ -11,6 +11,8 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
     using Be.Vlaanderen.Basisregisters.GrAr.Extracts;
     using Microsoft.Extensions.Options;
 
+    [ConnectedProjectionName("Extract - MunicipalityExtract")]
+    [ConnectedProjectionDescription("Straatnaam data voor testbestand.")]
     public class MunicipalityExtractProjections : ConnectedProjection<ExtractContext>
     {
         // TODO: Probably need to get these from enums from config

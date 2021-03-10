@@ -7,6 +7,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using NodaTime;
 
+    [ConnectedProjectionName("Legacy - MunicipalityName")]
+    [ConnectedProjectionDescription("Gemeente naam data")]
     public class MunicipalityNameProjections : ConnectedProjection<LegacyContext>
     {
         public MunicipalityNameProjections()
