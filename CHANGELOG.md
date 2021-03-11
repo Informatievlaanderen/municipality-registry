@@ -1,3 +1,15 @@
+# [3.13.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.12.4...v3.13.0) (2021-03-11)
+
+
+### Bug Fixes
+
+* update projector dependency GRAR-1876 ([cb7236a](https://github.com/informatievlaanderen/municipality-registry/commit/cb7236a8f22fa12c1c33da11852e2b87f2cba805))
+
+
+### Features
+
+* add projection attributes GRAR-1876 ([f8e1504](https://github.com/informatievlaanderen/municipality-registry/commit/f8e1504ff60d7782993413872c7879fdf4609b86))
+
 ## [3.12.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.12.3...v3.12.4) (2021-03-08)
 
 
