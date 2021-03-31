@@ -1,3 +1,10 @@
+# [3.14.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.13.1...v3.14.0) (2021-03-31)
+
+
+### Features
+
+* bump projector & projection-handling ([8be494d](https://github.com/informatievlaanderen/municipality-registry/commit/8be494d46191137999ea743473d191ecc6246b68))
+
 ## [3.13.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.13.0...v3.13.1) (2021-03-22)
 
 
