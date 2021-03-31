@@ -6,8 +6,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
     using Municipality.Events;
     using NodaTime;
 
-    [ConnectedProjectionName("Legacy - MunicipalityList")]
-    [ConnectedProjectionDescription("Gemeente lijst data.")]
+    [ConnectedProjectionName("API endpoint lijst gemeenten")]
+    [ConnectedProjectionDescription("Projectie die de gemeenten data voor de gemeenten lijst voorziet.")]
     public class MunicipalityListProjections : ConnectedProjection<LegacyContext>
     {
         public MunicipalityListProjections()

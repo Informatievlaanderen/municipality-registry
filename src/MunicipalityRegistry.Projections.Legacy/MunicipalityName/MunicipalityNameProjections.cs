@@ -7,8 +7,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using NodaTime;
 
-    [ConnectedProjectionName("Legacy - MunicipalityName")]
-    [ConnectedProjectionDescription("Gemeente naam data")]
+    [ConnectedProjectionName("API endpoint gemeenten ifv BOSA DT")]
+    [ConnectedProjectionDescription("Projectie die de gemeenten data voor gemeenten ifv BOSA DT voorziet.")]
     public class MunicipalityNameProjections : ConnectedProjection<LegacyContext>
     {
         public MunicipalityNameProjections()

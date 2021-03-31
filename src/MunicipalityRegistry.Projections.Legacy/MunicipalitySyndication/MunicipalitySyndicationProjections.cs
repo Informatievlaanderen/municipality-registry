@@ -6,8 +6,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
 
-    [ConnectedProjectionName("Legacy - MunicipalitySyndication")]
-    [ConnectedProjectionDescription("Gemeente data voor de feed.")]
+    [ConnectedProjectionName("Feed endpoint gemeenten")]
+    [ConnectedProjectionDescription("Projectie die de gemeenten data voor de gemeenten feed voorziet.")]
     public class MunicipalitySyndicationProjections : ConnectedProjection<LegacyContext>
     {
         public MunicipalitySyndicationProjections()
