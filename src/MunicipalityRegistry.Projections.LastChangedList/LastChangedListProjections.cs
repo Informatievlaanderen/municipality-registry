@@ -5,8 +5,8 @@ namespace MunicipalityRegistry.Projections.LastChangedList
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
 
-    [ConnectedProjectionName("LastChangedList")]
-    [ConnectedProjectionDescription("Markeert de gemeentes waarvan de cached data moet geupdate worden.")]
+    [ConnectedProjectionName("Cache markering gemeenten")]
+    [ConnectedProjectionDescription("Projectie die markeert voor hoeveel gemeenten de gecachte data nog geüpdated moeten worden.")]
     public class LastChangedListProjections : LastChangedListConnectedProjection
     {
         protected override string CacheKeyFormat => "legacy/municipality:{{0}}.{1}";
