@@ -1,3 +1,10 @@
+## [3.14.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.14.0...v3.14.1) (2021-03-31)
+
+
+### Bug Fixes
+
+* update docs projections ([76f8e61](https://github.com/informatievlaanderen/municipality-registry/commit/76f8e619a69f6af6a2706ee28b87180b315bc2c6))
+
 # [3.14.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.13.1...v3.14.0) (2021-03-31)
 
 
