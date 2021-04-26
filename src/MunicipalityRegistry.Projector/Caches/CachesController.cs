@@ -32,7 +32,7 @@ namespace MunicipalityRegistry.Projector.Caches
             return Ok(new[]
             {
                 new {
-                    name = "LastChangedList",
+                    name = "Cache detail gemeenten",
                     numberOfRecordsToProcess = numberOfRecords
                 }
             });
