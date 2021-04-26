@@ -1,3 +1,10 @@
+## [3.14.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.14.1...v3.14.2) (2021-04-26)
+
+
+### Bug Fixes
+
+* rename cache status endpoint in projector ([a27f61b](https://github.com/informatievlaanderen/municipality-registry/commit/a27f61b539bfc264d8faf6c33162333a7499f60e))
+
 ## [3.14.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.14.0...v3.14.1) (2021-03-31)
 
 
