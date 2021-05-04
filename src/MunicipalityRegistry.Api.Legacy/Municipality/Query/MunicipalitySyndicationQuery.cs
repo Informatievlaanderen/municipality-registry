@@ -172,7 +172,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
 
         protected override ISorting Sorting => new MunicipalitySyndicationSorting();
 
-        public MunicipalitySyndicationQuery(LegacyContext context, EmbedValue embed)
+        public MunicipalitySyndicationQuery(LegacyContext context, SyncEmbedValue embed)
         {
             _context = context;
             _embedEvent = embed?.Event ?? false;
@@ -276,6 +276,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
     public class MunicipalitySyndicationFilter
     {
         public long? Position { get; set; }
-        public EmbedValue Embed { get; set; }
+        public SyncEmbedValue Embed { get; set; }
     }
 }
