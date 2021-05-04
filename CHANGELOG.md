@@ -1,3 +1,10 @@
+# [3.15.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.14.2...v3.15.0) (2021-05-04)
+
+
+### Features
+
+* bump packages ([61f2fda](https://github.com/informatievlaanderen/municipality-registry/commit/61f2fda68396526319104e75a343c146ee762d65))
+
 ## [3.14.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.14.1...v3.14.2) (2021-04-26)
 
 
