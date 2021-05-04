@@ -155,7 +155,7 @@ NUGET
       NSwag.CodeGeneration.CSharp (>= 13.10.1) - restriction: || (&& (== net472) (>= net50)) (== net50)
       NSwag.CodeGeneration.TypeScript (>= 13.10.1) - restriction: || (&& (== net472) (>= net50)) (== net50)
       Swashbuckle.AspNetCore (>= 5.6.3) - restriction: || (&& (== net472) (>= net50)) (== net50)
-    Be.Vlaanderen.Basisregisters.Aws.DistributedMutex (2.2.11) - restriction: || (&& (== net472) (>= net50)) (== net50)
+    Be.Vlaanderen.Basisregisters.Aws.DistributedMutex (2.3)
       AWSSDK.DynamoDBv2 (>= 3.5.4.24) - restriction: || (&& (== net472) (>= net50)) (== net50)
       Microsoft.Extensions.Logging (>= 5.0) - restriction: || (&& (== net472) (>= net50)) (== net50)
     Be.Vlaanderen.Basisregisters.Build.Pipeline (5.0.2)
