@@ -1,3 +1,10 @@
+## [3.15.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.1...v3.15.2) (2021-05-05)
+
+
+### Bug Fixes
+
+* correct mapping status proposed/voorgesteld ([7c1f429](https://github.com/informatievlaanderen/municipality-registry/commit/7c1f429925c43e5661ccf175d93f9f739737e9d2))
+
 ## [3.15.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.0...v3.15.1) (2021-05-04)
 
 
