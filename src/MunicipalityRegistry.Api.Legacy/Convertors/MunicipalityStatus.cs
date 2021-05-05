@@ -14,6 +14,9 @@ namespace MunicipalityRegistry.Api.Legacy.Convertors
                 case MunicipalityStatus.Retired:
                     return GemeenteStatus.Gehistoreerd;
 
+                case MunicipalityStatus.Proposed:
+                    return GemeenteStatus.Voorgesteld;
+
                 default:
                 case MunicipalityStatus.Current:
                     return GemeenteStatus.InGebruik;
@@ -26,6 +29,9 @@ namespace MunicipalityRegistry.Api.Legacy.Convertors
             {
                 case GemeenteStatus.Gehistoreerd:
                     return MunicipalityStatus.Retired;
+
+                case GemeenteStatus.Voorgesteld:
+                    return MunicipalityStatus.Proposed;
 
                 default:
                 case GemeenteStatus.InGebruik:
