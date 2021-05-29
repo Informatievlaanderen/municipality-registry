@@ -1,3 +1,10 @@
+## [3.15.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.3...v3.15.4) (2021-05-29)
+
+
+### Bug Fixes
+
+* correct informatie vlaanderen to digitaal vlaanderen ([dba944b](https://github.com/informatievlaanderen/municipality-registry/commit/dba944b6938afcb6210b9fe375650ae466ad40c4))
+
 ## [3.15.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.2...v3.15.3) (2021-05-28)
 
 
