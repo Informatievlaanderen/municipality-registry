@@ -1,3 +1,10 @@
+## [3.15.5](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.4...v3.15.5) (2021-05-31)
+
+
+### Bug Fixes
+
+* update api ([dbb2444](https://github.com/informatievlaanderen/municipality-registry/commit/dbb24442d1f0b509cdfb3c0328d56ba0fa81b1e1))
+
 ## [3.15.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.3...v3.15.4) (2021-05-29)
 
 
