@@ -1,6 +1,7 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
 {
     using System.Linq;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
@@ -211,18 +212,22 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
             {
                 case Language.Dutch:
                     municipalityListItem.NameDutch = name;
+                    municipalityListItem.NameDutchSearch = name.RemoveDiacritics();
                     break;
 
                 case Language.French:
                     municipalityListItem.NameFrench = name;
+                    municipalityListItem.NameFrenchSearch = name.RemoveDiacritics();
                     break;
 
                 case Language.German:
                     municipalityListItem.NameGerman = name;
+                    municipalityListItem.NameGermanSearch = name.RemoveDiacritics();
                     break;
 
                 case Language.English:
                     municipalityListItem.NameEnglish = name;
+                    municipalityListItem.NameEnglishSearch = name.RemoveDiacritics();
                     break;
             }
         }

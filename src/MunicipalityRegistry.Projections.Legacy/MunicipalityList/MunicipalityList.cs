@@ -22,6 +22,12 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
         public string? NameGerman { get; set; }
         public string? NameEnglish { get; set; }
 
+
+        public string? NameDutchSearch { get; set; }
+        public string? NameFrenchSearch { get; set; }
+        public string? NameGermanSearch { get; set; }
+        public string? NameEnglishSearch { get; set; }
+
         public MunicipalityStatus? Status { get; set; }
 
         public IReadOnlyCollection<Language> OfficialLanguages
@@ -80,6 +86,11 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
             b.Property(x => x.NameGerman);
             b.Property(x => x.NameEnglish);
 
+            b.Property(x => x.NameDutchSearch);
+            b.Property(x => x.NameFrenchSearch);
+            b.Property(x => x.NameGermanSearch);
+            b.Property(x => x.NameEnglishSearch);
+
             b.Ignore(x => x.VersionTimestamp);
             b.Ignore(x => x.OfficialLanguages);
 
@@ -92,6 +103,10 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
             b.Property(x => x.Status);
 
             b.HasIndex(x => x.DefaultName);
+            b.HasIndex(x => x.NameDutchSearch);
+            b.HasIndex(x => x.NameFrenchSearch);
+            b.HasIndex(x => x.NameGermanSearch);
+            b.HasIndex(x => x.NameEnglishSearch);
             b.HasIndex(x => x.NisCode).IsClustered();
         }
     }

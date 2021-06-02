@@ -7,6 +7,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
     using Be.Vlaanderen.Basisregisters.Api.Search.Filtering;
     using Be.Vlaanderen.Basisregisters.Api.Search.Sorting;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Convertors;
     using Microsoft.EntityFrameworkCore;
     using Projections.Legacy;
@@ -46,6 +47,16 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
             if (!string.IsNullOrEmpty(filtering.Filter.NameGerman))
                 municipalities = municipalities.Where(m => m.NameGerman.Contains(filtering.Filter.NameGerman));
 
+            var filterMunicipalityName = filtering.Filter.MunicipalityName.RemoveDiacritics();
+            if (!string.IsNullOrEmpty(filtering.Filter.MunicipalityName))
+            {
+                municipalities = municipalities
+                    .Where(x => x.NameDutchSearch == filterMunicipalityName ||
+                                x.NameFrenchSearch == filterMunicipalityName ||
+                                x.NameEnglishSearch == filterMunicipalityName ||
+                                x.NameGermanSearch == filterMunicipalityName);
+            }
+
             if (!string.IsNullOrEmpty(filtering.Filter.Status))
             {
                 if (Enum.TryParse(typeof(GemeenteStatus), filtering.Filter.Status, true, out var status))
@@ -80,6 +91,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
     public class MunicipalityListFilter
     {
         public string NisCode { get; set; }
+        public string MunicipalityName { get; set; }
         public string NameDutch { get; set; }
         public string NameFrench { get; set; }
         public string NameGerman { get; set; }
