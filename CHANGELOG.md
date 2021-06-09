@@ -1,3 +1,10 @@
+## [3.15.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.6...v3.15.7) (2021-06-09)
+
+
+### Bug Fixes
+
+* add new filter item to MunicipalityListQuery ([9117344](https://github.com/informatievlaanderen/municipality-registry/commit/9117344834e5d6ee358d894007cb851135392909))
+
 ## [3.15.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.5...v3.15.6) (2021-05-31)
 
 
