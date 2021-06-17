@@ -1,3 +1,10 @@
+## [3.15.8](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.7...v3.15.8) (2021-06-17)
+
+
+### Bug Fixes
+
+* update nuget package ([d860e94](https://github.com/informatievlaanderen/municipality-registry/commit/d860e94ea1fc3ca0456c3c9ad1c1fd56fd810d65))
+
 ## [3.15.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.6...v3.15.7) (2021-06-09)
 
 
