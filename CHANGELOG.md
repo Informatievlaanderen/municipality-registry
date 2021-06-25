@@ -1,3 +1,10 @@
+## [3.15.9](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.8...v3.15.9) (2021-06-25)
+
+
+### Bug Fixes
+
+* bump aws mutex ([d581361](https://github.com/informatievlaanderen/municipality-registry/commit/d581361bf474b3066c11eadae654fdff473e8be5))
+
 ## [3.15.8](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.7...v3.15.8) (2021-06-17)
 
 
