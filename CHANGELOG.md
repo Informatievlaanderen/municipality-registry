@@ -1,3 +1,10 @@
+## [3.15.10](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.9...v3.15.10) (2021-07-06)
+
+
+### Bug Fixes
+
+* clean up to trigger build ([23eaf02](https://github.com/informatievlaanderen/municipality-registry/commit/23eaf02d54c74bf9d14f235193f38a798caed275))
+
 ## [3.15.9](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.8...v3.15.9) (2021-06-25)
 
 
