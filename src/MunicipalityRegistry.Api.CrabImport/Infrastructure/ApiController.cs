@@ -21,7 +21,6 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
     public abstract class ApiBusController : ApiController
     {
         protected ICommandHandlerResolver Bus { get; }
-
         protected ApiBusController(ICommandHandlerResolver bus) => Bus = bus;
 
         protected IDictionary<string, object> GetMetadata()
