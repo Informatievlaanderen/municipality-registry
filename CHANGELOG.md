@@ -1,3 +1,10 @@
+# [3.16.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.10...v3.16.0) (2021-08-26)
+
+
+### Features
+
+* add metadata file with latest event id to municipality extract GRAR-2060 ([ea22c37](https://github.com/informatievlaanderen/municipality-registry/commit/ea22c37528bf36be943f710e7f26cc0b8d190f28))
+
 ## [3.15.10](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.9...v3.15.10) (2021-07-06)
 
 
