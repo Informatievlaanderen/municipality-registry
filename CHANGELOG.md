@@ -1,3 +1,10 @@
+## [3.16.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.0...v3.16.1) (2021-08-26)
+
+
+### Bug Fixes
+
+* update grar-common dependencies ([ea45dd3](https://github.com/informatievlaanderen/municipality-registry/commit/ea45dd3f5c65db0a211eba6c01bb777d58032e12))
+
 # [3.16.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.15.10...v3.16.0) (2021-08-26)
 
 
