@@ -35,7 +35,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
         public IActionResult Get(
             [FromServices] ExtractContext context,
             CancellationToken cancellationToken = default) =>
-            new IsolationExtractArchive($"{ZipName}-{DateTime.Now:yyyy-MM-dd}", context) { MunicipalityRegistryExtractBuilder.CreateMunicipalityFile(context) }
+            new IsolationExtractArchive($"{ZipName}-{DateTime.Now:yyyy-MM-dd}", context) { MunicipalityRegistryExtractBuilder.CreateMunicipalityFiles(context) }
                 .CreateFileCallbackResult(cancellationToken);
     }
 }
