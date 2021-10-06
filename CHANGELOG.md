@@ -1,3 +1,10 @@
+## [3.16.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.5...v3.16.6) (2021-10-06)
+
+
+### Bug Fixes
+
+* gawr-615 add offset+2 to versionid ([c7976d5](https://github.com/informatievlaanderen/municipality-registry/commit/c7976d560d9beb213fa334db5d17aee606a12993))
+
 ## [3.16.5](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.4...v3.16.5) (2021-10-06)
 
 
