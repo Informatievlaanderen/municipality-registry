@@ -1,3 +1,10 @@
+## [3.16.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.3...v3.16.4) (2021-10-06)
+
+
+### Bug Fixes
+
+* add Test to ECR ([57cfa57](https://github.com/informatievlaanderen/municipality-registry/commit/57cfa5741a3b57fbb0453ed6d70cc228ff47a9e7))
+
 ## [3.16.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.2...v3.16.3) (2021-10-01)
 
 
