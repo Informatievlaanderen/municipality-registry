@@ -1,3 +1,10 @@
+## [3.16.5](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.4...v3.16.5) (2021-10-06)
+
+
+### Bug Fixes
+
+* gawr-625 doc gemeentetaal in officiele taal ([b3fa172](https://github.com/informatievlaanderen/municipality-registry/commit/b3fa17223bf2eca84ee6fc3d2056034e45c27189))
+
 ## [3.16.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.3...v3.16.4) (2021-10-06)
 
 
