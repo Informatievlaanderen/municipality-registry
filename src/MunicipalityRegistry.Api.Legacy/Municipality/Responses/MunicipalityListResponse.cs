@@ -54,7 +54,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         public Uri Detail { get; private set; }
 
         /// <summary>
-        /// De naam van de gemeente in het Nederlands.
+        /// De gemeentenaam in de eerste officiële taal van de gemeente.
         /// </summary>
         [DataMember(Name = "Gemeentenaam", Order = 3)]
         [JsonProperty(Required = Required.DisallowNull)]
