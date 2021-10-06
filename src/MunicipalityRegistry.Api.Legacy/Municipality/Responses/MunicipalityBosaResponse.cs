@@ -4,6 +4,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.Serialization;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
     using Infrastructure.Options;
@@ -68,11 +69,11 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         {
             var municipalityExamples = new List<MunicipalityBosaItemResponse>
             {
-                new MunicipalityBosaItemResponse("13014", _responseOptions.Naamruimte, DateTimeOffset.Now, new []
+                new MunicipalityBosaItemResponse("13014", _responseOptions.Naamruimte, DateTimeOffset.Now.ToExampleOffset(), new []
                 {
                     new GeografischeNaam("Hoogstraten", Taal.NL)
                 }),
-                new MunicipalityBosaItemResponse("13035", _responseOptions.Naamruimte, DateTimeOffset.Now.AddHours(32), new []
+                new MunicipalityBosaItemResponse("13035", _responseOptions.Naamruimte, DateTimeOffset.Now.AddHours(32).ToExampleOffset(), new []
                 {
                     new GeografischeNaam("Ravels", Taal.NL)
                 })
