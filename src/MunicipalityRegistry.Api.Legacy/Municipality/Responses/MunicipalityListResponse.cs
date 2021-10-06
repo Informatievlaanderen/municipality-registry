@@ -3,6 +3,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
     using Convertors;
@@ -97,7 +98,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                     "31005",
                     _responseOptions.Naamruimte,
                     _responseOptions.DetailUrl,
-                    DateTimeOffset.Now,
+                    DateTimeOffset.Now.ToExampleOffset(),
                     new GeografischeNaam("Brugge", Taal.NL),
                     MunicipalityStatus.Current),
 
@@ -105,7 +106,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                     "53084",
                     _responseOptions.Naamruimte,
                     _responseOptions.DetailUrl,
-                    DateTimeOffset.Now.AddHours(32),
+                    DateTimeOffset.Now.AddHours(32).ToExampleOffset(),
                     new GeografischeNaam("Quévy", Taal.FR),
                     MunicipalityStatus.Retired)
             };

@@ -5,6 +5,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
     using System.Linq;
     using System.Runtime.Serialization;
     using Be.Vlaanderen.Basisregisters.Api.Exceptions;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
     using Convertors;
@@ -100,7 +101,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                 "Bruges",
                 "Brügge",
                 "Bruges",
-                DateTimeOffset.Now);
+                DateTimeOffset.Now.ToExampleOffset());
     }
 
     public class MunicipalityNotFoundResponseExamples : IExamplesProvider<ProblemDetails>
