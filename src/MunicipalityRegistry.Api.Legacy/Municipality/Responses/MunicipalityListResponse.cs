@@ -48,7 +48,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         public GemeenteIdentificator Identificator { get; private set; }
 
         /// <summary>
-        /// De URL die naar de details van de meest recente versie van een enkele gemeente leidt.
+        /// De URL die de details van de meest recente versie van de gemeente weergeeft.
         /// </summary>
         [DataMember(Name = "Detail", Order = 2)]
         [JsonProperty(Required = Required.DisallowNull)]
