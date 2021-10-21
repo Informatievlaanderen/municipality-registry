@@ -1,3 +1,10 @@
+## [3.16.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.6...v3.16.7) (2021-10-21)
+
+
+### Bug Fixes
+
+* gawr-2202 documentation update ([fabd188](https://github.com/informatievlaanderen/municipality-registry/commit/fabd1883a173ec911e1978dca2b66c182e7f9021))
+
 ## [3.16.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.5...v3.16.6) (2021-10-06)
 
 
