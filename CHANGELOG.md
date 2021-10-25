@@ -1,3 +1,10 @@
+## [3.16.8](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.7...v3.16.8) (2021-10-25)
+
+
+### Bug Fixes
+
+* gawr-2202 paket bump ([d3189eb](https://github.com/informatievlaanderen/municipality-registry/commit/d3189eb6bc6b58c1e5dad2186035959208b80054))
+
 ## [3.16.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.6...v3.16.7) (2021-10-21)
 
 
