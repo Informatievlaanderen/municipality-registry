@@ -1,3 +1,10 @@
+## [3.16.9](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.8...v3.16.9) (2021-10-27)
+
+
+### Bug Fixes
+
+* remove access key and secret from settings ([e42efda](https://github.com/informatievlaanderen/municipality-registry/commit/e42efda0c12a3b2e6d05c777c83a09ee35e91c86))
+
 ## [3.16.8](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.7...v3.16.8) (2021-10-25)
 
 
