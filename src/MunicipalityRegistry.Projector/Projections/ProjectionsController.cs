@@ -20,6 +20,7 @@ namespace MunicipalityRegistry.Projector.Projections
         {
             RegisterConnectionString(Schema.Legacy, configuration.GetConnectionString("LegacyProjections"));
             RegisterConnectionString(Schema.Extract, configuration.GetConnectionString("ExtractProjections"));
+            RegisterConnectionString(Schema.QueuePublisher, configuration.GetConnectionString("QueuePublisherProjections"));
         }
     }
 }

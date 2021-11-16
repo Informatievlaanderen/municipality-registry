@@ -7,6 +7,9 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
+    using Be.Vlaanderen.Basisregisters.GrAr.Contracts;
+    using Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq;
+    using Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq.Configurations;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
     using Be.Vlaanderen.Basisregisters.Projector;
     using Configuration;
@@ -21,8 +24,9 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Microsoft.OpenApi.Models;
     using Modules;
     using MunicipalityRegistry.Projections.Extract;
-    using MunicipalityRegistry.Projections.Legacy;
+    using MunicipalityRegistry.Projections.QueuePublisher;
     using Swashbuckle.AspNetCore.Swagger;
+    using LegacyContext = MunicipalityRegistry.Projections.Legacy.LegacyContext;
 
     /// <summary>Represents the startup process for the application.</summary>
     public class Startup
@@ -113,7 +117,9 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                             }
                         }
                     })
-                .Configure<ExtractConfig>(_configuration.GetSection("Extract"));
+                .Configure<ExtractConfig>(_configuration.GetSection("Extract"))
+                .AddMessageHandling(_configuration.GetSection("MessageHandling").Get<MessageHandlerConfiguration>())
+                .AddScoped<EventPublisher>();
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new LoggingModule(_configuration, services));

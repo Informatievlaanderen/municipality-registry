@@ -25,7 +25,9 @@ nuget Be.Vlaanderen.Basisregisters.AggregateSource.Testing 5.2.1
 nuget Be.Vlaanderen.Basisregisters.AggregateSource.Testing.SqlStreamStore.Autofac 5.2.1
 nuget Be.Vlaanderen.Basisregisters.AggregateSource.Testing.Xunit 5.2.1
 
-nuget Be.Vlaanderen.Basisregisters.Api 15.0.12
+nuget Be.Vlaanderen.Basisregisters.Api 15.1.1
+
+nuget Be.Vlaanderen.Basisregisters.MessageHandling.RabbitMq 1.0.2
 
 nuget Be.Vlaanderen.Basisregisters.Aws.DistributedMutex 2.4.0
 
@@ -51,11 +53,12 @@ nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.SqlStreamStore 4.5.7
 
 nuget Be.Vlaanderen.Basisregisters.Crab 2.2.7
 
-nuget Be.Vlaanderen.Basisregisters.GrAr.Common 16.8.2
-nuget Be.Vlaanderen.Basisregisters.GrAr.Import 16.8.2
-nuget Be.Vlaanderen.Basisregisters.GrAr.Legacy 16.8.2
-nuget Be.Vlaanderen.Basisregisters.GrAr.Provenance 16.8.2
-nuget Be.Vlaanderen.Basisregisters.GrAr.Extracts 16.8.2
+nuget Be.Vlaanderen.Basisregisters.GrAr.Common 16.9.1
+nuget Be.Vlaanderen.Basisregisters.GrAr.Import 16.9.1
+nuget Be.Vlaanderen.Basisregisters.GrAr.Legacy 16.9.1
+nuget Be.Vlaanderen.Basisregisters.GrAr.Provenance 16.9.1
+nuget Be.Vlaanderen.Basisregisters.GrAr.Extracts 16.9.1
+nuget Be.Vlaanderen.Basisregisters.GrAr.Contracts 16.9.1
 
 nuget Be.Vlaanderen.Basisregisters.Shaperon 8.1.3
 

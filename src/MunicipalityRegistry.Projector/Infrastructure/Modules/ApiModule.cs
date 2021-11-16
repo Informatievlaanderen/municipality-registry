@@ -25,6 +25,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using MunicipalityRegistry.Projections.Legacy.MunicipalityList;
     using MunicipalityRegistry.Projections.Legacy.MunicipalityName;
     using MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication;
+    using MunicipalityRegistry.Projections.QueuePublisher;
+    using MunicipalityRegistry.Projections.QueuePublisher.MessageDetail;
     using LastChangedListContextMigrationFactory = MunicipalityRegistry.Projections.LastChangedList.LastChangedListContextMigrationFactory;
 
     public class ApiModule : Module
@@ -73,6 +75,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
             RegisterExtractProjections(builder);
             RegisterLastChangedProjections(builder);
             RegisterLegacyProjections(builder);
+            RegisterQueuePublisherProjections(builder);
         }
 
         private void RegisterExtractProjections(ContainerBuilder builder)
@@ -123,6 +126,21 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                 .RegisterProjections<MunicipalityListProjections, LegacyContext>(ConnectedProjectionSettings.Default)
                 .RegisterProjections<MunicipalityNameProjections, LegacyContext>(ConnectedProjectionSettings.Default)
                 .RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>(ConnectedProjectionSettings.Default);
+        }
+
+        private void RegisterQueuePublisherProjections(ContainerBuilder builder)
+        {
+            builder.RegisterModule(
+                new QueuePublisherModule(
+                    _configuration,
+                    _services,
+                    _loggerFactory));
+
+            builder
+                .RegisterProjectionMigrator<QueuePublisherContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory)
+                .RegisterProjections<MessageDetailProjections, QueuePublisherContext>(ConnectedProjectionSettings.Default);
         }
     }
 }
