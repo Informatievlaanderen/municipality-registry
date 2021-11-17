@@ -43,7 +43,7 @@ Target.create "Build_Solution" (fun _ ->
   buildSource "MunicipalityRegistry.Projections.Legacy"
   buildSource "MunicipalityRegistry.Projections.Extract"
   buildSource "MunicipalityRegistry.Projections.LastChangedList"
-  buildSource "MunicipalityRegistry.Projections.QueuePublisher"
+  buildSource "MunicipalityRegistry.Projections.StreamPublisher"
   buildTest "MunicipalityRegistry.Projections.Legacy.Tests"
   buildTest "MunicipalityRegistry.Tests"
 )
@@ -65,7 +65,7 @@ Target.create "Publish_Solution" (fun _ ->
     "MunicipalityRegistry.Projections.Legacy"
     "MunicipalityRegistry.Projections.Extract"
     "MunicipalityRegistry.Projections.LastChangedList"
-    "MunicipalityRegistry.Projections.QueuePublisher"
+    "MunicipalityRegistry.Projections.StreamPublisher"
   ] |> List.iter publishSource)
 
 Target.create "Pack_Solution" (fun _ ->

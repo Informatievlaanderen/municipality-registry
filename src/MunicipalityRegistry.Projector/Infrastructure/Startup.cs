@@ -24,7 +24,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Microsoft.OpenApi.Models;
     using Modules;
     using MunicipalityRegistry.Projections.Extract;
-    using MunicipalityRegistry.Projections.QueuePublisher;
+    using MunicipalityRegistry.Projections.StreamPublisher;
     using Swashbuckle.AspNetCore.Swagger;
     using LegacyContext = MunicipalityRegistry.Projections.Legacy.LegacyContext;
 

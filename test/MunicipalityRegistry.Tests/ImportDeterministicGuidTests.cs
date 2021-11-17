@@ -5,6 +5,7 @@ namespace MunicipalityRegistry.Tests
     using Be.Vlaanderen.Basisregisters.Utilities.HexByteConvertor;
     using FluentAssertions;
     using Municipality.Commands.Crab;
+    using Municipality.Events;
     using NodaTime;
     using Xunit;
 

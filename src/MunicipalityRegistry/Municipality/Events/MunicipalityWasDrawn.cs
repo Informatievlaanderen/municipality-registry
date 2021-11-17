@@ -8,7 +8,7 @@ namespace MunicipalityRegistry.Municipality.Events
 
     [EventName("MunicipalityWasDrawn")]
     [EventDescription("De grenzen van de gemeente werden toegevoegd of gewijzigd.")]
-    public class MunicipalityWasDrawn : IHasProvenance, ISetProvenance
+    public class MunicipalityWasDrawn : IMunicipalityMessage, IHasProvenance, ISetProvenance
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }

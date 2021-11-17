@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Projections.QueuePublisher
+namespace MunicipalityRegistry.Projections.StreamPublisher
 {
     using System;
     using Be.Vlaanderen.Basisregisters.GrAr.Contracts;

@@ -1,20 +1,20 @@
-namespace MunicipalityRegistry.Projections.QueuePublisher
+namespace MunicipalityRegistry.Projections.StreamPublisher
 {
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
 
-    public class QueuePublisherContext : RunnerDbContext<QueuePublisherContext>
+    public class StreamPublisherContext : RunnerDbContext<StreamPublisherContext>
     {
-        public override string ProjectionStateSchema => Schema.QueuePublisher;
+        public override string ProjectionStateSchema => Schema.StreamPublisher;
 
         public DbSet<MessageDetail.MessageDetail> MessageDetail { get; set; }
 
         // This needs to be here to please EF
-        public QueuePublisherContext() { }
+        public StreamPublisherContext() { }
 
         // This needs to be DbContextOptions<T> for Autofac!
-        public QueuePublisherContext(DbContextOptions<QueuePublisherContext> options)
+        public StreamPublisherContext(DbContextOptions<StreamPublisherContext> options)
             : base(options) { }
     }
 }

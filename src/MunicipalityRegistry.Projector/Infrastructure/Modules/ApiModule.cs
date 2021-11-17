@@ -25,8 +25,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using MunicipalityRegistry.Projections.Legacy.MunicipalityList;
     using MunicipalityRegistry.Projections.Legacy.MunicipalityName;
     using MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication;
-    using MunicipalityRegistry.Projections.QueuePublisher;
-    using MunicipalityRegistry.Projections.QueuePublisher.MessageDetail;
+    using MunicipalityRegistry.Projections.StreamPublisher;
+    using MunicipalityRegistry.Projections.StreamPublisher.MessageDetail;
     using LastChangedListContextMigrationFactory = MunicipalityRegistry.Projections.LastChangedList.LastChangedListContextMigrationFactory;
 
     public class ApiModule : Module
@@ -75,7 +75,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
             RegisterExtractProjections(builder);
             RegisterLastChangedProjections(builder);
             RegisterLegacyProjections(builder);
-            RegisterQueuePublisherProjections(builder);
+            RegisterStreamPublisherProjections(builder);
         }
 
         private void RegisterExtractProjections(ContainerBuilder builder)
@@ -128,19 +128,19 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                 .RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>(ConnectedProjectionSettings.Default);
         }
 
-        private void RegisterQueuePublisherProjections(ContainerBuilder builder)
+        private void RegisterStreamPublisherProjections(ContainerBuilder builder)
         {
             builder.RegisterModule(
-                new QueuePublisherModule(
+                new StreamPublisherModule(
                     _configuration,
                     _services,
                     _loggerFactory));
 
             builder
-                .RegisterProjectionMigrator<QueuePublisherContextMigrationFactory>(
+                .RegisterProjectionMigrator<StreamPublisherContextMigrationFactory>(
                     _configuration,
                     _loggerFactory)
-                .RegisterProjections<MessageDetailProjections, QueuePublisherContext>(ConnectedProjectionSettings.Default);
+                .RegisterProjections<MessageDetailProjections, StreamPublisherContext>(ConnectedProjectionSettings.Default);
         }
     }
 }

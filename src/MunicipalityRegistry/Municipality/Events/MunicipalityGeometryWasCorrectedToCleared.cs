@@ -7,7 +7,7 @@ namespace MunicipalityRegistry.Municipality.Events
 
     [EventName("MunicipalityGeometryWasCorrectedToCleared")]
     [EventDescription("De grenzen van de gemeente werden gewist (via correctie).")]
-    public class MunicipalityGeometryWasCorrectedToCleared : IHasProvenance, ISetProvenance
+    public class MunicipalityGeometryWasCorrectedToCleared : IMunicipalityMessage, IHasProvenance, ISetProvenance
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }

@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Projections.QueuePublisher
+namespace MunicipalityRegistry.Projections.StreamPublisher
 {
     using System;
     using Microsoft.Data.SqlClient;
@@ -11,15 +11,15 @@ namespace MunicipalityRegistry.Projections.QueuePublisher
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
-    public class QueuePublisherModule : Module
+    public class StreamPublisherModule : Module
     {
-        public QueuePublisherModule(
+        public StreamPublisherModule(
             IConfiguration configuration,
             IServiceCollection services,
             ILoggerFactory loggerFactory)
         {
-            var logger = loggerFactory.CreateLogger<QueuePublisherModule>();
-            var connectionString = configuration.GetConnectionString("QueuePublisherProjections");
+            var logger = loggerFactory.CreateLogger<StreamPublisherModule>();
+            var connectionString = configuration.GetConnectionString("StreamPublisherProjections");
 
             var hasConnectionString = !string.IsNullOrWhiteSpace(connectionString);
             if (hasConnectionString)
@@ -33,7 +33,7 @@ namespace MunicipalityRegistry.Projections.QueuePublisher
                 "\tSchema: {Schema}" +
                 Environment.NewLine +
                 "\tTableName: {TableName}",
-                nameof(QueuePublisherContext), Schema.QueuePublisher, MigrationTables.QueuePublisher);
+                nameof(StreamPublisherContext), Schema.StreamPublisher, MigrationTables.StreamPublisher);
         }
 
         private static void RunOnSqlServer(
@@ -43,15 +43,15 @@ namespace MunicipalityRegistry.Projections.QueuePublisher
             string backofficeProjectionsConnectionString)
         {
             services
-                .AddScoped(s => new TraceDbConnection<QueuePublisherContext>(
+                .AddScoped(s => new TraceDbConnection<StreamPublisherContext>(
                     new SqlConnection(backofficeProjectionsConnectionString),
                     configuration["DataDog:ServiceName"]))
-                .AddDbContext<QueuePublisherContext>((provider, options) => options
+                .AddDbContext<StreamPublisherContext>((provider, options) => options
                     .UseLoggerFactory(loggerFactory)
-                    .UseSqlServer(provider.GetRequiredService<TraceDbConnection<QueuePublisherContext>>(), sqlServerOptions =>
+                    .UseSqlServer(provider.GetRequiredService<TraceDbConnection<StreamPublisherContext>>(), sqlServerOptions =>
                     {
                         sqlServerOptions.EnableRetryOnFailure();
-                        sqlServerOptions.MigrationsHistoryTable(MigrationTables.QueuePublisher, Schema.QueuePublisher);
+                        sqlServerOptions.MigrationsHistoryTable(MigrationTables.StreamPublisher, Schema.StreamPublisher);
                     })
                     .UseExtendedSqlServerMigrations());
         }
@@ -62,11 +62,11 @@ namespace MunicipalityRegistry.Projections.QueuePublisher
             ILogger logger)
         {
             services
-                .AddDbContext<QueuePublisherContext>(options => options
+                .AddDbContext<StreamPublisherContext>(options => options
                     .UseLoggerFactory(loggerFactory)
                     .UseInMemoryDatabase(Guid.NewGuid().ToString(), sqlServerOptions => { }));
 
-            logger.LogWarning("Running InMemory for {Context}!", nameof(QueuePublisherContext));
+            logger.LogWarning("Running InMemory for {Context}!", nameof(StreamPublisherContext));
         }
     }
 }
