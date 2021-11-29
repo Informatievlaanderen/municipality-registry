@@ -38,6 +38,7 @@ Target.create "Build_Solution" (fun _ ->
   setVersions "SolutionInfo.cs"
   buildSource "MunicipalityRegistry.Projector"
   buildSource "MunicipalityRegistry.Api.Legacy"
+  buildSource "MunicipalityRegistry.Api.Oslo"
   buildSource "MunicipalityRegistry.Api.Extract"
   buildSource "MunicipalityRegistry.Api.CrabImport"
   buildSource "MunicipalityRegistry.Projections.Legacy"
@@ -59,6 +60,7 @@ Target.create "Publish_Solution" (fun _ ->
   [
     "MunicipalityRegistry.Projector"
     "MunicipalityRegistry.Api.Legacy"
+    "MunicipalityRegistry.Api.Oslo"
     "MunicipalityRegistry.Api.Extract"
     "MunicipalityRegistry.Api.CrabImport"
     "MunicipalityRegistry.Projections.Legacy"
@@ -70,6 +72,7 @@ Target.create "Pack_Solution" (fun _ ->
   [
     "MunicipalityRegistry.Projector"
     "MunicipalityRegistry.Api.Legacy"
+    "MunicipalityRegistry.Api.Oslo"
     "MunicipalityRegistry.Api.Extract"
     "MunicipalityRegistry.Api.CrabImport"
   ] |> List.iter pack)
@@ -79,6 +82,9 @@ Target.create "PushContainer_ApiProjector" (fun _ -> push "projector")
 
 Target.create "Containerize_ApiLegacy" (fun _ -> containerize "MunicipalityRegistry.Api.Legacy" "api-legacy")
 Target.create "PushContainer_ApiLegacy" (fun _ -> push "api-legacy")
+
+Target.create "Containerize_ApiOslo" (fun _ -> containerize "MunicipalityRegistry.Api.Oslo" "api-oslo")
+Target.create "PushContainer_ApiOslo" (fun _ -> push "api-oslo")
 
 Target.create "Containerize_ApiExtract" (fun _ -> containerize "MunicipalityRegistry.Api.Extract" "api-extract")
 Target.create "PushContainer_ApiExtract" (fun _ -> push "api-extract")
@@ -117,6 +123,7 @@ Target.create "Push" ignore
 "Pack"
   ==> "Containerize_ApiProjector"
   ==> "Containerize_ApiLegacy"
+  ==> "Containerize_ApiOslo"
   ==> "Containerize_ApiExtract"
   ==> "Containerize_ApiCrabImport"
   ==> "Containerize"
@@ -126,6 +133,7 @@ Target.create "Push" ignore
   ==> "DockerLogin"
   ==> "PushContainer_ApiProjector"
   ==> "PushContainer_ApiLegacy"
+  ==> "PushContainer_ApiOslo"
   ==> "PushContainer_ApiExtract"
   ==> "PushContainer_ApiCrabImport"
   ==> "Push"
