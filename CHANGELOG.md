@@ -1,3 +1,10 @@
+# [3.17.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.9...v3.17.0) (2021-11-29)
+
+
+### Features
+
+* add oslo endpoints GAWR-664 ([165169a](https://github.com/informatievlaanderen/municipality-registry/commit/165169a0e2e0722ed6884cde5a38cd323ced9d49))
+
 ## [3.16.9](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.8...v3.16.9) (2021-10-27)
 
 
