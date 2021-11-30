@@ -1,3 +1,10 @@
+## [3.17.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.17.0...v3.17.1) (2021-11-30)
+
+
+### Bug Fixes
+
+* bump problemjson package ([6039b02](https://github.com/informatievlaanderen/municipality-registry/commit/6039b022f328240f06330aba3da719856af77af2))
+
 # [3.17.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.16.9...v3.17.0) (2021-11-29)
 
 
