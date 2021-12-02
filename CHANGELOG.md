@@ -1,3 +1,10 @@
+## [3.17.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.17.3...v3.17.4) (2021-12-02)
+
+
+### Bug Fixes
+
+* add produces jsonld to totaalaantal ([14f4f94](https://github.com/informatievlaanderen/municipality-registry/commit/14f4f94d0f2b067ff2a9b619ad194b220fc4338f))
+
 ## [3.17.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.17.2...v3.17.3) (2021-12-01)
 
 
