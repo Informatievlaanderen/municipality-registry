@@ -94,7 +94,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
         private void RegisterLastChangedProjections(ContainerBuilder builder)
         {
             builder.RegisterModule(
-                new LastChangedListModule(
+                new MunicipalityLastChangedListModule(
                     _configuration.GetConnectionString("LastChangedList"),
                     _configuration["DataDog:ServiceName"],
                     _services,
@@ -102,6 +102,9 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
 
             builder
                 .RegisterProjectionMigrator<LastChangedListContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory)
+                .RegisterProjectionMigrator<DataMigrationContextMigrationFactory>(
                     _configuration,
                     _loggerFactory)
                 .RegisterProjections<LastChangedListProjections, LastChangedListContext>(ConnectedProjectionSettings.Default);

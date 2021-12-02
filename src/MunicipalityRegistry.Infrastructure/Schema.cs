@@ -1,6 +1,6 @@
 namespace MunicipalityRegistry.Infrastructure
 {
-    public class Schema
+    public static class Schema
     {
         public const string Default = "MunicipalityRegistry";
         public const string Import = "MunicipalityRegistryImport";
@@ -9,9 +9,10 @@ namespace MunicipalityRegistry.Infrastructure
         public const string Legacy = "MunicipalityRegistryLegacy";
     }
 
-    public class MigrationTables
+    public static class MigrationTables
     {
         public const string Extract = "__EFMigrationsHistoryExtract";
         public const string Legacy = "__EFMigrationsHistoryLegacy";
+        public const string RedisDataMigration = "__EFMigrationsHistoryDataMigration";
     }
 }
