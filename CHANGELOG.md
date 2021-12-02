@@ -1,3 +1,10 @@
+# [3.18.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.17.4...v3.18.0) (2021-12-02)
+
+
+### Features
+
+* add oslo to lastchangedlist projection + migrate data ([dbb1813](https://github.com/informatievlaanderen/municipality-registry/commit/dbb1813109d5b207be4716fec13dff8d42851d7a))
+
 ## [3.17.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.17.3...v3.17.4) (2021-12-02)
 
 
