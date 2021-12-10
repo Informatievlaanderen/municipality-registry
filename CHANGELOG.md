@@ -1,3 +1,10 @@
+## [3.18.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.18.0...v3.18.1) (2021-12-10)
+
+
+### Bug Fixes
+
+* change oslo context & type ([758d17a](https://github.com/informatievlaanderen/municipality-registry/commit/758d17a696e3adf360e6e76142107fb0d7dd9584))
+
 # [3.18.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.17.4...v3.18.0) (2021-12-02)
 
 
