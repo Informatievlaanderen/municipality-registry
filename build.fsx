@@ -37,6 +37,7 @@ Target.create "Restore_Solution" (fun _ -> restore "MunicipalityRegistry")
 Target.create "Build_Solution" (fun _ ->
   setVersions "SolutionInfo.cs"
   buildSource "MunicipalityRegistry.Projector"
+  buildSource "MunicipalityRegistry.Producer"
   buildSource "MunicipalityRegistry.Api.Legacy"
   buildSource "MunicipalityRegistry.Api.Oslo"
   buildSource "MunicipalityRegistry.Api.Extract"
@@ -59,6 +60,7 @@ Target.create "Test_Solution" (fun _ ->
 Target.create "Publish_Solution" (fun _ ->
   [
     "MunicipalityRegistry.Projector"
+    "MunicipalityRegistry.Producer"
     "MunicipalityRegistry.Api.Legacy"
     "MunicipalityRegistry.Api.Oslo"
     "MunicipalityRegistry.Api.Extract"
@@ -71,6 +73,7 @@ Target.create "Publish_Solution" (fun _ ->
 Target.create "Pack_Solution" (fun _ ->
   [
     "MunicipalityRegistry.Projector"
+    "MunicipalityRegistry.Producer"
     "MunicipalityRegistry.Api.Legacy"
     "MunicipalityRegistry.Api.Oslo"
     "MunicipalityRegistry.Api.Extract"
@@ -79,6 +82,9 @@ Target.create "Pack_Solution" (fun _ ->
 
 Target.create "Containerize_ApiProjector" (fun _ -> containerize "MunicipalityRegistry.Projector" "projector")
 Target.create "PushContainer_ApiProjector" (fun _ -> push "projector")
+
+Target.create "Containerize_ApiProducer" (fun _ -> containerize "MunicipalityRegistry.Producer" "producer")
+Target.create "PushContainer_ApiProducer" (fun _ -> push "producer")
 
 Target.create "Containerize_ApiLegacy" (fun _ -> containerize "MunicipalityRegistry.Api.Legacy" "api-legacy")
 Target.create "PushContainer_ApiLegacy" (fun _ -> push "api-legacy")
@@ -122,6 +128,7 @@ Target.create "Push" ignore
 
 "Pack"
   ==> "Containerize_ApiProjector"
+  ==> "Containerize_ApiProducer"
   ==> "Containerize_ApiLegacy"
   ==> "Containerize_ApiOslo"
   ==> "Containerize_ApiExtract"
@@ -132,6 +139,7 @@ Target.create "Push" ignore
 "Containerize"
   ==> "DockerLogin"
   ==> "PushContainer_ApiProjector"
+  ==> "PushContainer_ApiProducer"
   ==> "PushContainer_ApiLegacy"
   ==> "PushContainer_ApiOslo"
   ==> "PushContainer_ApiExtract"
