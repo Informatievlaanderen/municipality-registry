@@ -1,3 +1,10 @@
+## [3.19.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.19.0...v3.19.1) (2021-12-17)
+
+
+### Bug Fixes
+
+* use async startup of projections to fix hanging migrations ([84b6a1f](https://github.com/informatievlaanderen/municipality-registry/commit/84b6a1f5b200e9f225bdbcf568eb8090b9515593))
+
 # [3.19.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.18.1...v3.19.0) (2021-12-16)
 
 
