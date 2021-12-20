@@ -22,41 +22,7 @@ using Be.Vlaanderen.Basisregisters.Api.JsonConverters;
         [DataMember(Name = "@context", Order = 0)]
         [JsonProperty(Required = Required.DisallowNull)]
         [JsonConverter(typeof(PlainStringJsonConverter))]
-        public object Context => @"{
-    ""@base"": ""https://basisregisters.vlaanderen.be/ns/adres"",
-    ""@vocab"": ""#"",
-    ""identificator"": ""@nest"",
-    ""id"": ""@id"",
-    ""versieId"": {
-      ""@id"": ""https://data.vlaanderen.be/ns/generiek#versieIdentificator"",
-      ""@type"": ""http://www.w3.org/2001/XMLSchema#string""
-    },
-    ""naamruimte"": {
-      ""@id"": ""https://data.vlaanderen.be/ns/generiek#naamruimte"",
-      ""@type"": ""http://www.w3.org/2001/XMLSchema#string""
-    },
-    ""objectId"": {
-      ""@id"": ""https://data.vlaanderen.be/ns/generiek#lokaleIdentificator"",
-      ""@type"": ""http://www.w3.org/2001/XMLSchema#string""
-    },
-    ""gemeentenaam"": ""@nest"",
-    ""geografischeNaam"": {
-      ""@id"": ""http://www.w3.org/2000/01/rdf-schema#label"",
-      ""@context"": {
-        ""spelling"": ""@value"",
-        ""taal"": ""@language""
-      }
-    },
-    ""gemeenteStatus"": {
-      ""@id"": ""https://data.vlaanderen.be/ns/adres#Gemeente.status"",
-      ""@type"": ""@id"",
-      ""@context"": {
-        ""@base"": ""https://data.vlaanderen.be/id/concept/gemeentestatus/""
-      }
-    },
-    ""detail"": ""http://www.iana.org/assignments/relation/self"",
-    ""gemeenten"": ""@graph""
-  }";
+        public object Context => @"https://raw.githubusercontent.com/Informatievlaanderen/OSLOthema-gebouwEnAdres/d44fbba69aeb9f02d10d4e372449c404f3ebd06c/site-skeleton/adressenregister/context/gemeenten_list.jsonld";
 
         /// <summary>
         /// De verzameling van gemeentes.
