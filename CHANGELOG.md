@@ -1,3 +1,10 @@
+## [3.19.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.19.1...v3.19.2) (2021-12-21)
+
+
+### Bug Fixes
+
+* replaced contextobject in responses with perma link ([3667087](https://github.com/informatievlaanderen/municipality-registry/commit/366708719fa7e1de559f80b99c561390dd19f269))
+
 ## [3.19.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.19.0...v3.19.1) (2021-12-17)
 
 
