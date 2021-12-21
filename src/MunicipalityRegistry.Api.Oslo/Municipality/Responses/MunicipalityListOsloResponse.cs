@@ -17,7 +17,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
     public class MunicipalityListOsloResponse
     {
         /// <summary>
-        /// De linked-data context van gemeenten.
+        /// De linked-data context van gemeente.
         /// </summary>
         [DataMember(Name = "@context", Order = 0)]
         [JsonProperty(Required = Required.DisallowNull)]
