@@ -1,3 +1,10 @@
+## [3.19.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.19.2...v3.19.3) (2021-12-21)
+
+
+### Bug Fixes
+
+* gawr-2503 oslo endpoint docs ([7478a70](https://github.com/informatievlaanderen/municipality-registry/commit/7478a706b715d36419221d02b5fc29321ac4cd8b))
+
 ## [3.19.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.19.1...v3.19.2) (2021-12-21)
 
 
