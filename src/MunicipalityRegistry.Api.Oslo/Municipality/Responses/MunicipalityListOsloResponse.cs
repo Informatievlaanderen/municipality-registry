@@ -3,7 +3,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
-using Be.Vlaanderen.Basisregisters.Api.JsonConverters;
+    using Be.Vlaanderen.Basisregisters.Api.JsonConverters;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
@@ -22,7 +22,7 @@ using Be.Vlaanderen.Basisregisters.Api.JsonConverters;
         [DataMember(Name = "@context", Order = 0)]
         [JsonProperty(Required = Required.DisallowNull)]
         [JsonConverter(typeof(PlainStringJsonConverter))]
-        public object Context => @"https://raw.githubusercontent.com/Informatievlaanderen/OSLOthema-gebouwEnAdres/d44fbba69aeb9f02d10d4e372449c404f3ebd06c/site-skeleton/adressenregister/context/gemeenten_list.jsonld";
+        public object Context => "[\"https://raw.githubusercontent.com/Informatievlaanderen/OSLOthema-gebouwEnAdres/d44fbba69aeb9f02d10d4e372449c404f3ebd06c/site-skeleton/adressenregister/context/gemeenten_list.jsonld\"]";
 
         /// <summary>
         /// De verzameling van gemeentes.
