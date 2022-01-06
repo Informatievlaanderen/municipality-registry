@@ -24,6 +24,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Modules;
     using MunicipalityRegistry.Projections.Extract;
     using MunicipalityRegistry.Projections.Legacy;
+    using MunicipalityRegistry.Projections.Wfs;
+    using Swashbuckle.AspNetCore.Swagger;
 
     /// <summary>Represents the startup process for the application.</summary>
     public class Startup
@@ -111,6 +113,10 @@ namespace MunicipalityRegistry.Projector.Infrastructure
 
                                 health.AddDbContextCheck<LastChangedListContext>(
                                     $"dbcontext-{nameof(LastChangedListContext).ToLowerInvariant()}",
+                                    tags: new[] {DatabaseTag, "sql", "sqlserver"});
+
+                                health.AddDbContextCheck<WfsContext>(
+                                    $"dbcontext-{nameof(WfsContext).ToLowerInvariant()}",
                                     tags: new[] {DatabaseTag, "sql", "sqlserver"});
                             }
                         }
