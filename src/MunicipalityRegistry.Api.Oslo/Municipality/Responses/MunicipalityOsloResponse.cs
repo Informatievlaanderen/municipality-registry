@@ -26,7 +26,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
         [DataMember(Name = "@context", Order = 0)]
         [JsonProperty(Required = Required.DisallowNull)]
         [JsonConverter(typeof(PlainStringJsonConverter))]
-        public object Context =>  "[\"https://raw.githubusercontent.com/Informatievlaanderen/OSLOthema-gebouwEnAdres/d44fbba69aeb9f02d10d4e372449c404f3ebd06c/site-skeleton/adressenregister/context/gemeenten_detail.jsonld\"]";
+        public object Context { get; }
 
         /// <summary>
         /// Het linked-data type van de gemeente.
@@ -72,6 +72,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
 
         public MunicipalityOsloResponse(
             string naamruimte,
+            string contextUrlDetail,
             GemeenteStatus status,
             string nisCode,
             IEnumerable<Language> officialLanguages,
@@ -82,6 +83,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
             string nameEnglish,
             DateTimeOffset version)
         {
+            Context = contextUrlDetail;
             Identificator = new GemeenteIdentificator(naamruimte, nisCode, version);
             GemeenteStatus = status;
             OfficialLanguages = officialLanguages.Select(LanguageExtensions.ConvertFromLanguage).ToList();
@@ -109,6 +111,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
         public MunicipalityOsloResponse GetExamples()
             => new MunicipalityOsloResponse(
                 _responseOptions.Naamruimte,
+                _responseOptions.ContextUrlDetail,
                 GemeenteStatus.InGebruik,
                 "31005",
                 new List<Language> { Language.Dutch },

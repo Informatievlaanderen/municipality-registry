@@ -66,6 +66,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
             return Ok(
                 new MunicipalityOsloResponse(
                     responseOptions.Value.Naamruimte,
+                    responseOptions.Value.ContextUrlDetail,
                     municipality.Status.ConvertFromMunicipalityStatus(),
                     municipality.NisCode,
                     municipality.OfficialLanguages,
@@ -109,6 +110,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
             return Ok(
                 new MunicipalityListOsloResponse
                 {
+                    Context = responseOptions.Value.ContextUrlList,
                     Gemeenten = await pagedMunicipalities
                         .Items
                         .Select(m => new MunicipalityListOsloItemResponse(
