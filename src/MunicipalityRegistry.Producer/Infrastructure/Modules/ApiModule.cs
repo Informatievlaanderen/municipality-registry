@@ -70,15 +70,6 @@ namespace MunicipalityRegistry.Producer.Infrastructure.Modules
                         _configuration,
                         _services,
                         _loggerFactory));
-            builder
-                .RegisterProjectionMigrator<ProducerContextMigrationFactory>(
-                    _configuration,
-                    _loggerFactory)
-                .RegisterProjections<ProducerProjections, ProducerContext>(ConnectedProjectionSettings.Configure(x =>
-                {
-                    x.ConfigureCatchUpPageSize(ConnectedProjectionSettings.Default.CatchUpPageSize);
-                    x.ConfigureCatchUpUpdatePositionMessageInterval(Convert.ToInt32(_configuration["CatchUpSaveInterval"]));
-                }));
         }
     }
 }

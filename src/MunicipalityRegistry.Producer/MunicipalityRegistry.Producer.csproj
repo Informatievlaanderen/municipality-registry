@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\MessageHandling\src\Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple\Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Infrastructure\MunicipalityRegistry.Infrastructure.csproj" />
   </ItemGroup>
 

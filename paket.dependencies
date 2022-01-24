@@ -18,6 +18,12 @@ nuget Microsoft.EntityFrameworkCore.Design 5.0.6
 nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 5.0.4
 nuget Be.Vlaanderen.Basisregisters.Testing.Infrastructure.Events 2.3.4 content: true, copy_content_to_output_dir: always, copy_local: true
 
+nuget Confluent.Kafka 1.8.2
+nuget Confluent.SchemaRegistry.Serdes.Json 1.8.2
+
+nuget Microsoft.Extensions.DependencyInjection 5.0.2
+nuget Microsoft.NETCore.Platforms 5.0.4
+
 nuget Be.Vlaanderen.Basisregisters.AggregateSource 5.2.1
 nuget Be.Vlaanderen.Basisregisters.AggregateSource.ExplicitRouting 5.2.1
 nuget Be.Vlaanderen.Basisregisters.AggregateSource.SqlStreamStore.Autofac 5.2.1

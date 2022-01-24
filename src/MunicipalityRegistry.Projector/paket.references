@@ -3,6 +3,8 @@ Be.Vlaanderen.Basisregisters.EventHandling.Autofac
 Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac
 Be.Vlaanderen.Basisregisters.Projector
 
+Microsoft.Extensions.DependencyInjection
+
 AspNetCore.HealthChecks.SqlServer
 
 SourceLink.Embed.AllSourceFiles
