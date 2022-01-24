@@ -1,3 +1,10 @@
+## [3.20.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.0...v3.20.1) (2022-01-24)
+
+
+### Bug Fixes
+
+* register producer projections ([bf1a4b9](https://github.com/informatievlaanderen/municipality-registry/commit/bf1a4b963b335875c4ac665c9634c56d0fa7c704))
+
 # [3.20.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.19.6...v3.20.0) (2022-01-24)
 
 
