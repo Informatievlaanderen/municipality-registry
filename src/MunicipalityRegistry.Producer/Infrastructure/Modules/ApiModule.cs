@@ -1,10 +1,10 @@
 namespace MunicipalityRegistry.Producer.Infrastructure.Modules
 {
     using System;
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api.Exceptions;
+    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.EventHandling.Autofac;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac;
@@ -70,6 +70,19 @@ namespace MunicipalityRegistry.Producer.Infrastructure.Modules
                         _configuration,
                         _services,
                         _loggerFactory));
+
+            var connectedProjectionSettings = ConnectedProjectionSettings.Configure(x =>
+            {
+                x.ConfigureCatchUpPageSize(ConnectedProjectionSettings.Default.CatchUpPageSize);
+                x.ConfigureCatchUpUpdatePositionMessageInterval(Convert.ToInt32(_configuration["CatchUpSaveInterval"]));
+            });
+
+            builder
+                .RegisterProjectionMigrator<ProducerContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory)
+                .RegisterProjections<ProducerProjections, ProducerContext>(() =>
+                    new ProducerProjections(_configuration), connectedProjectionSettings);
         }
     }
 }
