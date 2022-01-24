@@ -1,3 +1,15 @@
+# [3.20.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.19.6...v3.20.0) (2022-01-24)
+
+
+### Bug Fixes
+
+* fix build ([7d60f15](https://github.com/informatievlaanderen/municipality-registry/commit/7d60f15fb78f049358b8055e2431793aa688030e))
+
+
+### Features
+
+* produce municipality events on kafka ([6feaf82](https://github.com/informatievlaanderen/municipality-registry/commit/6feaf824b9360fcc7a23cb6ca82182d39386291d))
+
 ## [3.19.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.19.5...v3.19.6) (2022-01-21)
 
 
