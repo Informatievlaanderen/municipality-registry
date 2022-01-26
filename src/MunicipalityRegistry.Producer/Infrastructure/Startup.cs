@@ -104,11 +104,7 @@ namespace MunicipalityRegistry.Producer.Infrastructure
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new LoggingModule(_configuration, services));
-
-            var serviceProvider = services.BuildServiceProvider();
-            var hostEnvironment = serviceProvider.GetRequiredService<IHostEnvironment>();
-            containerBuilder.RegisterModule(new ApiModule(_configuration, services, hostEnvironment, _loggerFactory));
-
+            containerBuilder.RegisterModule(new ApiModule(_configuration, services, _loggerFactory));
             _applicationContainer = containerBuilder.Build();
 
             return new AutofacServiceProvider(_applicationContainer);

@@ -21,18 +21,15 @@ namespace MunicipalityRegistry.Producer.Infrastructure.Modules
     {
         private readonly IConfiguration _configuration;
         private readonly IServiceCollection _services;
-        private readonly IHostEnvironment _hostEnvironment;
         private readonly ILoggerFactory _loggerFactory;
 
         public ApiModule(
             IConfiguration configuration,
             IServiceCollection services,
-            IHostEnvironment env,
             ILoggerFactory loggerFactory)
         {
             _configuration = configuration;
             _services = services;
-            _hostEnvironment = env;
             _loggerFactory = loggerFactory;
         }
 
@@ -85,8 +82,8 @@ namespace MunicipalityRegistry.Producer.Infrastructure.Modules
                 .RegisterProjectionMigrator<ProducerContextMigrationFactory>(
                     _configuration,
                     _loggerFactory)
-                .RegisterProjections<ProducerProjections, ProducerContext>(() =>
-                    new ProducerProjections(_configuration, _hostEnvironment), connectedProjectionSettings);
+                .RegisterProjections<ProducerProjections, ProducerContext>(container =>
+                    new ProducerProjections(_configuration, container.Resolve<IHostEnvironment>()), connectedProjectionSettings);
         }
     }
 }
