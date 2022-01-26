@@ -16,7 +16,7 @@
       }
     },
     "MunicipalityRegistry.Producer": {
-      "commandName": "Producer",
+      "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

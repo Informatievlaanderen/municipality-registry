@@ -2,125 +2,126 @@ namespace MunicipalityRegistry.Producer
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Be.Vlaanderen.BasisRegisters.MessageHandling.Kafka.Simple;
+    using Be.Vlaanderen.Basisregisters.GrAr.Contracts;
+    using Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
-    using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
+    using Extensions;
     using Microsoft.Extensions.Configuration;
-    using Municipality.Events;
+    using Microsoft.Extensions.Hosting;
+    using Muni = Municipality.Events;
 
     [ConnectedProjectionName("Kafka producer")]
     [ConnectedProjectionDescription("Projectie die berichten naar de kafka broker stuurt.")]
     public class ProducerProjections : ConnectedProjection<ProducerContext>
     {
-        public ProducerProjections(IConfiguration configuration)
+        private readonly KafkaOptions _kafkaOptions;
+        private readonly string _topic;
+
+        public ProducerProjections(IConfiguration configuration, IHostEnvironment env)
         {
-            string kafkaBootstrapServers = configuration["Kafka:BootstrapServers"];
-            string kafkaSchemaRegistryUrl = configuration["Kafka:SchemaRegistryUrl"];
+            var bootstrapServers = configuration["Kafka:BootstrapServers"];
+            var schemaRegistryUrl = configuration["Kafka:SchemaRegistryUrl"];
+            _kafkaOptions = new KafkaOptions(bootstrapServers, schemaRegistryUrl);
+            _topic = $"{env.EnvironmentName}/{configuration["MunicipalityTopic"] ?? "municipality"}";
             
             var cts = new CancellationTokenSource();
             var cancellationToken = cts.Token;
 
-            When<Envelope<MunicipalityWasRegistered>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityWasRegistered>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityNisCodeWasDefined>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityNisCodeWasDefined>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityNisCodeWasCorrected>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityNisCodeWasCorrected>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityWasNamed>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityWasNamed>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityNameWasCorrected>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityNameWasCorrected>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityNameWasCorrected>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityNameWasCorrectedToCleared>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityNameWasCorrectedToCleared>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityBecameCurrent>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityBecameCurrent>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityWasCorrectedToCurrent>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityWasCorrectedToCurrent>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityWasRetired>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityWasRetired>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityWasCorrectedToRetired>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityWasCorrectedToRetired>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityGeometryWasCleared>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityGeometryWasCorrected>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
 
-            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Muni.MunicipalityWasDrawn>>(async (context, message, ct) =>
             {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
-            });
-
-            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) =>
-            {
-                await Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, message.Message, cancellationToken);
+                await Produce(message.Message.ToContract(), cancellationToken);
             });
         }
 
-        private async Task Produce<T>(string kafkaBootstrapServers, string kafkaSchemaRegistryUrl, T message, CancellationToken cancellationToken = default)
-            where T : class
+        private async Task Produce<T>(T message, CancellationToken cancellationToken = default)
+            where T : class, IQueueMessage
         {
-            const string topic = "municipality";
-            _ = await KafkaProducer.Produce(kafkaBootstrapServers, kafkaSchemaRegistryUrl, topic, message, cancellationToken);
+            _ = await KafkaProducer.Produce(_kafkaOptions, _topic, message, cancellationToken);
         }
     }
 }
