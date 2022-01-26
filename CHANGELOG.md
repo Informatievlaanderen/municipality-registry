@@ -1,3 +1,10 @@
+## [3.20.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.1...v3.20.2) (2022-01-26)
+
+
+### Bug Fixes
+
+* add message transformers ([87a1069](https://github.com/informatievlaanderen/municipality-registry/commit/87a10693f2cbde8ea671a053a28b7e27d7000f2a))
+
 ## [3.20.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.0...v3.20.1) (2022-01-24)
 
 
