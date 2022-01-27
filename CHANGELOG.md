@@ -1,3 +1,10 @@
+## [3.20.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.2...v3.20.3) (2022-01-27)
+
+
+### Bug Fixes
+
+* resolve hostingenv when creating projections ([9957eed](https://github.com/informatievlaanderen/municipality-registry/commit/9957eedf1484741fe729942d521aa84884fb348e))
+
 ## [3.20.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.1...v3.20.2) (2022-01-26)
 
 
