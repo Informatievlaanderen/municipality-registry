@@ -1,3 +1,10 @@
+## [3.20.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.3...v3.20.4) (2022-01-27)
+
+
+### Bug Fixes
+
+* implement new message handling version ([4363afe](https://github.com/informatievlaanderen/municipality-registry/commit/4363afe31bf274b817e9a2d1921d0bc2fa8f4963))
+
 ## [3.20.3](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.2...v3.20.3) (2022-01-27)
 
 
