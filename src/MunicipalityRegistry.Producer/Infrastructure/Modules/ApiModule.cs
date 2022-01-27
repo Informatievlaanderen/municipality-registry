@@ -13,7 +13,6 @@ namespace MunicipalityRegistry.Producer.Infrastructure.Modules
     using Be.Vlaanderen.Basisregisters.Projector.Modules;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using MunicipalityRegistry.Infrastructure;
 
@@ -82,8 +81,8 @@ namespace MunicipalityRegistry.Producer.Infrastructure.Modules
                 .RegisterProjectionMigrator<ProducerContextMigrationFactory>(
                     _configuration,
                     _loggerFactory)
-                .RegisterProjections<ProducerProjections, ProducerContext>(container =>
-                    new ProducerProjections(_configuration, container.Resolve<IHostEnvironment>()), connectedProjectionSettings);
+                .RegisterProjections<ProducerProjections, ProducerContext>(() =>
+                    new ProducerProjections(_configuration), connectedProjectionSettings);
         }
     }
 }
