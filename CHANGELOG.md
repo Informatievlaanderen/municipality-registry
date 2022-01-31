@@ -1,3 +1,11 @@
+## [3.20.5](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.4...v3.20.5) (2022-01-31)
+
+
+### Bug Fixes
+
+* rename facilities to facility ([7c3bf96](https://github.com/informatievlaanderen/municipality-registry/commit/7c3bf96dfd6d86608c2260414064beb7fb4ca049))
+* update contracts ([c1e0334](https://github.com/informatievlaanderen/municipality-registry/commit/c1e0334efb2bf5c265182dc7b5de092a5d57f104))
+
 ## [3.20.4](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.3...v3.20.4) (2022-01-27)
 
 
