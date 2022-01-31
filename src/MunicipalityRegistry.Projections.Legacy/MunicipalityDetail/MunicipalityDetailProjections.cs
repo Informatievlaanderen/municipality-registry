@@ -132,7 +132,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
                     ct);
             });
 
-            When<Envelope<MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) =>
+            When<Envelope<MunicipalityFacilityLanguageWasRemoved>>(async (context, message, ct) =>
             {
                 await context.FindAndUpdateMunicipalityDetail(
                     message.Message.MunicipalityId,

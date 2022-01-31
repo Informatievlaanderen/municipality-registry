@@ -129,9 +129,9 @@ namespace MunicipalityRegistry.Municipality
                 ApplyChange(new MunicipalityFacilityLanguageWasAdded(_municipalityId, facilityLanguage.Value));
 
             if (!facilityLanguage.HasValue && _facilitiesLanguages.Any())
-                ApplyChange(new MunicipalityFacilitiesLanguageWasRemoved(_municipalityId, _facilitiesLanguages.Single()));
+                ApplyChange(new MunicipalityFacilityLanguageWasRemoved(_municipalityId, _facilitiesLanguages.Single()));
             else if (facilityLanguage.HasValue && _facilitiesLanguages.Count > 1)
-                ApplyChange(new MunicipalityFacilitiesLanguageWasRemoved(_municipalityId, _facilitiesLanguages.Single(x => x != facilityLanguage.Value)));
+                ApplyChange(new MunicipalityFacilityLanguageWasRemoved(_municipalityId, _facilitiesLanguages.Single(x => x != facilityLanguage.Value)));
         }
 
         private void CheckChangedOfficialLanguages(IEnumerable<Language?> officialLanguages)
