@@ -108,7 +108,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
             When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) => DoNothing());
             When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) => DoNothing());
             When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityFacilityLanguageWasRemoved>>(async (context, message, ct) => DoNothing());
             When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => DoNothing());
             When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => DoNothing());
             When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => DoNothing());

@@ -245,7 +245,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
             var municipalityExistingFacilityLanguage = new MunicipalityFacilityLanguageWasAdded(_municipalityId, Language.French);
             ((ISetProvenance)municipalityExistingFacilityLanguage).SetProvenance(CreateProvenance(1));
 
-            var municipalityFacilityLanguageWasRemoved = new MunicipalityFacilitiesLanguageWasRemoved(_municipalityId, Language.French);
+            var municipalityFacilityLanguageWasRemoved = new MunicipalityFacilityLanguageWasRemoved(_municipalityId, Language.French);
             ((ISetProvenance)municipalityFacilityLanguageWasRemoved).SetProvenance(CreateProvenance(1));
 
             var municipalityFacilityLanguageWasAdded = new MunicipalityFacilityLanguageWasAdded(_municipalityId, Language.German);
@@ -286,7 +286,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
             var municipalityExistingFacilityLanguage = new MunicipalityFacilityLanguageWasAdded(_municipalityId, Language.French);
             ((ISetProvenance)municipalityExistingFacilityLanguage).SetProvenance(CreateProvenance(1));
 
-            var municipalityFacilityLanguageWasRemoved = new MunicipalityFacilitiesLanguageWasRemoved(_municipalityId, Language.French);
+            var municipalityFacilityLanguageWasRemoved = new MunicipalityFacilityLanguageWasRemoved(_municipalityId, Language.French);
             ((ISetProvenance)municipalityFacilityLanguageWasRemoved).SetProvenance(CreateProvenance(1));
 
             Assert(

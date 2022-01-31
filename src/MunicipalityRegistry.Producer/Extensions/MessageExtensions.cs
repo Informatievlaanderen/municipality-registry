@@ -42,7 +42,7 @@ namespace MunicipalityRegistry.Producer.Extensions
         public static Contracts.MunicipalityFacilityLanguageWasAdded ToContract(this Domain.MunicipalityFacilityLanguageWasAdded message) =>
             new Contracts.MunicipalityFacilityLanguageWasAdded(message.MunicipalityId.ToString("D"), message.Language.ToString(), message.Provenance.ToContract());
 
-        public static Contracts.MunicipalityFacilitiesLanguageWasRemoved ToContract(this Domain.MunicipalityFacilitiesLanguageWasRemoved message) =>
+        public static Contracts.MunicipalityFacilitiesLanguageWasRemoved ToContract(this Domain.MunicipalityFacilityLanguageWasRemoved message) =>
             new Contracts.MunicipalityFacilitiesLanguageWasRemoved(message.MunicipalityId.ToString("D"), message.Language.ToString(), message.Provenance.ToContract());
 
         public static Contracts.MunicipalityBecameCurrent ToContract(this Domain.MunicipalityBecameCurrent message) =>

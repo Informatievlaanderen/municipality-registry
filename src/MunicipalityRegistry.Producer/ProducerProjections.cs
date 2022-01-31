@@ -77,7 +77,7 @@ namespace MunicipalityRegistry.Producer
                 await Produce(message.Message.MunicipalityId, message.Message.ToContract(), ct);
             });
 
-            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Domain.MunicipalityFacilitiesLanguageWasRemoved>>(async (context, message, ct) =>
+            When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Domain.MunicipalityFacilityLanguageWasRemoved>>(async (context, message, ct) =>
             {
                 await Produce(message.Message.MunicipalityId, message.Message.ToContract(), ct);
             });

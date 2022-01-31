@@ -8,7 +8,7 @@ namespace MunicipalityRegistry.Municipality.Events
     [EventTags(EventTag.For.Sync)]
     [EventName("MunicipalityFacilityLanguageWasRemoved")]
     [EventDescription("Een faciliteitentaal van de gemeente werd verwijderd.")]
-    public class MunicipalityFacilitiesLanguageWasRemoved : IHasProvenance, ISetProvenance
+    public class MunicipalityFacilityLanguageWasRemoved : IHasProvenance, ISetProvenance
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
@@ -19,7 +19,7 @@ namespace MunicipalityRegistry.Municipality.Events
         [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
-        public MunicipalityFacilitiesLanguageWasRemoved(
+        public MunicipalityFacilityLanguageWasRemoved(
             MunicipalityId municipalityId,
             Language language)
         {
@@ -28,7 +28,7 @@ namespace MunicipalityRegistry.Municipality.Events
         }
 
         [JsonConstructor]
-        private MunicipalityFacilitiesLanguageWasRemoved(
+        private MunicipalityFacilityLanguageWasRemoved(
             Guid municipalityId,
             Language language,
             ProvenanceData provenance) :

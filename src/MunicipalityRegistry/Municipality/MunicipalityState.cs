@@ -37,7 +37,7 @@ namespace MunicipalityRegistry.Municipality
             Register<MunicipalityOfficialLanguageWasRemoved>(When);
 
             Register<MunicipalityFacilityLanguageWasAdded>(When);
-            Register<MunicipalityFacilitiesLanguageWasRemoved>(When);
+            Register<MunicipalityFacilityLanguageWasRemoved>(When);
 
             Register<MunicipalityWasDrawn>(When);
             Register<MunicipalityGeometryWasCorrected>(When);
@@ -118,7 +118,7 @@ namespace MunicipalityRegistry.Municipality
             _facilitiesLanguages.Add(@event.Language);
         }
 
-        private void When(MunicipalityFacilitiesLanguageWasRemoved @event)
+        private void When(MunicipalityFacilityLanguageWasRemoved @event)
         {
             _facilitiesLanguages.Remove(@event.Language);
         }
