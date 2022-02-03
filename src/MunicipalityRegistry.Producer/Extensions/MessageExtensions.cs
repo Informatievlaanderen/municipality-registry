@@ -11,7 +11,6 @@ namespace MunicipalityRegistry.Producer.Extensions
             provenance.Timestamp.ToString(),
             provenance.Application.ToString(),
             provenance.Modification.ToString(),
-            provenance.Operator,
             provenance.Organisation.ToString(),
             provenance.Reason);
 
