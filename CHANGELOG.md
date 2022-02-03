@@ -1,3 +1,10 @@
+## [3.20.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.5...v3.20.6) (2022-02-03)
+
+
+### Bug Fixes
+
+* update contracts package ([094e3db](https://github.com/informatievlaanderen/municipality-registry/commit/094e3dbe44289ca0532114c68ae6e9d62cd6f96b))
+
 ## [3.20.5](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.4...v3.20.5) (2022-01-31)
 
 
