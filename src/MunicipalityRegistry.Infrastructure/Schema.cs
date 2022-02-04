@@ -7,6 +7,7 @@ namespace MunicipalityRegistry.Infrastructure
 
         public const string Extract = "MunicipalityRegistryExtract";
         public const string Legacy = "MunicipalityRegistryLegacy";
+        public const string WmsWfs = "MunicipalityRegistryWmsWfs";
 
         public const string Producer = "MunicipalityRegistryProducer";
     }
@@ -15,6 +16,7 @@ namespace MunicipalityRegistry.Infrastructure
     {
         public const string Extract = "__EFMigrationsHistoryExtract";
         public const string Legacy = "__EFMigrationsHistoryLegacy";
+        public const string WmsWfs = "__EFMigrationsHistoryWmsWfs";
         public const string Producer = "__EFMigrationsHistoryProducer";
         public const string RedisDataMigration = "__EFMigrationsHistoryDataMigration";
     }
