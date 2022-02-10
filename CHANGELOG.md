@@ -1,3 +1,10 @@
+## [3.20.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.6...v3.20.7) (2022-02-10)
+
+
+### Bug Fixes
+
+* update Api dependency to fix exception handler ([481f416](https://github.com/informatievlaanderen/municipality-registry/commit/481f416f7e876b258799dc128854098720b9cc86))
+
 ## [3.20.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.5...v3.20.6) (2022-02-03)
 
 
