@@ -18,7 +18,7 @@ namespace MunicipalityRegistry.Projections.Wfs.Municipality
         public string? NameGerman { get; set; }
         public string? NameEnglish { get; set; }
 
-        public MunicipalityStatus? Status { get; set; }
+        public String? Status { get; set; }
 
         private DateTimeOffset VersionTimestampAsDateTimeOffset { get; set; }
 

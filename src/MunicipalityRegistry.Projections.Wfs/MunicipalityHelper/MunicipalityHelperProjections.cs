@@ -9,6 +9,11 @@ namespace MunicipalityRegistry.Projections.Wfs.Municipality
     [ConnectedProjectionDescription("Projectie die de gemeenten data voor het gemeenten detail voorziet.")]
     public class MunicipalityHelperProjections : ConnectedProjection<WfsContext>
     {
+
+        private static readonly string CurrentStatus = MunicipalityStatus.Current.ToString();
+        private static readonly string RetiredStatus = MunicipalityStatus.Retired.ToString();
+        private static readonly string ProposedStatus = MunicipalityStatus.Proposed.ToString();
+
         public MunicipalityHelperProjections()
         {
             When<Envelope<MunicipalityWasRegistered>>(async (context, message, ct) =>
@@ -150,7 +155,7 @@ namespace MunicipalityRegistry.Projections.Wfs.Municipality
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        municipality.Status = MunicipalityStatus.Current;
+                        municipality.Status = CurrentStatus;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -162,7 +167,7 @@ namespace MunicipalityRegistry.Projections.Wfs.Municipality
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        municipality.Status = MunicipalityStatus.Current;
+                        municipality.Status = CurrentStatus;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -174,7 +179,7 @@ namespace MunicipalityRegistry.Projections.Wfs.Municipality
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        municipality.Status = MunicipalityStatus.Retired;
+                        municipality.Status = RetiredStatus;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -186,7 +191,7 @@ namespace MunicipalityRegistry.Projections.Wfs.Municipality
                     message.Message.MunicipalityId,
                     municipality =>
                     {
-                        municipality.Status = MunicipalityStatus.Retired;
+                        municipality.Status = RetiredStatus;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MunicipalityRegistry.Projections.Wfs;
 
 namespace MunicipalityRegistry.Projections.Wfs.Migrations
 {
     [DbContext(typeof(WfsContext))]
-    partial class WfsContextModelSnapshot : ModelSnapshot
+    [Migration("20220214104153_Wfs_FixConvertEnumToString")]
+    partial class Wfs_FixConvertEnumToString
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
