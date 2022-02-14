@@ -12,6 +12,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using Be.Vlaanderen.Basisregisters.Projector.ConnectedProjections;
     using Be.Vlaanderen.Basisregisters.Projector.Modules;
     using Be.Vlaanderen.Basisregisters.Shaperon;
+    using Microsoft.Data.SqlClient;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -25,6 +26,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using MunicipalityRegistry.Projections.Legacy.MunicipalityList;
     using MunicipalityRegistry.Projections.Legacy.MunicipalityName;
     using MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication;
+    using MunicipalityRegistry.Projections.Wfs;
     using LastChangedListContextMigrationFactory = MunicipalityRegistry.Projections.LastChangedList.LastChangedListContextMigrationFactory;
 
     public class ApiModule : Module
@@ -73,6 +75,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
             RegisterExtractProjections(builder);
             RegisterLastChangedProjections(builder);
             RegisterLegacyProjections(builder);
+            RegisterWfsProjections(builder);
         }
 
         private void RegisterExtractProjections(ContainerBuilder builder)
@@ -126,6 +129,28 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                 .RegisterProjections<MunicipalityListProjections, LegacyContext>(ConnectedProjectionSettings.Default)
                 .RegisterProjections<MunicipalityNameProjections, LegacyContext>(ConnectedProjectionSettings.Default)
                 .RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>(ConnectedProjectionSettings.Default);
+        }
+
+        private void RegisterWfsProjections(ContainerBuilder builder)
+        {
+            builder
+                .RegisterModule(
+                    new WfsModule(
+                        _configuration,
+                        _services,
+                        _loggerFactory));
+
+            var wfsProjectionSettings = ConnectedProjectionSettings
+                .Configure(settings =>
+                    settings.ConfigureLinearBackoff<SqlException>(_configuration, "Wfs"));
+
+            builder
+                .RegisterProjectionMigrator<WfsContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory)
+                .RegisterProjections<MunicipalityRegistry.Projections.Wfs.Municipality.MunicipalityHelperProjections, WfsContext>(() =>
+                        new MunicipalityRegistry.Projections.Wfs.Municipality.MunicipalityHelperProjections(),
+                    wfsProjectionSettings);
         }
     }
 }
