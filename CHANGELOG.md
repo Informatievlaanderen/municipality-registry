@@ -1,3 +1,10 @@
+# [3.21.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.7...v3.21.0) (2022-02-14)
+
+
+### Features
+
+* create wfs projection proj ([6b73509](https://github.com/informatievlaanderen/municipality-registry/commit/6b73509359eb377f42b6b02fa5b77260da140305))
+
 ## [3.20.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.6...v3.20.7) (2022-02-10)
 
 
