@@ -1,3 +1,10 @@
+## [3.21.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.21.0...v3.21.1) (2022-02-16)
+
+
+### Bug Fixes
+
+* bump Kafka Simple ([9a020bc](https://github.com/informatievlaanderen/municipality-registry/commit/9a020bcc275df0857fbd11921bbee6913798985d))
+
 # [3.21.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.7...v3.21.0) (2022-02-14)
 
 
