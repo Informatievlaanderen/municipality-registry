@@ -3,9 +3,13 @@ namespace MunicipalityRegistry.Producer.Infrastructure
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.Aws.DistributedMutex;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
 
     public class Program
     {
+        protected Program()
+        { }
+
         public static void Main(string[] args)
             => Run(new ProgramOptions
                 {
@@ -32,6 +36,7 @@ namespace MunicipalityRegistry.Producer.Infrastructure
         private static void Run(ProgramOptions options)
             => new WebHostBuilder()
                 .UseDefaultForApi<Startup>(options)
+                .ConfigureAppConfiguration(builder => builder.AddUserSecrets<Program>())
                 .RunWithLock<Program>();
     }
 }
