@@ -1,3 +1,10 @@
+## [3.21.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.21.1...v3.21.2) (2022-02-18)
+
+
+### Bug Fixes
+
+* support kafka sasl authentication ([b61a6ea](https://github.com/informatievlaanderen/municipality-registry/commit/b61a6ea7e769607147ea77e64d9224e6f7b75c17))
+
 ## [3.21.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.21.0...v3.21.1) (2022-02-16)
 
 
