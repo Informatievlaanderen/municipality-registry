@@ -1,3 +1,44 @@
+# [3.22.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.21.2...v3.22.0) (2022-02-25)
+
+
+### Bug Fixes
+
+* add wms config in appsettings of projector ([2708dd4](https://github.com/informatievlaanderen/municipality-registry/commit/2708dd4ca8a638a1c7bd629c1884ce2e47d70fe3))
+* remove user secrets ([e569c1f](https://github.com/informatievlaanderen/municipality-registry/commit/e569c1f8eae554367207ac44e1a16576db9ef671))
+
+
+### Features
+
+* create wms projection ([f12b7c6](https://github.com/informatievlaanderen/municipality-registry/commit/f12b7c6a9134c5df50bf9be1313344718fc0255b))
+
+## [3.21.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.21.1...v3.21.2) (2022-02-18)
+
+
+### Bug Fixes
+
+* support kafka sasl authentication ([b61a6ea](https://github.com/informatievlaanderen/municipality-registry/commit/b61a6ea7e769607147ea77e64d9224e6f7b75c17))
+
+## [3.21.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.21.0...v3.21.1) (2022-02-16)
+
+
+### Bug Fixes
+
+* bump Kafka Simple ([9a020bc](https://github.com/informatievlaanderen/municipality-registry/commit/9a020bcc275df0857fbd11921bbee6913798985d))
+
+# [3.21.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.7...v3.21.0) (2022-02-14)
+
+
+### Features
+
+* create wfs projection proj ([6b73509](https://github.com/informatievlaanderen/municipality-registry/commit/6b73509359eb377f42b6b02fa5b77260da140305))
+
+## [3.20.7](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.6...v3.20.7) (2022-02-10)
+
+
+### Bug Fixes
+
+* update Api dependency to fix exception handler ([481f416](https://github.com/informatievlaanderen/municipality-registry/commit/481f416f7e876b258799dc128854098720b9cc86))
+
 ## [3.20.6](https://github.com/informatievlaanderen/municipality-registry/compare/v3.20.5...v3.20.6) (2022-02-03)
 
 

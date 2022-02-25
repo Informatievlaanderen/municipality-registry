@@ -9,6 +9,8 @@ namespace MunicipalityRegistry.Infrastructure
         public const string Legacy = "MunicipalityRegistryLegacy";
 
         public const string Producer = "MunicipalityRegistryProducer";
+        public const string Wfs = "wfs.municipality";
+        public const string Wms = "wms.municipality";
     }
 
     public static class MigrationTables
@@ -17,5 +19,7 @@ namespace MunicipalityRegistry.Infrastructure
         public const string Legacy = "__EFMigrationsHistoryLegacy";
         public const string Producer = "__EFMigrationsHistoryProducer";
         public const string RedisDataMigration = "__EFMigrationsHistoryDataMigration";
+        public const string Wfs = "__EFMigrationsHistoryWfsMunicipality";
+        public const string Wms = "__EFMigrationsHistoryWmsMunicipality";
     }
 }

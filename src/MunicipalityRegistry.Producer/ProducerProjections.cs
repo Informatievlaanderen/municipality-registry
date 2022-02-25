@@ -1,21 +1,14 @@
 namespace MunicipalityRegistry.Producer
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
-    using System.IO;
-    using System.Net;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.GrAr.Contracts;
     using Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
-    using Confluent.Kafka;
     using Extensions;
     using Microsoft.Extensions.Configuration;
-    using Newtonsoft.Json;
     using Domain = Municipality.Events;
 
     [ConnectedProjectionName("Kafka producer")]
@@ -24,12 +17,12 @@ namespace MunicipalityRegistry.Producer
     {
         private readonly KafkaOptions _kafkaOptions;
         private readonly string _topic;
-        private string _municipalityTopicKey = "MunicipalityTopic";
+        private readonly string _municipalityTopicKey = "MunicipalityTopic";
 
         public ProducerProjections(IConfiguration configuration)
         {
             var bootstrapServers = configuration["Kafka:BootstrapServers"];
-            _kafkaOptions = new KafkaOptions(bootstrapServers, EventsJsonSerializerSettingsProvider.CreateSerializerSettings());
+            _kafkaOptions = new KafkaOptions(bootstrapServers, configuration["Kafka:Authentication"].FromString(), configuration["Kafka:SaslUserName"], configuration["Kafka:SaslPassword"], EventsJsonSerializerSettingsProvider.CreateSerializerSettings());
             _topic = $"{configuration[_municipalityTopicKey]}" ?? throw new ArgumentException($"Configuration has no value for {_municipalityTopicKey}");
 
             When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Domain.MunicipalityWasRegistered>>(async (context, message, ct) =>
