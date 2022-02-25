@@ -1,3 +1,16 @@
+# [3.22.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.21.2...v3.22.0) (2022-02-25)
+
+
+### Bug Fixes
+
+* add wms config in appsettings of projector ([2708dd4](https://github.com/informatievlaanderen/municipality-registry/commit/2708dd4ca8a638a1c7bd629c1884ce2e47d70fe3))
+* remove user secrets ([e569c1f](https://github.com/informatievlaanderen/municipality-registry/commit/e569c1f8eae554367207ac44e1a16576db9ef671))
+
+
+### Features
+
+* create wms projection ([f12b7c6](https://github.com/informatievlaanderen/municipality-registry/commit/f12b7c6a9134c5df50bf9be1313344718fc0255b))
+
 ## [3.21.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.21.1...v3.21.2) (2022-02-18)
 
 
