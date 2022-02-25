@@ -27,6 +27,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using MunicipalityRegistry.Projections.Legacy.MunicipalityName;
     using MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication;
     using MunicipalityRegistry.Projections.Wfs;
+    using MunicipalityRegistry.Projections.Wms;
     using LastChangedListContextMigrationFactory = MunicipalityRegistry.Projections.LastChangedList.LastChangedListContextMigrationFactory;
 
     public class ApiModule : Module
@@ -76,6 +77,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
             RegisterLastChangedProjections(builder);
             RegisterLegacyProjections(builder);
             RegisterWfsProjections(builder);
+            RegisterWmsProjections(builder);
         }
 
         private void RegisterExtractProjections(ContainerBuilder builder)
@@ -151,6 +153,28 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                 .RegisterProjections<MunicipalityRegistry.Projections.Wfs.Municipality.MunicipalityHelperProjections, WfsContext>(() =>
                         new MunicipalityRegistry.Projections.Wfs.Municipality.MunicipalityHelperProjections(),
                     wfsProjectionSettings);
+        }
+
+        private void RegisterWmsProjections(ContainerBuilder builder)
+        {
+            builder
+                .RegisterModule(
+                    new WmsModule(
+                        _configuration,
+                        _services,
+                        _loggerFactory));
+
+            var wmsProjectionSettings = ConnectedProjectionSettings
+                .Configure(settings =>
+                    settings.ConfigureLinearBackoff<SqlException>(_configuration, "Wms"));
+
+            builder
+                .RegisterProjectionMigrator<WmsContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory)
+                .RegisterProjections<MunicipalityRegistry.Projections.Wms.Municipality.MunicipalityHelperProjections, WmsContext>(() =>
+                        new MunicipalityRegistry.Projections.Wms.Municipality.MunicipalityHelperProjections(),
+                    wmsProjectionSettings);
         }
     }
 }
