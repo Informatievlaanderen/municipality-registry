@@ -15,7 +15,7 @@ nuget NetTopologySuite 2.2.0
 nuget Microsoft.EntityFrameworkCore.Design 5.0.6
 
 // BASE REGISTRIES STUFF
-nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 5.0.4
+nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 5.1.0
 nuget Be.Vlaanderen.Basisregisters.Testing.Infrastructure.Events 2.3.4 content: true, copy_content_to_output_dir: always, copy_local: true
 
 nuget Confluent.Kafka 1.8.2
