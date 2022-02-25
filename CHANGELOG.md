@@ -1,3 +1,10 @@
+# [3.23.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.22.0...v3.23.0) (2022-02-25)
+
+
+### Features
+
+* update api to 17.0.0 ([#384](https://github.com/informatievlaanderen/municipality-registry/issues/384)) ([d9f759a](https://github.com/informatievlaanderen/municipality-registry/commit/d9f759a6e2b16821fffece154b708776600547b0))
+
 # [3.22.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.21.2...v3.22.0) (2022-02-25)
 
 
