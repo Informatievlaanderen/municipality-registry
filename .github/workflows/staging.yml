@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        services: ['municipality-registry-api', 'municipality-registry-projections']
+        services: ['municipality-registry-api', 'municipality-registry-projections', 'municipality-registry-producer']
     steps:
     - name: CD
       env:
