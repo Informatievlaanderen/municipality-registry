@@ -22,7 +22,7 @@ namespace MunicipalityRegistry.Producer
         public ProducerProjections(IConfiguration configuration)
         {
             var bootstrapServers = configuration["Kafka:BootstrapServers"];
-            _kafkaOptions = new KafkaOptions(bootstrapServers, configuration["Kafka:Authentication"].FromString(), configuration["Kafka:SaslUserName"], configuration["Kafka:SaslPassword"], EventsJsonSerializerSettingsProvider.CreateSerializerSettings());
+            _kafkaOptions = new KafkaOptions(bootstrapServers, configuration["Kafka:SaslUserName"], configuration["Kafka:SaslPassword"], EventsJsonSerializerSettingsProvider.CreateSerializerSettings());
             _topic = $"{configuration[_municipalityTopicKey]}" ?? throw new ArgumentException($"Configuration has no value for {_municipalityTopicKey}");
 
             When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Domain.MunicipalityWasRegistered>>(async (context, message, ct) =>
