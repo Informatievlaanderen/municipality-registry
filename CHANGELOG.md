@@ -1,3 +1,11 @@
+## [3.23.2](https://github.com/informatievlaanderen/municipality-registry/compare/v3.23.1...v3.23.2) (2022-03-07)
+
+
+### Bug Fixes
+
+* name of wms projections ([1854c1d](https://github.com/informatievlaanderen/municipality-registry/commit/1854c1d15f399fb9c77886a63600c846c0e578da))
+* name WFS adressen ([b856c0d](https://github.com/informatievlaanderen/municipality-registry/commit/b856c0d5adea977081ba3119656f3a343209476b))
+
 ## [3.23.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.23.0...v3.23.1) (2022-03-02)
 
 # [3.23.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.22.0...v3.23.0) (2022-02-25)
