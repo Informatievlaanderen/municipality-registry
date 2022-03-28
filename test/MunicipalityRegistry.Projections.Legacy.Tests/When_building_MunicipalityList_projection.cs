@@ -18,6 +18,7 @@ namespace MunicipalityRegistry.Projections.Legacy.Tests
     using NodaTime;
     using Xunit;
     using MunicipalityName = MunicipalityRegistry.MunicipalityName;
+    using Reason = Be.Vlaanderen.Basisregisters.GrAr.Provenance.Reason;
 
     public class When_building_MunicipalityList_projection
     {
