@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.0.0...v4.0.1) (2022-04-04)
+
+
+### Bug Fixes
+
+* set oslo context type to string GAWR-2931 ([74a56cf](https://github.com/informatievlaanderen/municipality-registry/commit/74a56cfaacc16b208e2764aa23fe19c7422c543c))
+
 # [4.0.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.23.2...v4.0.0) (2022-03-28)
 
 
