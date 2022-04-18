@@ -128,6 +128,7 @@ jobs:
         GIT_COMMITTER_EMAIL: ${{ secrets.VBR_GIT_EMAIL }}
         
     - name: Sonar end build & analyze
+      if: env.RELEASE_VERSION != 'none'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
