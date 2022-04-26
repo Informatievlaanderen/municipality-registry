@@ -70,8 +70,8 @@ nuget EntityFramework 6.4.4
 nuget Microsoft.SqlServer.Types 13.0.4001 // Don't update: requires version 13.0.4001 for legacy reasons
 
 // DOCS STUFF
-nuget Structurizr.Core 1.0.0
-nuget Structurizr.Client 1.0.0
+nuget Structurizr.Core 0.9.7
+nuget Structurizr.Client 0.9.7
 nuget Structurizr.AdrTools 0.9.3
 
 // TEST STUFF

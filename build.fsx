@@ -4,7 +4,8 @@ framework: net6.0
 source https://api.nuget.org/v3/index.json
 nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 6.0.3 //"
 
-#load "packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/build-generic.fsx"
+//#load "packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/build-generic.fsx"
+#load "build-generic.fsx"
 
 open Fake.Core
 open Fake.Core.TargetOperators
@@ -19,6 +20,7 @@ let dockerRepository = "municipality-registry"
 let assemblyVersionNumber = (sprintf "2.%s")
 let nugetVersionNumber = (sprintf "%s")
 
+let buildSolution = buildSolution assemblyVersionNumber
 let buildSource = build assemblyVersionNumber
 let buildTest = buildTest assemblyVersionNumber
 let setVersions = (setSolutionVersions assemblyVersionNumber product copyright company)
@@ -34,30 +36,35 @@ supportedRuntimeIdentifiers <- [ "msil"; "linux-x64" ]
 
 Target.create "Restore_Solution" (fun _ -> restore "MunicipalityRegistry")
 
+// Target.create "Build_Solution" (fun _ ->
+//   setVersions "SolutionInfo.cs"
+//   buildSource "MunicipalityRegistry.Projector"
+//   buildSource "MunicipalityRegistry.Producer"
+//   buildSource "MunicipalityRegistry.Api.Legacy"
+//   buildSource "MunicipalityRegistry.Api.Oslo"
+//   buildSource "MunicipalityRegistry.Api.Extract"
+//   buildSource "MunicipalityRegistry.Api.CrabImport"
+//   buildSource "MunicipalityRegistry.Projections.Legacy"
+//   buildSource "MunicipalityRegistry.Projections.Extract"
+//   buildSource "MunicipalityRegistry.Projections.LastChangedList"
+//   buildSource "MunicipalityRegistry.Projections.Wfs"
+//   buildSource "MunicipalityRegistry.Projections.Wms"
+//   buildTest "MunicipalityRegistry.Projections.Legacy.Tests"
+//   buildTest "MunicipalityRegistry.Tests"
+// )
+
+// Target.create "Test_Solution" (fun _ ->
+//     [
+//         "test" @@ "MunicipalityRegistry.Tests"
+//         "test" @@ "MunicipalityRegistry.Projections.Legacy.Tests"
+//     ] |> List.iter testWithDotNet
+// )
+
 Target.create "Build_Solution" (fun _ ->
   setVersions "SolutionInfo.cs"
-  buildSource "MunicipalityRegistry.Projector"
-  buildSource "MunicipalityRegistry.Producer"
-  buildSource "MunicipalityRegistry.Api.Legacy"
-  buildSource "MunicipalityRegistry.Api.Oslo"
-  buildSource "MunicipalityRegistry.Api.Extract"
-  buildSource "MunicipalityRegistry.Api.CrabImport"
-  buildSource "MunicipalityRegistry.Projections.Legacy"
-  buildSource "MunicipalityRegistry.Projections.Extract"
-  buildSource "MunicipalityRegistry.Projections.LastChangedList"
-  buildSource "MunicipalityRegistry.Projections.Wfs"
-  buildSource "MunicipalityRegistry.Projections.Wms"
-  buildTest "MunicipalityRegistry.Projections.Legacy.Tests"
-  buildTest "MunicipalityRegistry.Tests"
-)
+  buildSolution "MunicipalityRegistry")
 
-Target.create "Test_Solution" (fun _ ->
-    [
-        "test" @@ "MunicipalityRegistry.Tests"
-        "test" @@ "MunicipalityRegistry.Projections.Legacy.Tests"
-    ] |> List.iter testWithDotNet
-)
-
+Target.create "Test_Solution" (fun _ -> test "MunicipalityRegistry")
 
 Target.create "Publish_Solution" (fun _ ->
   [
