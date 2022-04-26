@@ -1,3 +1,10 @@
+## [4.0.2](https://github.com/informatievlaanderen/municipality-registry/compare/v4.0.1...v4.0.2) (2022-04-26)
+
+
+### Bug Fixes
+
+* try new build CI ([4afade4](https://github.com/informatievlaanderen/municipality-registry/commit/4afade4798bdecd58e347617c0ea1ee5e46bcceb))
+
 ## [4.0.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.0.0...v4.0.1) (2022-04-04)
 
 
