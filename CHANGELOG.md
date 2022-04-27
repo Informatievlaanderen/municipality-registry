@@ -1,3 +1,10 @@
+## [4.0.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.0.3...v4.0.4) (2022-04-27)
+
+
+### Bug Fixes
+
+* redirect sonar to /dev/null ([3e2a2ff](https://github.com/informatievlaanderen/municipality-registry/commit/3e2a2ffab9000156a8b545acb96fcc7ff1005524))
+
 ## [4.0.3](https://github.com/informatievlaanderen/municipality-registry/compare/v4.0.2...v4.0.3) (2022-04-27)
 
 
