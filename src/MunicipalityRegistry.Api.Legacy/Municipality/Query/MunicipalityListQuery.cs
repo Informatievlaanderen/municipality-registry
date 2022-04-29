@@ -17,10 +17,15 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         Query<MunicipalityListItem, MunicipalityListFilter, MunicipalityListItem>
     {
         private readonly LegacyContext _context;
+        private readonly bool _isFlemishRegion;
 
         protected override ISorting Sorting => new MunicipalityListSorting();
 
-        public MunicipalityListQuery(LegacyContext context) => _context = context;
+        public MunicipalityListQuery(LegacyContext context, bool isFlemishRegion = false)
+        {
+            _context = context;
+            _isFlemishRegion = isFlemishRegion;
+        }
 
         protected override IQueryable<MunicipalityListItem> Filter(FilteringHeader<MunicipalityListFilter> filtering)
         {
@@ -30,43 +35,70 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                 .AsNoTracking();
 
             if (!filtering.ShouldFilter)
+            {
+                if (_isFlemishRegion)
+                {
+                    municipalities = municipalities.FlemishMunicipalities();
+                }
                 return municipalities;
+            }
 
             if (!string.IsNullOrEmpty(filtering.Filter.NisCode))
-                municipalities = municipalities.Where(m => m.NisCode.Contains(filtering.Filter.NisCode));
+            {
+                municipalities = municipalities.Where(m => m.NisCode != null && m.NisCode.Contains(filtering.Filter.NisCode));
+            }
 
             if (!string.IsNullOrEmpty(filtering.Filter.NameDutch))
-                municipalities = municipalities.Where(m => m.NameDutch.Contains(filtering.Filter.NameDutch));
+            {
+                municipalities = municipalities.Where(m => m.NameDutch != null && m.NameDutch.Contains(filtering.Filter.NameDutch));
+            }
 
             if (!string.IsNullOrEmpty(filtering.Filter.NameEnglish))
-                municipalities = municipalities.Where(m => m.NameEnglish.Contains(filtering.Filter.NameEnglish));
+            {
+                municipalities = municipalities.Where(m => m.NameEnglish != null && m.NameEnglish.Contains(filtering.Filter.NameEnglish));
+            }
 
             if (!string.IsNullOrEmpty(filtering.Filter.NameFrench))
-                municipalities = municipalities.Where(m => m.NameFrench.Contains(filtering.Filter.NameFrench));
+            {
+                municipalities = municipalities.Where(m => m.NameFrench != null && m.NameFrench.Contains(filtering.Filter.NameFrench));
+            }
 
             if (!string.IsNullOrEmpty(filtering.Filter.NameGerman))
-                municipalities = municipalities.Where(m => m.NameGerman.Contains(filtering.Filter.NameGerman));
+            {
+                municipalities = municipalities.Where(m => m.NameGerman != null && m.NameGerman.Contains(filtering.Filter.NameGerman));
+            }
 
             var filterMunicipalityName = filtering.Filter.MunicipalityName.RemoveDiacritics();
             if (!string.IsNullOrEmpty(filtering.Filter.MunicipalityName))
             {
                 municipalities = municipalities
-                    .Where(x => x.NameDutchSearch == filterMunicipalityName ||
-                                x.NameFrenchSearch == filterMunicipalityName ||
-                                x.NameEnglishSearch == filterMunicipalityName ||
-                                x.NameGermanSearch == filterMunicipalityName);
+                    .Where(x => x.NameDutchSearch == filterMunicipalityName
+                        || x.NameFrenchSearch == filterMunicipalityName
+                        || x.NameEnglishSearch == filterMunicipalityName
+                        || x.NameGermanSearch == filterMunicipalityName);
             }
 
             if (!string.IsNullOrEmpty(filtering.Filter.Status))
             {
                 if (Enum.TryParse(typeof(GemeenteStatus), filtering.Filter.Status, true, out var status))
                 {
-                    var municipalityStatus = ((GemeenteStatus) status).ConvertFromGemeenteStatus();
+                    if (status == null)
+                    {
+                        throw new InvalidOperationException($"{nameof(status)} is null");
+                    }
+                    var municipalityStatus = ((GemeenteStatus)status).ConvertFromGemeenteStatus();
                     municipalities = municipalities.Where(m => m.Status.HasValue && m.Status.Value == municipalityStatus);
                 }
                 else
-                    //have to filter on EF cannot return new List<>().AsQueryable() cause non-EF provider does not support .CountAsync()
+                //have to filter on EF cannot return new List<>().AsQueryable() cause non-EF provider does not support .CountAsync()
+                {
                     municipalities = municipalities.Where(m => m.Status.HasValue && (int)m.Status.Value == -1);
+                }
+            }
+
+            if (_isFlemishRegion)
+            {
+                municipalities = municipalities.FlemishMunicipalities();
             }
 
             return municipalities;
@@ -90,12 +122,20 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
 
     public class MunicipalityListFilter
     {
-        public string NisCode { get; set; }
-        public string MunicipalityName { get; set; }
-        public string NameDutch { get; set; }
-        public string NameFrench { get; set; }
-        public string NameGerman { get; set; }
-        public string NameEnglish { get; set; }
-        public string Status { get; set; }
+        public string NisCode { get; set; } = string.Empty;
+        public string MunicipalityName { get; set; } = string.Empty;
+        public string NameDutch { get; set; } = string.Empty;
+        public string NameFrench { get; set; } = string.Empty;
+        public string NameGerman { get; set; } = string.Empty;
+        public string NameEnglish { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
+    }
+
+    public static class MunicipalityListItemsExtensions
+    {
+        public static IQueryable<MunicipalityListItem> FlemishMunicipalities(this IQueryable<MunicipalityListItem> municipalities) => municipalities
+            .ToList()
+            .Where(x => Be.Vlaanderen.Basisregisters.GrAr.Legacy.RegionFilter.IsFlemishRegion(x.NisCode))
+            .AsQueryable();
     }
 }

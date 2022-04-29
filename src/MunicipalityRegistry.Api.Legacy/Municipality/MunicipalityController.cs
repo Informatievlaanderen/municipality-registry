@@ -70,7 +70,9 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                     .SingleOrDefaultAsync(item => item.NisCode == nisCode, cancellationToken);
 
             if (municipality == null)
+            {
                 throw new ApiException("Onbestaande gemeente.", StatusCodes.Status404NotFound);
+            }
 
             return Ok(
                 new MunicipalityResponse(
@@ -90,8 +92,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
         /// Vraag een lijst met actieve gemeenten op.
         /// </summary>
         /// <param name="context"></param>
-        /// <param name="taal">Gewenste taal van de respons.</param>
         /// <param name="responseOptions"></param>
+        /// <param name="isFlemishRegion">Enkel Vlaamse gemeenten.</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Als de opvraging van een lijst met gemeenten gelukt is.</response>
         /// <response code="500">Als er een interne fout is opgetreden.</response>
@@ -103,14 +105,14 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
         public async Task<IActionResult> List(
             [FromServices] LegacyContext context,
             [FromServices] IOptions<ResponseOptions> responseOptions,
-            Taal? taal,
+            [FromQuery] bool isFlemishRegion = false,
             CancellationToken cancellationToken = default)
         {
             var filtering = Request.ExtractFilteringRequest<MunicipalityListFilter>();
             var sorting = Request.ExtractSortingRequest();
             var pagination = Request.ExtractPaginationRequest();
 
-            var pagedMunicipalities = new MunicipalityListQuery(context).Fetch(filtering, sorting, pagination);
+            var pagedMunicipalities = new MunicipalityListQuery(context, isFlemishRegion).Fetch(filtering, sorting, pagination);
 
             Response.AddPagedQueryResultHeaders(pagedMunicipalities);
 
@@ -199,12 +201,14 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (lastFeedUpdate == default)
+            {
                 lastFeedUpdate = new DateTimeOffset(2020, 1, 1, 0, 0, 0, TimeSpan.Zero);
+            }
 
             var pagedMunicipalities =
                 new MunicipalitySyndicationQuery(
                     context,
-                    filtering.Filter?.Embed)
+                    filtering.Filter?.Embed ?? new SyncEmbedValue())
                 .Fetch(filtering, sorting, pagination);
 
             return new ContentResult
@@ -238,7 +242,9 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             CancellationToken cancellationToken = default)
         {
             if (Request.ContentLength.HasValue && Request.ContentLength > 0 && request == null)
+            {
                 return Ok(new MunicipalityBosaResponse());
+            }
 
             var filtering = new MunicipalityBosaFilter(request);
             var sorting = new SortingHeader(string.Empty, SortOrder.Ascending);
@@ -275,16 +281,24 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             }
 
             if (!string.IsNullOrEmpty(municipality.NameDutch))
+            {
                 gemeenteNamen.Add(new GeografischeNaam(municipality.NameDutch, Taal.NL));
+            }
 
             if (!string.IsNullOrEmpty(municipality.NameFrench))
+            {
                 gemeenteNamen.Add(new GeografischeNaam(municipality.NameFrench, Taal.FR));
+            }
 
             if (!string.IsNullOrEmpty(municipality.NameGerman))
+            {
                 gemeenteNamen.Add(new GeografischeNaam(municipality.NameGerman, Taal.DE));
+            }
 
             if (!string.IsNullOrEmpty(municipality.NameEnglish))
+            {
                 gemeenteNamen.Add(new GeografischeNaam(municipality.NameEnglish, Taal.EN));
+            }
 
             return gemeenteNamen;
         }
@@ -318,10 +332,14 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                     syndicationConfiguration["NextUri"]);
 
                 if (nextUri != null)
+                {
                     await writer.Write(new SyndicationLink(nextUri, GrArAtomLinkTypes.Next));
+                }
 
                 foreach (var municipality in municipalities)
+                {
                     await writer.WriteMunicipality(responseOptions, formatter, syndicationConfiguration["Category"], municipality);
+                }
 
                 xmlWriter.Flush();
             }
