@@ -17,14 +17,12 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         Query<MunicipalityListItem, MunicipalityListFilter, MunicipalityListItem>
     {
         private readonly LegacyContext _context;
-        private readonly bool _isFlemishRegion;
 
         protected override ISorting Sorting => new MunicipalityListSorting();
 
-        public MunicipalityListQuery(LegacyContext context, bool isFlemishRegion = false)
+        public MunicipalityListQuery(LegacyContext context)
         {
             _context = context;
-            _isFlemishRegion = isFlemishRegion;
         }
 
         protected override IQueryable<MunicipalityListItem> Filter(FilteringHeader<MunicipalityListFilter> filtering)
@@ -36,10 +34,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
 
             if (!filtering.ShouldFilter)
             {
-                if (_isFlemishRegion)
-                {
-                    municipalities = municipalities.FlemishMunicipalities();
-                }
                 return municipalities;
             }
 
@@ -96,7 +90,10 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
                 }
             }
 
-            if (_isFlemishRegion)
+            // this should be the last filter item processed because it implicitly realizes a list
+            if (!string.IsNullOrEmpty(filtering.Filter.IsFlemishRegion)
+                && bool.TryParse(filtering.Filter.IsFlemishRegion, out var isFlemishRegion)
+                && isFlemishRegion)
             {
                 municipalities = municipalities.FlemishMunicipalities();
             }
@@ -129,6 +126,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         public string NameGerman { get; set; } = string.Empty;
         public string NameEnglish { get; set; } = string.Empty;
         public string Status { get; set; } = string.Empty;
+        public string IsFlemishRegion { get; set; } = "false";
     }
 
     public static class MunicipalityListItemsExtensions
