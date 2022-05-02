@@ -93,7 +93,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
         /// </summary>
         /// <param name="context"></param>
         /// <param name="responseOptions"></param>
-        /// <param name="isFlemishRegion">Enkel Vlaamse gemeenten.</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Als de opvraging van een lijst met gemeenten gelukt is.</response>
         /// <response code="500">Als er een interne fout is opgetreden.</response>
@@ -105,14 +104,13 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
         public async Task<IActionResult> List(
             [FromServices] LegacyContext context,
             [FromServices] IOptions<ResponseOptions> responseOptions,
-            [FromQuery] bool isFlemishRegion = false,
             CancellationToken cancellationToken = default)
         {
             var filtering = Request.ExtractFilteringRequest<MunicipalityListFilter>();
             var sorting = Request.ExtractSortingRequest();
             var pagination = Request.ExtractPaginationRequest();
 
-            var pagedMunicipalities = new MunicipalityListQuery(context, isFlemishRegion).Fetch(filtering, sorting, pagination);
+            var pagedMunicipalities = new MunicipalityListQuery(context).Fetch(filtering, sorting, pagination);
 
             Response.AddPagedQueryResultHeaders(pagedMunicipalities);
 
@@ -266,7 +264,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                                 reponseOptions.Value.Naamruimte,
                                 m.Version,
                                 GetGemeentenamenByLanguage(m, filtering.Language)))
-                        .ToListAsync(cancellationToken),
+                        .ToListAsync(cancellationToken)
                 });
         }
 
