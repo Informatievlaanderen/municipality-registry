@@ -1,3 +1,15 @@
+# [4.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.0.4...v4.1.0) (2022-05-02)
+
+
+### Bug Fixes
+
+* add IsFlemishRegion to MunicipalityListFilter ([d259798](https://github.com/informatievlaanderen/municipality-registry/commit/d2597983bd44cdbec72c85f7266863dd6d8fd2bd))
+
+
+### Features
+
+* add flemish region constraint ([24c08e5](https://github.com/informatievlaanderen/municipality-registry/commit/24c08e54eabd9f8848f0b1483571663af81a7665))
+
 ## [4.0.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.0.3...v4.0.4) (2022-04-27)
 
 
