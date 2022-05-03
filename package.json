@@ -50,9 +50,8 @@
     ]
   },
   "release": {
-    "branches": [
-      "master",
-      "main",
+    "branches": [      
+      {name: 'main' },
       {name: '3.22.x', range: '3.22.x', channel: '3.22.x'},
     ],
     "verifyConditions": [
