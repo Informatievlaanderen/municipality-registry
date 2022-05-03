@@ -1,8 +1,8 @@
-name: CI
+name: CI-3.22.x
 
 on:
   push:
-    branches: [ main ]
+    branches: [ 3.22.x ]
   workflow_dispatch:
 
 jobs:
