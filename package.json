@@ -1,6 +1,6 @@
 {
   "name": "municipality-registry",
-  "version": "3.22.0",
+  "version": "3.22.1",
   "description": "Reference municipality registry.",
   "author": "Basisregisters Vlaanderen",
   "license": "EUPL-1.2",
@@ -50,9 +50,15 @@
     ]
   },
   "release": {
-    "branches": [      
-      {"name": "main"},
-      {"name": "3.22.x", "range": "3.22.x", "channel": "3.22.x"}
+    "branches": [
+      {
+        "name": "main"
+      },
+      {
+        "name": "3.22.x",
+        "range": "3.22.x",
+        "channel": "3.22.x"
+      }
     ],
     "verifyConditions": [
       "@semantic-release/changelog",

@@ -1,3 +1,15 @@
+## [3.22.1](https://github.com/informatievlaanderen/municipality-registry/compare/v3.22.0...v3.22.1) (2022-05-03)
+
+
+### Bug Fixes
+
+* test hotfix ([b07e1fc](https://github.com/informatievlaanderen/municipality-registry/commit/b07e1fc2a2b5dc6b81513a1e5cc19687065baf93))
+* test hotfix 2 ([1aa8bc9](https://github.com/informatievlaanderen/municipality-registry/commit/1aa8bc9254d8b926ad67765ec0f4b6399ee4faab))
+* test hotfix 3 ([ab5cb73](https://github.com/informatievlaanderen/municipality-registry/commit/ab5cb736afcf540cff6c4952be8aeb6906c43124))
+* test hotfix 4 ([68ce26f](https://github.com/informatievlaanderen/municipality-registry/commit/68ce26f033157d9f22838878d7ab75281814fc47))
+* test hotfix 5 ([7840936](https://github.com/informatievlaanderen/municipality-registry/commit/78409364c1f6a11435a0b500818e928ffdbdfeac))
+* test hotfix 6 ([ebc643b](https://github.com/informatievlaanderen/municipality-registry/commit/ebc643b464dadf75f1a2559b87ef59acee23114d))
+
 # [3.22.0](https://github.com/informatievlaanderen/municipality-registry/compare/v3.21.2...v3.22.0) (2022-02-25)
 
 
