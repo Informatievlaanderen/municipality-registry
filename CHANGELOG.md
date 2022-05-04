@@ -1,3 +1,10 @@
+## [4.1.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.0...v4.1.1) (2022-05-04)
+
+
+### Bug Fixes
+
+* make IsFlemishRegion boolean value & add tests ([ef946f4](https://github.com/informatievlaanderen/municipality-registry/commit/ef946f4e486bab12466d81963fda898368ec2aeb))
+
 # [4.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.0.4...v4.1.0) (2022-05-02)
 
 
