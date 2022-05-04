@@ -91,9 +91,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
             }
 
             // this should be the last filter item processed because it implicitly realizes a list
-            if (!string.IsNullOrEmpty(filtering.Filter.IsFlemishRegion)
-                && bool.TryParse(filtering.Filter.IsFlemishRegion, out var isFlemishRegion)
-                && isFlemishRegion)
+            if (filtering.Filter.IsFlemishRegion)
             {
                 municipalities = municipalities.FlemishMunicipalities();
             }
@@ -126,14 +124,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Query
         public string NameGerman { get; set; } = string.Empty;
         public string NameEnglish { get; set; } = string.Empty;
         public string Status { get; set; } = string.Empty;
-        public string IsFlemishRegion { get; set; } = "false";
-    }
-
-    public static class MunicipalityListItemsExtensions
-    {
-        public static IQueryable<MunicipalityListItem> FlemishMunicipalities(this IQueryable<MunicipalityListItem> municipalities) => municipalities
-            .ToList()
-            .Where(x => Be.Vlaanderen.Basisregisters.GrAr.Legacy.RegionFilter.IsFlemishRegion(x.NisCode))
-            .AsQueryable();
+        public bool IsFlemishRegion { get; set; } = false;
     }
 }
