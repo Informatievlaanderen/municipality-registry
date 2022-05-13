@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Tests
+namespace MunicipalityRegistry.Api.IntegrationTests
 {
     using System;
 
