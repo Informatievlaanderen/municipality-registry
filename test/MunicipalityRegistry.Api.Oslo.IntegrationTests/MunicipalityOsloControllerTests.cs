@@ -1,12 +1,12 @@
-namespace MunicipalityRegistry.Api.Oslo.Tests
+namespace MunicipalityRegistry.Api.Oslo.IntegrationTests
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Api.Tests;
     using Infrastructure;
     using Microsoft.AspNetCore.Mvc.Testing;
     using Municipality.Responses;
+    using MunicipalityRegistry.Api.IntegrationTests;
     using Newtonsoft.Json;
     using Xunit;
 

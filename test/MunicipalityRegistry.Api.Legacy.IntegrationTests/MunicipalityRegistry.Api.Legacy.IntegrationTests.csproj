@@ -6,7 +6,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\MunicipalityRegistry.Api.Legacy\MunicipalityRegistry.Api.Legacy.csproj" />
-    <ProjectReference Include="..\MunicipalityRegistry.Api.Tests\MunicipalityRegistry.Api.Tests.csproj" />
+    <ProjectReference Include="..\MunicipalityRegistry.Api.IntegrationTests\MunicipalityRegistry.Api.IntegrationTests.csproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>
