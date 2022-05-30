@@ -1,3 +1,10 @@
+## [4.1.2](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.1...v4.1.2) (2022-05-30)
+
+
+### Bug Fixes
+
+* rename integration tests ([3ea1bbf](https://github.com/informatievlaanderen/municipality-registry/commit/3ea1bbf9dbe16d50a1a1822641210762916ce3a0))
+
 ## [4.1.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.0...v4.1.1) (2022-05-04)
 
 
