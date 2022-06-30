@@ -1,3 +1,10 @@
+## [4.1.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.3...v4.1.4) (2022-06-30)
+
+
+### Bug Fixes
+
+* rename projection description ([a664dbe](https://github.com/informatievlaanderen/municipality-registry/commit/a664dbe09d11ed916ba83225705abf8fc46496e1))
+
 ## [4.1.3](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.2...v4.1.3) (2022-06-30)
 
 
