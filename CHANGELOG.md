@@ -1,3 +1,10 @@
+## [4.1.3](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.2...v4.1.3) (2022-06-30)
+
+
+### Bug Fixes
+
+* add LABEL to Dockerfile (for easier DataDog filtering) ([e17b2d7](https://github.com/informatievlaanderen/municipality-registry/commit/e17b2d7a91a6370dc09711189f5d6a084c9106d3))
+
 ## [4.1.2](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.1...v4.1.2) (2022-05-30)
 
 
