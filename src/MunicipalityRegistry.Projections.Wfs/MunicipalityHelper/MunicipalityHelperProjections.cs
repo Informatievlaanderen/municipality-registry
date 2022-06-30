@@ -6,7 +6,7 @@ namespace MunicipalityRegistry.Projections.Wfs.Municipality
     using NodaTime;
 
     [ConnectedProjectionName("WFS adressen")]
-    [ConnectedProjectionDescription("Projectie die de gemeenten data voor het gemeenten detail voorziet.")]
+    [ConnectedProjectionDescription("Projectie die de gemeente data voor het WFS adressenregister voorziet.")]
     public class MunicipalityHelperProjections : ConnectedProjection<WfsContext>
     {
         public MunicipalityHelperProjections()
