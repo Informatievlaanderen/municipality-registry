@@ -6,7 +6,7 @@ namespace MunicipalityRegistry.Projections.Wms.Municipality
     using NodaTime;
 
     [ConnectedProjectionName("WMS adressen")]
-    [ConnectedProjectionDescription("Projectie die de gemeenten data voor het gemeenten detail voorziet.")]
+    [ConnectedProjectionDescription("Projectie die de gemeente data voor het WMS adressenregister voorziet.")]
     public class MunicipalityHelperProjections : ConnectedProjection<WmsContext>
     {
         public MunicipalityHelperProjections()
