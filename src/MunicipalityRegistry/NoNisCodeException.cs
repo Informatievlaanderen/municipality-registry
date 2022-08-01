@@ -1,13 +1,24 @@
 namespace MunicipalityRegistry
 {
     using System;
+    using System.Runtime.Serialization;
 
-    public class NoNisCodeException : MunicipalityRegistryException
+    [Serializable]
+    public sealed class NoNisCodeException : MunicipalityRegistryException
     {
-        public NoNisCodeException() { }
+        public NoNisCodeException()
+        { }
 
-        public NoNisCodeException(string message) : base(message) { }
+        private NoNisCodeException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        { }
+        
+        public NoNisCodeException(string message)
+            : base(message)
+        { }
 
-        public NoNisCodeException(string message, Exception inner) : base(message, inner) { }
+        public NoNisCodeException(string message, Exception inner)
+            : base(message, inner)
+        { }
     }
 }
