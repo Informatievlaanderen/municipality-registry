@@ -29,7 +29,9 @@ namespace MunicipalityRegistry.Municipality
         public void DefineNisCode(NisCode nisCode)
         {
             if (string.IsNullOrWhiteSpace(nisCode))
+            {
                 throw new NoNisCodeException("Cannot clear NisCode of a municipality.");
+            }
 
             ApplyChange(new MunicipalityNisCodeWasDefined(_municipalityId, nisCode));
         }
@@ -37,7 +39,9 @@ namespace MunicipalityRegistry.Municipality
         public void Name(MunicipalityName name)
         {
             if (string.IsNullOrWhiteSpace(name))
+            {
                 throw new NoNameException("Cannot give a municipality an empty name.");
+            }
 
             ApplyChange(new MunicipalityWasNamed(_municipalityId, name));
         }
@@ -126,25 +130,33 @@ namespace MunicipalityRegistry.Municipality
         private void CheckChangedFacilityLanguages(Language? facilityLanguage)
         {
             if (facilityLanguage.HasValue && !_facilitiesLanguages.Contains(facilityLanguage.Value))
+            {
                 ApplyChange(new MunicipalityFacilityLanguageWasAdded(_municipalityId, facilityLanguage.Value));
+            }
 
             if (!facilityLanguage.HasValue && _facilitiesLanguages.Any())
+            {
                 ApplyChange(new MunicipalityFacilityLanguageWasRemoved(_municipalityId, _facilitiesLanguages.Single()));
+            }
             else if (facilityLanguage.HasValue && _facilitiesLanguages.Count > 1)
+            {
                 ApplyChange(new MunicipalityFacilityLanguageWasRemoved(_municipalityId, _facilitiesLanguages.Single(x => x != facilityLanguage.Value)));
+            }
         }
 
         private void CheckChangedOfficialLanguages(IEnumerable<Language?> officialLanguages)
         {
             var languages = officialLanguages
                 .Where(x => x.HasValue)
-                .Select(x => x.Value)
+                .Select(x => x!.Value)
                 .ToList();
 
             foreach (var language in languages)
             {
                 if (!_officialLanguages.Contains(language))
+                {
                     ApplyChange(new MunicipalityOfficialLanguageWasAdded(_municipalityId, language));
+                }
             }
 
             var languagesToBeRemoved = _officialLanguages.Except(languages).ToList();
@@ -152,22 +164,32 @@ namespace MunicipalityRegistry.Municipality
             foreach (var language in languagesToBeRemoved)
             {
                 if (!languages.Contains(language))
+                {
                     ApplyChange(new MunicipalityOfficialLanguageWasRemoved(_municipalityId, language));
+                }
             }
         }
 
-        private void CheckChangedNisCode(NisCode nisCode, CrabModification? crabModification)
+        private void CheckChangedNisCode(NisCode? nisCode, CrabModification? crabModification)
         {
-            if (_nisCode == nisCode)
-                return;
-
             if (nisCode == null)
+            {
                 throw new NoNisCodeException("Cannot clear NisCode of a municipality.");
+            }
+
+            if (_nisCode == nisCode)
+            {
+                return;
+            }
 
             if (crabModification == CrabModification.Correction)
+            {
                 ApplyChange(new MunicipalityNisCodeWasCorrected(_municipalityId, nisCode));
+            }
             else
+            {
                 DefineNisCode(nisCode);
+            }
         }
 
         private void CheckChangedGeometry(byte[] wkb, CrabModification? modification)
@@ -175,28 +197,40 @@ namespace MunicipalityRegistry.Municipality
             var ewkb = CreateEWkb(wkb);
 
             if (_geometry == ewkb)
+            {
                 return;
+            }
 
             if (ewkb != null)
             {
                 if (modification == CrabModification.Correction)
+                {
                     ApplyChange(new MunicipalityGeometryWasCorrected(_municipalityId, ewkb));
+                }
                 else
+                {
                     Draw(ewkb);
+                }
             }
             else
             {
                 if (modification == CrabModification.Correction)
+                {
                     ApplyChange(new MunicipalityGeometryWasCorrectedToCleared(_municipalityId));
+                }
                 else
+                {
                     ClearGeometry();
+                }
             }
         }
 
         private static ExtendedWkbGeometry CreateEWkb(byte[] wkb)
         {
             if (wkb == null)
+            {
                 return null;
+            }
 
             var geometry = new WKBReader(
                 new NtsGeometryServices(
@@ -215,33 +249,45 @@ namespace MunicipalityRegistry.Municipality
             if (!IsRetired && endTime != null)
             {
                 if (crabModification == CrabModification.Correction)
+                {
                     ApplyChange(
                         new MunicipalityWasCorrectedToRetired(
                             _municipalityId,
                             new RetirementDate(endTime.Value.ToCrabInstant())));
+                }
                 else
+                {
                     ApplyChange(
                         new MunicipalityWasRetired(
                             _municipalityId,
                             new RetirementDate(endTime.Value.ToCrabInstant())));
+                }
             }
             else if (!IsCurrent && endTime == null)
             {
                 if (crabModification == CrabModification.Correction)
+                {
                     ApplyChange(new MunicipalityWasCorrectedToCurrent(_municipalityId));
+                }
                 else
+                {
                     ApplyChange(new MunicipalityBecameCurrent(_municipalityId));
+                }
             }
         }
 
         private void CheckChangedName(Language? language, string name, CrabModification? modification)
         {
             if (string.IsNullOrWhiteSpace(name))
+            {
                 throw new NoNameException("Cannot give a municipality an empty name.");
+            }
 
             // TODO: Wat als language null is? Primary language?
             if (!language.HasValue)
+            {
                 return;
+            }
 
             var newMunicipalityName = new MunicipalityName(name, language.Value);
 
@@ -250,27 +296,39 @@ namespace MunicipalityRegistry.Municipality
             if (!_names.ContainsKey(language.Value) && !string.IsNullOrWhiteSpace(name))
             {
                 if (modification == CrabModification.Correction)
+                {
                     ApplyChange(new MunicipalityNameWasCorrected(_municipalityId, newMunicipalityName));
+                }
                 else
+                {
                     Name(newMunicipalityName);
+                }
             }
 
             // We already have this language, and it got cleared
             else if (_names.ContainsKey(language.Value) && string.IsNullOrWhiteSpace(name))
             {
                 if (modification == CrabModification.Correction)
+                {
                     ApplyChange(new MunicipalityNameWasCorrectedToCleared(_municipalityId, language.Value));
+                }
                 else
+                {
                     ClearName(language.Value);
+                }
             }
 
             // We already have this language, and it got changed
             else if (_names.ContainsKey(language.Value) && _names[language.Value] != newMunicipalityName)
             {
                 if (modification == CrabModification.Correction)
+                {
                     ApplyChange(new MunicipalityNameWasCorrected(_municipalityId, newMunicipalityName));
+                }
                 else
+                {
                     Name(newMunicipalityName);
+                }
             }
 
             // We dont care if it didnt change
