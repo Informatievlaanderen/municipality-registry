@@ -1,5 +1,6 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
 {
+    using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
@@ -101,20 +102,20 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
                     ct);
             });
 
-            When<Envelope<MunicipalityBecameCurrent>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasRetired>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasCorrectedToRetired>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasCorrectedToCurrent>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityFacilityLanguageWasRemoved>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityBecameCurrent>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasRetired>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasCorrectedToRetired>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasCorrectedToCurrent>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityFacilityLanguageWasRemoved>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
         }
 
         private static void UpdateNameByLanguage(MunicipalityName municipalityName, Language language, string name)
@@ -123,22 +124,22 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
             {
                 case Language.Dutch:
                     municipalityName.NameDutch = name;
-                    municipalityName.NameDutchSearch = name?.SanitizeForBosaSearch();
+                    municipalityName.NameDutchSearch = name.SanitizeForBosaSearch();
                     break;
 
                 case Language.French:
                     municipalityName.NameFrench = name;
-                    municipalityName.NameFrenchSearch = name?.SanitizeForBosaSearch();
+                    municipalityName.NameFrenchSearch = name.SanitizeForBosaSearch();
                     break;
 
                 case Language.German:
                     municipalityName.NameGerman = name;
-                    municipalityName.NameGermanSearch = name?.SanitizeForBosaSearch();
+                    municipalityName.NameGermanSearch = name.SanitizeForBosaSearch();
                     break;
 
                 case Language.English:
                     municipalityName.NameEnglish = name;
-                    municipalityName.NameEnglishSearch = name?.SanitizeForBosaSearch();
+                    municipalityName.NameEnglishSearch = name.SanitizeForBosaSearch();
                     break;
             }
         }
@@ -146,6 +147,9 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityName
         private static void UpdateVersionTimestamp(MunicipalityName municipalityNameItem, Instant versionTimestamp)
             => municipalityNameItem.VersionTimestamp = versionTimestamp;
 
-        private static void DoNothing() { }
+        private static async Task DoNothing()
+        {
+            await Task.Yield();
+        }
     }
 }

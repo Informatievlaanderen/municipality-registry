@@ -8,6 +8,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
     using System;
     using System.Linq;
     using System.Text;
+    using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.GrAr.Extracts;
     using Microsoft.Extensions.Options;
 
@@ -190,14 +191,14 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                     ct);
             });
 
-            When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityFacilityLanguageWasRemoved>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityFacilityLanguageWasRemoved>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
         }
 
         private void UpdateName(MunicipalityExtractItem municipality, Language language, string name)
@@ -243,7 +244,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                         record.gemeentenm.Value = municipality.NameEnglish;
                         break;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new ArgumentOutOfRangeException(nameof(municipality.OfficialLanguages));
                 }
             }
         }
@@ -271,6 +272,9 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
             municipality.DbaseRecord = record.ToBytes(_encoding);
         }
 
-        private static void DoNothing() { }
+        private static async Task DoNothing()
+        {
+            await Task.Yield();
+        }
     }
 }
