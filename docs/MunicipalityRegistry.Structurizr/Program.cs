@@ -12,30 +12,30 @@ namespace MunicipalityRegistry.Structurizr
 
     public static class Ids
     {
-        public static int PersonUser = 10000;
-        public static int SoftwareSystemMunicipalityRegistry = 10001;
-        public static int ContainerApi = 10002;
-        public static int ContainerApiRunner = 10003;
-        public static int ContainerApiStore = 10004;
-        public static int ContainerEventStore = 10005;
-        public static int ContainerAggregateRoot = 10006;
+        public const int PersonUser = 10000;
+        public const int SoftwareSystemMunicipalityRegistry = 10001;
+        public const int ContainerApi = 10002;
+        public const int ContainerApiRunner = 10003;
+        public const int ContainerApiStore = 10004;
+        public const int ContainerEventStore = 10005;
+        public const int ContainerAggregateRoot = 10006;
 
-        public static int SoftwareSystemProjectionProducer = 10007;
-        public static int SoftwareSystemApi = 10008;
+        public const int SoftwareSystemProjectionProducer = 10007;
+        public const int SoftwareSystemApi = 10008;
     }
 
     public static class CustomTags
     {
-        public static string Store = "Store";
-        public static string Event = "Event";
-        public static string Command = "Command";
-        public static string Https = "HTTPS";
-        public static string EntityFramework = "Entity Framework";
-        public static string SqlStreamStore = "SqlStreamStore";
-        public static string Direct = "Direct";
+        public const string Store = "Store";
+        public const string Event = "Event";
+        public const string Command = "Command";
+        public const string Https = "HTTPS";
+        public const string EntityFramework = "Entity Framework";
+        public const string SqlStreamStore = "SqlStreamStore";
+        public const string Direct = "Direct";
     }
 
-    public class Program
+    public static class Program
     {
         private const string WorkspaceUrlFormat = "https://structurizr.com/workspace/{0}";
 
@@ -53,9 +53,9 @@ namespace MunicipalityRegistry.Structurizr
         private static readonly string SoftwareSystemProjectionProducerId = Ids.SoftwareSystemProjectionProducer.ToString();
         private static readonly string SoftwareSystemApiId = Ids.SoftwareSystemApi.ToString();
 
-        private static long _workspaceId;
-        private static string _apiKey;
-        private static string _apiSecret;
+        private static long? _workspaceId;
+        private static string? _apiKey;
+        private static string? _apiSecret;
 
         private static void Main()
         {
@@ -71,7 +71,7 @@ namespace MunicipalityRegistry.Structurizr
 
             var workspace = new Workspace("MunicipalityRegistry", "Gemeente referentie register.")
             {
-                Version = DateTime.Today.ToString("yyyy-MM-dd"),
+                Version = DateTime.Today.ToString("yyyy-MM-dd")
             };
 
             var model = workspace.Model;
@@ -127,7 +127,6 @@ namespace MunicipalityRegistry.Structurizr
 
         private static string FormatDescription(string description, IEnumerable<string> properties)
             => $"{description}{Environment.NewLine}{string.Join(Environment.NewLine, properties)}";
-            //=> $"{description}";
 
         private static void ConfigureStyles(ViewSet views)
         {
@@ -453,7 +452,9 @@ namespace MunicipalityRegistry.Structurizr
             eventsView.Add(eventStore);
 
             foreach (var @event in events)
+            {
                 eventsView.Add(@event);
+            }
 
             // eventsView.Relationships.RemoveWhere(x => x.Relationship.Tags.Contains(CustomTags.Event));
 
@@ -474,7 +475,9 @@ namespace MunicipalityRegistry.Structurizr
                 left += blockWidth + yPortion;
 
                 if ((eventNumber + 1) % eventsPerRow != 0)
+                {
                     continue;
+                }
 
                 left = startLeft;
                 top += blockHeight + 100;
@@ -499,7 +502,9 @@ namespace MunicipalityRegistry.Structurizr
             commandsView.Add(aggregateRoot);
 
             foreach (var command in commands)
+            {
                 commandsView.Add(command);
+            }
 
             // commandsView.Relationships.RemoveWhere(x => x.Relationship.Tags.Contains(CustomTags.Event));
 
@@ -520,7 +525,9 @@ namespace MunicipalityRegistry.Structurizr
                 left += blockWidth + yPortion;
 
                 if ((commandNumber + 1) % commandsPerRow != 0)
+                {
                     continue;
+                }
 
                 left = startLeft;
                 top += blockHeight + 100;
@@ -537,7 +544,7 @@ namespace MunicipalityRegistry.Structurizr
         private static void UploadWorkspaceToStructurizr(Workspace workspace)
         {
             var structurizrClient = new StructurizrClient(_apiKey, _apiSecret) { MergeFromRemote = false };
-            structurizrClient.PutWorkspace(_workspaceId, workspace);
+            structurizrClient.PutWorkspace(_workspaceId ?? -1, workspace);
             Console.WriteLine($"Workspace can be viewed at {string.Format(WorkspaceUrlFormat, _workspaceId)}");
         }
     }
