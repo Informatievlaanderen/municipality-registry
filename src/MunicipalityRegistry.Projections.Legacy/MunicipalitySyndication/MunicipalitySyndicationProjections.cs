@@ -227,7 +227,6 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
             switch (municipalitySyndicationItem.OfficialLanguages.FirstOrDefault())
             {
                 default:
-                case Language.Dutch:
                     municipalitySyndicationItem.DefaultName = municipalitySyndicationItem.NameDutch;
                     break;
 
