@@ -293,7 +293,7 @@ namespace MunicipalityRegistry.Municipality
 
             // We dont have this language yet, and it is actually filled in
             // We dont care about empty languages which we dont know yet anyway
-            if (!_names.ContainsKey(language.Value) && !string.IsNullOrWhiteSpace(name))
+            if (!_names.ContainsKey(language.Value))
             {
                 if (modification == CrabModification.Correction)
                 {
@@ -306,7 +306,7 @@ namespace MunicipalityRegistry.Municipality
             }
 
             // We already have this language, and it got cleared
-            else if (_names.ContainsKey(language.Value) && string.IsNullOrWhiteSpace(name))
+            else if (_names.ContainsKey(language.Value))
             {
                 if (modification == CrabModification.Correction)
                 {
