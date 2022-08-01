@@ -8,7 +8,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
     using Projections.Extract;
     using Projections.Extract.MunicipalityExtract;
 
-    public class MunicipalityRegistryExtractBuilder
+    public static class MunicipalityRegistryExtractBuilder
     {
         public static IEnumerable<ExtractFile> CreateMunicipalityFiles(ExtractContext context)
         {
