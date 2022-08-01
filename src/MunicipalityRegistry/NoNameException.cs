@@ -1,13 +1,24 @@
 namespace MunicipalityRegistry
 {
     using System;
+    using System.Runtime.Serialization;
 
-    public class NoNameException : MunicipalityRegistryException
+    [Serializable]
+    public sealed class NoNameException : MunicipalityRegistryException
     {
-        public NoNameException() { }
+        public NoNameException()
+        { }
 
-        public NoNameException(string message) : base(message) { }
+        private NoNameException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
+        { }
+        
+        public NoNameException(string message)
+            : base(message)
+        { }
 
-        public NoNameException(string message, Exception inner) : base(message, inner) { }
+        public NoNameException(string message, Exception inner)
+            : base(message, inner)
+        { }
     }
 }
