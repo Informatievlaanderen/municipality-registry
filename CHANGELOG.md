@@ -1,3 +1,12 @@
+## [4.1.6](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.5...v4.1.6) (2022-08-01)
+
+
+### Bug Fixes
+
+* empty method ([06f4db3](https://github.com/informatievlaanderen/municipality-registry/commit/06f4db39ac81414135c4c5cef8728694b65fce36))
+* fix sonar bug ([18acd59](https://github.com/informatievlaanderen/municipality-registry/commit/18acd59b3b6d2a4b15d313e3a1d4b1e5f69e6259))
+* revert Municipality.cs ([8e9094c](https://github.com/informatievlaanderen/municipality-registry/commit/8e9094c03906997d14477ddd2825d48f730210ca))
+
 ## [4.1.5](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.4...v4.1.5) (2022-08-01)
 
 
