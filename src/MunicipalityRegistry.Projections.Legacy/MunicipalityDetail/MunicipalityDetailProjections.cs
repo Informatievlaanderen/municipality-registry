@@ -1,5 +1,6 @@
 namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
 {
+    using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
@@ -192,12 +193,12 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
                     ct);
             });
 
-            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
         }
 
         private static void UpdateNameByLanguage(MunicipalityDetail municipality, Language? language, string name)
@@ -225,6 +226,9 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
         private static void UpdateVersionTimestamp(MunicipalityDetail municipality, Instant versionTimestamp)
             => municipality.VersionTimestamp = versionTimestamp;
 
-        private static void DoNothing() { }
+        private static async Task DoNothing()
+        {
+            await Task.Yield();
+        }
     }
 }
