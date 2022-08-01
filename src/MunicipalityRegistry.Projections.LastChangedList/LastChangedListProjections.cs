@@ -1,6 +1,7 @@
 namespace MunicipalityRegistry.Projections.LastChangedList
 {
     using System;
+    using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
@@ -21,8 +22,15 @@ namespace MunicipalityRegistry.Projections.LastChangedList
 
                 foreach (var record in attachedRecords)
                 {
-                    record.CacheKey = string.Format(record.CacheKey, message.Message.NisCode);
-                    record.Uri = string.Format(record.Uri, message.Message.NisCode);
+                    if (record.CacheKey is not null)
+                    {
+                        record.CacheKey = string.Format(record.CacheKey, message.Message.NisCode);
+                    }
+
+                    if (record.Uri is not null)
+                    {
+                        record.Uri = string.Format(record.Uri, message.Message.NisCode);
+                    }
                 }
             });
 
@@ -32,8 +40,15 @@ namespace MunicipalityRegistry.Projections.LastChangedList
 
                 foreach (var record in attachedRecords)
                 {
-                    record.CacheKey = string.Format(record.CacheKey, message.Message.NisCode);
-                    record.Uri = string.Format(record.Uri, message.Message.NisCode);
+                    if (record.CacheKey is not null)
+                    {
+                        record.CacheKey = string.Format(record.CacheKey, message.Message.NisCode);
+                    }
+
+                    if (record.Uri is not null)
+                    {
+                        record.Uri = string.Format(record.Uri, message.Message.NisCode);
+                    }
                 }
             });
 
@@ -43,8 +58,15 @@ namespace MunicipalityRegistry.Projections.LastChangedList
 
                 foreach (var record in attachedRecords)
                 {
-                    record.CacheKey = string.Format(record.CacheKey, message.Message.NisCode);
-                    record.Uri = string.Format(record.Uri, message.Message.NisCode);
+                    if (record.CacheKey is not null)
+                    {
+                        record.CacheKey = string.Format(record.CacheKey, message.Message.NisCode);
+                    }
+
+                    if (record.Uri is not null)
+                    {
+                        record.Uri = string.Format(record.Uri, message.Message.NisCode);
+                    }
                 }
             });
 
@@ -108,12 +130,12 @@ namespace MunicipalityRegistry.Projections.LastChangedList
                 await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
             });
 
-            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
         }
 
         protected override string BuildCacheKey(AcceptType acceptType, string identifier)
@@ -121,9 +143,9 @@ namespace MunicipalityRegistry.Projections.LastChangedList
             var shortenedAcceptType = acceptType.ToString().ToLowerInvariant();
             return acceptType switch
             {
-                AcceptType.Json => string.Format("legacy/municipality:{{0}}.{1}", identifier, shortenedAcceptType),
-                AcceptType.Xml => string.Format("legacy/municipality:{{0}}.{1}", identifier, shortenedAcceptType),
-                AcceptType.JsonLd => string.Format("oslo/municipality:{{0}}.{1}", identifier, shortenedAcceptType),
+                AcceptType.Json => $"legacy/municipality:{{{identifier}}}.{shortenedAcceptType}",
+                AcceptType.Xml => $"legacy/municipality:{{{identifier}}}.{shortenedAcceptType}",
+                AcceptType.JsonLd => $"oslo/municipality:{{{identifier}}}.{shortenedAcceptType}",
                 _ => throw new NotImplementedException($"Cannot build CacheKey for type {typeof(AcceptType)}")
             };
         }
@@ -132,13 +154,16 @@ namespace MunicipalityRegistry.Projections.LastChangedList
         {
             return acceptType switch
             {
-                AcceptType.Json => string.Format("/v1/gemeenten/{{0}}", identifier),
-                AcceptType.Xml => string.Format("/v1/gemeenten/{{0}}", identifier),
-                AcceptType.JsonLd => string.Format("/v2/gemeenten/{{0}}", identifier),
+                AcceptType.Json => $"/v1/gemeenten/{{{identifier}}}",
+                AcceptType.Xml => $"/v1/gemeenten/{{{identifier}}}",
+                AcceptType.JsonLd => $"/v2/gemeenten/{{{identifier}}}",
                 _ => throw new NotImplementedException($"Cannot build Uri for type {typeof(AcceptType)}")
             };
         }
 
-        private static void DoNothing() { }
+        private static async Task DoNothing()
+        {
+            await Task.Yield();
+        }
     }
 }
