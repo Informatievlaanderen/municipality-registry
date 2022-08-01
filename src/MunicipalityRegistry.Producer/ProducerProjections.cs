@@ -121,7 +121,9 @@ namespace MunicipalityRegistry.Producer
         {
             var result = await KafkaProducer.Produce(_kafkaOptions, _topic, municipalityId.ToString("D"), message, cancellationToken);
             if (!result.IsSuccess)
-                throw new ApplicationException(result.Error + Environment.NewLine + result.ErrorReason); //TODO: create custom exception
+            {
+                throw new InvalidOperationException(result.Error + Environment.NewLine + result.ErrorReason); //TODO: create custom exception
+            }
         }
     }
 }
