@@ -1,3 +1,18 @@
+## [4.1.5](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.4...v4.1.5) (2022-08-01)
+
+
+### Bug Fixes
+
+* conform to Serializable ([89c927d](https://github.com/informatievlaanderen/municipality-registry/commit/89c927d91f9fe61bd62060e20a468f0d48f0480c))
+* empty case clauses ([1603d2d](https://github.com/informatievlaanderen/municipality-registry/commit/1603d2d34d8ecd039f125fd051fbf065577569d9))
+* empty methods ([2681b7a](https://github.com/informatievlaanderen/municipality-registry/commit/2681b7ad677a24fd239cf94039b8cc1bc8a9551a))
+* format strings ([7bc620b](https://github.com/informatievlaanderen/municipality-registry/commit/7bc620b0192faf5be49d74f89e3989891e279d61))
+* general exceptions should not be thrown ([d9826bd](https://github.com/informatievlaanderen/municipality-registry/commit/d9826bd548362114d1aebf2d00864bd86621a96b))
+* make utility classes static ([54cbad4](https://github.com/informatievlaanderen/municipality-registry/commit/54cbad4f9608ef662253030b4098ee3da8bf272d))
+* nested ternary clauses ([47c415e](https://github.com/informatievlaanderen/municipality-registry/commit/47c415e197d3eee2bbacacf5261dd3423c677c10))
+* parameter names ([04aff8d](https://github.com/informatievlaanderen/municipality-registry/commit/04aff8dfe23b3d5076ae641b8023c3727bced5b3))
+* visibility of fields ([57282fd](https://github.com/informatievlaanderen/municipality-registry/commit/57282fdb1de11d5b66a6520ed47ee43452f319ce))
+
 ## [4.1.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.3...v4.1.4) (2022-06-30)
 
 
