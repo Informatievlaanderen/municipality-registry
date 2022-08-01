@@ -25,17 +25,17 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure.Modules
             _loggerFactory = loggerFactory;
         }
 
-        protected override void Load(ContainerBuilder containerBuilder)
+        protected override void Load(ContainerBuilder builder)
         {
-            containerBuilder
+            builder
                 .RegisterModule(new DataDogModule(_configuration))
                 .RegisterModule(new LegacyModule(_configuration, _services, _loggerFactory));
 
-            containerBuilder
+            builder
                 .RegisterType<ProblemDetailsHelper>()
                 .AsSelf();
 
-            containerBuilder
+            builder
                 .Populate(_services);
         }
     }

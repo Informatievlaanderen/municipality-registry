@@ -31,11 +31,11 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
             _loggerFactory = loggerFactory;
         }
 
-        protected override void Load(ContainerBuilder containerBuilder)
+        protected override void Load(ContainerBuilder builder)
         {
             var eventSerializerSettings = EventsJsonSerializerSettingsProvider.CreateSerializerSettings();
 
-            containerBuilder
+            builder
                 .RegisterModule(new DataDogModule(_configuration))
 
                 .RegisterModule(new IdempotencyModule(
@@ -57,11 +57,11 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
                     Schema.Import,
                     _loggerFactory));
 
-            containerBuilder
+            builder
                 .RegisterType<ProblemDetailsHelper>()
                 .AsSelf();
 
-            containerBuilder.Populate(_services);
+            builder.Populate(_services);
         }
     }
 }
