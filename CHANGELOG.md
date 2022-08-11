@@ -1,3 +1,10 @@
+## [4.1.7](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.6...v4.1.7) (2022-08-11)
+
+
+### Bug Fixes
+
+* revert "fix: format strings" ([d66f1be](https://github.com/informatievlaanderen/municipality-registry/commit/d66f1bead6208d0a19ec51e57b15c3cebbc531d5))
+
 ## [4.1.6](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.5...v4.1.6) (2022-08-01)
 
 
