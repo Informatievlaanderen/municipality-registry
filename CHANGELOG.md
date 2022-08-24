@@ -1,3 +1,10 @@
+## [4.1.8](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.7...v4.1.8) (2022-08-24)
+
+
+### Bug Fixes
+
+* bump AggregateSource & ([96dbe3b](https://github.com/informatievlaanderen/municipality-registry/commit/96dbe3b21025fad0cb899fd02dc0263f21574257))
+
 ## [4.1.7](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.6...v4.1.7) (2022-08-11)
 
 
