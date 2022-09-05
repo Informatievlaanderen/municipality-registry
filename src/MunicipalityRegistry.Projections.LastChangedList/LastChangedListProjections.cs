@@ -121,9 +121,9 @@ namespace MunicipalityRegistry.Projections.LastChangedList
             var shortenedAcceptType = acceptType.ToString().ToLowerInvariant();
             return acceptType switch
             {
-                AcceptType.Json => string.Format("legacy/municipality:{{0}}.{1}", identifier, shortenedAcceptType),
-                AcceptType.Xml => string.Format("legacy/municipality:{{0}}.{1}", identifier, shortenedAcceptType),
-                AcceptType.JsonLd => string.Format("oslo/municipality:{{0}}.{1}", identifier, shortenedAcceptType),
+                AcceptType.Json => $"legacy/municipality:{{0}}.{shortenedAcceptType}",
+                AcceptType.Xml => $"legacy/municipality:{{0}}.{shortenedAcceptType}",
+                AcceptType.JsonLd => $"oslo/municipality:{{0}}.{shortenedAcceptType}",
                 _ => throw new NotImplementedException($"Cannot build CacheKey for type {typeof(AcceptType)}")
             };
         }
@@ -132,9 +132,9 @@ namespace MunicipalityRegistry.Projections.LastChangedList
         {
             return acceptType switch
             {
-                AcceptType.Json => string.Format("/v1/gemeenten/{{0}}", identifier),
-                AcceptType.Xml => string.Format("/v1/gemeenten/{{0}}", identifier),
-                AcceptType.JsonLd => string.Format("/v2/gemeenten/{{0}}", identifier),
+                AcceptType.Json => $"/v1/gemeenten/{{0}}",
+                AcceptType.Xml => $"/v1/gemeenten/{{0}}",
+                AcceptType.JsonLd => $"/v2/gemeenten/{{0}}",
                 _ => throw new NotImplementedException($"Cannot build Uri for type {typeof(AcceptType)}")
             };
         }
