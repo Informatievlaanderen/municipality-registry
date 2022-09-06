@@ -1,3 +1,10 @@
+## [4.1.10](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.9...v4.1.10) (2022-09-06)
+
+
+### Bug Fixes
+
+* change workflow ([edaa83f](https://github.com/informatievlaanderen/municipality-registry/commit/edaa83f3c3076d33058b31715f55cda3fa4033a2))
+
 ## [4.1.9](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.8...v4.1.9) (2022-09-05)
 
 
