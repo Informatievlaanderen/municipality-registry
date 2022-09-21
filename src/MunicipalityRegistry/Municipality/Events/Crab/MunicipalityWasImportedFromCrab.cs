@@ -7,7 +7,7 @@ namespace MunicipalityRegistry.Municipality.Events
 
     [EventName("Crab-MunicipalityWasImported")]
     [EventDescription("Legacy event om tblGemeente en tblGemeente_hist te importeren.")]
-    public class MunicipalityWasImportedFromCrab
+    public sealed class MunicipalityWasImportedFromCrab
     {
         [EventPropertyDescription("CRAB-identificator van de gemeente.")]
         public int CrabMunicipalityId { get; }

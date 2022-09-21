@@ -3,7 +3,7 @@ namespace MunicipalityRegistry.Municipality
     using System;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
 
-    public class MunicipalityProvenanceFactory : CrabProvenanceFactory, IProvenanceFactory<Municipality>
+    public sealed class MunicipalityProvenanceFactory : CrabProvenanceFactory, IProvenanceFactory<Municipality>
     {
         public bool CanCreateFrom<TCommand>() => typeof(IHasCrabProvenance).IsAssignableFrom(typeof(TCommand));
 

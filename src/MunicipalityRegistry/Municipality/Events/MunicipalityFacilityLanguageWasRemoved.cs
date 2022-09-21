@@ -8,7 +8,7 @@ namespace MunicipalityRegistry.Municipality.Events
     [EventTags(EventTag.For.Sync)]
     [EventName("MunicipalityFacilityLanguageWasRemoved")]
     [EventDescription("Een faciliteitentaal van de gemeente werd verwijderd.")]
-    public class MunicipalityFacilityLanguageWasRemoved : IHasProvenance, ISetProvenance
+    public sealed class MunicipalityFacilityLanguageWasRemoved : IHasProvenance, ISetProvenance
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
