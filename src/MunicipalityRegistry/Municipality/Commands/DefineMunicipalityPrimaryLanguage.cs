@@ -1,6 +1,6 @@
 namespace MunicipalityRegistry.Municipality.Commands
 {
-    public class DefineMunicipalityPrimaryLanguage
+    public sealed class DefineMunicipalityPrimaryLanguage
     {
         public NisCode NisCode { get; }
 
