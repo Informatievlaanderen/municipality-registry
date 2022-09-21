@@ -23,13 +23,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         public List<MunicipalityListItemResponse> Gemeenten { get; set; }
 
         /// <summary>
-        /// Het totaal aantal gemeenten die overeenkomen met de vraag.
-        /// </summary>
-        //[DataMember(Name = "TotaalAantal", Order = 2)]
-        //[JsonProperty(Required = Required.DisallowNull)]
-        //public long TotaalAantal { get; set; }
-
-        /// <summary>
         /// De URL voor het ophalen van de volgende verzameling.
         /// </summary>
         [DataMember(Name = "Volgende", Order = 3, EmitDefaultValue = false)]
