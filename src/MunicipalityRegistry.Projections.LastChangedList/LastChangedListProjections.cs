@@ -109,12 +109,12 @@ namespace MunicipalityRegistry.Projections.LastChangedList
                 await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
             });
 
-            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
-            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => DoNothing());
+            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
         }
 
         protected override string BuildCacheKey(AcceptType acceptType, string identifier)
