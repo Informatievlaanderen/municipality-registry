@@ -20,12 +20,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
         [DataMember(Name = "Gemeenten", Order = 1)]
         public List<MunicipalityBosaItemResponse> Gemeenten { get; set; }
 
-        /// <summary>
-        /// Het totaal aantal gemeenten die overeenkomen met de vraag.
-        /// </summary>
-        //[DataMember(Name = "TotaalAantal", Order = 2)]
-        //public long TotaalAantal { get; set; }
-
         public MunicipalityBosaResponse()
         {
             Gemeenten = new List<MunicipalityBosaItemResponse>();

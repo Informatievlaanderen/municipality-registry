@@ -45,23 +45,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                     new SyndicationLink(
                         new Uri($"{responseOptions.Value.Naamruimte}/{municipality.NisCode}"),
                         AtomLinkTypes.Related));
-
-                //item.AddLink(
-                //    new SyndicationLink(
-                //        new Uri(string.Format(responseOptions.Value.DetailUrl, municipality.NisCode)),
-                //        AtomLinkTypes.Self));
-
-                //item.AddLink(
-                //    new SyndicationLink(
-                //        new Uri(string.Format($"{responseOptions.Value.DetailUrl}.xml", municipality.NisCode)),
-                //        AtomLinkTypes.Alternate)
-                //    { MediaType = MediaTypeNames.Application.Xml });
-
-                //item.AddLink(
-                //    new SyndicationLink(
-                //            new Uri(string.Format($"{responseOptions.Value.DetailUrl}.json", municipality.NisCode)),
-                //        AtomLinkTypes.Alternate)
-                //    { MediaType = MediaTypeNames.Application.Json });
             }
 
             item.AddCategory(
