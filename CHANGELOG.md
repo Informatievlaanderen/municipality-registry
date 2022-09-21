@@ -1,3 +1,11 @@
+## [4.1.11](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.10...v4.1.11) (2022-09-21)
+
+
+### Bug Fixes
+
+* await donothing in lastchangedlist ([61ed1a2](https://github.com/informatievlaanderen/municipality-registry/commit/61ed1a25293b54bc5ee66f7d512d43edcb7e6408))
+* ChangeDoNothing in projections ([5a04707](https://github.com/informatievlaanderen/municipality-registry/commit/5a047070609a73c097178748a63a8149fdb6fcbb))
+
 ## [4.1.10](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.9...v4.1.10) (2022-09-06)
 
 
