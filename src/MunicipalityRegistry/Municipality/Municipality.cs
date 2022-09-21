@@ -12,7 +12,7 @@ namespace MunicipalityRegistry.Municipality
     using NetTopologySuite.IO;
     using NodaTime;
 
-    public partial class Municipality : AggregateRootEntity
+    public sealed partial class Municipality : AggregateRootEntity
     {
         public static readonly Func<Municipality> Factory = () => new Municipality();
 

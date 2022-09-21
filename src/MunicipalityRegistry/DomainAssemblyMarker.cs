@@ -1,4 +1,4 @@
 namespace MunicipalityRegistry
 {
-    public class DomainAssemblyMarker { }
+    public sealed class DomainAssemblyMarker { }
 }
