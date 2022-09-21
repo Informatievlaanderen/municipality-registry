@@ -7,7 +7,7 @@ namespace MunicipalityRegistry.Municipality.Commands.Crab
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.Utilities;
 
-    public class ImportMunicipalityNameFromCrab : IHasCrabProvenance
+    public sealed class ImportMunicipalityNameFromCrab : IHasCrabProvenance
     {
         private static readonly Guid Namespace = new Guid("a8f6e092-6c8a-4505-a63f-cebd118cfcb9");
 

@@ -1,6 +1,6 @@
 namespace MunicipalityRegistry.Municipality.Commands
 {
-    public class RegisterMunicipality
+    public sealed class RegisterMunicipality
     {
         public MunicipalityId MunicipalityId { get; }
 

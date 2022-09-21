@@ -1,6 +1,6 @@
 namespace MunicipalityRegistry.Municipality.Commands
 {
-    public class NameMunicipality
+    public sealed class NameMunicipality
     {
         public NisCode NisCode { get; }
 
