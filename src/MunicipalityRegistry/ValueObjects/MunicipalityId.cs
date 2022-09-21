@@ -5,7 +5,7 @@ namespace MunicipalityRegistry
     using Be.Vlaanderen.Basisregisters.Crab;
     using Newtonsoft.Json;
 
-    public class MunicipalityId : GuidValueObject<MunicipalityId>
+    public sealed class MunicipalityId : GuidValueObject<MunicipalityId>
     {
         public static MunicipalityId CreateFor(CrabMunicipalityId crabMunicipalityId)
             => new MunicipalityId(crabMunicipalityId.CreateDeterministicId());
