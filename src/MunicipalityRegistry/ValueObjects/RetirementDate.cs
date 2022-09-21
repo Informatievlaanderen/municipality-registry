@@ -4,7 +4,7 @@ namespace MunicipalityRegistry
     using Newtonsoft.Json;
     using NodaTime;
 
-    public class RetirementDate : InstantValueObject<RetirementDate>
+    public sealed class RetirementDate : InstantValueObject<RetirementDate>
     {
         public RetirementDate([JsonProperty("value")] Instant date) : base(date) { }
     }

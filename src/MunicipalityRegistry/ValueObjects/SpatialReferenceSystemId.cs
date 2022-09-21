@@ -2,7 +2,7 @@ namespace MunicipalityRegistry
 {
     using Be.Vlaanderen.Basisregisters.AggregateSource;
 
-    public class SpatialReferenceSystemId : IntegerValueObject<SpatialReferenceSystemId>
+    public sealed class SpatialReferenceSystemId : IntegerValueObject<SpatialReferenceSystemId>
     {
         public static SpatialReferenceSystemId Lambert72 => new SpatialReferenceSystemId(31370);
 

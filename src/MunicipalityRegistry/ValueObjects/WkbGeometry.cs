@@ -4,7 +4,7 @@ namespace MunicipalityRegistry
     using Be.Vlaanderen.Basisregisters.Utilities.HexByteConvertor;
     using Newtonsoft.Json;
 
-    public class WkbGeometry : ByteArrayValueObject<WkbGeometry>
+    public sealed class WkbGeometry : ByteArrayValueObject<WkbGeometry>
     {
         [JsonConstructor]
         public WkbGeometry([JsonProperty("value")] byte[] wkbBytes) : base(wkbBytes) { }
@@ -14,7 +14,7 @@ namespace MunicipalityRegistry
         public override string ToString() => Value.ToHexString();
     }
 
-    public class ExtendedWkbGeometry : ByteArrayValueObject<ExtendedWkbGeometry>
+    public sealed class ExtendedWkbGeometry : ByteArrayValueObject<ExtendedWkbGeometry>
     {
         [JsonConstructor]
         public ExtendedWkbGeometry([JsonProperty("value")] byte[] ewkbBytes) : base(ewkbBytes) { }
