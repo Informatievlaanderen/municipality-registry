@@ -1,3 +1,10 @@
+## [4.1.12](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.11...v4.1.12) (2022-10-05)
+
+
+### Bug Fixes
+
+* syndication xml serialization ([7e57a77](https://github.com/informatievlaanderen/municipality-registry/commit/7e57a777000dd4ce0a7b709b421d3b226d402fbb))
+
 ## [4.1.11](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.10...v4.1.11) (2022-09-21)
 
 
