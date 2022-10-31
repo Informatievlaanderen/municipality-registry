@@ -1,3 +1,16 @@
+## [4.1.13](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.12...v4.1.13) (2022-10-31)
+
+
+### Bug Fixes
+
+* checkout don't persist creds to use token ([b8fd70f](https://github.com/informatievlaanderen/municipality-registry/commit/b8fd70f5b3a12e301acc5a92cee6df745394df55))
+* enable pr's & coverage ([7a7042d](https://github.com/informatievlaanderen/municipality-registry/commit/7a7042d7eb0274c47e1938c029ed83e5f469812d))
+* remove main.yml ([40642c2](https://github.com/informatievlaanderen/municipality-registry/commit/40642c2f8bbb4eeb14013d7bc23ba5aa63af6731))
+* test build release ([e1b906f](https://github.com/informatievlaanderen/municipality-registry/commit/e1b906fe4155f6970140d9ae35a92014879f9518))
+* test other username ([e23073a](https://github.com/informatievlaanderen/municipality-registry/commit/e23073afe8c1e96fe78eb92d29bcadbb059aa630))
+* update CODEOWNERS ([ff89a47](https://github.com/informatievlaanderen/municipality-registry/commit/ff89a474422f8cbbf051a2ebf348d7799f5ea2f4))
+* use different token for release ([e1d7f86](https://github.com/informatievlaanderen/municipality-registry/commit/e1d7f86c16e43c7da47ffe8d3ec8e2d8d8657619))
+
 ## [4.1.12](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.11...v4.1.12) (2022-10-05)
 
 
