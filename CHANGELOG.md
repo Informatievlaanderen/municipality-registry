@@ -1,3 +1,10 @@
+## [4.1.15](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.14...v4.1.15) (2022-10-31)
+
+
+### Bug Fixes
+
+* update build to test branch protection ([2dad5a3](https://github.com/informatievlaanderen/municipality-registry/commit/2dad5a3c761c1d7773350fd21a60381f7acc91c2))
+
 ## [4.1.14](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.13...v4.1.14) (2022-10-31)
 
 
