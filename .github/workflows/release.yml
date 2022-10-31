@@ -85,7 +85,7 @@ jobs:
       run: npx semantic-release
       env:
         BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GIT_RELEASE_TOKEN }}
         GIT_COMMIT: ${{ github.sha }}
         GIT_USERNAME: ${{ secrets.GIT_USER_TEST }}
         GIT_AUTHOR_NAME: ${{ secrets.GIT_USER_TEST }}
