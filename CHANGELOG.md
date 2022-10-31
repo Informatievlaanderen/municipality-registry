@@ -1,3 +1,11 @@
+## [4.1.14](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.13...v4.1.14) (2022-10-31)
+
+
+### Bug Fixes
+
+* reset token and release username ([0a4026a](https://github.com/informatievlaanderen/municipality-registry/commit/0a4026abc229d62a1bd9cdbd52753bfecb64759e))
+* use organisation release token ([6b10579](https://github.com/informatievlaanderen/municipality-registry/commit/6b1057993d30fe1d5109fde01b86665b5226171b))
+
 ## [4.1.13](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.12...v4.1.13) (2022-10-31)
 
 
