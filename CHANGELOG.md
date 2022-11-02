@@ -1,3 +1,12 @@
+## [4.1.16](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.15...v4.1.16) (2022-11-02)
+
+
+### Bug Fixes
+
+* add braces ([d83212b](https://github.com/informatievlaanderen/municipality-registry/commit/d83212b0c585fe3427b3acac0ba39c08d99a3cf6))
+* add nuget to dependabot ([dfb16ed](https://github.com/informatievlaanderen/municipality-registry/commit/dfb16ed9b5e35c01c4c549e04273c5c398f78790))
+* use VBR_SONAR_TOKEN ([cf28739](https://github.com/informatievlaanderen/municipality-registry/commit/cf287395fd0e389b4a6f37f8c3b0dc73b39187cc))
+
 ## [4.1.15](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.14...v4.1.15) (2022-10-31)
 
 
