@@ -244,7 +244,9 @@ namespace MunicipalityRegistry.Projections.Legacy.Tests
         public static async Task Assert(this ConnectedProjectionTestSpecification<LegacyContext> specification)
         {
             if (specification == null)
+            {
                 throw new ArgumentNullException(nameof(specification));
+            }
 
             var options = new DbContextOptionsBuilder<LegacyContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
