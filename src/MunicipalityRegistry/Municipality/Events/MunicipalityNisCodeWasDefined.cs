@@ -8,7 +8,7 @@ namespace MunicipalityRegistry.Municipality.Events
     [EventTags(EventTag.For.Sync)]
     [EventName("MunicipalityNisCodeWasDefined")]
     [EventDescription("De persistente lokale identificator (NIS-code) van de gemeente werd bepaald.")]
-    public sealed class MunicipalityNisCodeWasDefined : IHasProvenance, ISetProvenance
+    public sealed class MunicipalityNisCodeWasDefined : IHasProvenance, ISetProvenance, IMessage
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }

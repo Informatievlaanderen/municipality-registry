@@ -15,14 +15,21 @@ namespace MunicipalityRegistry.Producer
     [ConnectedProjectionDescription("Projectie die berichten naar de kafka broker stuurt.")]
     public class ProducerProjections : ConnectedProjection<ProducerContext>
     {
-        private readonly KafkaOptions _kafkaOptions;
+        private readonly KafkaProducerOptions _kafkaOptions;
         private readonly string _topic;
         private readonly string _municipalityTopicKey = "MunicipalityTopic";
 
         public ProducerProjections(IConfiguration configuration)
         {
             var bootstrapServers = configuration["Kafka:BootstrapServers"];
-            _kafkaOptions = new KafkaOptions(bootstrapServers, configuration["Kafka:SaslUserName"], configuration["Kafka:SaslPassword"], EventsJsonSerializerSettingsProvider.CreateSerializerSettings());
+            var topic = $"{configuration[_municipalityTopicKey]}" ?? throw new ArgumentException($"Configuration has no value for {_municipalityTopicKey}");
+            _kafkaOptions = new KafkaProducerOptions(
+                bootstrapServers,
+                configuration["Kafka:SaslUserName"],
+                configuration["Kafka:SaslPassword"],
+                topic,
+                false,
+                EventsJsonSerializerSettingsProvider.CreateSerializerSettings());
             _topic = $"{configuration[_municipalityTopicKey]}" ?? throw new ArgumentException($"Configuration has no value for {_municipalityTopicKey}");
 
             When<Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Envelope<Domain.MunicipalityWasRegistered>>(async (context, message, ct) =>
@@ -119,7 +126,7 @@ namespace MunicipalityRegistry.Producer
         private async Task Produce<T>(Guid municipalityId, T message, CancellationToken cancellationToken = default)
             where T : class, IQueueMessage
         {
-            var result = await KafkaProducer.Produce(_kafkaOptions, _topic, municipalityId.ToString("D"), message, cancellationToken);
+            var result = await KafkaProducer.Produce(_kafkaOptions, municipalityId.ToString("D"), message, cancellationToken);
             if (!result.IsSuccess)
             {
                 throw new InvalidOperationException(result.Error + Environment.NewLine + result.ErrorReason); //TODO: create custom exception

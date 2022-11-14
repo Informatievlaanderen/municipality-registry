@@ -9,7 +9,7 @@ namespace MunicipalityRegistry.Municipality.Events
     [EventTags(EventTag.For.Sync)]
     [EventName("MunicipalityWasCorrectedToRetired")]
     [EventDescription("De gemeente kreeg status 'gehistoreerd' (via correctie).")]
-    public sealed class MunicipalityWasCorrectedToRetired : IHasProvenance, ISetProvenance
+    public sealed class MunicipalityWasCorrectedToRetired : IHasProvenance, ISetProvenance, IMessage
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
