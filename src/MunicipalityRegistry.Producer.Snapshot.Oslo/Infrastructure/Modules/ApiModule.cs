@@ -7,6 +7,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo.Infrastructure.Modules
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.EventHandling.Autofac;
+    using Be.Vlaanderen.Basisregisters.GrAr.Oslo.SnapshotProducer;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac;
     using Be.Vlaanderen.Basisregisters.Projector;
     using Be.Vlaanderen.Basisregisters.Projector.ConnectedProjections;
@@ -86,7 +87,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo.Infrastructure.Modules
                     _loggerFactory)
                 .RegisterProjections<ProducerProjections, ProducerContext>(c =>
                         new ProducerProjections(_configuration,
-                            new LocalSnapshotManager(
+                            new SnapshotManager(
                                 c.Resolve<ILoggerFactory>(),
                                 c.Resolve<IOsloProxy>(),
                                     SnapshotManagerOptions.Create(
