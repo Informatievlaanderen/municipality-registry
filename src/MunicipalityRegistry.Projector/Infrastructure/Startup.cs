@@ -9,7 +9,6 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
-    using Be.Vlaanderen.Basisregisters.Projector;
     using Be.Vlaanderen.Basisregisters.Projector.ConnectedProjections;
     using Configuration;
     using Microsoft.AspNetCore.Builder;
@@ -18,15 +17,14 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
-    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
     using Modules;
     using MunicipalityRegistry.Projections.Extract;
     using MunicipalityRegistry.Projections.Legacy;
     using MunicipalityRegistry.Projections.Wfs;
     using MunicipalityRegistry.Projections.Wms;
-    using Swashbuckle.AspNetCore.Swagger;
 
     /// <summary>Represents the startup process for the application.</summary>
     public class Startup
@@ -104,21 +102,21 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                                         name: $"sqlserver-{connectionString.Key.ToLowerInvariant()}",
                                         tags: new[] {DatabaseTag, "sql", "sqlserver"});
 
-                                //health.AddDbContextCheck<ExtractContext>(
-                                //    $"dbcontext-{nameof(ExtractContext).ToLowerInvariant()}",
-                                //    tags: new[] {DatabaseTag, "sql", "sqlserver"});
+                                health.AddDbContextCheck<ExtractContext>(
+                                    $"dbcontext-{nameof(ExtractContext).ToLowerInvariant()}",
+                                    tags: new[] {DatabaseTag, "sql", "sqlserver"});
 
-                                //health.AddDbContextCheck<LegacyContext>(
-                                //    $"dbcontext-{nameof(LegacyContext).ToLowerInvariant()}",
-                                //    tags: new[] {DatabaseTag, "sql", "sqlserver"});
+                                health.AddDbContextCheck<LegacyContext>(
+                                    $"dbcontext-{nameof(LegacyContext).ToLowerInvariant()}",
+                                    tags: new[] {DatabaseTag, "sql", "sqlserver"});
 
-                                //health.AddDbContextCheck<LastChangedListContext>(
-                                //    $"dbcontext-{nameof(LastChangedListContext).ToLowerInvariant()}",
-                                //    tags: new[] {DatabaseTag, "sql", "sqlserver"});
+                                health.AddDbContextCheck<LastChangedListContext>(
+                                    $"dbcontext-{nameof(LastChangedListContext).ToLowerInvariant()}",
+                                    tags: new[] {DatabaseTag, "sql", "sqlserver"});
 
-                                //health.AddDbContextCheck<WfsContext>(
-                                //    $"dbcontext-{nameof(WfsContext).ToLowerInvariant()}",
-                                //    tags: new[] {DatabaseTag, "sql", "sqlserver"});
+                                health.AddDbContextCheck<WfsContext>(
+                                    $"dbcontext-{nameof(WfsContext).ToLowerInvariant()}",
+                                    tags: new[] {DatabaseTag, "sql", "sqlserver"});
 
                                 health.AddDbContextCheck<WmsContext>(
                                     $"dbcontext-{nameof(WmsContext).ToLowerInvariant()}",

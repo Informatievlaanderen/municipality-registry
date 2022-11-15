@@ -79,8 +79,6 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo.Infrastructure.Modules
                 x.ConfigureCatchUpUpdatePositionMessageInterval(Convert.ToInt32(_configuration["CatchUpSaveInterval"]));
             });
 
-            
-
             builder
                 .RegisterProjectionMigrator<ProducerContextMigrationFactory>(
                     _configuration,

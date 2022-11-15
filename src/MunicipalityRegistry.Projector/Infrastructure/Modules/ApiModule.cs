@@ -73,10 +73,10 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
 
                 .RegisterModule(new ProjectorModule(_configuration));
 
-            //RegisterExtractProjections(builder);
-            //RegisterLastChangedProjections(builder);
-            //RegisterLegacyProjections(builder);
-            //RegisterWfsProjections(builder);
+            RegisterExtractProjections(builder);
+            RegisterLastChangedProjections(builder);
+            RegisterLegacyProjections(builder);
+            RegisterWfsProjections(builder);
             RegisterWmsProjections(builder);
         }
 
