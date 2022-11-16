@@ -45,6 +45,7 @@ Target.create "Publish_Solution" (fun _ ->
   [
     "MunicipalityRegistry.Projector"
     "MunicipalityRegistry.Producer"
+    "MunicipalityRegistry.Producer.Snapshot.Oslo"
     "MunicipalityRegistry.Api.Legacy"
     "MunicipalityRegistry.Api.Oslo"
     "MunicipalityRegistry.Api.Extract"
@@ -60,6 +61,7 @@ Target.create "Pack_Solution" (fun _ ->
   [
     "MunicipalityRegistry.Projector"
     "MunicipalityRegistry.Producer"
+    "MunicipalityRegistry.Producer.Snapshot.Oslo"
     "MunicipalityRegistry.Api.Legacy"
     "MunicipalityRegistry.Api.Oslo"
     "MunicipalityRegistry.Api.Extract"
@@ -71,6 +73,9 @@ Target.create "PushContainer_ApiProjector" (fun _ -> push "projector")
 
 Target.create "Containerize_ApiProducer" (fun _ -> containerize "MunicipalityRegistry.Producer" "producer")
 Target.create "PushContainer_ApiProducer" (fun _ -> push "producer")
+
+Target.create "Containerize_ApiProducerSnapshotOslo" (fun _ -> containerize "MunicipalityRegistry.Producer.Snapshot.Oslo" "producer-snapshot-oslo")
+Target.create "PushContainer_ApiProducerSnapshotOslo" (fun _ -> push "producer-snapshot-oslo")
 
 Target.create "Containerize_ApiLegacy" (fun _ -> containerize "MunicipalityRegistry.Api.Legacy" "api-legacy")
 Target.create "PushContainer_ApiLegacy" (fun _ -> push "api-legacy")
@@ -115,6 +120,7 @@ Target.create "Push" ignore
 "Pack"
   ==> "Containerize_ApiProjector"
   ==> "Containerize_ApiProducer"
+  ==> "Containerize_ApiProducerSnapshotOslo"
   ==> "Containerize_ApiLegacy"
   ==> "Containerize_ApiOslo"
   ==> "Containerize_ApiExtract"
@@ -126,6 +132,7 @@ Target.create "Push" ignore
   ==> "DockerLogin"
   ==> "PushContainer_ApiProjector"
   ==> "PushContainer_ApiProducer"
+  ==> "PushContainer_ApiProducerSnapshotOslo"
   ==> "PushContainer_ApiLegacy"
   ==> "PushContainer_ApiOslo"
   ==> "PushContainer_ApiExtract"

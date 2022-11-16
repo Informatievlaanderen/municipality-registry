@@ -123,6 +123,7 @@ jobs:
         docker push $BUILD_DOCKER_REGISTRY_TST/municipality-registry/api-crab-import:$SEMVER
         docker push $BUILD_DOCKER_REGISTRY_TST/municipality-registry/api-extract:$SEMVER
         docker push $BUILD_DOCKER_REGISTRY_TST/municipality-registry/projector:$SEMVER
+        docker push $BUILD_DOCKER_REGISTRY_TST/municipality-registry/projector-snapshot-oslo:$SEMVER
         docker push $BUILD_DOCKER_REGISTRY_TST/municipality-registry/producer:$SEMVER
       env:
         BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
@@ -151,6 +152,7 @@ jobs:
         docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/api-extract:$SEMVER $BUILD_DOCKER_REGISTRY/municipality-registry/api-extract:$SEMVER    
         docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/projector:$SEMVER $BUILD_DOCKER_REGISTRY/municipality-registry/projector:$SEMVER      
         docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/producer:$SEMVER $BUILD_DOCKER_REGISTRY/municipality-registry/producer:$SEMVER
+        docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/producer:$SEMVER $BUILD_DOCKER_REGISTRY/municipality-registry/producer-snapshot-oslo:$SEMVER
         
         docker push $BUILD_DOCKER_REGISTRY/municipality-registry/api-legacy:$SEMVER
         docker push $BUILD_DOCKER_REGISTRY/municipality-registry/api-oslo:$SEMVER
@@ -158,6 +160,7 @@ jobs:
         docker push $BUILD_DOCKER_REGISTRY/municipality-registry/api-extract:$SEMVER
         docker push $BUILD_DOCKER_REGISTRY/municipality-registry/projector:$SEMVER
         docker push $BUILD_DOCKER_REGISTRY/municipality-registry/producer:$SEMVER
+        docker push $BUILD_DOCKER_REGISTRY/municipality-registry/producer-snapshot-oslo:$SEMVER
       env:
         BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
         BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY }}
@@ -186,6 +189,7 @@ jobs:
         docker tag  $BUILD_DOCKER_REGISTRY_TST/municipality-registry/api-extract:$SEMVER $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/api-extract:$SEMVER
         docker tag  $BUILD_DOCKER_REGISTRY_TST/municipality-registry/projector:$SEMVER $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/projector:$SEMVER
         docker tag  $BUILD_DOCKER_REGISTRY_TST/municipality-registry/producer:$SEMVER $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/producer:$SEMVER
+        docker tag  $BUILD_DOCKER_REGISTRY_TST/municipality-registry/producer:$SEMVER $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/producer-snapshot-oslo:$SEMVER
 
         docker push $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/api-legacy:$SEMVER
         docker push $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/api-oslo:$SEMVER
@@ -193,6 +197,7 @@ jobs:
         docker push $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/api-extract:$SEMVER
         docker push $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/projector:$SEMVER
         docker push $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/producer:$SEMVER
+        docker push $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/producer-snapshot-oslo:$SEMVER
       env:
         BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
         BUILD_DOCKER_REGISTRY_PRD: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_PRD }}
@@ -209,6 +214,7 @@ jobs:
         node packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-nuget.js dist/nuget/$REGISTRY.Api.CrabImport.$SEMVER.nupkg
         node packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-nuget.js dist/nuget/$REGISTRY.Projector.$SEMVER.nupkg
         node packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-nuget.js dist/nuget/$REGISTRY.Producer.$SEMVER.nupkg
+        node packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-nuget.js dist/nuget/$REGISTRY.Producer.Snapshot.Oslo.$SEMVER.nupkg
       env:
         REGISTRY: Be.Vlaanderen.Basisregisters.MunicipalityRegistry
         SEMVER: ${{ env.RELEASE_VERSION }}

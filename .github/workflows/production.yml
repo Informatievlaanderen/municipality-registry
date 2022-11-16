@@ -12,7 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: 
-        services: ['municipality-registry-api', 'municipality-registry-import-api', 'municipality-registry-projections']
+        services: [
+          'municipality-registry-api', 
+          'municipality-registry-import-api', 
+          'municipality-registry-projections',
+          'municipality-registry-produce-snapshot-oslo']
     steps:
     - name: CD
       env:

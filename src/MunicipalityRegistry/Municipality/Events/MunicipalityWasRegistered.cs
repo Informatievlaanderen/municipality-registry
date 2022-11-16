@@ -8,7 +8,7 @@ namespace MunicipalityRegistry.Municipality.Events
     [EventTags(EventTag.For.Sync)]
     [EventName("MunicipalityWasRegistered")]
     [EventDescription("De gemeente werd aangemaakt in het register.")]
-    public sealed class MunicipalityWasRegistered : IHasProvenance, ISetProvenance
+    public sealed class MunicipalityWasRegistered : IHasProvenance, ISetProvenance, IMessage
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }

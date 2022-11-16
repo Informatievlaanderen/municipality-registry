@@ -1,6 +1,8 @@
 framework: net6.0, net472
 source https://api.nuget.org/v3/index.json
 
+nuget Microsoft.Extensions.Http.Polly 6.0.3
+
 // PRODUCTION STUFF
 nuget Microsoft.Extensions.Configuration 6.0.1
 nuget Microsoft.Extensions.Configuration.CommandLine 6.0.0
@@ -29,7 +31,7 @@ nuget Be.Vlaanderen.Basisregisters.AggregateSource.Testing 7.0.0
 nuget Be.Vlaanderen.Basisregisters.AggregateSource.Testing.SqlStreamStore.Autofac 7.0.0
 nuget Be.Vlaanderen.Basisregisters.AggregateSource.Testing.Xunit 7.0.0
 
-nuget Be.Vlaanderen.Basisregisters.Api 18.0.0
+nuget Be.Vlaanderen.Basisregisters.Api 18.3.0
 
 nuget Be.Vlaanderen.Basisregisters.Aws.DistributedMutex 3.0.0
 
@@ -37,19 +39,19 @@ nuget Be.Vlaanderen.Basisregisters.CommandHandling 7.0.0
 nuget Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency 7.0.0
 nuget Be.Vlaanderen.Basisregisters.CommandHandling.SqlStreamStore 7.0.0
 
-nuget Be.Vlaanderen.Basisregisters.EventHandling 4.0.0
-nuget Be.Vlaanderen.Basisregisters.EventHandling.Autofac 4.0.0
+nuget Be.Vlaanderen.Basisregisters.EventHandling 4.2.0
+nuget Be.Vlaanderen.Basisregisters.EventHandling.Autofac 4.2.0
 
-nuget Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple 2.0.0
+nuget Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple 4.5.0
 
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList 10.0.1
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore 10.0.1
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac 10.0.1
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner 10.0.1
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector 10.0.1
-nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector.Testing 10.0.1
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList 11.0.1
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore 11.0.1
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac 11.0.1
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner 11.0.1
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector 11.0.1
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector.Testing 11.0.1
 
-nuget Be.Vlaanderen.Basisregisters.Projector 12.0.0
+nuget Be.Vlaanderen.Basisregisters.Projector 12.0.1
 
 nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac 5.0.0
 nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.Sql 5.0.0
@@ -57,12 +59,13 @@ nuget Be.Vlaanderen.Basisregisters.DataDog.Tracing.SqlStreamStore 5.0.0
 
 nuget Be.Vlaanderen.Basisregisters.Crab 3.0.0
 
-nuget Be.Vlaanderen.Basisregisters.GrAr.Common 17.0.0
-nuget Be.Vlaanderen.Basisregisters.GrAr.Contracts 17.0.0
-nuget Be.Vlaanderen.Basisregisters.GrAr.Import 17.0.0
-nuget Be.Vlaanderen.Basisregisters.GrAr.Legacy 17.0.0
-nuget Be.Vlaanderen.Basisregisters.GrAr.Provenance 17.0.0
-nuget Be.Vlaanderen.Basisregisters.GrAr.Extracts 17.0.0
+nuget Be.Vlaanderen.Basisregisters.GrAr.Common 17.34.0
+nuget Be.Vlaanderen.Basisregisters.GrAr.Contracts 17.34.0
+nuget Be.Vlaanderen.Basisregisters.GrAr.Import 17.34.0
+nuget Be.Vlaanderen.Basisregisters.GrAr.Legacy 17.34.0
+nuget Be.Vlaanderen.Basisregisters.GrAr.Oslo 17.34.0
+nuget Be.Vlaanderen.Basisregisters.GrAr.Provenance 17.34.0
+nuget Be.Vlaanderen.Basisregisters.GrAr.Extracts 17.34.0
 
 nuget Be.Vlaanderen.Basisregisters.Shaperon 9.0.1
 
