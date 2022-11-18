@@ -1,3 +1,10 @@
+## [4.2.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.2.0...v4.2.1) (2022-11-18)
+
+
+### Bug Fixes
+
+* correct release.yml ([cc7b97a](https://github.com/informatievlaanderen/municipality-registry/commit/cc7b97a86105e9bfb2e0a5e1750bcbf6ae1f1692))
+
 # [4.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.16...v4.2.0) (2022-11-18)
 
 
