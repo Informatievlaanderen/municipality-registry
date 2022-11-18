@@ -1,3 +1,15 @@
+# [4.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.16...v4.2.0) (2022-11-18)
+
+
+### Bug Fixes
+
+* correct build.fsx ([5f2ddd1](https://github.com/informatievlaanderen/municipality-registry/commit/5f2ddd18350dd2a5d96317415e24c51b4fd83bf6))
+
+
+### Features
+
+* add oslo.snapshot project ([a5153d5](https://github.com/informatievlaanderen/municipality-registry/commit/a5153d56f8431b2bfbe86fcba27108be921078af))
+
 ## [4.1.16](https://github.com/informatievlaanderen/municipality-registry/compare/v4.1.15...v4.1.16) (2022-11-02)
 
 
