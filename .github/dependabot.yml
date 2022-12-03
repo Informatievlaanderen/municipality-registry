@@ -4,40 +4,40 @@ updates:
 - package-ecosystem: nuget
   directory: "/"
   schedule:
-    interval: daily
+    interval: weekly
   open-pull-requests-limit: 25
   
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
-    interval: daily
+    interval: weekly
 
 - package-ecosystem: npm
   directory: "/"
   schedule:
-    interval: daily
+    interval: weekly
 
 - package-ecosystem: docker
   directory: "/src/MunicipalityRegistry.Api.CrabImport"
   schedule:
-    interval: daily
+    interval: weekly
 
 - package-ecosystem: docker
   directory: "/src/MunicipalityRegistry.Api.Extract"
   schedule:
-    interval: daily
+    interval: weekly
 
 - package-ecosystem: docker
   directory: "/src/MunicipalityRegistry.Api.Legacy"
   schedule:
-    interval: daily
+    interval: weekly
 
 - package-ecosystem: docker
   directory: "/src/MunicipalityRegistry.Api.Oslo"
   schedule:
-    interval: daily
+    interval: weekly
 
 - package-ecosystem: docker
   directory: "/src/MunicipalityRegistry.Projector"
   schedule:
-    interval: daily
+    interval: weekly
