@@ -1,3 +1,13 @@
+## [4.2.2](https://github.com/informatievlaanderen/municipality-registry/compare/v4.2.1...v4.2.2) (2022-12-03)
+
+
+### Bug Fixes
+
+* change jira project ([54a209c](https://github.com/informatievlaanderen/municipality-registry/commit/54a209cea06cbd0c82e734e0a3680c5c32fdeae6))
+* change slack notification ([d68a77d](https://github.com/informatievlaanderen/municipality-registry/commit/d68a77d8ededb74b14a6ac4ea057d2ac11653abc))
+* change workflow ([b869608](https://github.com/informatievlaanderen/municipality-registry/commit/b869608d4e2926008695d90c99f28e8071e1fa63))
+* rename to new release ([59ee288](https://github.com/informatievlaanderen/municipality-registry/commit/59ee288d38e4a775e707a2748b13aeae5ba36944))
+
 ## [4.2.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.2.0...v4.2.1) (2022-11-18)
 
 
