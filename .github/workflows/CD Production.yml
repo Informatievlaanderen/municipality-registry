@@ -15,8 +15,7 @@ jobs:
         services: [
           'municipality-registry-api',
           'municipality-registry-import-api',
-          'municipality-registry-projections',
-          'municipality-registry-produce-snapshot-oslo']
+          'municipality-registry-projections']
     steps:
     - name: CD
       env:
