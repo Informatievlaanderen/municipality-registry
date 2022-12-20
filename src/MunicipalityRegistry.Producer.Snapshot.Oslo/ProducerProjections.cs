@@ -1,16 +1,15 @@
 namespace MunicipalityRegistry.Producer.Snapshot.Oslo
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.GrAr.Oslo.SnapshotProducer;
-    using Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Simple;
+    using Be.Vlaanderen.Basisregisters.MessageHandling.Kafka;
+    using Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
-    using Confluent.Kafka;
-    using Microsoft.Extensions.Configuration;
     using Municipality.Events;
     using MunicipalityRegistry.Projections.Legacy;
     using MunicipalityRegistry.Projections.Legacy.MunicipalityDetail;
@@ -19,23 +18,17 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
     [ConnectedProjectionDescription("Projectie die berichten naar de kafka broker stuurt.")]
     public sealed class ProducerProjections : ConnectedProjection<ProducerContext>
     {
-        private readonly KafkaProducerOptions _kafkaOptions;
-        private readonly string _TopicKey = "MunicipalityTopic";
+        public const string TopicKey = "MunicipalityTopic";
 
-        public ProducerProjections(IConfiguration configuration, ISnapshotManager snapshotManager, LegacyContext legacyContext)
+        private readonly IProducer _producer;
+
+        public ProducerProjections(
+            IProducer producer,
+            ISnapshotManager snapshotManager,
+            LegacyContext legacyContext,
+            string osloNamespace)
         {
-            var bootstrapServers = configuration["Kafka:BootstrapServers"];
-            var osloNamespace = configuration["OsloNamespace"];
-            osloNamespace = osloNamespace.TrimEnd('/');
-
-            var topic = $"{configuration[_TopicKey]}" ?? throw new ArgumentException($"Configuration has no value for {_TopicKey}");
-            _kafkaOptions = new KafkaProducerOptions(
-                bootstrapServers,
-                configuration["Kafka:SaslUserName"],
-                configuration["Kafka:SaslPassword"],
-                topic,
-                false,
-                EventsJsonSerializerSettingsProvider.CreateSerializerSettings());
+            _producer = producer;
 
             When<Envelope<MunicipalityBecameCurrent>>(async (_, message, ct) =>
             {
@@ -47,12 +40,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (_, message, ct) =>
@@ -65,12 +59,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityFacilityLanguageWasRemoved>>(async (_, message, ct) =>
@@ -83,12 +78,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             // No impact on Oslo snapshot
@@ -108,6 +104,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
             //                message.Message.Provenance.Timestamp,
             //                throwStaleWhenGone: false,
             //                ct),
+            //            message.Position,
             //            ct);
             //});
 
@@ -126,6 +123,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
             //                message.Message.Provenance.Timestamp,
             //                throwStaleWhenGone: false,
             //                ct),
+            //            message.Position,
             //            ct);
             //});
 
@@ -144,6 +142,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
             //                message.Message.Provenance.Timestamp,
             //                throwStaleWhenGone: false,
             //                ct),
+            //            message.Position,
             //            ct);
             //});
 
@@ -162,6 +161,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
             //                message.Message.Provenance.Timestamp,
             //                throwStaleWhenGone: false,
             //                ct),
+            //            message.Position,
             //            ct);
             //});
 
@@ -174,12 +174,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityNameWasCorrected>>(async (_, message, ct) =>
@@ -192,12 +193,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityNameWasCorrectedToCleared>>(async (_, message, ct) =>
@@ -210,12 +212,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityNisCodeWasCorrected>>(async (_, message, ct) =>
@@ -228,12 +231,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityNisCodeWasDefined>>(async (_, message, ct) =>
@@ -246,12 +250,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (_, message, ct) =>
@@ -264,12 +269,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (_, message, ct) =>
@@ -282,12 +288,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityWasCorrectedToCurrent>>(async (_, message, ct) =>
@@ -300,12 +307,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityWasCorrectedToRetired>>(async (_, message, ct) =>
@@ -318,12 +326,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityWasNamed>>(async (_, message, ct) =>
@@ -331,12 +340,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityWasRegistered>>(async (_, message, ct) =>
@@ -349,12 +359,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
 
             When<Envelope<MunicipalityWasRetired>>(async (_, message, ct) =>
@@ -362,12 +373,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                        await snapshotManager.FindMatchingSnapshot(
-                            GetNisCode(municipalityDetail),
-                            message.Message.Provenance.Timestamp,
-                            throwStaleWhenGone: false,
-                            ct),
-                        ct);
+                    await snapshotManager.FindMatchingSnapshot(
+                        GetNisCode(municipalityDetail),
+                        message.Message.Provenance.Timestamp,
+                        throwStaleWhenGone: false,
+                        ct),
+                    message.Position,
+                    ct);
             });
         }
 
@@ -377,7 +389,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                    ?? $"Niscode of MunicipalityDetail was unexpectedly null with municipalityId: '{municipalityDetail.MunicipalityId}'.";
         }
 
-        private static MunicipalityDetail? GetMunicipalityDetail(LegacyContext legacyContext, Guid municipalityId)
+        private static MunicipalityDetail GetMunicipalityDetail(LegacyContext legacyContext, Guid municipalityId)
         {
             var municipalityDetail = legacyContext.MunicipalityDetail.FirstOrDefault(m => m.MunicipalityId == municipalityId);
             if (municipalityDetail is null)
@@ -388,19 +400,31 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
             return municipalityDetail;
         }
 
-        private async Task FindAndProduce(Func<Task<OsloResult?>> findMatchingSnapshot, CancellationToken ct)
+        private async Task FindAndProduce(
+            Func<Task<OsloResult?>> findMatchingSnapshot,
+            long storePosition,
+            CancellationToken ct)
         {
             var result = await findMatchingSnapshot.Invoke();
 
             if (result != null)
             {
-                await Produce(result.Identificator.Id, result.JsonContent, ct);
+                await Produce(result.Identificator.Id, result.JsonContent, storePosition, ct);
             }
         }
 
-        private async Task Produce(string objectId, string jsonContent, CancellationToken cancellationToken = default)
+        private async Task Produce(
+            string objectId,
+            string jsonContent,
+            long storePosition,
+            CancellationToken cancellationToken = default)
         {
-            var result = await KafkaProducer.Produce(_kafkaOptions, objectId, jsonContent, cancellationToken);
+            var result = await _producer.Produce(
+                new MessageKey(objectId),
+                jsonContent,
+                new List<MessageHeader> { new MessageHeader(MessageHeader.IdempotenceKey, storePosition.ToString()) },
+                cancellationToken);
+
             if (!result.IsSuccess)
             {
                 throw new InvalidOperationException(result.Error + Environment.NewLine + result.ErrorReason); //TODO: create custom exception
