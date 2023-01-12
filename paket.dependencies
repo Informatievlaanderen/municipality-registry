@@ -16,6 +16,8 @@ nuget NetTopologySuite 2.4.0
 
 nuget Microsoft.EntityFrameworkCore.Design 6.0.3
 
+nuget Microsoft.Extensions.DependencyInjection.Abstractions 6.0.0
+
 // BASE REGISTRIES STUFF
 nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 6.0.4
 nuget Be.Vlaanderen.Basisregisters.Testing.Infrastructure.Events 3.0.0 content: true, copy_content_to_output_dir: always, copy_local: true
@@ -67,7 +69,19 @@ nuget Be.Vlaanderen.Basisregisters.GrAr.Oslo 17.34.0
 nuget Be.Vlaanderen.Basisregisters.GrAr.Provenance 17.34.0
 nuget Be.Vlaanderen.Basisregisters.GrAr.Extracts 17.34.0
 
-nuget Be.Vlaanderen.Basisregisters.OpenTelemetry 1.0.4
+nuget Be.Vlaanderen.Basisregisters.OpenTelemetry 1.0.5
+
+//nuget OpenTelemetry 1.4.0-rc.1
+//nuget OpenTelemetry.Api 1.4.0-rc.1
+//nuget OpenTelemetry.Exporter.Console 1.4.0-rc.1
+//nuget OpenTelemetry.Exporter.Jaeger 1.4.0-rc.1
+//nuget OpenTelemetry.Exporter.OpenTelemetryProtocol 1.4.0-rc.1
+//nuget OpenTelemetry.Exporter.Prometheus.AspNetCore 1.4.0-rc.1
+//nuget OpenTelemetry.Extensions.DependencyInjection 1.4.0-rc.1
+//nuget OpenTelemetry.Extensions.Hosting 1.4.0-rc.1
+//nuget OpenTelemetry.Instrumentation.AspNetCore 1.0.0-rc9.10
+//nuget OpenTelemetry.Instrumentation.Http 1.0.0-rc9.10
+//nuget OpenTelemetry.Instrumentation.Runtime 1.1.0-beta.2
 
 nuget Be.Vlaanderen.Basisregisters.Shaperon 9.0.1
 
