@@ -7,6 +7,7 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
+    using Be.Vlaanderen.Basisregisters.OpenTelemetry;
     using Configuration;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -29,13 +30,16 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
         private IContainer _applicationContainer;
 
         private readonly IConfiguration _configuration;
+        private readonly IHostEnvironment _environment;
         private readonly ILoggerFactory _loggerFactory;
 
         public Startup(
             IConfiguration configuration,
+            IHostEnvironment environment,
             ILoggerFactory loggerFactory)
         {
             _configuration = configuration;
+            _environment = environment;
             _loggerFactory = loggerFactory;
         }
 
@@ -49,6 +53,7 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
                 : baseUrl;
 
             services
+                .AddOpenTelemetryTracing(typeof(Startup).Namespace, isDevelopment:_environment.IsDevelopment())
                 .ConfigureDefaultForApi<Startup>(
                     new StartupConfigureOptions
                     {
