@@ -19,7 +19,7 @@ nuget Microsoft.EntityFrameworkCore.Design 6.0.3
 nuget Microsoft.Extensions.DependencyInjection.Abstractions 6.0.0
 
 // BASE REGISTRIES STUFF
-nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 6.0.4
+nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 6.0.6
 nuget Be.Vlaanderen.Basisregisters.Testing.Infrastructure.Events 3.0.0 content: true, copy_content_to_output_dir: always, copy_local: true
 
 nuget Microsoft.Extensions.DependencyInjection 6.0.0
