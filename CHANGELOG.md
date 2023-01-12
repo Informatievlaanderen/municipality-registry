@@ -1,3 +1,20 @@
+# [4.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.2.2...v4.3.0) (2023-01-12)
+
+
+### Bug Fixes
+
+* add Be.Vlaanderen.Basisregisters.OpenTelemetry package ([e6423d6](https://github.com/informatievlaanderen/municipality-registry/commit/e6423d6a4cf71887082407e2fbb4411b5182d036))
+* add release new to access old workflow ([cc3d785](https://github.com/informatievlaanderen/municipality-registry/commit/cc3d785016a2fdc51414025d8f0dc71b20455f2b))
+* bump OpenTelemetry ([268365c](https://github.com/informatievlaanderen/municipality-registry/commit/268365c7023e2bdb9e022900f4fbacceb98338a9))
+* correct release.yml ([090401d](https://github.com/informatievlaanderen/municipality-registry/commit/090401d155923e98a1f15c30f3962bd93951f40b))
+* remove comments from paket.dependencies ([bb14074](https://github.com/informatievlaanderen/municipality-registry/commit/bb14074297f6ea0a47499bc5b077cc7cfee18560))
+* remove old workflows ([09890c8](https://github.com/informatievlaanderen/municipality-registry/commit/09890c8b374a797a6a2369811a7b54a0c7cd9c20))
+
+
+### Features
+
+* update Be.Vlaanderen.Basisregisters.Api to 19.0.1 ([1e514cd](https://github.com/informatievlaanderen/municipality-registry/commit/1e514cdd6190944e17abb48893dce421d3642c40))
+
 ## [4.2.2](https://github.com/informatievlaanderen/municipality-registry/compare/v4.2.1...v4.2.2) (2022-12-03)
 
 
