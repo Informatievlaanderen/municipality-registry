@@ -21,7 +21,6 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
     using Microsoft.OpenApi.Models;
     using Modules;
     using SqlStreamStore;
-    using Swashbuckle.AspNetCore.Swagger;
 
     /// <summary>Represents the startup process for the application.</summary>
     public class Startup
