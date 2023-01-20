@@ -19,8 +19,7 @@ namespace MunicipalityRegistry.Producer.Infrastructure
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
     using Modules;
-
-    /// <summary>Represents the startup process for the application.</summary>
+    
     public class Startup
     {
         private const string DatabaseTag = "db";
