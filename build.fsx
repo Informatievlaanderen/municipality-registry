@@ -65,8 +65,6 @@ Target.create "Publish_Solution" (fun _ ->
 
 Target.create "Pack_Solution" (fun _ ->
   [
-    "MunicipalityRegistry.Projector"
-    "MunicipalityRegistry.Producer"
     "MunicipalityRegistry.Api.Legacy"
     "MunicipalityRegistry.Api.Oslo"
     "MunicipalityRegistry.Api.Extract"
