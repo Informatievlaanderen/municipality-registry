@@ -1,3 +1,10 @@
+## [4.3.2](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.1...v4.3.2) (2023-01-20)
+
+
+### Bug Fixes
+
+* trigger build ([ba133c3](https://github.com/informatievlaanderen/municipality-registry/commit/ba133c346f12b0e0a3114700b9b79f64c5b14d3d))
+
 ## [4.3.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.0...v4.3.1) (2023-01-20)
 
 
