@@ -53,7 +53,7 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
                 : baseUrl;
 
             services
-                .AddOpenTelemetryTracing(typeof(Startup).Namespace, isDevelopment:_environment.IsDevelopment())
+                .AddOpenTelemetryTracing(Assembly.GetExecutingAssembly().GetName().Name, isDevelopment:_environment.IsDevelopment())
                 .ConfigureDefaultForApi<Startup>(
                     new StartupConfigureOptions
                     {
@@ -71,7 +71,7 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
                         },
                         Swagger =
                         {
-                            ApiInfo = (provider, description) => new OpenApiInfo
+                            ApiInfo = (_, description) => new OpenApiInfo
                             {
                                 Version = description.ApiVersion.ToString(),
                                 Title = "Basisregisters Vlaanderen Municipality Registry API",
@@ -83,7 +83,7 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
                                     Url = new Uri("https://legacy.basisregisters.vlaanderen")
                                 }
                             },
-                            XmlCommentPaths = new[] { typeof(Startup).GetTypeInfo().Assembly.GetName().Name }
+                            XmlCommentPaths = new[] { typeof(Startup).GetTypeInfo().Assembly.GetName().Name ?? string.Empty }
                         },
                         MiddlewareHooks =
                         {
@@ -94,10 +94,12 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
                                     .GetChildren();
 
                                 foreach (var connectionString in connectionStrings)
+                                {
                                     health.AddSqlServer(
                                         connectionString.Value,
                                         name: $"sqlserver-{connectionString.Key.ToLowerInvariant()}",
                                         tags: new[] { DatabaseTag, "sql", "sqlserver" });
+                                }
 
                                 health.AddDbContextCheck<LegacyContext>(
                                     $"dbcontext-{nameof(LegacyContext).ToLowerInvariant()}",
