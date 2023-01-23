@@ -2,7 +2,13 @@
 version 7.0.2
 framework: net6.0
 source https://api.nuget.org/v3/index.json
-nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 6.0.3 //"
+
+nuget Microsoft.Build 17.3.2
+nuget Microsoft.Build.Framework 17.3.2
+nuget Microsoft.Build.Tasks.Core 17.3.2
+nuget Microsoft.Build.Utilities.Core 17.3.2
+
+nuget Be.Vlaanderen.Basisregisters.Build.Pipeline 6.0.6 //"
 
 #load "packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/build-generic.fsx"
 
@@ -59,8 +65,6 @@ Target.create "Publish_Solution" (fun _ ->
 
 Target.create "Pack_Solution" (fun _ ->
   [
-    "MunicipalityRegistry.Projector"
-    "MunicipalityRegistry.Producer"
     "MunicipalityRegistry.Api.Legacy"
     "MunicipalityRegistry.Api.Oslo"
     "MunicipalityRegistry.Api.Extract"

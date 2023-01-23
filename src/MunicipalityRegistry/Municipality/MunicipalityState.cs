@@ -7,7 +7,7 @@ namespace MunicipalityRegistry.Municipality
 
     public partial class Municipality
     {
-        private MunicipalityId _municipalityId;
+        private MunicipalityId _municipalityId; 
         private NisCode _nisCode;
         private MunicipalityStatus? _status;
         private RetirementDate _retiredDate;

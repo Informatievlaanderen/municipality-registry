@@ -6,7 +6,7 @@ namespace MunicipalityRegistry.Api.Legacy.Infrastructure
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api;
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
+    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Microsoft;
     using Be.Vlaanderen.Basisregisters.OpenTelemetry;
     using Configuration;
     using Microsoft.AspNetCore.Builder;

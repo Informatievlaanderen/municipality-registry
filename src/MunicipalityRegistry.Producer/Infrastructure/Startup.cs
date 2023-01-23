@@ -6,7 +6,7 @@ namespace MunicipalityRegistry.Producer.Infrastructure
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api;
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
+    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Microsoft;
     using Be.Vlaanderen.Basisregisters.Projector;
     using Configuration;
     using Microsoft.AspNetCore.Builder;
@@ -19,8 +19,7 @@ namespace MunicipalityRegistry.Producer.Infrastructure
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
     using Modules;
-
-    /// <summary>Represents the startup process for the application.</summary>
+    
     public class Startup
     {
         private const string DatabaseTag = "db";
