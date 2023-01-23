@@ -1,3 +1,10 @@
+## [4.3.3](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.2...v4.3.3) (2023-01-23)
+
+
+### Bug Fixes
+
+* add snapshot producer in tst & stg deploy ([a317c45](https://github.com/informatievlaanderen/municipality-registry/commit/a317c45fe9c9f7d6d4279c0dbe8e555eca910411))
+
 ## [4.3.2](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.1...v4.3.2) (2023-01-20)
 
 
