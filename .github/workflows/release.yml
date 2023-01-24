@@ -300,11 +300,25 @@ jobs:
       shell: bash
       run: dotnet --info
 
+    - name: Download NuGet package be-.-vlaanderen-.-basisregisters-.-municipality-registry-.-api-.-legacy
+      if: env.RELEASE_VERSION != 'none'
+      uses: actions/download-artifact@v3
+      with:
+        name: nuget-be-.-vlaanderen-.-basisregisters-.-municipality-registry-.-api-.-legacy
+        path: ~/
+
     - name: Download NuGet package be-.-vlaanderen-.-basisregisters-.-municipality-registry-.-api-.-oslo
       if: env.RELEASE_VERSION != 'none'
       uses: actions/download-artifact@v3
       with:
         name: nuget-be-.-vlaanderen-.-basisregisters-.-municipality-registry-.-api-.-oslo
+        path: ~/
+        
+    - name: Download NuGet package be-.-vlaanderen-.-basisregisters-.-municipality-registry-.-api-.-extract
+      if: env.RELEASE_VERSION != 'none'
+      uses: actions/download-artifact@v3
+      with:
+        name: nuget-be-.-vlaanderen-.-basisregisters-.-municipality-registry-.-api-.-extract
         path: ~/
 
     - name: Download NuGet package be-.-vlaanderen-.-basisregisters-.-municipality-registry-.-api-.-crab-import
@@ -314,20 +328,13 @@ jobs:
         name: nuget-be-.-vlaanderen-.-basisregisters-.-municipality-registry-.-api-.-crab-import
         path: ~/
 
-    - name: Download NuGet package be-.-vlaanderen-.-basisregisters-.-municipality-registry-.-producer
-      if: env.RELEASE_VERSION != 'none'
-      uses: actions/download-artifact@v3
-      with:
-        name: nuget-be-.-vlaanderen-.-basisregisters-.-municipality-registry-.-producer
-        path: ~/
-
-
     - name: Publish packages to NuGet
       shell: bash
       run: |
+        dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Legacy.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
         dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Oslo.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
+        dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Extract.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
         dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.CrabImport.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
-        dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Producer.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
       env:
         SEMVER: ${{ needs.build.outputs.version }}
         WORKSPACE: ${{ github.workspace }}
