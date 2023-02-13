@@ -1,3 +1,10 @@
+## [4.3.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.3...v4.3.4) (2023-02-13)
+
+
+### Bug Fixes
+
+* update commandhandling module to 8.0.0 ([8f861f0](https://github.com/informatievlaanderen/municipality-registry/commit/8f861f0f21b5ae4718e3fce82ba7bb6982757a18))
+
 ## [4.3.3](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.2...v4.3.3) (2023-01-23)
 
 
