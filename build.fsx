@@ -71,26 +71,15 @@ Target.create "Pack_Solution" (fun _ ->
     "MunicipalityRegistry.Api.CrabImport"
   ] |> List.iter pack)
 
-Target.create "Containerize_ApiProjector" (fun _ -> containerize "MunicipalityRegistry.Projector" "projector")
-Target.create "PushContainer_ApiProjector" (fun _ -> push "projector")
-
-Target.create "Containerize_ApiProducer" (fun _ -> containerize "MunicipalityRegistry.Producer" "producer")
-Target.create "PushContainer_ApiProducer" (fun _ -> push "producer")
-
-Target.create "Containerize_ApiProducerSnapshotOslo" (fun _ -> containerize "MunicipalityRegistry.Producer.Snapshot.Oslo" "producer-snapshot-oslo")
-Target.create "PushContainer_ApiProducerSnapshotOslo" (fun _ -> push "producer-snapshot-oslo")
-
+Target.create "Containerize_Projector" (fun _ -> containerize "MunicipalityRegistry.Projector" "projector")
+Target.create "Containerize_Producer" (fun _ -> containerize "MunicipalityRegistry.Producer" "producer")
+Target.create "Containerize_ProducerSnapshotOslo" (fun _ -> containerize "MunicipalityRegistry.Producer.Snapshot.Oslo" "producer-snapshot-oslo")
 Target.create "Containerize_ApiLegacy" (fun _ -> containerize "MunicipalityRegistry.Api.Legacy" "api-legacy")
-Target.create "PushContainer_ApiLegacy" (fun _ -> push "api-legacy")
-
 Target.create "Containerize_ApiOslo" (fun _ -> containerize "MunicipalityRegistry.Api.Oslo" "api-oslo")
-Target.create "PushContainer_ApiOslo" (fun _ -> push "api-oslo")
-
 Target.create "Containerize_ApiExtract" (fun _ -> containerize "MunicipalityRegistry.Api.Extract" "api-extract")
-Target.create "PushContainer_ApiExtract" (fun _ -> push "api-extract")
-
 Target.create "Containerize_ApiCrabImport" (fun _ -> containerize "MunicipalityRegistry.Api.CrabImport" "api-crab-import")
-Target.create "PushContainer_ApiCrabImport" (fun _ -> push "api-crab-import")
+
+Target.create "SetAssemblyVersions" (fun _ -> setVersions "SolutionInfo.cs")
 
 // --------------------------------------------------------------------------------
 
@@ -99,7 +88,6 @@ Target.create "Test" ignore
 Target.create "Publish" ignore
 Target.create "Pack" ignore
 Target.create "Containerize" ignore
-Target.create "Push" ignore
 
 "NpmInstall"
   ==> "DotNetCli"
@@ -121,27 +109,15 @@ Target.create "Push" ignore
   ==> "Pack"
 
 "Pack"
-  ==> "Containerize_ApiProjector"
-  ==> "Containerize_ApiProducer"
-  ==> "Containerize_ApiProducerSnapshotOslo"
+  ==> "Containerize_Projector"
+  ==> "Containerize_Producer"
+  ==> "Containerize_ProducerSnapshotOslo"
   ==> "Containerize_ApiLegacy"
   ==> "Containerize_ApiOslo"
   ==> "Containerize_ApiExtract"
   ==> "Containerize_ApiCrabImport"
   ==> "Containerize"
 // Possibly add more projects to containerize here
-
-"Containerize"
-  ==> "DockerLogin"
-  ==> "PushContainer_ApiProjector"
-  ==> "PushContainer_ApiProducer"
-  ==> "PushContainer_ApiProducerSnapshotOslo"
-  ==> "PushContainer_ApiLegacy"
-  ==> "PushContainer_ApiOslo"
-  ==> "PushContainer_ApiExtract"
-  ==> "PushContainer_ApiCrabImport"
-  ==> "Push"
-// Possibly add more projects to push here
 
 // By default we build & test
 Target.runOrDefault "Test"
