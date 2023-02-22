@@ -128,21 +128,6 @@ jobs:
       semver: ${{ needs.set-release-version.outputs.version }}
     secrets: inherit
 
-  build-projections-syndication:
-    name: Build Projections Syndication
-    uses: Informatievlaanderen/build-pipeline/.github/workflows/build-image.yml@main
-    needs: [ set-release-version ]
-    if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
-    with:
-      registry: municipality-registry
-      build-target: Containerize_ProjectionsSyndication
-      image-file: mr-projections-syndication-image.tar
-      image-name: projections-syndication
-      test-project: MunicipalityRegistry.Tests
-      build-project: MunicipalityRegistry.Projections.Syndication
-      semver: ${{ needs.set-release-version.outputs.version }}
-    secrets: inherit
-
   build-producer:
     name: Build Producer
     uses: Informatievlaanderen/build-pipeline/.github/workflows/build-image.yml@main
@@ -234,8 +219,7 @@ jobs:
       build-api-oslo,
       build-api-extract,
       build-api-crab-import,
-      build-projector,
-      build-projections-syndication,
+      build-projector,      
       build-producer,
       build-producer-snapshot-oslo ]
     outputs:
@@ -464,7 +448,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'projections-syndication', 'producer', 'producer-snapshot-oslo']
+        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
     steps:
       - name: Configure AWS credentials (Test)
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -511,7 +495,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'projections-syndication', 'producer', 'producer-snapshot-oslo']
+        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
     steps:
       - name: Configure AWS credentials (Staging)
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -560,7 +544,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'projections-syndication', 'producer', 'producer-snapshot-oslo']
+        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
     steps:
       - name: Configure AWS credentials (Production)
         uses: aws-actions/configure-aws-credentials@v1-node16
