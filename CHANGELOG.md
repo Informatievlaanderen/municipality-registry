@@ -1,3 +1,10 @@
+## [4.3.5](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.4...v4.3.5) (2023-02-22)
+
+
+### Bug Fixes
+
+* rework release workflow ([c5b3f11](https://github.com/informatievlaanderen/municipality-registry/commit/c5b3f11feba734b4a7485a0c6b1bdc85917cd753))
+
 ## [4.3.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.3...v4.3.4) (2023-02-13)
 
 
