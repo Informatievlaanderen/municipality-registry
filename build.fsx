@@ -109,13 +109,13 @@ Target.create "Containerize" ignore
   ==> "Pack"
 
 "Pack"
-  ==> "Containerize_Projector"
-  ==> "Containerize_Producer"
-  ==> "Containerize_ProducerSnapshotOslo"
-  ==> "Containerize_ApiLegacy"
-  ==> "Containerize_ApiOslo"
-  ==> "Containerize_ApiExtract"
-  ==> "Containerize_ApiCrabImport"
+  //==> "Containerize_Projector"
+  //==> "Containerize_Producer"
+  //==> "Containerize_ProducerSnapshotOslo"
+  //==> "Containerize_ApiLegacy"
+  //==> "Containerize_ApiOslo"
+  //==> "Containerize_ApiExtract"
+  //==> "Containerize_ApiCrabImport"
   ==> "Containerize"
 // Possibly add more projects to containerize here
 
