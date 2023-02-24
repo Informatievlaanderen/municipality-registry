@@ -6,38 +6,46 @@ updates:
   schedule:
     interval: weekly
   open-pull-requests-limit: 25
+  rebase-strategy: "disabled"
   
 - package-ecosystem: github-actions
   directory: "/"
   schedule:
     interval: weekly
+  rebase-strategy: "disabled"
 
 - package-ecosystem: npm
   directory: "/"
   schedule:
     interval: weekly
+  rebase-strategy: "disabled"
 
 - package-ecosystem: docker
   directory: "/src/MunicipalityRegistry.Api.CrabImport"
   schedule:
     interval: weekly
+  rebase-strategy: "disabled"
 
 - package-ecosystem: docker
   directory: "/src/MunicipalityRegistry.Api.Extract"
   schedule:
     interval: weekly
+  rebase-strategy: "disabled"
 
 - package-ecosystem: docker
   directory: "/src/MunicipalityRegistry.Api.Legacy"
   schedule:
     interval: weekly
+  rebase-strategy: "disabled"
 
 - package-ecosystem: docker
   directory: "/src/MunicipalityRegistry.Api.Oslo"
   schedule:
     interval: weekly
+  rebase-strategy: "disabled"
 
 - package-ecosystem: docker
   directory: "/src/MunicipalityRegistry.Projector"
   schedule:
     interval: weekly
+  rebase-strategy: "disabled"
