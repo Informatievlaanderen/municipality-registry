@@ -1,3 +1,10 @@
+## [4.3.6](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.5...v4.3.6) (2023-02-27)
+
+
+### Bug Fixes
+
+* bump grar common to 18.1.1 ([5b2c38d](https://github.com/informatievlaanderen/municipality-registry/commit/5b2c38db0fa6da7f7fa8a891a285787089bf7ed0))
+
 ## [4.3.5](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.4...v4.3.5) (2023-02-22)
 
 
