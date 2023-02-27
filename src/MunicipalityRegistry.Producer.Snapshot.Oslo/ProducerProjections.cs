@@ -43,6 +43,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -62,6 +63,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -81,6 +83,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -177,6 +180,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -196,6 +200,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -215,6 +220,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -234,6 +240,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -253,6 +260,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -272,6 +280,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -291,6 +300,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -310,6 +320,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -329,6 +340,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -343,6 +355,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -362,6 +375,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,
@@ -376,6 +390,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        message.Position,
                         throwStaleWhenGone: false,
                         ct),
                     message.Position,

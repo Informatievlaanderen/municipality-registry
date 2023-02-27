@@ -38,15 +38,15 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
 
             _services.RegisterModule(new DataDogModule(_configuration));
 
+            _services.ConfigureCrabImport(
+                _configuration.GetConnectionString("CrabImport"),
+                Schema.Import,
+                _loggerFactory);
+
             builder
                 .RegisterModule(new EventHandlingModule(typeof(DomainAssemblyMarker).Assembly, eventSerializerSettings))
                 .RegisterModule(new EnvelopeModule())
-                .RegisterModule(new CommandHandlingModule(_configuration))
-                .RegisterModule(new CrabImportModule(
-                    _services,
-                    _configuration.GetConnectionString("CrabImport"),
-                    Schema.Import,
-                    _loggerFactory));
+                .RegisterModule(new CommandHandlingModule(_configuration));
 
             _services.ConfigureIdempotency(
                 _configuration.GetSection(IdempotencyConfiguration.Section).Get<IdempotencyConfiguration>().ConnectionString,
