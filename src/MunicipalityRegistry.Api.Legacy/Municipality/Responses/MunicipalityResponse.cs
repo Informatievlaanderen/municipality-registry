@@ -106,18 +106,15 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
 
     public class MunicipalityNotFoundResponseExamples : IExamplesProvider<ProblemDetails>
     {
-        protected string ApiVersion { get; }
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ProblemDetailsHelper _problemDetailsHelper;
 
         public MunicipalityNotFoundResponseExamples(
             IHttpContextAccessor httpContextAccessor,
-            ProblemDetailsHelper problemDetailsHelper,
-            string apiVersion = "v1")
+            ProblemDetailsHelper problemDetailsHelper)
         {
             _httpContextAccessor = httpContextAccessor;
             _problemDetailsHelper = problemDetailsHelper;
-            ApiVersion = apiVersion;
         }
 
         public ProblemDetails GetExamples()
@@ -127,15 +124,7 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality.Responses
                 HttpStatus = StatusCodes.Status404NotFound,
                 Title = ProblemDetails.DefaultTitle,
                 Detail = "Onbestaande gemeente.",
-                ProblemInstanceUri = _problemDetailsHelper.GetInstanceUri(_httpContextAccessor.HttpContext, ApiVersion)
+                ProblemInstanceUri = _problemDetailsHelper.GetInstanceUri(_httpContextAccessor.HttpContext, "v1")
             };
-    }
-
-    public class MunicipalityNotFoundResponseExamplesV2 : MunicipalityNotFoundResponseExamples
-    {
-        public MunicipalityNotFoundResponseExamplesV2(
-            IHttpContextAccessor httpContextAccessor,
-            ProblemDetailsHelper problemDetailsHelper) : base(httpContextAccessor, problemDetailsHelper, "v2")
-        { }
     }
 }
