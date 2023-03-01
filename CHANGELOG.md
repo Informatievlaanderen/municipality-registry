@@ -1,3 +1,10 @@
+## [4.4.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.4.0...v4.4.1) (2023-03-01)
+
+
+### Bug Fixes
+
+* response examples ([51af7f1](https://github.com/informatievlaanderen/municipality-registry/commit/51af7f1ef878970b0f0ea9f766f74bf82139b92d))
+
 # [4.4.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.6...v4.4.0) (2023-03-01)
 
 
