@@ -1,3 +1,15 @@
+# [4.4.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.6...v4.4.0) (2023-03-01)
+
+
+### Bug Fixes
+
+* no merge group for ksql ([2a79513](https://github.com/informatievlaanderen/municipality-registry/commit/2a7951388c16b47089ac5fe5d4ccf23a59f101b4))
+
+
+### Features
+
+* add v2 example ([ee3e106](https://github.com/informatievlaanderen/municipality-registry/commit/ee3e106e317b28277d24baffc8d96de5a57ac42f))
+
 ## [4.3.6](https://github.com/informatievlaanderen/municipality-registry/compare/v4.3.5...v4.3.6) (2023-02-27)
 
 
