@@ -1,3 +1,10 @@
+## [4.4.2](https://github.com/informatievlaanderen/municipality-registry/compare/v4.4.1...v4.4.2) (2023-03-07)
+
+
+### Bug Fixes
+
+* make producer reliable ([6208bd4](https://github.com/informatievlaanderen/municipality-registry/commit/6208bd4d3426e506a3ecdc879984c9986a100293))
+
 ## [4.4.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.4.0...v4.4.1) (2023-03-01)
 
 
