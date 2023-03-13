@@ -104,6 +104,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
             var pagination = Request.ExtractPaginationRequest();
 
             var pagedMunicipalities = new MunicipalityListOsloQuery(context).Fetch(filtering, sorting, pagination);
+            var municipalities = await pagedMunicipalities.Items.ToListAsync(cancellationToken);
 
             Response.AddPagedQueryResultHeaders(pagedMunicipalities);
 
@@ -111,8 +112,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
                 new MunicipalityListOsloResponse
                 {
                     Context = responseOptions.Value.ContextUrlList,
-                    Gemeenten = await pagedMunicipalities
-                        .Items
+                    Gemeenten = municipalities
                         .Select(m => new MunicipalityListOsloItemResponse(
                             m.NisCode,
                             responseOptions.Value.Naamruimte,
@@ -120,8 +120,8 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
                             m.VersionTimestamp.ToBelgianDateTimeOffset(),
                             new GeografischeNaam(m.DefaultName, m.OfficialLanguages.FirstOrDefault().ConvertFromLanguage()),
                             m.Status))
-                        .ToListAsync(cancellationToken),
-                    Volgende = BuildNextUri(pagedMunicipalities.PaginationInfo, responseOptions.Value.VolgendeUrl)
+                        .ToList(),
+                    Volgende = BuildNextUri(pagedMunicipalities.PaginationInfo, municipalities.Count, responseOptions.Value.VolgendeUrl)
                 });
         }
 
@@ -160,12 +160,12 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
                 });
         }
 
-        private static Uri? BuildNextUri(PaginationInfo paginationInfo, string nextUrlBase)
+        private static Uri? BuildNextUri(PaginationInfo paginationInfo, int itemsInCollection, string nextUrlBase)
         {
             var offset = paginationInfo.Offset;
             var limit = paginationInfo.Limit;
 
-            return paginationInfo.HasNextPage
+            return paginationInfo.HasNextPage(itemsInCollection)
                 ? new Uri(string.Format(nextUrlBase, offset + limit, limit))
                 : null;
         }
