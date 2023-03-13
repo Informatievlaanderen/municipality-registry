@@ -111,14 +111,14 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             var pagination = Request.ExtractPaginationRequest();
 
             var pagedMunicipalities = new MunicipalityListQuery(context).Fetch(filtering, sorting, pagination);
+            var municipalities = await pagedMunicipalities.Items.ToListAsync(cancellationToken);
 
             Response.AddPagedQueryResultHeaders(pagedMunicipalities);
 
             return Ok(
                 new MunicipalityListResponse
                 {
-                    Gemeenten = await pagedMunicipalities
-                        .Items
+                    Gemeenten = municipalities
                         .Select(m => new MunicipalityListItemResponse(
                             m.NisCode,
                             responseOptions.Value.Naamruimte,
@@ -126,8 +126,8 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                             m.VersionTimestamp.ToBelgianDateTimeOffset(),
                             new GeografischeNaam(m.DefaultName, m.OfficialLanguages.FirstOrDefault().ConvertFromLanguage()),
                             m.Status))
-                        .ToListAsync(cancellationToken),
-                    Volgende = BuildNextUri(pagedMunicipalities.PaginationInfo, responseOptions.Value.VolgendeUrl)
+                        .ToList(),
+                    Volgende = BuildNextUri(pagedMunicipalities.PaginationInfo, municipalities.Count, responseOptions.Value.VolgendeUrl)
                 });
         }
 
@@ -345,17 +345,17 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
             return sw.ToString();
         }
 
-        private static Uri BuildNextUri(PaginationInfo paginationInfo, string nextUrlBase)
+        private static Uri? BuildNextUri(PaginationInfo paginationInfo, int itemsInCollection, string nextUrlBase)
         {
             var offset = paginationInfo.Offset;
             var limit = paginationInfo.Limit;
 
-            return paginationInfo.HasNextPage
+            return paginationInfo.HasNextPage(itemsInCollection)
                 ? new Uri(string.Format(nextUrlBase, offset + limit, limit))
                 : null;
         }
 
-        private static Uri BuildNextSyncUri(int limit, long? from, string nextUrlBase)
+        private static Uri? BuildNextSyncUri(int limit, long? from, string nextUrlBase)
         {
             return from.HasValue
                 ? new Uri(string.Format(nextUrlBase, from.Value, limit))
