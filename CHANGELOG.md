@@ -1,3 +1,11 @@
+## [4.4.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.4.3...v4.4.4) (2023-05-05)
+
+
+### Bug Fixes
+
+* add newprd environment ci to trigger build ([ec5d375](https://github.com/informatievlaanderen/municipality-registry/commit/ec5d375d8dd2118b0561a18fe00d7d0aac0bef75))
+* run containers as non-root ([d7c4784](https://github.com/informatievlaanderen/municipality-registry/commit/d7c4784da3399c1eb497660067790d8f83035354))
+
 ## [4.4.3](https://github.com/informatievlaanderen/municipality-registry/compare/v4.4.2...v4.4.3) (2023-03-13)
 
 ## [4.4.2](https://github.com/informatievlaanderen/municipality-registry/compare/v4.4.1...v4.4.2) (2023-03-07)
