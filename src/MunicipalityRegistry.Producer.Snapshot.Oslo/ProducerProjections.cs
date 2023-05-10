@@ -43,6 +43,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -63,6 +64,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -83,6 +85,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -180,6 +183,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -200,6 +204,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -220,6 +225,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -240,6 +246,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -260,6 +267,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -280,6 +288,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -300,6 +309,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -320,6 +330,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -340,6 +351,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -355,6 +367,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -375,6 +388,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
@@ -390,6 +404,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     await snapshotManager.FindMatchingSnapshot(
                         GetNisCode(municipalityDetail),
                         message.Message.Provenance.Timestamp,
+                        null,
                         message.Position,
                         throwStaleWhenGone: false,
                         ct),
