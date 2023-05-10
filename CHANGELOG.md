@@ -1,3 +1,10 @@
+## [4.4.5](https://github.com/informatievlaanderen/municipality-registry/compare/v4.4.4...v4.4.5) (2023-05-10)
+
+
+### Bug Fixes
+
+* add newprd environment ci to deploy ([0011009](https://github.com/informatievlaanderen/municipality-registry/commit/00110098825287f37eda3375f9379672e892c0f0))
+
 ## [4.4.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.4.3...v4.4.4) (2023-05-05)
 
 
