@@ -1,3 +1,10 @@
+## [4.5.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.5.0...v4.5.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* cd newprd ([87c9925](https://github.com/informatievlaanderen/municipality-registry/commit/87c9925f4e54717f566576bafcfeefd8bbc355fc))
+
 # [4.5.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.4.5...v4.5.0) (2023-05-15)
 
 
