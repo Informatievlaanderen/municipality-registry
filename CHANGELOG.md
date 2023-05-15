@@ -1,3 +1,15 @@
+# [4.5.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.4.5...v4.5.0) (2023-05-15)
+
+
+### Bug Fixes
+
+* set steps staging/newprd in serial to trigger build ([652f8e9](https://github.com/informatievlaanderen/municipality-registry/commit/652f8e9f3e065573f26720a0ec33795af59367a8))
+
+
+### Features
+
+* bump grar.common ([e91a88f](https://github.com/informatievlaanderen/municipality-registry/commit/e91a88f50b8d7271d9b5e1f5c35474817475d91f))
+
 ## [4.4.5](https://github.com/informatievlaanderen/municipality-registry/compare/v4.4.4...v4.4.5) (2023-05-10)
 
 
