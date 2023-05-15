@@ -815,7 +815,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        services: ['municipality-api', 'municipality-projections', 'municipality-producer', 'municipality-producer-snapshot-oslo']
+        services: ['municipality-registry-api', 'municipality-registry-projections', 'municipality-registry-producer', 'municipality-registry-producer-snapshot-oslo']
 
     steps:
     - name: CD services
