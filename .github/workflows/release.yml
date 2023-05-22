@@ -648,7 +648,7 @@ jobs:
       shell: bash
 
     - name: Notify deployment started
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.24.0
       with:
         channel-id: '#team-dinosaur-dev'
         slack-message: Deployment of municipality-registry to test has started
@@ -702,7 +702,7 @@ jobs:
       shell: bash
 
     - name: Notify deployment finished
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.24.0
       with:
         channel-id: '#team-dinosaur-dev'
         slack-message: Deployment of municipality-registry to test has finished
@@ -724,7 +724,7 @@ jobs:
       shell: bash
 
     - name: Notify deployment started
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.24.0
       with:
         channel-id: '#team-dinosaur-dev'
         slack-message: Deployment of municipality-registry to staging has started
@@ -777,7 +777,7 @@ jobs:
       shell: bash
 
     - name: Notify deployment finished
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.24.0
       with:
         channel-id: '#team-dinosaur-dev'
         slack-message: Deployment of municipality-registry to staging has finished
@@ -799,7 +799,7 @@ jobs:
       shell: bash
 
     - name: Notify deployment started
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.24.0
       with:
         channel-id: '#team-dinosaur-dev'
         slack-message: Deployment of municipality-registry to new production has started
@@ -852,7 +852,7 @@ jobs:
       shell: bash
 
     - name: Notify deployment finished
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.24.0
       with:
         channel-id: '#team-dinosaur-dev'
         slack-message: Deployment of municipality-registry to new production has finished
