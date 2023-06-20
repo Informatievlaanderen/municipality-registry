@@ -14,7 +14,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
     using MunicipalityRegistry.Projections.Legacy;
     using MunicipalityRegistry.Projections.Legacy.MunicipalityDetail;
 
-    [ConnectedProjectionName("Kafka Kafka producer snapshot oslo")]
+    [ConnectedProjectionName("Kafka producer snapshot oslo")]
     [ConnectedProjectionDescription("Projectie die berichten naar de kafka broker stuurt.")]
     public sealed class ProducerProjections : ConnectedProjection<ProducerContext>
     {
