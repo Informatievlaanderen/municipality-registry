@@ -1,3 +1,10 @@
+## [4.5.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.5.3...v4.5.4) (2023-06-21)
+
+
+### Bug Fixes
+
+* naming producers kafka ([83c0c6b](https://github.com/informatievlaanderen/municipality-registry/commit/83c0c6bf6fe404e4aa02c0dff756e0c59d6b707d))
+
 ## [4.5.3](https://github.com/informatievlaanderen/municipality-registry/compare/v4.5.2...v4.5.3) (2023-06-14)
 
 
