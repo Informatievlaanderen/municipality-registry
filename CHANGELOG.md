@@ -1,3 +1,10 @@
+## [4.5.5](https://github.com/informatievlaanderen/municipality-registry/compare/v4.5.4...v4.5.5) (2023-06-21)
+
+
+### Bug Fixes
+
+* style to trigger build ([d5f1def](https://github.com/informatievlaanderen/municipality-registry/commit/d5f1def34191abc5ef7f66920d5c0131aa411829))
+
 ## [4.5.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.5.3...v4.5.4) (2023-06-21)
 
 
