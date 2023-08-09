@@ -79,7 +79,6 @@ Target.create "Containerize_ApiExtract" (fun _ -> containerize "MunicipalityRegi
 Target.create "Containerize_ApiCrabImport" (fun _ -> containerize "MunicipalityRegistry.Api.CrabImport" "api-crab-import")
 
 Target.create "SetAssemblyVersions" (fun _ -> setVersions "SolutionInfo.cs")
-
 // --------------------------------------------------------------------------------
 
 Target.create "Build" ignore
