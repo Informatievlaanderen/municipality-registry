@@ -1,0 +1,30 @@
+CREATE OR REPLACE STREAM IF NOT EXISTS MUNICIPALITY_SNAPSHOT_OSLO_STREAM_FLATTEN_INTEGRATIONDB
+WITH (KAFKA_TOPIC='municipality.snapshot.oslo.flatten.integrationdb', PARTITIONS=1, VALUE_FORMAT='JSON_SR', KEY_FORMAT='JSON_SR') 
+AS SELECT
+  CAST(REDUCE(SPLIT(URL_EXTRACT_PATH(MESSAGEKEY), '/'), '', (s,x) => x) AS INTEGER) NisCode,
+
+  GEMEENTESTATUS as "Status",
+
+  CASE WHEN FILTER(OFFICIELETALEN, (TAAL) => (TAAL = 'nl'))[1] is not null THEN TRUE ELSE FALSE END as "OfficialLanguageDutch",
+  CASE WHEN FILTER(OFFICIELETALEN, (TAAL) => (TAAL = 'fr'))[1] is not null THEN TRUE ELSE FALSE END as "OfficialLanguageFrench",
+  CASE WHEN FILTER(OFFICIELETALEN, (TAAL) => (TAAL = 'de'))[1] is not null THEN TRUE ELSE FALSE END as "OfficialLanguageGerman",
+  CASE WHEN FILTER(OFFICIELETALEN, (TAAL) => (TAAL = 'en'))[1] is not null THEN TRUE ELSE FALSE END as "OfficialLanguageEnglish",
+
+  CASE WHEN FILTER(FACILITEITENTALEN, (TAAL) => (TAAL = 'nl'))[1] is not null THEN TRUE ELSE FALSE END as "FacilityLanguageDutch",
+  CASE WHEN FILTER(FACILITEITENTALEN, (TAAL) => (TAAL = 'fr'))[1] is not null THEN TRUE ELSE FALSE END as "FacilityLanguageFrench",
+  CASE WHEN FILTER(FACILITEITENTALEN, (TAAL) => (TAAL = 'de'))[1] is not null THEN TRUE ELSE FALSE END as "FacilityLanguageGerman",
+  CASE WHEN FILTER(FACILITEITENTALEN, (TAAL) => (TAAL = 'en'))[1] is not null THEN TRUE ELSE FALSE END as "FacilityLanguageEnglish",
+
+  FILTER(GEMEENTENAMEN, (X) => (X->TAAL = 'nl'))[1]->SPELLING as "NameDutch",
+  FILTER(GEMEENTENAMEN, (X) => (X->TAAL = 'fr'))[1]->SPELLING as "NameFrench",
+  FILTER(GEMEENTENAMEN, (X) => (X->TAAL = 'de'))[1]->SPELLING as "NameGerman",
+  FILTER(GEMEENTENAMEN, (X) => (X->TAAL = 'en'))[1]->SPELLING as "NameEnglish",
+  
+  IDENTIFICATOR->ID as "PuriId",
+  IDENTIFICATOR->NAAMRUIMTE as "Namespace",
+  IDENTIFICATOR->VERSIEID as "VersionString",
+  PARSE_TIMESTAMP(IDENTIFICATOR->VERSIEID, 'yyyy-MM-dd''T''HH:mm:ssXXX', 'UTC') as "VersionTimestamp",
+  CASE WHEN IDENTIFICATOR->ID is null THEN TRUE ELSE FALSE END as "IsRemoved"
+  
+FROM MUNICIPALITY_SNAPSHOT_OSLO_STREAM 
+PARTITION BY CAST(REDUCE(SPLIT(URL_EXTRACT_PATH(MESSAGEKEY), '/'), '', (s,x) => x) AS INTEGER);
