@@ -1,0 +1,11 @@
+CREATE OR REPLACE STREAM IF NOT EXISTS municipality_snapshot_oslo_stream_V2 (
+  messagekey varchar KEY,
+  headers ARRAY<STRUCT<key STRING, value BYTES>> HEADERS,
+  `@context` varchar,
+  `@type` varchar,
+  identificator STRUCT<id varchar, naamruimte varchar, objectId varchar, versieId varchar>,
+  officieletalen ARRAY<varchar>,
+  faciliteitentalen ARRAY<varchar>,
+  gemeentenamen ARRAY<STRUCT<spelling varchar, taal varchar>>,
+  gemeentestatus varchar)
+WITH (KAFKA_TOPIC='municipality.snapshot.oslo', VALUE_FORMAT='JSON');
