@@ -12,6 +12,7 @@ namespace MunicipalityRegistry.Infrastructure
         public const string ProducerSnapshotOslo = "MunicipalityRegistryProducerSnapshotOslo";
         public const string Wfs = "wfs.municipality";
         public const string Wms = "wms.municipality";
+        public const string Integration = "integration";
     }
 
     public static class MigrationTables
@@ -23,5 +24,6 @@ namespace MunicipalityRegistry.Infrastructure
         public const string RedisDataMigration = "__EFMigrationsHistoryDataMigration";
         public const string Wfs = "__EFMigrationsHistoryWfsMunicipality";
         public const string Wms = "__EFMigrationsHistoryWmsMunicipality";
+        public const string Integration = "__EFMigrationsHistoryIntegrationMunicipality";
     }
 }

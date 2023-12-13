@@ -1,29 +1,28 @@
-namespace MunicipalityRegistry.Projections.Wms
+namespace MunicipalityRegistry.Projections.Integration
 {
     using System;
-    using Microsoft.Data.SqlClient;
     using Autofac;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Sql.EntityFrameworkCore;
-    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer.MigrationExtensions;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Npgsql;
 
-    public class WmsModule : Module
+    public class IntegrationModule : Module
     {
-        public WmsModule(
+        public IntegrationModule(
             IConfiguration configuration,
             IServiceCollection services,
             ILoggerFactory loggerFactory)
         {
-            var logger = loggerFactory.CreateLogger<WmsModule>();
-            var connectionString = configuration.GetConnectionString("WmsProjections");
+            var logger = loggerFactory.CreateLogger<IntegrationModule>();
+            var connectionString = configuration.GetConnectionString("IntegrationProjections");
 
             var hasConnectionString = !string.IsNullOrWhiteSpace(connectionString);
             if (hasConnectionString)
-                RunOnSqlServer(configuration, services, loggerFactory, connectionString);
+                RunOnNpgSqlServer(configuration, services, loggerFactory, connectionString);
             else
                 RunInMemoryDb(services, loggerFactory, logger);
 
@@ -33,27 +32,27 @@ namespace MunicipalityRegistry.Projections.Wms
                 "\tSchema: {Schema}" +
                 Environment.NewLine +
                 "\tTableName: {TableName}",
-                nameof(WmsContext), Schema.Wms, MigrationTables.Wms);
+                nameof(IntegrationContext), Schema.Integration, MigrationTables.Integration);
         }
 
-        private static void RunOnSqlServer(
+        private static void RunOnNpgSqlServer(
             IConfiguration configuration,
             IServiceCollection services,
             ILoggerFactory loggerFactory,
             string backofficeProjectionsConnectionString)
         {
             services
-                .AddScoped(s => new TraceDbConnection<WmsContext>(
-                    new SqlConnection(backofficeProjectionsConnectionString),
+                .AddNpgsql<IntegrationContext>(backofficeProjectionsConnectionString)
+                .AddScoped(s => new TraceDbConnection<IntegrationContext>(
+                    new NpgsqlConnection(backofficeProjectionsConnectionString),
                     configuration["DataDog:ServiceName"]))
-                .AddDbContext<WmsContext>((provider, options) => options
+                .AddDbContext<IntegrationContext>((provider, options) => options
                     .UseLoggerFactory(loggerFactory)
-                    .UseSqlServer(provider.GetRequiredService<TraceDbConnection<WmsContext>>(), sqlServerOptions =>
+                    .UseNpgsql(provider.GetRequiredService<TraceDbConnection<IntegrationContext>>(), sqlServerOptions =>
                     {
                         sqlServerOptions.EnableRetryOnFailure();
-                        sqlServerOptions.MigrationsHistoryTable(MigrationTables.Wms, Schema.Wms);
-                    })
-                    .UseExtendedSqlServerMigrations());
+                        sqlServerOptions.MigrationsHistoryTable(MigrationTables.Integration, Schema.Integration);
+                    }));
         }
 
         private static void RunInMemoryDb(
@@ -62,11 +61,11 @@ namespace MunicipalityRegistry.Projections.Wms
             ILogger logger)
         {
             services
-                .AddDbContext<WmsContext>(options => options
+                .AddDbContext<IntegrationContext>(options => options
                     .UseLoggerFactory(loggerFactory)
                     .UseInMemoryDatabase(Guid.NewGuid().ToString(), sqlServerOptions => { }));
 
-            logger.LogWarning("Running InMemory for {Context}!", nameof(WmsContext));
+            logger.LogWarning("Running InMemory for {Context}!", nameof(IntegrationContext));
         }
     }
 }

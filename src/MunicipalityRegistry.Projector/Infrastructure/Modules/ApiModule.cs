@@ -1,5 +1,8 @@
 namespace MunicipalityRegistry.Projector.Infrastructure.Modules
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Microsoft;
     using Be.Vlaanderen.Basisregisters.DependencyInjection;
     using Autofac;
@@ -8,6 +11,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.EventHandling.Autofac;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
+    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner;
+    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.MigrationExtensions;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac;
     using Be.Vlaanderen.Basisregisters.Projector;
     using Be.Vlaanderen.Basisregisters.Projector.ConnectedProjections;
@@ -21,6 +26,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using MunicipalityRegistry.Infrastructure;
     using MunicipalityRegistry.Projections.Extract;
     using MunicipalityRegistry.Projections.Extract.MunicipalityExtract;
+    using MunicipalityRegistry.Projections.Integration;
     using MunicipalityRegistry.Projections.LastChangedList;
     using MunicipalityRegistry.Projections.Legacy;
     using MunicipalityRegistry.Projections.Legacy.MunicipalityDetail;
@@ -29,6 +35,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication;
     using MunicipalityRegistry.Projections.Wfs;
     using MunicipalityRegistry.Projections.Wms;
+    using Npgsql;
+    using Polly;
     using LastChangedListContextMigrationFactory = MunicipalityRegistry.Projections.LastChangedList.LastChangedListContextMigrationFactory;
 
     public class ApiModule : Module
@@ -79,6 +87,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
             RegisterLegacyProjections(builder);
             RegisterWfsProjections(builder);
             RegisterWmsProjections(builder);
+            RegisterIntegrationProjections(builder);
         }
 
         private void RegisterExtractProjections(ContainerBuilder builder)
@@ -132,6 +141,22 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                 .RegisterProjections<MunicipalityListProjections, LegacyContext>(ConnectedProjectionSettings.Default)
                 .RegisterProjections<MunicipalityNameProjections, LegacyContext>(ConnectedProjectionSettings.Default)
                 .RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>(ConnectedProjectionSettings.Default);
+        }
+
+        private void RegisterIntegrationProjections(ContainerBuilder builder)
+        {
+            builder
+                .RegisterModule(
+                    new IntegrationModule(
+                        _configuration,
+                        _services,
+                        _loggerFactory));
+
+            builder
+                .RegisterProjectionMigrator<IntegrationContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory)
+                .RegisterProjections<MunicipalityLatestItemProjections, IntegrationContext>(ConnectedProjectionSettings.Default);
         }
 
         private void RegisterWfsProjections(ContainerBuilder builder)

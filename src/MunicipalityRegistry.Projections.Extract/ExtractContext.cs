@@ -1,6 +1,7 @@
 namespace MunicipalityRegistry.Projections.Extract
 {
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner;
+    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using MunicipalityExtract;

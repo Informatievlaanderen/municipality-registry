@@ -1,10 +1,10 @@
 namespace MunicipalityRegistry.Projections.Wfs
 {
-    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner;
+    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
 
-    public class WfsContextMigrationFactory : RunnerDbContextMigrationFactory<WfsContext>
+    public class WfsContextMigrationFactory : SqlServerRunnerDbContextMigrationFactory<WfsContext>
     {
         public WfsContextMigrationFactory()
             : base("WfsProjectionsAdmin", HistoryConfiguration) { }

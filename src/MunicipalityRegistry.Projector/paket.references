@@ -5,9 +5,14 @@ Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac
 
 Be.Vlaanderen.Basisregisters.Projector
 
+NodaTime
+
 Microsoft.Extensions.DependencyInjection
 
+Npgsql.EntityFrameworkCore.PostgreSQL
+
 AspNetCore.HealthChecks.SqlServer
+AspNetCore.HealthChecks.NpgSql
 
 SourceLink.Embed.AllSourceFiles
 SourceLink.Copy.PdbFiles

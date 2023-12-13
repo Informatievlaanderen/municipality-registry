@@ -30,6 +30,7 @@
     <ProjectReference Include="..\MunicipalityRegistry.Projections.Wfs\MunicipalityRegistry.Projections.Wfs.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Projections.Wms\MunicipalityRegistry.Projections.Wms.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Projections.Legacy\MunicipalityRegistry.Projections.Legacy.csproj" />
+    <ProjectReference Include="..\MunicipalityRegistry.Projections.Integration\MunicipalityRegistry.Projections.Integration.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Projector\MunicipalityRegistry.Projector.csproj" />
 	<ProjectReference Include="..\MunicipalityRegistry.Producer\MunicipalityRegistry.Producer.csproj" />
   </ItemGroup>
