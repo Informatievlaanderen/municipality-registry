@@ -441,7 +441,7 @@ jobs:
      #     JIRA_PROJECT: GAWR
      #     JIRA_VERSION: ${{ needs.release.outputs.version }}
 
-  push_images_to_test:
+  push_images:
     if: needs.release.outputs.version != 'none'
     needs: [ release ]
     name: Push images to Test
