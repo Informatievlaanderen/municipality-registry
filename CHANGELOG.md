@@ -1,3 +1,10 @@
+## [4.6.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.0...v4.6.1) (2023-12-14)
+
+
+### Bug Fixes
+
+* ci dogger tagging ([66b8380](https://github.com/informatievlaanderen/municipality-registry/commit/66b8380d5ebd2f3c2c29f8031cc58c4da97b595d))
+
 # [4.6.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.5.6...v4.6.0) (2023-12-14)
 
 
