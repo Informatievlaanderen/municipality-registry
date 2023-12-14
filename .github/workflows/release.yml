@@ -306,7 +306,7 @@ jobs:
       shell: bash
       run: npx semantic-release
       env:
-        BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_DEVOPS_DOCKER_REGISTRY }}
+        BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
         GITHUB_TOKEN: ${{ secrets.VBR_GIT_RELEASE_TOKEN }}
         GIT_COMMIT: ${{ github.sha }}
         GIT_USERNAME: ${{ secrets.VBR_GIT_USER }}
@@ -481,8 +481,10 @@ jobs:
         shell: bash
         run: |
           echo $IMAGE:$SEMVER
+          docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/$IMAGE:$SEMVER $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
           docker push $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
         env:
+          BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
           BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_DEVOPS_DOCKER_REGISTRY }}
           IMAGE: ${{ matrix.image }}
           SEMVER: ${{ needs.release.outputs.version }}
@@ -527,11 +529,9 @@ jobs:
       - name: Push artifacts to ECR Test
         shell: bash
         run: |
-          echo $IMAGE:$SEMVER
-          docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/$IMAGE:$SEMVER $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
+          echo $IMAGE:$SEMVER          
           docker push $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
-        env:
-          BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_DEVOPS_DOCKER_REGISTRY }}
+        env:          
           BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
           IMAGE: ${{ matrix.image }}
           SEMVER: ${{ needs.release.outputs.version }}
@@ -580,7 +580,7 @@ jobs:
           docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/$IMAGE:$SEMVER $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
           docker push $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
         env:
-          BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_DEVOPS_DOCKER_REGISTRY }}
+          BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
           BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY }}
           IMAGE: ${{ matrix.image }}
           SEMVER: ${{ needs.release.outputs.version }}
@@ -629,7 +629,7 @@ jobs:
           docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/$IMAGE:$SEMVER $BUILD_DOCKER_REGISTRY_NEWPRD/municipality-registry/$IMAGE:$SEMVER
           docker push $BUILD_DOCKER_REGISTRY_NEWPRD/municipality-registry/$IMAGE:$SEMVER
         env:
-          BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_DEVOPS_DOCKER_REGISTRY }}
+          BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
           BUILD_DOCKER_REGISTRY_NEWPRD: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_NEWPRD }}
           IMAGE: ${{ matrix.image }}
           SEMVER: ${{ needs.release.outputs.version }}
@@ -708,7 +708,7 @@ jobs:
 
   deploy_to_test:
     if: github.repository_owner == 'Informatievlaanderen'
-    needs: [ push_images_to_test, release ]
+    needs: [ push_images_to_test, push_images, release ]
     name: Deploy to test
     environment: test
     runs-on: ubuntu-latest
