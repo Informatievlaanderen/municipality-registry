@@ -1,3 +1,17 @@
+# [4.6.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.5.6...v4.6.0) (2023-12-14)
+
+
+### Bug Fixes
+
+* test new ECR ([eb9ec87](https://github.com/informatievlaanderen/municipality-registry/commit/eb9ec875a08da7ea83a38082a506b7797ccd6f53))
+
+
+### Features
+
+* add idempotencekey to ksql ([a46a98a](https://github.com/informatievlaanderen/municipality-registry/commit/a46a98a9e91933acfefb6fb73109de9bd905831f))
+* add integrationdb ksql scripts ([67dedc5](https://github.com/informatievlaanderen/municipality-registry/commit/67dedc5a86093b480ed8d6f5fa021ca2a97ac3e8))
+* don't cache legacy GAWR-5195 ([1ebbcf2](https://github.com/informatievlaanderen/municipality-registry/commit/1ebbcf234af0d87fe6946a75cd3cbb955cb76b28))
+
 ## [4.5.6](https://github.com/informatievlaanderen/municipality-registry/compare/v4.5.5...v4.5.6) (2023-08-09)
 
 
