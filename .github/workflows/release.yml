@@ -684,6 +684,95 @@ jobs:
           SEMVER: ${{ needs.release.outputs.version }}
           WORKSPACE: ${{ github.workspace }}
 
+  deploy_to_newtest_start_slack:
+    if: github.repository_owner == 'Informatievlaanderen'
+    needs: [ push_images ]
+    name: Deploy to new test started
+    environment: test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Parse repository name
+      run: echo REPOSITORY_NAME=$(echo ""$GITHUB_REPOSITORY"" | awk -F / '{print $2}' | sed -e ""s/:refs//"") >> $GITHUB_ENV
+      shell: bash
+
+    - name: Notify deployment started
+      uses: slackapi/slack-github-action@v1.23.0
+      with:
+        channel-id: '#team-dinosaur-dev'
+        slack-message: Deployment of municipality-registry to new test has started
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.VBR_SLACK_BOT_TOKEN }}
+        SLACK_CHANNEL: ${{ secrets.VBR_NOTIFIER_CHANNEL_NAME }}
+        REPOSITORY_NAME: ${{ env.REPOSITORY_NAME }}
+
+  deploy_to_newtest:
+    if: github.repository_owner == 'Informatievlaanderen'
+    needs: [ push_images, release ]
+    name: Deploy to test
+    environment: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        services: ['municipalityapi', 'municipalityimportapi', 'municipalityprojections', 'municipalityproducer', 'municipalityproducersnapshotoslo']
+
+    steps:
+      - name: Deploy service(s)
+        shell: bash
+        run: |
+          echo pulling awscurl docker image
+          docker pull ghcr.io/okigan/awscurl:latest
+          echo docker run --rm okigan/awscurl --access_key $ACCESS_KEY_ID --secret_key $SECRET_ACCESS_KEY_ID --region $REGION -X POST -d '{ "version": "$VERSION", "environment": "test", "deploy_target": "agb_ecs_service" }' $BUILDURL
+          docker run --rm okigan/awscurl --access_key $ACCESS_KEY_ID --secret_key $SECRET_ACCESS_KEY_ID --region $REGION -X POST -d '{ "version": "$VERSION", "environment": "test", "deploy_target": "agb_ecs_service" }' $BUILDURL
+        env:
+          ACCESS_KEY_ID: ${{ secrets.VBR_AWS_ACCESS_KEY_ID_DEVOPS }}
+          SECRET_ACCESS_KEY_ID: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY_DEVOPS }}
+          REGION: ${{ secrets.VBR_AWS_REGION_PRD }}
+          VERSION: ${{ needs.release.outputs.version }}
+          BUILDURL: https://deploy.infra.new.basisregisters.dev-vlaanderen.be/devops/${{matrix.services}}
+    # - name: Deploy services
+    #   env:
+    #     BUILD_URL: https://deploy.infra.new.basisregisters.dev-vlaanderen.be/devops/${{matrix.services}}
+    #     STATUS_URL: ${{ secrets.VBR_AWS_BUILD_STATUS_API }}/${{matrix.services}}
+    #   uses: informatievlaanderen/awscurl-polling-action/polling-action@main
+    #   with:
+    #       environment: test
+    #       version: ${{ needs.release.outputs.version }}
+    #       status-url: $STATUS_URL
+    #       deploy-url: $BUILD_URL
+    #       access-key: ${{ secrets.VBR_AWS_ACCESS_KEY_ID_DEVOPS }}
+    #       secret-key: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY_DEVOPS }}
+    #       region: eu-west-1
+    #       interval: 2
+
+    # - name: Deploy services output
+    #   shell: bash
+    #   run: |
+    #     echo build-uuid: ${{ steps.awscurl-polling-action.outputs.build-uuid }}
+    #     echo Status: ${{ steps.awscurl-polling-action.outputs.status }}
+    #     echo ${{ steps.awscurl-polling-action.outputs.final-message }}
+
+  deploy_to_newtest_finish_slack:
+    if: github.repository_owner == 'Informatievlaanderen'
+    needs: [ deploy_to_test ]
+    name: Deploy to new test finished
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Parse repository name
+      run: echo REPOSITORY_NAME=$(echo ""$GITHUB_REPOSITORY"" | awk -F / '{print $2}' | sed -e ""s/:refs//"") >> $GITHUB_ENV
+      shell: bash
+
+    - name: Notify deployment finished
+      uses: slackapi/slack-github-action@v1.23.0
+      with:
+        channel-id: '#team-dinosaur-dev'
+        slack-message: Deployment of municipality-registry to new test has finished
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.VBR_SLACK_BOT_TOKEN }}
+        SLACK_CHANNEL: ${{ secrets.VBR_NOTIFIER_CHANNEL_NAME }}
+        REPOSITORY_NAME: ${{ env.REPOSITORY_NAME }}
+
   deploy_to_test_start_slack:
     if: github.repository_owner == 'Informatievlaanderen'
     needs: [ push_images_to_test ]
@@ -708,7 +797,7 @@ jobs:
 
   deploy_to_test:
     if: github.repository_owner == 'Informatievlaanderen'
-    needs: [ push_images_to_test, push_images, release ]
+    needs: [ push_images_to_test, release ]
     name: Deploy to test
     environment: test
     runs-on: ubuntu-latest
