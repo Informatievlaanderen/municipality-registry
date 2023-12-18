@@ -1,3 +1,10 @@
+## [4.6.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.3...v4.6.4) (2023-12-18)
+
+
+### Bug Fixes
+
+* revert hardcoded registry ([220ef0f](https://github.com/informatievlaanderen/municipality-registry/commit/220ef0f3a605e72e80ad89f7bf13aef06680353d))
+
 ## [4.6.3](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.2...v4.6.3) (2023-12-15)
 
 
