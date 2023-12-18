@@ -1,3 +1,10 @@
+## [4.6.5](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.4...v4.6.5) (2023-12-18)
+
+
+### Bug Fixes
+
+* add ci new buildurl test ([9e46de5](https://github.com/informatievlaanderen/municipality-registry/commit/9e46de57f9d9ffdf0c85a34a1930926cf4a62475))
+
 ## [4.6.4](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.3...v4.6.4) (2023-12-18)
 
 
