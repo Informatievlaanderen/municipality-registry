@@ -485,7 +485,7 @@ jobs:
           docker push $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
         env:
           BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
-          BUILD_DOCKER_REGISTRY: 362233117987.dkr.ecr.eu-west-1.amazonaws.com
+          BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_DEVOPS_DOCKER_REGISTRY }}
           IMAGE: ${{ matrix.image }}
           SEMVER: ${{ needs.release.outputs.version }}
           WORKSPACE: ${{ github.workspace }}
@@ -507,7 +507,7 @@ jobs:
           aws-region: ${{ secrets.VBR_AWS_REGION_PRD }}
 
       - name: Login to Amazon ECR (Test)
-        uses: aws-actions/amazon-ecr-login@v1.5.3 
+        uses: aws-actions/amazon-ecr-login@v1.5.3
 
       # Download artifact
       - name: Download artifact
