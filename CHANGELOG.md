@@ -1,3 +1,10 @@
+## [4.6.6](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.5...v4.6.6) (2023-12-19)
+
+
+### Bug Fixes
+
+* use polling action for build ([7ef03cb](https://github.com/informatievlaanderen/municipality-registry/commit/7ef03cb6405ceda423754b4c67b830bfc8c135b6))
+
 ## [4.6.5](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.4...v4.6.5) (2023-12-18)
 
 
