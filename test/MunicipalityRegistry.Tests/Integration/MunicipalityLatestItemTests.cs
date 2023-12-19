@@ -23,6 +23,7 @@
             _fixture = new Fixture();
             _fixture.Customize(new InfrastructureCustomization());
             _fixture.Customize(new WithFixedMunicipalityId());
+            _fixture.Customize(new WithIntegerNisCode());
         }
 
         [Fact]

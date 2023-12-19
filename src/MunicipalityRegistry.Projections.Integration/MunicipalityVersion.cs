@@ -99,7 +99,7 @@
     {
         public void Configure(EntityTypeBuilder<MunicipalityVersion> builder)
         {
-            const string tableName = "municipality-versions";
+            const string tableName = "municipality_versions";
 
             builder
                 .ToTable(tableName, Schema.Integration) // to schema per type
@@ -107,8 +107,34 @@
 
             builder.Property(x => x.Position).ValueGeneratedNever();
 
-            builder.Property(MunicipalityVersion.VersionTimestampBackingPropertyName)
-                .HasColumnName("VersionTimestamp");
+            builder.Property(x => x.Position).HasColumnName("position");
+            builder.Property(x => x.MunicipalityId).HasColumnName("municipality_id");
+            builder.Property(x => x.NisCode).HasColumnName("nis_code")
+                .HasMaxLength(5)
+                .IsFixedLength();
+            builder.Property(x => x.Status).HasColumnName("status");
+
+            builder.Property(x => x.OfficialLanguageDutch).HasColumnName("official_language_dutch");
+            builder.Property(x => x.OfficialLanguageFrench).HasColumnName("official_language_french");
+            builder.Property(x => x.OfficialLanguageGerman).HasColumnName("official_language_german");
+            builder.Property(x => x.OfficialLanguageEnglish).HasColumnName("official_language_english");
+
+            builder.Property(x => x.FacilityLanguageDutch).HasColumnName("facility_language_dutch");
+            builder.Property(x => x.FacilityLanguageFrench).HasColumnName("facility_language_french");
+            builder.Property(x => x.FacilityLanguageGerman).HasColumnName("facility_language_german");
+            builder.Property(x => x.FacilityLanguageEnglish).HasColumnName("facility_language_english");
+
+            builder.Property(x => x.NameDutch).HasColumnName("name_dutch");
+            builder.Property(x => x.NameFrench).HasColumnName("name_french");
+            builder.Property(x => x.NameGerman).HasColumnName("name_german");
+            builder.Property(x => x.NameEnglish).HasColumnName("name_english");
+
+            builder.Property(x => x.IsRemoved).HasColumnName("is_removed");
+
+            builder.Property(x => x.PuriId).HasColumnName("puri_id");
+            builder.Property(x => x.Namespace).HasColumnName("namespace");
+            builder.Property(x => x.VersionAsString).HasColumnName("version_as_string");
+            builder.Property(MunicipalityVersion.VersionTimestampBackingPropertyName).HasColumnName("version_timestamp");
 
             builder.Ignore(x => x.VersionTimestamp);
 
