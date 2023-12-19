@@ -1,3 +1,10 @@
+## [4.6.7](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.6...v4.6.7) (2023-12-19)
+
+
+### Bug Fixes
+
+* add buildtarget to new buildpipeline ([239a633](https://github.com/informatievlaanderen/municipality-registry/commit/239a63301bd762db2ec161b1d236e757f2ac5296))
+
 ## [4.6.6](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.5...v4.6.6) (2023-12-19)
 
 
