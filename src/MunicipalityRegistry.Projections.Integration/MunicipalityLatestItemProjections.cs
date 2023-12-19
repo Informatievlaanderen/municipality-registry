@@ -34,11 +34,11 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
                         municipality.NisCode = message.Message.NisCode;
                         municipality.PuriId = $"{options.Value.Namespace}/{message.Message.NisCode}";
-                        municipality.IdempotenceKey = message.Position;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -48,10 +48,11 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
                         municipality.NisCode = message.Message.NisCode;
-                        municipality.IdempotenceKey = message.Position;
+                        municipality.PuriId = $"{options.Value.Namespace}/{message.Message.NisCode}";
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -61,9 +62,9 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
-                        municipality.IdempotenceKey = message.Position;
                         UpdateNameByLanguage(municipality, message.Message.Language, message.Message.Name);
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
@@ -74,9 +75,9 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
-                        municipality.IdempotenceKey = message.Position;
                         UpdateNameByLanguage(municipality, message.Message.Language, message.Message.Name);
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
@@ -87,9 +88,9 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
-                        municipality.IdempotenceKey = message.Position;
                         UpdateNameByLanguage(municipality, message.Message.Language, null);
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
@@ -100,9 +101,9 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
-                        municipality.IdempotenceKey = message.Position;
                         UpdateNameByLanguage(municipality, message.Message.Language, null);
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
@@ -113,6 +114,7 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
                         switch (message.Message.Language)
@@ -131,7 +133,6 @@
                                 break;
                         }
 
-                        municipality.IdempotenceKey = message.Position;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -141,6 +142,7 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
                         switch (message.Message.Language)
@@ -159,7 +161,6 @@
                                 break;
                         }
 
-                        municipality.IdempotenceKey = message.Position;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -169,6 +170,7 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
                         switch (message.Message.Language)
@@ -187,7 +189,6 @@
                                 break;
                         }
 
-                        municipality.IdempotenceKey = message.Position;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -197,6 +198,7 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
                         switch (message.Message.Language)
@@ -215,7 +217,6 @@
                                 break;
                         }
 
-                        municipality.IdempotenceKey = message.Position;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -225,10 +226,10 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
                         municipality.Status = MunicipalityStatus.Current.ConvertFromMunicipalityStatus();
-                        municipality.IdempotenceKey = message.Position;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -238,10 +239,10 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
                         municipality.Status = MunicipalityStatus.Current.ConvertFromMunicipalityStatus();
-                        municipality.IdempotenceKey = message.Position;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -251,10 +252,10 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
                         municipality.Status = MunicipalityStatus.Retired.ConvertFromMunicipalityStatus();
-                        municipality.IdempotenceKey = message.Position;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -264,10 +265,10 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
+                    message.Position,
                     municipality =>
                     {
                         municipality.Status = MunicipalityStatus.Retired.ConvertFromMunicipalityStatus();
-                        municipality.IdempotenceKey = message.Position;
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
