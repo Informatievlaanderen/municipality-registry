@@ -9,6 +9,7 @@ namespace MunicipalityRegistry.Projections.Integration
         public override string ProjectionStateSchema => Schema.Integration;
 
         public DbSet<MunicipalityLatestItem> MunicipalityLatestItems => Set<MunicipalityLatestItem>();
+        public DbSet<MunicipalityVersion> MunicipalityVersions => Set<MunicipalityVersion>();
 
         // This needs to be here to please EF
         public IntegrationContext() { }
