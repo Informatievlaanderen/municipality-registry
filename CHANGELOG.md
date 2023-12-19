@@ -1,3 +1,10 @@
+## [4.6.8](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.7...v4.6.8) (2023-12-19)
+
+
+### Bug Fixes
+
+* status url in ci ([2e0c444](https://github.com/informatievlaanderen/municipality-registry/commit/2e0c444bb4a70915b849e84c09bd8aa4cab832b1))
+
 ## [4.6.7](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.6...v4.6.7) (2023-12-19)
 
 
