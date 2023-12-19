@@ -59,6 +59,7 @@ nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer 12.0.1
 nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.Npgsql 12.0.1
 nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector 12.0.1
 nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector.Testing 12.0.1
+nuget Be.Vlaanderen.Basisregisters.ProjectionHandling.Testing.Xunit 12.0.1
 
 nuget Be.Vlaanderen.Basisregisters.Projector 13.1.0
 

@@ -3,6 +3,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\MunicipalityRegistry.Infrastructure\MunicipalityRegistry.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\MunicipalityRegistry.Projections.Integration\MunicipalityRegistry.Projections.Integration.csproj" />
     <ProjectReference Include="..\..\src\MunicipalityRegistry\MunicipalityRegistry.csproj" />
   </ItemGroup>
 

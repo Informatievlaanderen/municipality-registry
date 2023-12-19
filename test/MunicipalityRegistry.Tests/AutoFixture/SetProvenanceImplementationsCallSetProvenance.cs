@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Tests
+namespace MunicipalityRegistry.Tests.AutoFixture
 {
     using System;
     using System.Linq;
