@@ -1,15 +1,8 @@
 namespace MunicipalityRegistry.Projections.Integration
 {
-    using System;
-    using System.IO;
-    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.Npgsql;
-    using Infrastructure;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Design;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Logging;
-    using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
+    using MunicipalityRegistry.Infrastructure;
 
     public class IntegrationContextMigrationFactory : NpgsqlRunnerDbContextMigrationFactory<IntegrationContext>
     {

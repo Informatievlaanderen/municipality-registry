@@ -1,8 +1,8 @@
 namespace MunicipalityRegistry.Projections.Integration
 {
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner;
-    using Infrastructure;
     using Microsoft.EntityFrameworkCore;
+    using MunicipalityRegistry.Infrastructure;
 
     public class IntegrationContext : RunnerDbContext<IntegrationContext>
     {

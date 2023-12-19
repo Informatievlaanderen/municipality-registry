@@ -1,13 +1,13 @@
-namespace MunicipalityRegistry.Projections.Integration
+namespace MunicipalityRegistry.Projections.Integration.Infrastructure
 {
     using System;
     using Autofac;
     using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Sql.EntityFrameworkCore;
-    using Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using MunicipalityRegistry.Infrastructure;
     using Npgsql;
 
     public class IntegrationModule : Module
@@ -43,7 +43,7 @@ namespace MunicipalityRegistry.Projections.Integration
         {
             services
                 .AddNpgsql<IntegrationContext>(backofficeProjectionsConnectionString)
-                .AddScoped(s => new TraceDbConnection<IntegrationContext>(
+                .AddScoped(_ => new TraceDbConnection<IntegrationContext>(
                     new NpgsqlConnection(backofficeProjectionsConnectionString),
                     configuration["DataDog:ServiceName"]))
                 .AddDbContext<IntegrationContext>((provider, options) => options
@@ -63,7 +63,7 @@ namespace MunicipalityRegistry.Projections.Integration
             services
                 .AddDbContext<IntegrationContext>(options => options
                     .UseLoggerFactory(loggerFactory)
-                    .UseInMemoryDatabase(Guid.NewGuid().ToString(), sqlServerOptions => { }));
+                    .UseInMemoryDatabase(Guid.NewGuid().ToString(), _ => { }));
 
             logger.LogWarning("Running InMemory for {Context}!", nameof(IntegrationContext));
         }

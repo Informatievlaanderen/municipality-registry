@@ -1,12 +1,11 @@
 ﻿namespace MunicipalityRegistry.Projections.Integration
 {
     using System;
-    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
-    using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
-    using Infrastructure;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common;
+    using Be.Vlaanderen.Basisregisters.Utilities;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Municipality.Events;
+    using MunicipalityRegistry.Infrastructure;
     using NodaTime;
     using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -34,21 +33,25 @@
         public string? NameEnglish { get; set; }
         public bool IsRemoved { get; set; }
 
-
-        public string? PuriId { get; set; }
-        public string? Namespace { get; set; }
-        public string? VersionString { get; set; }
+        public string PuriId { get; set; }
+        public string Namespace { get; set; }
+        public string VersionAsString { get; set; }
         private DateTimeOffset VersionTimestampAsDateTimeOffset { get; set; }
 
         public Instant VersionTimestamp
         {
             get => Instant.FromDateTimeOffset(VersionTimestampAsDateTimeOffset);
-            set => VersionTimestampAsDateTimeOffset = value.ToDateTimeOffset();
+            set
+            {
+                VersionTimestampAsDateTimeOffset = value.ToDateTimeOffset();
+                VersionAsString = new Rfc3339SerializableDateTimeOffset(value.ToBelgianDateTimeOffset()).ToString();
+            }
         }
 
-        public long? IdempotenceKey { get; set; }
+        public long IdempotenceKey { get; set; }
 
-        public MunicipalityLatestItem() { }
+        public MunicipalityLatestItem()
+        { }
     }
 
     public sealed class MunicipalityLatestItemConfiguration : IEntityTypeConfiguration<MunicipalityLatestItem>
@@ -56,7 +59,7 @@
         public void Configure(EntityTypeBuilder<MunicipalityLatestItem> builder)
         {
             builder
-                .ToTable("municipalities2", Schema.Integration)
+                .ToTable("municipality-latest-items", Schema.Integration) // to schema per type
                 .HasKey(x => x.MunicipalityId);
 
             builder.Property(MunicipalityLatestItem.VersionTimestampBackingPropertyName)
@@ -71,28 +74,6 @@
             builder.HasIndex(x => x.NameEnglish);
             builder.HasIndex(x => x.Status);
             builder.HasIndex(x => x.IsRemoved);
-        }
-    }
-
-    [ConnectedProjectionName("Integratie gemeente latest item")]
-    [ConnectedProjectionDescription("Projectie die de laatste gemeente data voor de integratie database bijhoudt.")]
-    public sealed class MunicipalityLatestItemProjections : ConnectedProjection<IntegrationContext>
-    {
-        public MunicipalityLatestItemProjections()
-        {
-            When<Envelope<MunicipalityWasRegistered>>(async (context, message, ct) =>
-            {
-                await context
-                    .MunicipalityLatestItems
-                    .AddAsync(
-                        new MunicipalityLatestItem()
-                        {
-                            MunicipalityId = message.Message.MunicipalityId,
-                            NisCode = message.Message.NisCode,
-                            VersionTimestamp = message.Message.Provenance.Timestamp,
-                            IdempotenceKey = message.Position
-                        }, ct);
-            });
         }
     }
 }
