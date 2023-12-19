@@ -80,7 +80,6 @@ Target.create "Containerize_ApiCrabImport" (fun _ -> containerize "MunicipalityR
 
 Target.create "SetAssemblyVersions" (fun _ -> setVersions "SolutionInfo.cs")
 // --------------------------------------------------------------------------------
-
 Target.create "Build" ignore
 Target.create "Test" ignore
 Target.create "Publish" ignore
