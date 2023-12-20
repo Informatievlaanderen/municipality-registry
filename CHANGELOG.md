@@ -1,3 +1,10 @@
+## [4.6.10](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.9...v4.6.10) (2023-12-20)
+
+
+### Bug Fixes
+
+* remove push to test and status url ([8289cc8](https://github.com/informatievlaanderen/municipality-registry/commit/8289cc818fa95a272b55d51a4c5c30f2e148e9d8))
+
 ## [4.6.9](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.8...v4.6.9) (2023-12-19)
 
 
