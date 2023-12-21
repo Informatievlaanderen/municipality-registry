@@ -672,8 +672,8 @@ jobs:
     steps:
     - name: Deploy services
       env:
-        BUILD_URL: https://deploy.infra.new.basisregisters.dev-vlaanderen.be/devops/${{matrix.services}}
-        STATUS_URL: https://status.infra.new.basisregisters.dev-vlaanderen.be/v3/devops/${{matrix.services}}
+        BUILD_URL: ${{ vars.VBR_AWS_BUILD_API_DEVOPS }}/${{matrix.services}}
+        STATUS_URL: ${{ vars.VBR_AWS_BUILD_STATUS_API_DEVOPS }}/${{matrix.services}}
       uses: informatievlaanderen/awscurl-polling-action/polling-action@main
       with:
           environment: test
