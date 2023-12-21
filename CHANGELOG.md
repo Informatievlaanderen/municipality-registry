@@ -1,3 +1,10 @@
+## [4.6.12](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.11...v4.6.12) (2023-12-21)
+
+
+### Bug Fixes
+
+* ci pipeline ([7ae0fef](https://github.com/informatievlaanderen/municipality-registry/commit/7ae0fef4a35b424324233d6b75b85405ebbf9989))
+
 ## [4.6.11](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.10...v4.6.11) (2023-12-21)
 
 
