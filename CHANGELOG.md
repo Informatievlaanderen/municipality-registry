@@ -1,3 +1,10 @@
+## [4.6.11](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.10...v4.6.11) (2023-12-21)
+
+
+### Bug Fixes
+
+* use variables for new pipeline ([2d0aaae](https://github.com/informatievlaanderen/municipality-registry/commit/2d0aaae8558b9b191aff7f5ff814cd4ed0f61c30))
+
 ## [4.6.10](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.9...v4.6.10) (2023-12-20)
 
 
