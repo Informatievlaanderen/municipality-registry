@@ -661,7 +661,7 @@ jobs:
 
   deploy_to_newtest:
     if: github.repository_owner == 'Informatievlaanderen'
-    needs: [ deploy_to_newtest_start_slack ]
+    needs: [ deploy_to_newtest_start_slack, release ]
     name: Deploy to new test
     environment: test
     runs-on: ubuntu-latest
