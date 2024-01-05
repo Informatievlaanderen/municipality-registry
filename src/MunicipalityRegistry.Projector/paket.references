@@ -10,6 +10,7 @@ NodaTime
 Microsoft.Extensions.DependencyInjection
 
 Npgsql.EntityFrameworkCore.PostgreSQL
+Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite
 
 AspNetCore.HealthChecks.SqlServer
 AspNetCore.HealthChecks.NpgSql

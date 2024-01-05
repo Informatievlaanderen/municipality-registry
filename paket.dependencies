@@ -13,6 +13,8 @@ nuget Microsoft.Extensions.Configuration.Json 6.0.0
 nuget AspNetCore.HealthChecks.SqlServer 6.0.2
 nuget AspNetCore.HealthChecks.NpgSql 6.0.2
 
+nuget Destructurama.JsonNet 2.0.0
+
 nuget NetTopologySuite 2.4.0
 
 nuget NodaTime 3.1.6
@@ -20,6 +22,7 @@ nuget Microsoft.EntityFrameworkCore.Design 6.0.3
 
 nuget Npgsql.EntityFrameworkCore.PostgreSQL 6.0.3
 nuget Npgsql.EntityFrameworkCore.PostgreSQL.Design 2.0.0-preview1
+nuget Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite 6.0.3
 
 nuget Microsoft.Extensions.DependencyInjection.Abstractions 6.0.0 strategy:min
 

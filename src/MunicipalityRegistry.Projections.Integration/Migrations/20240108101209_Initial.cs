@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NetTopologySuite.Geometries;
 
 #nullable disable
 
@@ -10,11 +11,24 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "integration");
+                name: "integration_municipality");
+
+            migrationBuilder.CreateTable(
+                name: "municipality_geometries",
+                schema: "integration_municipality",
+                columns: table => new
+                {
+                    nis_code = table.Column<string>(type: "character(5)", fixedLength: true, maxLength: 5, nullable: false),
+                    geometry = table.Column<Geometry>(type: "geometry", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_municipality_geometries", x => x.nis_code);
+                });
 
             migrationBuilder.CreateTable(
                 name: "municipality_latest_items",
-                schema: "integration",
+                schema: "integration_municipality",
                 columns: table => new
                 {
                     municipality_id = table.Column<Guid>(type: "uuid", nullable: false),
@@ -46,7 +60,7 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
 
             migrationBuilder.CreateTable(
                 name: "municipality_versions",
-                schema: "integration",
+                schema: "integration_municipality",
                 columns: table => new
                 {
                     position = table.Column<long>(type: "bigint", nullable: false),
@@ -78,7 +92,7 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ProjectionStates",
-                schema: "integration",
+                schema: "integration_municipality",
                 columns: table => new
                 {
                     Name = table.Column<string>(type: "text", nullable: false),
@@ -93,92 +107,105 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_municipality_geometries_geometry",
+                schema: "integration_municipality",
+                table: "municipality_geometries",
+                column: "geometry")
+                .Annotation("Npgsql:IndexMethod", "GIST");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_municipality_geometries_nis_code",
+                schema: "integration_municipality",
+                table: "municipality_geometries",
+                column: "nis_code");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_municipality_latest_items_is_removed",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_latest_items",
                 column: "is_removed");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_latest_items_name_dutch",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_latest_items",
                 column: "name_dutch");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_latest_items_name_english",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_latest_items",
                 column: "name_english");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_latest_items_name_french",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_latest_items",
                 column: "name_french");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_latest_items_name_german",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_latest_items",
                 column: "name_german");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_latest_items_nis_code",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_latest_items",
                 column: "nis_code");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_latest_items_status",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_latest_items",
                 column: "status");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_versions_is_removed",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_versions",
                 column: "is_removed");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_versions_municipality_id",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_versions",
                 column: "municipality_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_versions_name_dutch",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_versions",
                 column: "name_dutch");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_versions_name_english",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_versions",
                 column: "name_english");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_versions_name_french",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_versions",
                 column: "name_french");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_versions_name_german",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_versions",
                 column: "name_german");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_versions_nis_code",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_versions",
                 column: "nis_code");
 
             migrationBuilder.CreateIndex(
                 name: "IX_municipality_versions_status",
-                schema: "integration",
+                schema: "integration_municipality",
                 table: "municipality_versions",
                 column: "status");
         }
@@ -186,16 +213,20 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "municipality_geometries",
+                schema: "integration_municipality");
+
+            migrationBuilder.DropTable(
                 name: "municipality_latest_items",
-                schema: "integration");
+                schema: "integration_municipality");
 
             migrationBuilder.DropTable(
                 name: "municipality_versions",
-                schema: "integration");
+                schema: "integration_municipality");
 
             migrationBuilder.DropTable(
                 name: "ProjectionStates",
-                schema: "integration");
+                schema: "integration_municipality");
         }
     }
 }

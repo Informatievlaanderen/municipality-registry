@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MunicipalityRegistry.Projections.Integration;
+using NetTopologySuite.Geometries;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -41,7 +42,31 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
 
                     b.HasKey("Name");
 
-                    b.ToTable("ProjectionStates", "integration");
+                    b.ToTable("ProjectionStates", "integration_municipality");
+                });
+
+            modelBuilder.Entity("MunicipalityRegistry.Projections.Integration.MunicipalityGeometry", b =>
+                {
+                    b.Property<string>("NisCode")
+                        .HasMaxLength(5)
+                        .HasColumnType("character(5)")
+                        .HasColumnName("nis_code")
+                        .IsFixedLength();
+
+                    b.Property<Geometry>("Geometry")
+                        .IsRequired()
+                        .HasColumnType("geometry")
+                        .HasColumnName("geometry");
+
+                    b.HasKey("NisCode");
+
+                    b.HasIndex("Geometry");
+
+                    NpgsqlIndexBuilderExtensions.HasMethod(b.HasIndex("Geometry"), "GIST");
+
+                    b.HasIndex("NisCode");
+
+                    b.ToTable("municipality_geometries", "integration_municipality");
                 });
 
             modelBuilder.Entity("MunicipalityRegistry.Projections.Integration.MunicipalityLatestItem", b =>
@@ -153,7 +178,7 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
 
                     b.HasIndex("Status");
 
-                    b.ToTable("municipality_latest_items", "integration");
+                    b.ToTable("municipality_latest_items", "integration_municipality");
                 });
 
             modelBuilder.Entity("MunicipalityRegistry.Projections.Integration.MunicipalityVersion", b =>
@@ -266,7 +291,7 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
 
                     b.HasIndex("Status");
 
-                    b.ToTable("municipality_versions", "integration");
+                    b.ToTable("municipality_versions", "integration_municipality");
                 });
 #pragma warning restore 612, 618
         }

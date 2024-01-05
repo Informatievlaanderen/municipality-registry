@@ -42,17 +42,12 @@ namespace MunicipalityRegistry.Projections.Integration.Infrastructure
             string backofficeProjectionsConnectionString)
         {
             services
-                .AddNpgsql<IntegrationContext>(backofficeProjectionsConnectionString)
-                .AddScoped(_ => new TraceDbConnection<IntegrationContext>(
-                    new NpgsqlConnection(backofficeProjectionsConnectionString),
-                    configuration["DataDog:ServiceName"]))
-                .AddDbContext<IntegrationContext>((provider, options) => options
-                    .UseLoggerFactory(loggerFactory)
-                    .UseNpgsql(provider.GetRequiredService<TraceDbConnection<IntegrationContext>>(), sqlServerOptions =>
-                    {
-                        sqlServerOptions.EnableRetryOnFailure();
-                        sqlServerOptions.MigrationsHistoryTable(MigrationTables.Integration, Schema.Integration);
-                    }));
+                .AddNpgsql<IntegrationContext>(backofficeProjectionsConnectionString, sqlServerOptions =>
+                {
+                    sqlServerOptions.EnableRetryOnFailure();
+                    sqlServerOptions.MigrationsHistoryTable(MigrationTables.Integration, Schema.Integration);
+                    sqlServerOptions.UseNetTopologySuite();
+                });
         }
 
         private static void RunInMemoryDb(

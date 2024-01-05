@@ -11,6 +11,8 @@ namespace MunicipalityRegistry.Projections.Integration
         public DbSet<MunicipalityLatestItem> MunicipalityLatestItems => Set<MunicipalityLatestItem>();
         public DbSet<MunicipalityVersion> MunicipalityVersions => Set<MunicipalityVersion>();
 
+        public DbSet<MunicipalityGeometry> MunicipalityGeometries => Set<MunicipalityGeometry>();
+
         // This needs to be here to please EF
         public IntegrationContext() { }
 
