@@ -19,16 +19,16 @@
             Action<MunicipalityVersion> applyEventInfoOn,
             CancellationToken ct) where T : IHasProvenance, IMessage
         {
-            var municipalitySyndicationItem = await context.LatestPosition(municipalityId, ct);
+            var municipalityVersion = await context.LatestPosition(municipalityId, ct);
 
-            if (municipalitySyndicationItem is null)
+            if (municipalityVersion is null)
             {
                 throw DatabaseItemNotFound(municipalityId);
             }
 
             var provenance = message.Message.Provenance;
 
-            var newMunicipalityVersion = municipalitySyndicationItem.CloneAndApplyEventInfo(
+            var newMunicipalityVersion = municipalityVersion.CloneAndApplyEventInfo(
                 message.Position,
                 provenance.Timestamp,
                 applyEventInfoOn);

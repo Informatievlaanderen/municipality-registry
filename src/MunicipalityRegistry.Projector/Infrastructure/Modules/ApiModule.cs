@@ -32,7 +32,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using MunicipalityRegistry.Projections.Wfs;
     using MunicipalityRegistry.Projections.Wfs.Municipality;
     using MunicipalityRegistry.Projections.Wms;
-    using LastChangedListContextMigrationFactory = MunicipalityRegistry.Projections.LastChangedList.LastChangedListContextMigrationFactory;
+    using LastChangedListContextMigrationFactory =
+        MunicipalityRegistry.Projections.LastChangedList.LastChangedListContextMigrationFactory;
 
     public class ApiModule : Module
     {
@@ -70,11 +71,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                     new EventHandlingModule(
                         typeof(DomainAssemblyMarker).Assembly,
                         EventsJsonSerializerSettingsProvider.CreateSerializerSettings()))
-
                 .RegisterModule<EnvelopeModule>()
-
                 .RegisterEventstreamModule(_configuration)
-
                 .RegisterModule(new ProjectorModule(_configuration));
 
             RegisterExtractProjections(builder);
@@ -98,7 +96,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                     _configuration,
                     _loggerFactory)
                 .RegisterProjections<MunicipalityExtractProjections, ExtractContext>(
-                    context => new MunicipalityExtractProjections(context.Resolve<IOptions<ExtractConfig>>(), DbaseCodePage.Western_European_ANSI.ToEncoding()), ConnectedProjectionSettings.Default);
+                    context => new MunicipalityExtractProjections(context.Resolve<IOptions<ExtractConfig>>(),
+                        DbaseCodePage.Western_European_ANSI.ToEncoding()), ConnectedProjectionSettings.Default);
         }
 
         private void RegisterLastChangedProjections(ContainerBuilder builder)
@@ -117,7 +116,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                 .RegisterProjectionMigrator<DataMigrationContextMigrationFactory>(
                     _configuration,
                     _loggerFactory)
-                .RegisterProjections<LastChangedListProjections, LastChangedListContext>(ConnectedProjectionSettings.Default);
+                .RegisterProjections<LastChangedListProjections, LastChangedListContext>(ConnectedProjectionSettings
+                    .Default);
         }
 
         private void RegisterLegacyProjections(ContainerBuilder builder)
@@ -135,7 +135,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                 .RegisterProjections<MunicipalityDetailProjections, LegacyContext>(ConnectedProjectionSettings.Default)
                 .RegisterProjections<MunicipalityListProjections, LegacyContext>(ConnectedProjectionSettings.Default)
                 .RegisterProjections<MunicipalityNameProjections, LegacyContext>(ConnectedProjectionSettings.Default)
-                .RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>(ConnectedProjectionSettings.Default);
+                .RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>(ConnectedProjectionSettings
+                    .Default);
         }
 
         private void RegisterIntegrationProjections(ContainerBuilder builder)
@@ -152,7 +153,11 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                     _configuration,
                     _loggerFactory)
                 .RegisterProjections<MunicipalityLatestItemProjections, IntegrationContext>(
-                    context => new MunicipalityLatestItemProjections(context.Resolve<IOptions<IntegrationOptions>>()), ConnectedProjectionSettings.Default);
+                    context => new MunicipalityLatestItemProjections(context.Resolve<IOptions<IntegrationOptions>>()),
+                    ConnectedProjectionSettings.Default)
+                .RegisterProjections<MunicipalityVersionProjections, IntegrationContext>(
+                    context => new MunicipalityVersionProjections(context.Resolve<IOptions<IntegrationOptions>>()),
+                    ConnectedProjectionSettings.Default);
         }
 
         private void RegisterWfsProjections(ContainerBuilder builder)
@@ -194,7 +199,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                 .RegisterProjectionMigrator<WmsContextMigrationFactory>(
                     _configuration,
                     _loggerFactory)
-                .RegisterProjections<MunicipalityRegistry.Projections.Wms.Municipality.MunicipalityHelperProjections, WmsContext>(() =>
+                .RegisterProjections<MunicipalityRegistry.Projections.Wms.Municipality.MunicipalityHelperProjections,
+                    WmsContext>(() =>
                         new MunicipalityRegistry.Projections.Wms.Municipality.MunicipalityHelperProjections(),
                     wmsProjectionSettings);
         }
