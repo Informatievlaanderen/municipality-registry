@@ -1,3 +1,10 @@
+# [4.7.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.12...v4.7.0) (2024-01-15)
+
+
+### Features
+
+* add postgres integration projections ([6f2fcd4](https://github.com/informatievlaanderen/municipality-registry/commit/6f2fcd40cbaf5563f0a6ab1a18303cb230056f53))
+
 ## [4.6.12](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.11...v4.6.12) (2023-12-21)
 
 
