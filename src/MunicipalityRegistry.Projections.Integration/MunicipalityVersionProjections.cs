@@ -25,7 +25,8 @@
                             NisCode = message.Message.NisCode,
                             VersionTimestamp = message.Message.Provenance.Timestamp,
                             Namespace = options.Value.Namespace,
-                            PuriId = $"{options.Value.Namespace}/{message.Message.NisCode}"
+                            PuriId = $"{options.Value.Namespace}/{message.Message.NisCode}",
+                            CreatedOnTimestamp = message.Message.Provenance.Timestamp
                         }, ct);
             });
 
@@ -214,7 +215,8 @@
                     message,
                     x =>
                     {
-                        x.Status = MunicipalityStatus.Current.ConvertFromMunicipalityStatus();
+                        x.Status = MunicipalityStatus.Current;
+                        x.OsloStatus = MunicipalityStatus.Current.ConvertFromMunicipalityStatus();
                     },
                     ct);
             });
@@ -226,7 +228,8 @@
                     message,
                     x =>
                     {
-                        x.Status = MunicipalityStatus.Current.ConvertFromMunicipalityStatus();
+                        x.Status = MunicipalityStatus.Current;
+                        x.OsloStatus = MunicipalityStatus.Current.ConvertFromMunicipalityStatus();
                     },
                     ct);
             });
@@ -238,7 +241,8 @@
                     message,
                     x =>
                     {
-                        x.Status = MunicipalityStatus.Retired.ConvertFromMunicipalityStatus();
+                        x.Status = MunicipalityStatus.Retired;
+                        x.OsloStatus = MunicipalityStatus.Retired.ConvertFromMunicipalityStatus();
                     },
                     ct);
             });
@@ -250,7 +254,8 @@
                     message,
                     x =>
                     {
-                        x.Status = MunicipalityStatus.Retired.ConvertFromMunicipalityStatus();
+                        x.Status = MunicipalityStatus.Retired;
+                        x.OsloStatus = MunicipalityStatus.Retired.ConvertFromMunicipalityStatus();
                     },
                     ct);
             });

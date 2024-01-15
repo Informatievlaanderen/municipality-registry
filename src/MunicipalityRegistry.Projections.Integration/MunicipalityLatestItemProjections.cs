@@ -24,7 +24,6 @@
                             MunicipalityId = message.Message.MunicipalityId,
                             NisCode = message.Message.NisCode,
                             VersionTimestamp = message.Message.Provenance.Timestamp,
-                            IdempotenceKey = message.Position,
                             Namespace = options.Value.Namespace,
                             PuriId = $"{options.Value.Namespace}/{message.Message.NisCode}"
                         }, ct);
@@ -34,7 +33,6 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
                         municipality.NisCode = message.Message.NisCode;
@@ -48,7 +46,6 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
                         municipality.NisCode = message.Message.NisCode;
@@ -62,7 +59,6 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
                         UpdateNameByLanguage(municipality, message.Message.Language, message.Message.Name);
@@ -75,7 +71,6 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
                         UpdateNameByLanguage(municipality, message.Message.Language, message.Message.Name);
@@ -88,7 +83,6 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
                         UpdateNameByLanguage(municipality, message.Message.Language, null);
@@ -101,7 +95,6 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
                         UpdateNameByLanguage(municipality, message.Message.Language, null);
@@ -114,7 +107,6 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
                         switch (message.Message.Language)
@@ -142,7 +134,6 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
                         switch (message.Message.Language)
@@ -170,7 +161,6 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
                         switch (message.Message.Language)
@@ -198,7 +188,6 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
                         switch (message.Message.Language)
@@ -226,10 +215,10 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
-                        municipality.Status = MunicipalityStatus.Current.ConvertFromMunicipalityStatus();
+                        municipality.Status = MunicipalityStatus.Current;
+                        municipality.OsloStatus = MunicipalityStatus.Current.ConvertFromMunicipalityStatus();
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -239,10 +228,10 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
-                        municipality.Status = MunicipalityStatus.Current.ConvertFromMunicipalityStatus();
+                        municipality.Status = MunicipalityStatus.Current;
+                        municipality.OsloStatus = MunicipalityStatus.Current.ConvertFromMunicipalityStatus();
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -252,10 +241,10 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
-                        municipality.Status = MunicipalityStatus.Retired.ConvertFromMunicipalityStatus();
+                        municipality.Status = MunicipalityStatus.Retired;
+                        municipality.OsloStatus = MunicipalityStatus.Retired.ConvertFromMunicipalityStatus();
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);
@@ -265,10 +254,10 @@
             {
                 await context.FindAndUpdateMunicipality(
                     message.Message.MunicipalityId,
-                    message.Position,
                     municipality =>
                     {
-                        municipality.Status = MunicipalityStatus.Retired.ConvertFromMunicipalityStatus();
+                        municipality.Status = MunicipalityStatus.Retired;
+                        municipality.OsloStatus = MunicipalityStatus.Retired.ConvertFromMunicipalityStatus();
                         UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
                     },
                     ct);

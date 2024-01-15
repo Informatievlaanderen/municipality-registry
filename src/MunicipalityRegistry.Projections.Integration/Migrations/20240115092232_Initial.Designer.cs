@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MunicipalityRegistry.Projections.Integration.Migrations
 {
     [DbContext(typeof(IntegrationContext))]
-    [Migration("20240108101209_Initial")]
+    [Migration("20240115092232_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,10 +94,6 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("facility_language_german");
 
-                    b.Property<long>("IdempotenceKey")
-                        .HasColumnType("bigint")
-                        .HasColumnName("idempotence_key");
-
                     b.Property<bool>("IsRemoved")
                         .HasColumnType("boolean")
                         .HasColumnName("is_removed");
@@ -146,13 +142,17 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("official_language_german");
 
+                    b.Property<string>("OsloStatus")
+                        .HasColumnType("text")
+                        .HasColumnName("oslo_status");
+
                     b.Property<string>("PuriId")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("puri_id");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("text")
+                    b.Property<int?>("Status")
+                        .HasColumnType("integer")
                         .HasColumnName("status");
 
                     b.Property<string>("VersionAsString")
@@ -178,6 +178,8 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
 
                     b.HasIndex("NisCode");
 
+                    b.HasIndex("OsloStatus");
+
                     b.HasIndex("Status");
 
                     b.ToTable("municipality_latest_items", "integration_municipality");
@@ -188,6 +190,15 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
                     b.Property<long>("Position")
                         .HasColumnType("bigint")
                         .HasColumnName("position");
+
+                    b.Property<string>("CreatedOnAsString")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("created_on_as_string");
+
+                    b.Property<DateTimeOffset>("CreatedOnTimestampAsDateTimeOffset")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_on_timestamp");
 
                     b.Property<bool?>("FacilityLanguageDutch")
                         .HasColumnType("boolean")
@@ -257,13 +268,17 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("official_language_german");
 
+                    b.Property<string>("OsloStatus")
+                        .HasColumnType("text")
+                        .HasColumnName("oslo_status");
+
                     b.Property<string>("PuriId")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("puri_id");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("text")
+                    b.Property<int?>("Status")
+                        .HasColumnType("integer")
                         .HasColumnName("status");
 
                     b.Property<string>("VersionAsString")
@@ -281,17 +296,9 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
 
                     b.HasIndex("MunicipalityId");
 
-                    b.HasIndex("NameDutch");
-
-                    b.HasIndex("NameEnglish");
-
-                    b.HasIndex("NameFrench");
-
-                    b.HasIndex("NameGerman");
-
                     b.HasIndex("NisCode");
 
-                    b.HasIndex("Status");
+                    b.HasIndex("VersionTimestampAsDateTimeOffset");
 
                     b.ToTable("municipality_versions", "integration_municipality");
                 });

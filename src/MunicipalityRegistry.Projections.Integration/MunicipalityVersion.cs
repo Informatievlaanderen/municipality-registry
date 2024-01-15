@@ -12,12 +12,14 @@
     public sealed class MunicipalityVersion
     {
         public const string VersionTimestampBackingPropertyName = nameof(VersionTimestampAsDateTimeOffset);
+        public const string CreatedOnTimestampBackingPropertyName = nameof(CreatedOnTimestampAsDateTimeOffset);
 
         public long Position { get; set; }
 
         public Guid MunicipalityId { get; set; }
         public string NisCode { get; set; }
-        public string? Status { get; set; }
+        public MunicipalityStatus? Status { get; set; }
+        public string? OsloStatus { get; set; }
 
         public bool? OfficialLanguageDutch { get; set; }
         public bool? OfficialLanguageFrench { get; set; }
@@ -38,6 +40,9 @@
         public string PuriId { get; set; }
         public string Namespace { get; set; }
         public string VersionAsString { get; set; }
+        public string CreatedOnAsString { get; set; }
+
+        private DateTimeOffset CreatedOnTimestampAsDateTimeOffset { get; set; }
         private DateTimeOffset VersionTimestampAsDateTimeOffset { get; set; }
 
         public Instant VersionTimestamp
@@ -47,6 +52,16 @@
             {
                 VersionTimestampAsDateTimeOffset = value.ToDateTimeOffset();
                 VersionAsString = new Rfc3339SerializableDateTimeOffset(value.ToBelgianDateTimeOffset()).ToString();
+            }
+        }
+
+        public Instant CreatedOnTimestamp
+        {
+            get => Instant.FromDateTimeOffset(CreatedOnTimestampAsDateTimeOffset);
+            set
+            {
+                CreatedOnTimestampAsDateTimeOffset = value.ToDateTimeOffset();
+                CreatedOnAsString = new Rfc3339SerializableDateTimeOffset(value.ToBelgianDateTimeOffset()).ToString();
             }
         }
 
@@ -65,6 +80,8 @@
                 MunicipalityId = MunicipalityId,
                 NisCode = NisCode,
                 Status = Status,
+                OsloStatus = OsloStatus,
+                CreatedOnTimestamp = CreatedOnTimestamp,
 
                 OfficialLanguageDutch = OfficialLanguageDutch,
                 OfficialLanguageFrench = OfficialLanguageFrench,
@@ -86,7 +103,7 @@
                 PuriId = PuriId,
                 Namespace = Namespace,
 
-                VersionTimestamp = lastChangedOn
+                VersionTimestamp = lastChangedOn,
             };
 
             editFunc(newItem);
@@ -113,6 +130,7 @@
                 .HasMaxLength(5)
                 .IsFixedLength();
             builder.Property(x => x.Status).HasColumnName("status");
+            builder.Property(x => x.OsloStatus).HasColumnName("oslo_status");
 
             builder.Property(x => x.OfficialLanguageDutch).HasColumnName("official_language_dutch");
             builder.Property(x => x.OfficialLanguageFrench).HasColumnName("official_language_french");
@@ -134,18 +152,18 @@
             builder.Property(x => x.PuriId).HasColumnName("puri_id");
             builder.Property(x => x.Namespace).HasColumnName("namespace");
             builder.Property(x => x.VersionAsString).HasColumnName("version_as_string");
-            builder.Property(MunicipalityVersion.VersionTimestampBackingPropertyName).HasColumnName("version_timestamp");
+            builder.Property(x => x.CreatedOnAsString).HasColumnName("created_on_as_string");
 
             builder.Ignore(x => x.VersionTimestamp);
+            builder.Property(MunicipalityVersion.VersionTimestampBackingPropertyName).HasColumnName("version_timestamp");
+
+            builder.Ignore(x => x.CreatedOnTimestamp);
+            builder.Property(MunicipalityVersion.CreatedOnTimestampBackingPropertyName).HasColumnName("created_on_timestamp");
 
             builder.Property(x => x.MunicipalityId).IsRequired();
             builder.HasIndex(x => x.NisCode).HasSortOrder(SortOrder.Ascending);
-            builder.HasIndex(x => x.NameDutch);
-            builder.HasIndex(x => x.NameFrench);
-            builder.HasIndex(x => x.NameGerman);
-            builder.HasIndex(x => x.NameEnglish);
-            builder.HasIndex(x => x.Status);
             builder.HasIndex(x => x.IsRemoved);
+            builder.HasIndex(MunicipalityVersion.VersionTimestampBackingPropertyName);
 
             builder.HasIndex(x => x.MunicipalityId);
         }

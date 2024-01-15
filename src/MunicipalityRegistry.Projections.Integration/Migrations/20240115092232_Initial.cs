@@ -33,7 +33,8 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
                 {
                     municipality_id = table.Column<Guid>(type: "uuid", nullable: false),
                     nis_code = table.Column<string>(type: "character(5)", fixedLength: true, maxLength: 5, nullable: false),
-                    status = table.Column<string>(type: "text", nullable: true),
+                    status = table.Column<int>(type: "integer", nullable: true),
+                    oslo_status = table.Column<string>(type: "text", nullable: true),
                     official_language_dutch = table.Column<bool>(type: "boolean", nullable: true),
                     official_language_french = table.Column<bool>(type: "boolean", nullable: true),
                     official_language_german = table.Column<bool>(type: "boolean", nullable: true),
@@ -50,8 +51,7 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
                     puri_id = table.Column<string>(type: "text", nullable: false),
                     @namespace = table.Column<string>(name: "namespace", type: "text", nullable: false),
                     version_as_string = table.Column<string>(type: "text", nullable: false),
-                    version_timestamp = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    idempotence_key = table.Column<long>(type: "bigint", nullable: false)
+                    version_timestamp = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,7 +66,8 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
                     position = table.Column<long>(type: "bigint", nullable: false),
                     municipality_id = table.Column<Guid>(type: "uuid", nullable: false),
                     nis_code = table.Column<string>(type: "character(5)", fixedLength: true, maxLength: 5, nullable: false),
-                    status = table.Column<string>(type: "text", nullable: true),
+                    status = table.Column<int>(type: "integer", nullable: true),
+                    oslo_status = table.Column<string>(type: "text", nullable: true),
                     official_language_dutch = table.Column<bool>(type: "boolean", nullable: true),
                     official_language_french = table.Column<bool>(type: "boolean", nullable: true),
                     official_language_german = table.Column<bool>(type: "boolean", nullable: true),
@@ -83,6 +84,8 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
                     puri_id = table.Column<string>(type: "text", nullable: false),
                     @namespace = table.Column<string>(name: "namespace", type: "text", nullable: false),
                     version_as_string = table.Column<string>(type: "text", nullable: false),
+                    created_on_as_string = table.Column<string>(type: "text", nullable: false),
+                    created_on_timestamp = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     version_timestamp = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -156,6 +159,12 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
                 column: "nis_code");
 
             migrationBuilder.CreateIndex(
+                name: "IX_municipality_latest_items_oslo_status",
+                schema: "integration_municipality",
+                table: "municipality_latest_items",
+                column: "oslo_status");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_municipality_latest_items_status",
                 schema: "integration_municipality",
                 table: "municipality_latest_items",
@@ -174,40 +183,16 @@ namespace MunicipalityRegistry.Projections.Integration.Migrations
                 column: "municipality_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_municipality_versions_name_dutch",
-                schema: "integration_municipality",
-                table: "municipality_versions",
-                column: "name_dutch");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_municipality_versions_name_english",
-                schema: "integration_municipality",
-                table: "municipality_versions",
-                column: "name_english");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_municipality_versions_name_french",
-                schema: "integration_municipality",
-                table: "municipality_versions",
-                column: "name_french");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_municipality_versions_name_german",
-                schema: "integration_municipality",
-                table: "municipality_versions",
-                column: "name_german");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_municipality_versions_nis_code",
                 schema: "integration_municipality",
                 table: "municipality_versions",
                 column: "nis_code");
 
             migrationBuilder.CreateIndex(
-                name: "IX_municipality_versions_status",
+                name: "IX_municipality_versions_version_timestamp",
                 schema: "integration_municipality",
                 table: "municipality_versions",
-                column: "status");
+                column: "version_timestamp");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

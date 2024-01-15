@@ -9,7 +9,6 @@
     {
             public static async Task<MunicipalityLatestItem> FindAndUpdateMunicipality(this IntegrationContext context,
                 Guid municipalityId,
-                long position,
                 Action<MunicipalityLatestItem> updateFunc,
                 CancellationToken ct)
             {
@@ -19,8 +18,6 @@
 
                 if (municipality == null)
                     throw DatabaseItemNotFound(municipalityId);
-
-                municipality.IdempotenceKey = position;
 
                 updateFunc(municipality);
 

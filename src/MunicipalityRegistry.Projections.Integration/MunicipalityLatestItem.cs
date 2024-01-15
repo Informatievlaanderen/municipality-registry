@@ -15,7 +15,8 @@
 
         public Guid MunicipalityId { get; set; }
         public string NisCode { get; set; }
-        public string? Status { get; set; }
+        public MunicipalityStatus? Status { get; set; }
+        public string? OsloStatus { get; set; }
 
         public bool? OfficialLanguageDutch { get; set; }
         public bool? OfficialLanguageFrench { get; set; }
@@ -48,8 +49,6 @@
             }
         }
 
-        public long IdempotenceKey { get; set; }
-
         public MunicipalityLatestItem()
         { }
     }
@@ -67,6 +66,7 @@
                 .HasMaxLength(5)
                 .IsFixedLength();
             builder.Property(x => x.Status).HasColumnName("status");
+            builder.Property(x => x.OsloStatus).HasColumnName("oslo_status");
 
             builder.Property(x => x.OfficialLanguageDutch).HasColumnName("official_language_dutch");
             builder.Property(x => x.OfficialLanguageFrench).HasColumnName("official_language_french");
@@ -89,7 +89,6 @@
             builder.Property(x => x.Namespace).HasColumnName("namespace");
             builder.Property(x => x.VersionAsString).HasColumnName("version_as_string");
             builder.Property(MunicipalityLatestItem.VersionTimestampBackingPropertyName).HasColumnName("version_timestamp");
-            builder.Property(x => x.IdempotenceKey).HasColumnName("idempotence_key");
 
             builder.Ignore(x => x.VersionTimestamp);
 
@@ -99,6 +98,7 @@
             builder.HasIndex(x => x.NameGerman);
             builder.HasIndex(x => x.NameEnglish);
             builder.HasIndex(x => x.Status);
+            builder.HasIndex(x => x.OsloStatus);
             builder.HasIndex(x => x.IsRemoved);
         }
     }

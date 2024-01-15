@@ -48,6 +48,7 @@
                     expectedVersion.Namespace.Should().Be(Namespace);
                     expectedVersion.PuriId.Should().Be($"{Namespace}/{municipalityWasRegistered.NisCode}");
                     expectedVersion.VersionTimestamp.Should().Be(municipalityWasRegistered.Provenance.Timestamp);
+                    expectedVersion.CreatedOnTimestamp.Should().Be(municipalityWasRegistered.Provenance.Timestamp);
                 });
         }
 
@@ -79,6 +80,7 @@
                     expectedVersion!.NisCode.Should().Be(municipalityNisCodeWasDefined.NisCode);
                     expectedVersion.PuriId.Should().Be($"{Namespace}/{municipalityNisCodeWasDefined.NisCode}");
                     expectedVersion.VersionTimestamp.Should().Be(municipalityNisCodeWasDefined.Provenance.Timestamp);
+                    expectedVersion.CreatedOnTimestamp.Should().Be(municipalityWasRegistered.Provenance.Timestamp);
                 });
         }
 
@@ -110,6 +112,7 @@
                     expectedVersion!.NisCode.Should().Be(municipalityNisCodeWasCorrected.NisCode);
                     expectedVersion.PuriId.Should().Be($"{Namespace}/{municipalityNisCodeWasCorrected.NisCode}");
                     expectedVersion.VersionTimestamp.Should().Be(municipalityNisCodeWasCorrected.Provenance.Timestamp);
+                    expectedVersion.CreatedOnTimestamp.Should().Be(municipalityWasRegistered.Provenance.Timestamp);
                 });
         }
 
@@ -490,7 +493,8 @@
                 {
                     var expectedVersion = await ct.MunicipalityVersions.FindAsync(eventPosition);
                     expectedVersion.Should().NotBeNull();
-                    expectedVersion!.Status.Should().Be("InGebruik");
+                    expectedVersion!.Status.Should().Be(MunicipalityStatus.Current);
+                    expectedVersion.OsloStatus.Should().Be("InGebruik");
                     expectedVersion.VersionTimestamp.Should().Be(municipalityBecameCurrent.Provenance.Timestamp);
                 });
         }
@@ -520,7 +524,8 @@
                 {
                     var expectedVersion = await ct.MunicipalityVersions.FindAsync(eventPosition);
                     expectedVersion.Should().NotBeNull();
-                    expectedVersion!.Status.Should().Be("InGebruik");
+                    expectedVersion!.Status.Should().Be(MunicipalityStatus.Current);
+                    expectedVersion.OsloStatus.Should().Be("InGebruik");
                     expectedVersion.VersionTimestamp.Should().Be(municipalityWasCorrectedToCurrent.Provenance.Timestamp);
                 });
         }
@@ -550,7 +555,8 @@
                 {
                     var expectedVersion = await ct.MunicipalityVersions.FindAsync(eventPosition);
                     expectedVersion.Should().NotBeNull();
-                    expectedVersion!.Status.Should().Be("Gehistoreerd");
+                    expectedVersion!.Status.Should().Be(MunicipalityStatus.Retired);
+                    expectedVersion.OsloStatus.Should().Be("Gehistoreerd");
                     expectedVersion.VersionTimestamp.Should().Be(municipalityWasRetired.Provenance.Timestamp);
                 });
         }
@@ -580,7 +586,8 @@
                 {
                     var expectedVersion = await ct.MunicipalityVersions.FindAsync(eventPosition);
                     expectedVersion.Should().NotBeNull();
-                    expectedVersion!.Status.Should().Be("Gehistoreerd");
+                    expectedVersion!.Status.Should().Be(MunicipalityStatus.Retired);
+                    expectedVersion.OsloStatus.Should().Be("Gehistoreerd");
                     expectedVersion.VersionTimestamp.Should().Be(municipalityWasCorrectedToRetired.Provenance.Timestamp);
                 });
         }

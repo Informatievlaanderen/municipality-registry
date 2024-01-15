@@ -48,7 +48,6 @@
                     expectedLatestItem!.NisCode.Should().Be(municipalityWasRegistered.NisCode);
                     expectedLatestItem.Namespace.Should().Be(Namespace);
                     expectedLatestItem.PuriId.Should().Be($"{Namespace}/{municipalityWasRegistered.NisCode}");
-                    expectedLatestItem.IdempotenceKey.Should().Be(position);
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityWasRegistered.Provenance.Timestamp);
                 });
         }
@@ -80,7 +79,6 @@
                     expectedLatestItem.Should().NotBeNull();
                     expectedLatestItem!.NisCode.Should().Be(municipalityNisCodeWasDefined.NisCode);
                     expectedLatestItem.PuriId.Should().Be($"{Namespace}/{municipalityNisCodeWasDefined.NisCode}");
-                    expectedLatestItem.IdempotenceKey.Should().Be(position + 1);
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityNisCodeWasDefined.Provenance.Timestamp);
                 });
         }
@@ -112,7 +110,6 @@
                     expectedLatestItem.Should().NotBeNull();
                     expectedLatestItem!.NisCode.Should().Be(municipalityNisCodeWasCorrected.NisCode);
                     expectedLatestItem.PuriId.Should().Be($"{Namespace}/{municipalityNisCodeWasCorrected.NisCode}");
-                    expectedLatestItem.IdempotenceKey.Should().Be(position + 1);
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityNisCodeWasCorrected.Provenance.Timestamp);
                 });
         }
@@ -157,7 +154,6 @@
                             expectedLatestItem!.NameEnglish.Should().Be(municipalityWasNamed.Name);
                             break;
                     }
-                    expectedLatestItem!.IdempotenceKey.Should().Be(position + 1);
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityWasNamed.Provenance.Timestamp);
                 });
         }
@@ -202,7 +198,6 @@
                             expectedLatestItem!.NameEnglish.Should().Be(municipalityNameWasCorrected.Name);
                             break;
                     }
-                    expectedLatestItem!.IdempotenceKey.Should().Be(position + 1);
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityNameWasCorrected.Provenance.Timestamp);
                 });
         }
@@ -247,7 +242,6 @@
                             expectedLatestItem!.NameEnglish.Should().BeNull();
                             break;
                     }
-                    expectedLatestItem!.IdempotenceKey.Should().Be(position + 1);
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityNameWasCleared.Provenance.Timestamp);
                 });
         }
@@ -292,7 +286,6 @@
                             expectedLatestItem!.NameEnglish.Should().BeNull();
                             break;
                     }
-                    expectedLatestItem!.IdempotenceKey.Should().Be(position + 1);
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityNameWasCorrectedToCleared.Provenance.Timestamp);
                 });
         }
@@ -337,7 +330,6 @@
                             expectedLatestItem!.OfficialLanguageEnglish.Should().BeTrue();
                             break;
                     }
-                    expectedLatestItem!.IdempotenceKey.Should().Be(position + 1);
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityOfficialLanguageWasAdded.Provenance.Timestamp);
                 });
         }
@@ -382,7 +374,6 @@
                             expectedLatestItem!.OfficialLanguageEnglish.Should().BeFalse();
                             break;
                     }
-                    expectedLatestItem!.IdempotenceKey.Should().Be(position + 1);
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityOfficialLanguageWasRemoved.Provenance.Timestamp);
                 });
         }
@@ -427,7 +418,6 @@
                             expectedLatestItem!.FacilityLanguageEnglish.Should().BeTrue();
                             break;
                     }
-                    expectedLatestItem!.IdempotenceKey.Should().Be(position + 1);
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityFacilityLanguageWasAdded.Provenance.Timestamp);
                 });
         }
@@ -472,7 +462,6 @@
                             expectedLatestItem!.FacilityLanguageEnglish.Should().BeFalse();
                             break;
                     }
-                    expectedLatestItem!.IdempotenceKey.Should().Be(position + 1);
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityFacilityLanguageWasRemoved.Provenance.Timestamp);
                 });
         }
@@ -502,8 +491,8 @@
                     var expectedLatestItem =
                         await ct.MunicipalityLatestItems.FindAsync(municipalityBecameCurrent.MunicipalityId);
                     expectedLatestItem.Should().NotBeNull();
-                    expectedLatestItem!.Status.Should().Be("InGebruik");
-                    expectedLatestItem.IdempotenceKey.Should().Be(position + 1);
+                    expectedLatestItem!.Status.Should().Be(MunicipalityStatus.Current);
+                    expectedLatestItem.OsloStatus.Should().Be("InGebruik");
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityBecameCurrent.Provenance.Timestamp);
                 });
         }
@@ -533,8 +522,8 @@
                     var expectedLatestItem =
                         await ct.MunicipalityLatestItems.FindAsync(municipalityWasCorrectedToCurrent.MunicipalityId);
                     expectedLatestItem.Should().NotBeNull();
-                    expectedLatestItem!.Status.Should().Be("InGebruik");
-                    expectedLatestItem.IdempotenceKey.Should().Be(position + 1);
+                    expectedLatestItem!.Status.Should().Be(MunicipalityStatus.Current);
+                    expectedLatestItem.OsloStatus.Should().Be("InGebruik");
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityWasCorrectedToCurrent.Provenance.Timestamp);
                 });
         }
@@ -564,8 +553,8 @@
                     var expectedLatestItem =
                         await ct.MunicipalityLatestItems.FindAsync(municipalityWasRetired.MunicipalityId);
                     expectedLatestItem.Should().NotBeNull();
-                    expectedLatestItem!.Status.Should().Be("Gehistoreerd");
-                    expectedLatestItem.IdempotenceKey.Should().Be(position + 1);
+                    expectedLatestItem!.Status.Should().Be(MunicipalityStatus.Retired);
+                    expectedLatestItem.OsloStatus.Should().Be("Gehistoreerd");
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityWasRetired.Provenance.Timestamp);
                 });
         }
@@ -595,8 +584,8 @@
                     var expectedLatestItem =
                         await ct.MunicipalityLatestItems.FindAsync(municipalityWasCorrectedToRetired.MunicipalityId);
                     expectedLatestItem.Should().NotBeNull();
-                    expectedLatestItem!.Status.Should().Be("Gehistoreerd");
-                    expectedLatestItem.IdempotenceKey.Should().Be(position + 1);
+                    expectedLatestItem!.Status.Should().Be(MunicipalityStatus.Retired);
+                    expectedLatestItem.OsloStatus.Should().Be("Gehistoreerd");
                     expectedLatestItem.VersionTimestamp.Should().Be(municipalityWasCorrectedToRetired.Provenance.Timestamp);
                 });
         }
