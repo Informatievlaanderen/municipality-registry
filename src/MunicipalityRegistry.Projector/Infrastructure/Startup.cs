@@ -98,6 +98,11 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                                     .GetChildren()
                                     .ToList();
 
+                                if(!_configuration.GetSection("Integration").GetValue("Enabled", false))
+                                    connectionStrings = connectionStrings
+                                        .Where(x => !x.Key.StartsWith("Integration", StringComparison.OrdinalIgnoreCase))
+                                        .ToList();
+
                                 foreach (var connectionString in connectionStrings.Where(x => !x.Value.Contains("host", StringComparison.OrdinalIgnoreCase)))
                                     health.AddSqlServer(
                                         connectionString.Value,

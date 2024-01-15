@@ -80,7 +80,9 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
             RegisterLegacyProjections(builder);
             RegisterWfsProjections(builder);
             RegisterWmsProjections(builder);
-            RegisterIntegrationProjections(builder);
+
+            if(_configuration.GetSection("Integration").GetValue("Enabled", false))
+                RegisterIntegrationProjections(builder);
         }
 
         private void RegisterExtractProjections(ContainerBuilder builder)
