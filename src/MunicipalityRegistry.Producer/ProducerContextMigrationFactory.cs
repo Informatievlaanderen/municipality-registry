@@ -1,10 +1,10 @@
 namespace MunicipalityRegistry.Producer
 {
-    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner;
+    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer;
     using Microsoft.EntityFrameworkCore;
     using MunicipalityRegistry.Infrastructure;
 
-    public class ProducerContextMigrationFactory : RunnerDbContextMigrationFactory<ProducerContext>
+    public class ProducerContextMigrationFactory : SqlServerRunnerDbContextMigrationFactory<ProducerContext>
     {
         public ProducerContextMigrationFactory()
             : base("ProducerProjectionsAdmin", HistoryConfiguration) { }

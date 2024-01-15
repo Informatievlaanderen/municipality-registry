@@ -46,6 +46,22 @@ namespace MunicipalityRegistry.Tests.AutoFixture
         }
     }
 
+    public class WithIntegerNisCode : ICustomization
+    {
+        public void Customize(IFixture fixture)
+        {
+            var nisCode = new NisCode(fixture.Create<int>().ToString());
+            fixture.Register(() => nisCode);
+
+            fixture.Customizations.Add(
+                new FilteringSpecimenBuilder(
+                    new FixedBuilder(nisCode.ToString()),
+                    new ParameterSpecification(
+                        typeof(string),
+                        "nisCode")));
+        }
+    }
+
     public class WithWkbGeometry : ICustomization
     {
         public void Customize(IFixture fixture)

@@ -5,6 +5,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
     using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner;
+    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
 
@@ -37,7 +38,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
         }
     }
 
-    public class DataMigrationContextMigrationFactory : RunnerDbContextMigrationFactory<DataMigrationsContext>
+    public class DataMigrationContextMigrationFactory : SqlServerRunnerDbContextMigrationFactory<DataMigrationsContext>
     {
         private static MigrationHistoryConfiguration HistoryConfiguration =>
             new MigrationHistoryConfiguration

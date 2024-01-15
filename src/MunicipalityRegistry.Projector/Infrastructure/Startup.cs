@@ -22,6 +22,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Microsoft.OpenApi.Models;
     using Modules;
     using MunicipalityRegistry.Projections.Extract;
+    using MunicipalityRegistry.Projections.Integration.Infrastructure;
     using MunicipalityRegistry.Projections.Legacy;
     using MunicipalityRegistry.Projections.Wfs;
     using MunicipalityRegistry.Projections.Wms;
@@ -94,13 +95,25 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                             {
                                 var connectionStrings = _configuration
                                     .GetSection("ConnectionStrings")
-                                    .GetChildren();
+                                    .GetChildren()
+                                    .ToList();
 
-                                foreach (var connectionString in connectionStrings)
+                                if(!_configuration.GetSection("Integration").GetValue("Enabled", false))
+                                    connectionStrings = connectionStrings
+                                        .Where(x => !x.Key.StartsWith("Integration", StringComparison.OrdinalIgnoreCase))
+                                        .ToList();
+
+                                foreach (var connectionString in connectionStrings.Where(x => !x.Value.Contains("host", StringComparison.OrdinalIgnoreCase)))
                                     health.AddSqlServer(
                                         connectionString.Value,
                                         name: $"sqlserver-{connectionString.Key.ToLowerInvariant()}",
                                         tags: new[] {DatabaseTag, "sql", "sqlserver"});
+
+                                foreach (var connectionString in connectionStrings.Where(x => x.Value.Contains("host", StringComparison.OrdinalIgnoreCase)))
+                                    health.AddNpgSql(
+                                        connectionString.Value,
+                                        name: $"npgsql-{connectionString.Key.ToLowerInvariant()}",
+                                        tags: new[] {DatabaseTag, "sql", "npgsql"});
 
                                 health.AddDbContextCheck<ExtractContext>(
                                     $"dbcontext-{nameof(ExtractContext).ToLowerInvariant()}",
@@ -124,7 +137,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                             }
                         }
                     })
-                .Configure<ExtractConfig>(_configuration.GetSection("Extract"));
+                .Configure<ExtractConfig>(_configuration.GetSection("Extract"))
+                .Configure<IntegrationOptions>(_configuration.GetSection("Integration"));
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new LoggingModule(_configuration, services));
