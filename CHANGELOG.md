@@ -1,3 +1,10 @@
+## [4.7.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.7.0...v4.7.1) (2024-01-22)
+
+
+### Bug Fixes
+
+* ci new test ([5a5a3ec](https://github.com/informatievlaanderen/municipality-registry/commit/5a5a3ecaee82e4fb9db9d12b121d65be5b3993c2))
+
 # [4.7.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.6.12...v4.7.0) (2024-01-15)
 
 
