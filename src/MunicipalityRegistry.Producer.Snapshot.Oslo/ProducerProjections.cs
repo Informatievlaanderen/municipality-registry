@@ -452,7 +452,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
             var result = await _producer.Produce(
                 new MessageKey(objectId),
                 jsonContent,
-                new List<MessageHeader> { new MessageHeader(MessageHeader.IdempotenceKey, storePosition.ToString()) },
+                new List<MessageHeader> { new MessageHeader(MessageHeader.IdempotenceKey, $"{objectId}-{storePosition.ToString()}") },
                 cancellationToken);
 
             if (!result.IsSuccess)
