@@ -40,13 +40,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -61,13 +61,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -82,13 +82,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -177,16 +177,17 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 {
                     return;
                 }
+
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -201,13 +202,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -222,13 +223,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -243,13 +244,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -264,13 +265,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -285,13 +286,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -306,13 +307,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -327,13 +328,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -348,13 +349,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -364,13 +365,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -385,13 +386,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -401,13 +402,13 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                 var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
 
                 await FindAndProduce(async () =>
-                    await snapshotManager.FindMatchingSnapshot(
-                        GetNisCode(municipalityDetail),
-                        message.Message.Provenance.Timestamp,
-                        null,
-                        message.Position,
-                        throwStaleWhenGone: false,
-                        ct),
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
                     message.Position,
                     ct);
             });
@@ -416,17 +417,20 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
         private static string GetNisCode(MunicipalityDetail municipalityDetail)
         {
             return municipalityDetail.NisCode
-                   ?? $"Niscode of MunicipalityDetail was unexpectedly null with municipalityId: '{municipalityDetail.MunicipalityId}'.";
+                   ??
+                   $"Niscode of MunicipalityDetail was unexpectedly null with municipalityId: '{municipalityDetail.MunicipalityId}'.";
         }
 
         private static MunicipalityDetail GetMunicipalityDetail(LegacyContext legacyContext, Guid municipalityId)
         {
-            var municipalityDetail = legacyContext.MunicipalityDetail.FirstOrDefault(m => m.MunicipalityId == municipalityId);
+            var municipalityDetail =
+                legacyContext.MunicipalityDetail.FirstOrDefault(m => m.MunicipalityId == municipalityId);
             if (municipalityDetail is null)
             {
                 throw new InvalidOperationException(
                     $"Did not find MunicipalityDetail in Legacy projections for municipalityId '{municipalityId}'.");
             }
+
             return municipalityDetail;
         }
 
@@ -439,25 +443,28 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
 
             if (result != null)
             {
-                await Produce(result.Identificator.Id, result.JsonContent, storePosition, ct);
+                await Produce(result.Identificator.Id, result.Identificator.ObjectId, result.JsonContent, storePosition, ct);
             }
         }
 
         private async Task Produce(
+            string puri,
             string objectId,
             string jsonContent,
             long storePosition,
             CancellationToken cancellationToken = default)
         {
             var result = await _producer.Produce(
-                new MessageKey(objectId),
+                new MessageKey(puri),
                 jsonContent,
-                new List<MessageHeader> { new MessageHeader(MessageHeader.IdempotenceKey, $"{objectId}-{storePosition.ToString()}") },
+                new List<MessageHeader>
+                    { new MessageHeader(MessageHeader.IdempotenceKey, $"{objectId}-{storePosition.ToString()}") },
                 cancellationToken);
 
             if (!result.IsSuccess)
             {
-                throw new InvalidOperationException(result.Error + Environment.NewLine + result.ErrorReason); //TODO: create custom exception
+                throw new InvalidOperationException(result.Error + Environment.NewLine +
+                                                    result.ErrorReason);
             }
         }
     }
