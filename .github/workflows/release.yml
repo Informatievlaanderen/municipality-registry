@@ -667,7 +667,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        services: ['municipalityapi', 'municipalityimportapi', 'municipalityprojections', 'municipalityproducer', 'municipalityproducersnapshotoslo']
+        services: ['municipality-api', 'municipality-import-api', 'municipality-projections', 'municipality-producer', 'municipality-producer-snapshot-oslo']
 
     steps:
     - name: Deploy services
