@@ -1,3 +1,10 @@
+## [4.7.3](https://github.com/informatievlaanderen/municipality-registry/compare/v4.7.2...v4.7.3) (2024-02-06)
+
+
+### Bug Fixes
+
+* **bump:** retry new deploy ([2bd955d](https://github.com/informatievlaanderen/municipality-registry/commit/2bd955d91aa5a1939aedf9bb9a048b8106e6b489))
+
 ## [4.7.2](https://github.com/informatievlaanderen/municipality-registry/compare/v4.7.1...v4.7.2) (2024-02-06)
 
 
