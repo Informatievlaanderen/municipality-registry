@@ -1,3 +1,12 @@
+## [4.7.2](https://github.com/informatievlaanderen/municipality-registry/compare/v4.7.1...v4.7.2) (2024-02-06)
+
+
+### Bug Fixes
+
+* add object id to idempotencekey in snapshot oslo ([c11a579](https://github.com/informatievlaanderen/municipality-registry/commit/c11a5792620a2ffb0504ad63b5ac74c8dd223fc0))
+* **bump:** ci to try new deploy pipeline ([48d1cab](https://github.com/informatievlaanderen/municipality-registry/commit/48d1cabe1ab220f6d7f9cdb4fcb3d5f46cdc9c63))
+* object id to idempotencekey snapshot oslo ([e59aa57](https://github.com/informatievlaanderen/municipality-registry/commit/e59aa57d7f764d99c75f1b2f894d02c1140a261b))
+
 ## [4.7.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.7.0...v4.7.1) (2024-01-22)
 
 
