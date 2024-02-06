@@ -637,10 +637,10 @@ jobs:
           SEMVER: ${{ needs.release.outputs.version }}
           WORKSPACE: ${{ github.workspace }}
 
-  deploy_to_newtest_start_slack:
+  deploy_to_test_start_slack:
     if: github.repository_owner == 'Informatievlaanderen'
     needs: [ push_images, release ]
-    name: Deploy to new test started
+    name: Deploy to test started
     environment: test
     runs-on: ubuntu-latest
 
@@ -653,16 +653,16 @@ jobs:
       uses: slackapi/slack-github-action@v1.23.0
       with:
         channel-id: '#team-dinosaur-dev'
-        slack-message: Deployment of municipality-registry to new test has started
+        slack-message: Deployment of municipality-registry to test has started
       env:
         SLACK_BOT_TOKEN: ${{ secrets.VBR_SLACK_BOT_TOKEN }}
         SLACK_CHANNEL: ${{ secrets.VBR_NOTIFIER_CHANNEL_NAME }}
         REPOSITORY_NAME: ${{ env.REPOSITORY_NAME }}
 
-  deploy_to_newtest:
+  deploy_to_test:
     if: github.repository_owner == 'Informatievlaanderen'
-    needs: [ deploy_to_newtest_start_slack, release ]
-    name: Deploy to new test
+    needs: [ deploy_to_test_start_slack, release ]
+    name: Deploy to test
     environment: test
     runs-on: ubuntu-latest
     strategy:
@@ -681,10 +681,11 @@ jobs:
           status-url: $STATUS_URL
           deploy-url: $BUILD_URL
           access-key: ${{ secrets.VBR_AWS_ACCESS_KEY_ID_DEVOPS }}
-          secret-key: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY_DEVOPS }}
-          region: eu-west-1
+          secret-key: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY_DEVOPS }}          
           deploy-target: 'agb_ecs_service'
           interval: 2
+          domain: 'basisregisters'
+          project: 'basisregisters'
 
     - name: Deploy services output
       shell: bash
@@ -693,9 +694,9 @@ jobs:
         echo Status: ${{ steps.awscurl-polling-action.outputs.status }}
         echo ${{ steps.awscurl-polling-action.outputs.final-message }}
 
-  deploy_to_newtest_finish_slack:
+  deploy_to_test_finish_slack:
     if: github.repository_owner == 'Informatievlaanderen'
-    needs: [ deploy_to_newtest ]
+    needs: [ deploy_to_test ]
     name: Deploy to new test finished
     runs-on: ubuntu-latest
 
@@ -708,7 +709,7 @@ jobs:
       uses: slackapi/slack-github-action@v1.23.0
       with:
         channel-id: '#team-dinosaur-dev'
-        slack-message: Deployment of municipality-registry to new test has finished
+        slack-message: Deployment of municipality-registry to test has finished
       env:
         SLACK_BOT_TOKEN: ${{ secrets.VBR_SLACK_BOT_TOKEN }}
         SLACK_CHANNEL: ${{ secrets.VBR_NOTIFIER_CHANNEL_NAME }}
