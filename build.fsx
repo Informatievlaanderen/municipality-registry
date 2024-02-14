@@ -71,6 +71,7 @@ Target.create "Pack_Solution" (fun _ ->
   ] |> List.iter pack)
 
 Target.create "Containerize_Projector" (fun _ -> containerize "MunicipalityRegistry.Projector" "projector")
+Target.create "Containerize_ProjectionsLastChangedList" (fun _ -> containerize "MunicipalityRegistry.Projections.LastChangedList.Console" "projections-last-changed-list-console")
 Target.create "Containerize_Producer" (fun _ -> containerize "MunicipalityRegistry.Producer" "producer")
 Target.create "Containerize_ProducerSnapshotOslo" (fun _ -> containerize "MunicipalityRegistry.Producer.Snapshot.Oslo" "producer-snapshot-oslo")
 Target.create "Containerize_ApiLegacy" (fun _ -> containerize "MunicipalityRegistry.Api.Legacy" "api-legacy")

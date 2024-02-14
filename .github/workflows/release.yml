@@ -128,6 +128,21 @@ jobs:
       semver: ${{ needs.set-release-version.outputs.version }}
     secrets: inherit
 
+  build-projections-last-changed-list:
+    name: Build projections last changed list
+    uses: Informatievlaanderen/build-pipeline/.github/workflows/build-image.yml@main
+    needs: [ set-release-version ]
+    if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
+    with:
+      registry: municipality-registry
+      build-target: Containerize_ProjectionsLastChangedList
+      image-file: mr-projections-last-changed-list-console-image.tar
+      image-name: projections-last-changed-list-console
+      test-project: MunicipalityRegistry.Tests
+      build-project: MunicipalityRegistry.Projections.LastChangedList.Console
+      semver: ${{ needs.set-release-version.outputs.version }}
+    secrets: inherit
+
   build-producer:
     name: Build Producer
     uses: Informatievlaanderen/build-pipeline/.github/workflows/build-image.yml@main
@@ -219,7 +234,8 @@ jobs:
       build-api-oslo,
       build-api-extract,
       build-api-crab-import,
-      build-projector,      
+      build-projector,   
+      build-projections-last-changed-list,   
       build-producer,
       build-producer-snapshot-oslo ]
     outputs:
@@ -448,7 +464,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
+        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'projections-last-changed-list-console', 'producer', 'producer-snapshot-oslo']
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1-node16
@@ -497,7 +513,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
+        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'projections-last-changed-list-console', 'producer', 'producer-snapshot-oslo']
     steps:
       - name: Configure AWS credentials (Staging)
         uses: aws-actions/configure-aws-credentials@v1-node16

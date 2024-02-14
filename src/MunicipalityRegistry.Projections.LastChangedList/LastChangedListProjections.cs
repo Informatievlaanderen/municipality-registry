@@ -7,14 +7,15 @@ namespace MunicipalityRegistry.Projections.LastChangedList
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
 
-    [ConnectedProjectionName("Cache markering gemeenten")]
+    [ConnectedProjectionName(ProjectionName)]
     [ConnectedProjectionDescription("Projectie die markeert voor hoeveel gemeenten de gecachte data nog geüpdated moeten worden.")]
     public class LastChangedListProjections : LastChangedListConnectedProjection
     {
+        public const string ProjectionName = "Cache markering gemeenten";
         private static readonly AcceptType[] SupportedAcceptTypes = { AcceptType.JsonLd };
 
-        public LastChangedListProjections()
-            : base(SupportedAcceptTypes)
+        public LastChangedListProjections(ICacheValidator cacheValidator)
+            : base(SupportedAcceptTypes, cacheValidator)
         {
             When<Envelope<MunicipalityWasRegistered>>(async (context, message, ct) =>
             {
@@ -121,7 +122,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
         {
             var shortenedAcceptType = acceptType.ToString().ToLowerInvariant();
             return acceptType switch
-            {                
+            {
                 AcceptType.JsonLd => $"oslo/municipality:{{0}}.{shortenedAcceptType}",
                 _ => throw new NotImplementedException($"Cannot build CacheKey for type {typeof(AcceptType)}")
             };
@@ -130,7 +131,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
         protected override string BuildUri(AcceptType acceptType, string identifier)
         {
             return acceptType switch
-            {               
+            {
                 AcceptType.JsonLd => $"/v2/gemeenten/{{0}}",
                 _ => throw new NotImplementedException($"Cannot build Uri for type {typeof(AcceptType)}")
             };
