@@ -27,7 +27,6 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using MunicipalityRegistry.Projections.Legacy;
     using MunicipalityRegistry.Projections.Legacy.MunicipalityDetail;
     using MunicipalityRegistry.Projections.Legacy.MunicipalityList;
-    using MunicipalityRegistry.Projections.Legacy.MunicipalityName;
     using MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication;
     using MunicipalityRegistry.Projections.Wfs;
     using MunicipalityRegistry.Projections.Wfs.Municipality;
@@ -136,7 +135,6 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                     _loggerFactory)
                 .RegisterProjections<MunicipalityDetailProjections, LegacyContext>(ConnectedProjectionSettings.Default)
                 .RegisterProjections<MunicipalityListProjections, LegacyContext>(ConnectedProjectionSettings.Default)
-                .RegisterProjections<MunicipalityNameProjections, LegacyContext>(ConnectedProjectionSettings.Default)
                 .RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>(ConnectedProjectionSettings
                     .Default);
         }

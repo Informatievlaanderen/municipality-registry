@@ -1,7 +1,6 @@
 namespace MunicipalityRegistry.Api.Legacy.Municipality
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Mime;
     using System.Text;
@@ -29,7 +28,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
     using Microsoft.SyndicationFeed.Atom;
     using Projections.Legacy;
     using Query;
-    using Requests;
     using Responses;
     using Swashbuckle.AspNetCore.Filters;
     using ProblemDetails = Be.Vlaanderen.Basisregisters.BasicApiProblem.ProblemDetails;
@@ -215,90 +213,6 @@ namespace MunicipalityRegistry.Api.Legacy.Municipality
                 ContentType = MediaTypeNames.Text.Xml,
                 StatusCode = StatusCodes.Status200OK
             };
-        }
-
-        /// <summary>
-        /// Zoek naar gemeenten in het Vlaams Gewest in het BOSA formaat.
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="reponseOptions"></param>
-        /// <param name="request">De request in BOSA formaat.</param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        [HttpPost("bosa")]
-        [ProducesResponseType(typeof(MunicipalityBosaResponse), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
-        [SwaggerRequestExample(typeof(BosaMunicipalityRequest), typeof(MunicipalityBosaRequestExamples))]
-        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalityBosaResponseExamples))]
-        [SwaggerResponseExample(StatusCodes.Status400BadRequest, typeof(BadRequestResponseExamples))]
-        [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
-        public async Task<IActionResult> Post(
-            [FromServices] LegacyContext context,
-            [FromServices] IOptions<ResponseOptions> reponseOptions,
-            [FromBody] BosaMunicipalityRequest request,
-            CancellationToken cancellationToken = default)
-        {
-            if (Request.ContentLength.HasValue && Request.ContentLength > 0 && request == null)
-            {
-                return Ok(new MunicipalityBosaResponse());
-            }
-
-            var filtering = new MunicipalityBosaFilter(request);
-            var sorting = new SortingHeader(string.Empty, SortOrder.Ascending);
-            var pagination = new PaginationRequest(0, 1000);
-
-            var filteredMunicipalities = new MunicipalityBosaQuery(context).Fetch(
-                new FilteringHeader<MunicipalityBosaFilter>(filtering),
-                sorting,
-                pagination);
-
-            return Ok(
-                new MunicipalityBosaResponse
-                {
-                    Gemeenten = await filteredMunicipalities
-                        .Items
-                        .Select(m =>
-                            new MunicipalityBosaItemResponse(
-                                m.NisCode,
-                                reponseOptions.Value.Naamruimte,
-                                m.Version,
-                                GetGemeentenamenByLanguage(m, filtering.Language)))
-                        .ToListAsync(cancellationToken)
-                });
-        }
-
-        private static IEnumerable<GeografischeNaam> GetGemeentenamenByLanguage(MunicipalityBosaQueryResult municipality, Language? language)
-        {
-            var gemeenteNamen = new List<GeografischeNaam>();
-
-            if (language.HasValue)
-            {
-                gemeenteNamen.Add(new GeografischeNaam(municipality.GetNameValueByLanguage(language.Value), (Taal)language.Value));
-                return gemeenteNamen;
-            }
-
-            if (!string.IsNullOrEmpty(municipality.NameDutch))
-            {
-                gemeenteNamen.Add(new GeografischeNaam(municipality.NameDutch, Taal.NL));
-            }
-
-            if (!string.IsNullOrEmpty(municipality.NameFrench))
-            {
-                gemeenteNamen.Add(new GeografischeNaam(municipality.NameFrench, Taal.FR));
-            }
-
-            if (!string.IsNullOrEmpty(municipality.NameGerman))
-            {
-                gemeenteNamen.Add(new GeografischeNaam(municipality.NameGerman, Taal.DE));
-            }
-
-            if (!string.IsNullOrEmpty(municipality.NameEnglish))
-            {
-                gemeenteNamen.Add(new GeografischeNaam(municipality.NameEnglish, Taal.EN));
-            }
-
-            return gemeenteNamen;
         }
 
         private static async Task<string> BuildAtomFeed(
