@@ -1,3 +1,10 @@
+# [4.8.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.7.3...v4.8.0) (2024-03-01)
+
+
+### Features
+
+* remove bosa functionality GAWR-5456 ([320c264](https://github.com/informatievlaanderen/municipality-registry/commit/320c264aa0cbae8f9a326ecb323ccdf83d9c1836))
+
 ## [4.7.3](https://github.com/informatievlaanderen/municipality-registry/compare/v4.7.2...v4.7.3) (2024-02-06)
 
 
