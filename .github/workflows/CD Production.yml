@@ -35,10 +35,10 @@ jobs:
     strategy:
       matrix:
         services: [
-          'municipality-registry-api',
-          'municipality-registry-projections',
-          'municipality-registry-producer',
-          'municipality-registry-producer-snapshot-oslo']
+          'municipality-api',
+          'municipality-projections',
+          'municipality-producer',
+          'municipality-producer-snapshot-oslo']
     steps:
     - name: CD
       env:
