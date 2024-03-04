@@ -1,3 +1,10 @@
+## [4.8.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.8.0...v4.8.1) (2024-03-04)
+
+
+### Bug Fixes
+
+* add new production cd ([900f6be](https://github.com/informatievlaanderen/municipality-registry/commit/900f6bebdc7cd73a78c95ff3b685c125ab40bdac))
+
 # [4.8.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.7.3...v4.8.0) (2024-03-01)
 
 
