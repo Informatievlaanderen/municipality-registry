@@ -9,6 +9,7 @@ namespace MunicipalityRegistry.Tests.AutoFixture
     using global::AutoFixture;
     using global::AutoFixture.Dsl;
     using global::AutoFixture.Kernel;
+    using MethodInvoker = global::AutoFixture.Kernel.MethodInvoker;
 
     public class WithFixedMunicipalityId : ICustomization
     {

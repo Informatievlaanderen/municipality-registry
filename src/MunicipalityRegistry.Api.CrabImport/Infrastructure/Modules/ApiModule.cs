@@ -4,8 +4,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api.Exceptions;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Microsoft;
-    using Be.Vlaanderen.Basisregisters.DependencyInjection;
+    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.EventHandling.Autofac;
     using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.CrabImport;
@@ -36,7 +35,7 @@ namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
         {
             var eventSerializerSettings = EventsJsonSerializerSettingsProvider.CreateSerializerSettings();
 
-            _services.RegisterModule(new DataDogModule(_configuration));
+            builder.RegisterModule(new DataDogModule(_configuration));
 
             _services.ConfigureCrabImport(
                 _configuration.GetConnectionString("CrabImport"),

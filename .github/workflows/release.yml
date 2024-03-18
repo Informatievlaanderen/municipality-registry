@@ -15,12 +15,14 @@ jobs:
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
           persist-credentials: false
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3.5.1
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
 
     - name: Node version
       shell: bash
@@ -59,13 +61,13 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: municipality-registry
-      build-target: Containerize_ApiLegacy
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
       image-file: mr-api-legacy-image.tar
       image-name: api-legacy
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Api.Legacy
       semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
   build-api-oslo:
@@ -74,13 +76,13 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: municipality-registry
-      build-target: Containerize_ApiOslo
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
       image-file: mr-api-oslo-image.tar
       image-name: api-oslo
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Api.Oslo
       semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
   build-api-crab-import:
@@ -89,13 +91,13 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: municipality-registry
-      build-target: Containerize_ApiCrabImport
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
       image-file: mr-api-crab-import-image.tar
       image-name: api-crab-import
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Api.CrabImport
       semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
   build-api-extract:
@@ -104,13 +106,13 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: municipality-registry
-      build-target: Containerize_ApiExtract
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
       image-file: mr-api-extract-image.tar
       image-name: api-extract
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Api.Extract
       semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
   build-projector:
@@ -119,13 +121,13 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: municipality-registry
-      build-target: Containerize_Projector
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
       image-file: mr-projector-image.tar
       image-name: projector
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Projector
       semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
   build-producer:
@@ -134,13 +136,13 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: municipality-registry
-      build-target: Containerize_Producer
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
       image-file: mr-producer-image.tar
       image-name: producer
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Producer
       semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
   build-producer-snapshot-oslo:
@@ -149,13 +151,13 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: municipality-registry
-      build-target: Containerize_ProducerSnapshotOslo
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
       image-file: mr-producer-snapshot-oslo-image.tar
       image-name: producer-snapshot-oslo
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Producer.Snapshot.Oslo
       semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
   pack-api-legacy:
@@ -180,6 +182,7 @@ jobs:
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Api.Oslo
       semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
   pack-api-extract:
@@ -192,6 +195,7 @@ jobs:
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Api.Extract
       semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
   pack-api-crab-import:
@@ -204,6 +208,7 @@ jobs:
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Api.CrabImport
       semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
   release:
@@ -226,12 +231,12 @@ jobs:
       version: ${{ steps.set-version.outputs.version }}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
           persist-credentials: false
 
     - name: Cache NPM
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       env:
         cache-name: cache-npm
       with:
@@ -245,10 +250,12 @@ jobs:
       shell: bash
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
 
     - name: Setup Python
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v5
       with:
         python-version: '3.x'
 
@@ -266,7 +273,7 @@ jobs:
 
     - name: Install NPM dependencies
       shell: bash
-      run: npm install --legacy-peer-deps
+      run: npm ci
 
     - name: Install Python dependencies
       shell: bash
@@ -275,28 +282,28 @@ jobs:
         pip install requests markdown argparse
 
     - name: Download NuGet Api Legacy
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       continue-on-error: false
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Legacy-${{ needs.set-release-version.outputs.version }}
         path: dist/nuget/
 
     - name: Download NuGet Api Oslo
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       continue-on-error: false
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Oslo-${{ needs.set-release-version.outputs.version }}
         path: dist/nuget/
 
     - name: Download NuGet Api Extract
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       continue-on-error: false
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Extract-${{ needs.set-release-version.outputs.version }}
         path: dist/nuget/
 
     - name: Download NuGet Api CrabImport
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       continue-on-error: false
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.CrabImport-${{ needs.set-release-version.outputs.version }}
@@ -333,37 +340,37 @@ jobs:
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v2
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ secrets.VBR_DOTNET_VERSION }}
+        dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
 
     - name: .NET version
       shell: bash
       run: dotnet --info
 
     - name: Download NuGet package api-legacy
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Legacy-${{ needs.release.outputs.version }}
         path: ~/
 
     - name: Download NuGet package api-oslo
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Oslo-${{ needs.release.outputs.version }}
         path: ~/
 
     - name: Download NuGet package api-extract
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Extract-${{ needs.release.outputs.version }}
         path: ~/
 
     - name: Download NuGet package api-crab-import
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.CrabImport-${{ needs.release.outputs.version }}
         path: ~/
@@ -387,14 +394,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Parse repository name
         run: echo REPOSITORY_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//") >> $GITHUB_ENV
         shell: bash
 
       - name: Cache Paket
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-paket
         with:
@@ -404,7 +411,7 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
 
       - name: Cache Python
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-pip
         with:
@@ -412,7 +419,7 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}
 
       - name: Setup Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
@@ -458,11 +465,11 @@ jobs:
           aws-region: ${{ secrets.VBR_AWS_REGION_PRD }}
 
       - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1.5.3
+        uses: aws-actions/amazon-ecr-login@v2
 
       # Download artifact
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         continue-on-error: false
         with:
           name: ${{ matrix.image }}-${{ needs.release.outputs.version }}
@@ -481,7 +488,6 @@ jobs:
         shell: bash
         run: |
           echo $IMAGE:$SEMVER
-          docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/$IMAGE:$SEMVER $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
           docker push $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
         env:
           BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
@@ -507,11 +513,11 @@ jobs:
           aws-region: ${{ secrets.VBR_AWS_REGION_PRD }}
 
       - name: Login to Amazon ECR (Staging)
-        uses: aws-actions/amazon-ecr-login@v1.5.3
+        uses: aws-actions/amazon-ecr-login@v2
 
       # Download artifact
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         continue-on-error: false
         with:
           name: ${{ matrix.image }}-${{ needs.release.outputs.version }}
@@ -530,7 +536,6 @@ jobs:
         shell: bash
         run: |
           echo $IMAGE:$SEMVER
-          docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/$IMAGE:$SEMVER $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
           docker push $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
         env:
           BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
@@ -556,11 +561,11 @@ jobs:
           aws-region: ${{ secrets.VBR_AWS_REGION_PRD }}
 
       - name: Login to Amazon ECR (New Production)
-        uses: aws-actions/amazon-ecr-login@v1.5.3
+        uses: aws-actions/amazon-ecr-login@v2
 
       # Download artifact
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         continue-on-error: false
         with:
           name: ${{ matrix.image }}-${{ needs.release.outputs.version }}
@@ -598,18 +603,18 @@ jobs:
         image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
     steps:
       - name: Configure AWS credentials (Production)
-        uses: aws-actions/configure-aws-credentials@v1-node16
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.VBR_AWS_ACCESS_KEY_ID_PRD }}
           aws-secret-access-key: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY_PRD }}
           aws-region: ${{ secrets.VBR_AWS_REGION_PRD }}
 
       - name: Login to Amazon ECR (Production)
-        uses: aws-actions/amazon-ecr-login@v1.5.3
+        uses: aws-actions/amazon-ecr-login@v2
 
       # Download artifact
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         continue-on-error: false
         with:
           name: ${{ matrix.image }}-${{ needs.release.outputs.version }}
@@ -628,7 +633,6 @@ jobs:
         shell: bash
         run: |
           echo $IMAGE:$SEMVER
-          docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/$IMAGE:$SEMVER $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/$IMAGE:$SEMVER
           docker push $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/$IMAGE:$SEMVER
         env:
           BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
@@ -650,7 +654,7 @@ jobs:
       shell: bash
 
     - name: Notify deployment started
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.25.0
       with:
         channel-id: '#team-dinosaur-dev'
         slack-message: Deployment of municipality-registry to test has started
@@ -706,7 +710,7 @@ jobs:
       shell: bash
 
     - name: Notify deployment finished
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.25.0
       with:
         channel-id: '#team-dinosaur-dev'
         slack-message: Deployment of municipality-registry to test has finished
@@ -804,7 +808,7 @@ jobs:
       shell: bash
 
     - name: Notify deployment started
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.25.0
       with:
         channel-id: '#team-dinosaur-dev'
         slack-message: Deployment of municipality-registry to staging has started
@@ -857,7 +861,7 @@ jobs:
       shell: bash
 
     - name: Notify deployment finished
-      uses: slackapi/slack-github-action@v1.23.0
+      uses: slackapi/slack-github-action@v1.25.0
       with:
         channel-id: '#team-dinosaur-dev'
         slack-message: Deployment of municipality-registry to staging has finished

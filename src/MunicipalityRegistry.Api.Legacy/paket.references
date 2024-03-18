@@ -3,8 +3,6 @@ Be.Vlaanderen.Basisregisters.Api
 Be.Vlaanderen.Basisregisters.EventHandling.Autofac
 Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac
 
-Be.Vlaanderen.Basisregisters.OpenTelemetry
-
 AspNetCore.HealthChecks.SqlServer
 
 Microsoft.Extensions.DependencyInjection.Abstractions

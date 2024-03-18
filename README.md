@@ -1,4 +1,4 @@
-# Municipality Registry [![Build Status](https://github.com/Informatievlaanderen/municipality-registry/workflows/CI/badge.svg)](https://github.com/Informatievlaanderen/municipality-registry/actions)
+# Municipality Registry [![Build Status](https://github.com/Informatievlaanderen/municipality-registry/workflows/Build/badge.svg)](https://github.com/Informatievlaanderen/municipality-registry/actions)
 
 ## Goal
 
@@ -20,7 +20,6 @@
 To fill up the database for the first time:
 
 * Run `MunicipalityRegistry.Api.CrabImport` (`MunicipalityRegistry.sln`)
-* Run `MunicipalityRegistry.Importer` (`MunicipalityRegistryImporter.sln`) with `init -c -l Trace` as flags.
 
 #### Projections
 

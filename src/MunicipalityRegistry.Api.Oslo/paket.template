@@ -15,17 +15,22 @@ licenseUrl https://opensource.org/licenses/EUPL-1.2
 description Municipality Registry.
 
 dependencies
-  framework: net6.0
+  framework: net8.0
     Be.Vlaanderen.Basisregisters.GrAr.Legacy >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.AggregateSource >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.Api >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.EventHandling.Autofac >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac >= LOCKEDVERSION
+    AspNetCore.HealthChecks.SqlServer >= LOCKEDVERSION
 
 files
-  MunicipalityRegistry.Api.Oslo.dll => lib\net6.0
-  MunicipalityRegistry.Api.Oslo.pdb => lib\net6.0
-  MunicipalityRegistry.Api.Oslo.xml => lib\net6.0
+  MunicipalityRegistry.Api.Oslo.dll => lib\net8.0
+  MunicipalityRegistry.Api.Oslo.pdb => lib\net8.0
+  MunicipalityRegistry.Api.Oslo.xml => lib\net8.0
   MunicipalityRegistry.Api.Oslo.xml => content
 
-  MunicipalityRegistry.Projections.Legacy.dll => lib\net6.0
-  MunicipalityRegistry.Projections.Legacy.pdb => lib\net6.0
+  MunicipalityRegistry.Projections.Legacy.dll => lib\net8.0
+  MunicipalityRegistry.Projections.Legacy.pdb => lib\net8.0
 
-  MunicipalityRegistry.dll => lib\net6.0
-  MunicipalityRegistry.pdb => lib\net6.0
+  MunicipalityRegistry.dll => lib\net8.0
+  MunicipalityRegistry.pdb => lib\net8.0
