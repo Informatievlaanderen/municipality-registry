@@ -26,10 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\SolutionInfo.cs" Link="Properties\SolutionInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MunicipalityRegistry.Api.Legacy\MunicipalityRegistry.Api.Legacy.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Infrastructure\MunicipalityRegistry.Infrastructure.csproj" />
   </ItemGroup>

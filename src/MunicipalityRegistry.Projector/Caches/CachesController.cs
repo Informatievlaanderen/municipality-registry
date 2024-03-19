@@ -4,6 +4,7 @@ namespace MunicipalityRegistry.Projector.Caches
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Asp.Versioning;
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
     using Microsoft.AspNetCore.Mvc;

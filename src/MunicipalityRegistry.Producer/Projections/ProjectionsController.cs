@@ -1,9 +1,9 @@
 namespace MunicipalityRegistry.Producer.Projections
 {
+    using Asp.Versioning;
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.Projector.ConnectedProjections;
     using Be.Vlaanderen.Basisregisters.Projector.Controllers;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using MunicipalityRegistry.Infrastructure;
 

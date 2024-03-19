@@ -14,11 +14,21 @@ licenseUrl https://opensource.org/licenses/EUPL-1.2
 
 description Municipality Registry.
 
+dependencies
+  framework: net8.0
+    Be.Vlaanderen.Basisregisters.Api >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.EventHandling.Autofac >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac >= LOCKEDVERSION
+    Be.Vlaanderen.Basisregisters.GrAr.Import >= LOCKEDVERSION
+    AspNetCore.HealthChecks.SqlServer >= LOCKEDVERSION
+
 files
-  MunicipalityRegistry.Api.CrabImport.dll => lib\net6.0
-  MunicipalityRegistry.Api.CrabImport.pdb => lib\net6.0
-  MunicipalityRegistry.Api.CrabImport.xml => lib\net6.0
+  MunicipalityRegistry.Api.CrabImport.dll => lib\net8.0
+  MunicipalityRegistry.Api.CrabImport.pdb => lib\net8.0
+  MunicipalityRegistry.Api.CrabImport.xml => lib\net8.0
   MunicipalityRegistry.Api.CrabImport.xml => content
 
-  MunicipalityRegistry.dll => lib\net6.0
-  MunicipalityRegistry.pdb => lib\net6.0
+  MunicipalityRegistry.dll => lib\net8.0
+  MunicipalityRegistry.pdb => lib\net8.0
