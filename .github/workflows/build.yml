@@ -40,7 +40,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: ${{ secrets.VBR_DOTNET_VERSION }}
+        dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
 
     - name: .NET version
       shell: bash
@@ -50,7 +50,8 @@ jobs:
       shell: bash
       run: |
         dotnet tool restore
-        dotnet paket install
+        dotnet paket restore
+        dotnet restore
 
     - name: Cache SonarCloud packages
       uses: actions/cache@v4

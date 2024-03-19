@@ -170,6 +170,7 @@ jobs:
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Api.Legacy
       semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
   pack-api-oslo:
@@ -536,9 +537,10 @@ jobs:
         shell: bash
         run: |
           echo $IMAGE:$SEMVER
+          docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/$IMAGE:$SEMVER $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
           docker push $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
         env:
-          BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
+          BUILD_DOCKER_REGISTRY_TST: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}
           BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY }}
           IMAGE: ${{ matrix.image }}
           SEMVER: ${{ needs.release.outputs.version }}
@@ -589,54 +591,6 @@ jobs:
         env:
           BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
           BUILD_DOCKER_REGISTRY_NEWPRD: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_NEWPRD }}
-          IMAGE: ${{ matrix.image }}
-          SEMVER: ${{ needs.release.outputs.version }}
-          WORKSPACE: ${{ github.workspace }}
-
-  push_images_to_production:
-    if: needs.release.outputs.version != 'none'
-    needs: [ release ]
-    name: Push images to Production
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
-    steps:
-      - name: Configure AWS credentials (Production)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.VBR_AWS_ACCESS_KEY_ID_PRD }}
-          aws-secret-access-key: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY_PRD }}
-          aws-region: ${{ secrets.VBR_AWS_REGION_PRD }}
-
-      - name: Login to Amazon ECR (Production)
-        uses: aws-actions/amazon-ecr-login@v2
-
-      # Download artifact
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        continue-on-error: false
-        with:
-          name: ${{ matrix.image }}-${{ needs.release.outputs.version }}
-          path: ~/
-
-      # Load artifact
-      - name: Load artifact
-        shell: bash
-        run: |
-          echo mr-$IMAGE-image.tar
-          docker image load -i ~/mr-$IMAGE-image.tar
-        env:
-          IMAGE: ${{ matrix.image }}
-
-      - name: Push artifacts to ECR Production
-        shell: bash
-        run: |
-          echo $IMAGE:$SEMVER
-          docker push $BUILD_DOCKER_REGISTRY_PRD/municipality-registry/$IMAGE:$SEMVER
-        env:
-          BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
-          BUILD_DOCKER_REGISTRY_PRD: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_PRD }}
           IMAGE: ${{ matrix.image }}
           SEMVER: ${{ needs.release.outputs.version }}
           WORKSPACE: ${{ github.workspace }}
