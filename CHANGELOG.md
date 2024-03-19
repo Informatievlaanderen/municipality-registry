@@ -1,3 +1,11 @@
+## [5.0.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.0.0...v5.0.1) (2024-03-19)
+
+
+### Bug Fixes
+
+* dockerfile to 8.0.2 ([a4834a4](https://github.com/informatievlaanderen/municipality-registry/commit/a4834a4e1eeb86c8d1cae1365b10461e95d47a5c))
+* release ([3759d4c](https://github.com/informatievlaanderen/municipality-registry/commit/3759d4cc0d9847d18961a6fed897262a2e8b23b8))
+
 # [5.0.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.8.1...v5.0.0) (2024-03-19)
 
 
