@@ -2,9 +2,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\..\packages\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.Test.props" />
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.4" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\src\MunicipalityRegistry.Api.Legacy\MunicipalityRegistry.Api.Legacy.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Api.IntegrationTests\MunicipalityRegistry.Api.IntegrationTests.csproj" />
   </ItemGroup>
