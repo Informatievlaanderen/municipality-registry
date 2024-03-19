@@ -1,3 +1,15 @@
+# [5.0.0](https://github.com/informatievlaanderen/municipality-registry/compare/v4.8.1...v5.0.0) (2024-03-19)
+
+
+### Features
+
+* move to dotnet 8.0.2 ([6cb9ecc](https://github.com/informatievlaanderen/municipality-registry/commit/6cb9ecca1ef0955218651e3a726a9edb20772852))
+
+
+### BREAKING CHANGES
+
+* move to dotnet 8.0.2
+
 ## [4.8.1](https://github.com/informatievlaanderen/municipality-registry/compare/v4.8.0...v4.8.1) (2024-03-04)
 
 
