@@ -589,7 +589,7 @@ jobs:
           docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/$IMAGE:$SEMVER $BUILD_DOCKER_REGISTRY_NEWPRD/municipality-registry/$IMAGE:$SEMVER
           docker push $BUILD_DOCKER_REGISTRY_NEWPRD/municipality-registry/$IMAGE:$SEMVER
         env:
-          BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
+          BUILD_DOCKER_REGISTRY_TST: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}
           BUILD_DOCKER_REGISTRY_NEWPRD: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_NEWPRD }}
           IMAGE: ${{ matrix.image }}
           SEMVER: ${{ needs.release.outputs.version }}
