@@ -1,3 +1,10 @@
+## [5.0.2](https://github.com/informatievlaanderen/municipality-registry/compare/v5.0.1...v5.0.2) (2024-03-19)
+
+
+### Bug Fixes
+
+* csproj file ([d8f46cc](https://github.com/informatievlaanderen/municipality-registry/commit/d8f46ccf63792f978c29a328e8d5c1dfbd09aac6))
+
 ## [5.0.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.0.0...v5.0.1) (2024-03-19)
 
 
