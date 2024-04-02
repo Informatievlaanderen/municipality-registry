@@ -11,7 +11,7 @@ jobs:
   deploy_to_production_start_slack:
     if: github.repository_owner == 'Informatievlaanderen'
     name: Deploy to new production started
-    environment: newprd
+    environment: prd
     runs-on: ubuntu-latest
 
     steps:
