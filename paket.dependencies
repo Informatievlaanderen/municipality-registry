@@ -13,6 +13,9 @@ nuget Microsoft.Extensions.Configuration.Json 8.0.0
 nuget AspNetCore.HealthChecks.SqlServer 8.0.0
 nuget AspNetCore.HealthChecks.NpgSql 8.0.0
 
+nuget Datadog.Trace 2.49.0
+nuget Datadog.Trace.Bundle 2.49.0
+
 nuget Destructurama.JsonNet 3.0.0
 
 nuget NetTopologySuite 2.5.0

@@ -2,13 +2,11 @@ namespace MunicipalityRegistry.Projections.Integration.Infrastructure
 {
     using System;
     using Autofac;
-    using Be.Vlaanderen.Basisregisters.DataDog.Tracing.Sql.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using MunicipalityRegistry.Infrastructure;
-    using Npgsql;
 
     public class IntegrationModule : Module
     {
@@ -22,7 +20,7 @@ namespace MunicipalityRegistry.Projections.Integration.Infrastructure
 
             var hasConnectionString = !string.IsNullOrWhiteSpace(connectionString);
             if (hasConnectionString)
-                RunOnNpgSqlServer(configuration, services, loggerFactory, connectionString);
+                RunOnNpgSqlServer(services, loggerFactory, connectionString);
             else
                 RunInMemoryDb(services, loggerFactory, logger);
 
@@ -36,7 +34,6 @@ namespace MunicipalityRegistry.Projections.Integration.Infrastructure
         }
 
         private static void RunOnNpgSqlServer(
-            IConfiguration configuration,
             IServiceCollection services,
             ILoggerFactory loggerFactory,
             string backofficeProjectionsConnectionString)
