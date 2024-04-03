@@ -5,6 +5,9 @@ Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac
 
 Be.Vlaanderen.Basisregisters.Projector
 
+Datadog.Trace
+Datadog.Trace.Bundle
+
 NodaTime
 
 Microsoft.Extensions.DependencyInjection

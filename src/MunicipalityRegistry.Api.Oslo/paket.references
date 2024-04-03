@@ -1,8 +1,8 @@
 Be.Vlaanderen.Basisregisters.AggregateSource
 Be.Vlaanderen.Basisregisters.Api
-Be.Vlaanderen.Basisregisters.EventHandling.Autofac
-Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac
 
+Datadog.Trace
+Datadog.Trace.Bundle
 
 AspNetCore.HealthChecks.SqlServer
 
