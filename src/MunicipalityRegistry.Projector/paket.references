@@ -1,11 +1,9 @@
 Be.Vlaanderen.Basisregisters.AggregateSource
 Be.Vlaanderen.Basisregisters.Api
 Be.Vlaanderen.Basisregisters.EventHandling.Autofac
-Be.Vlaanderen.Basisregisters.DataDog.Tracing.Autofac
 
 Be.Vlaanderen.Basisregisters.Projector
 
-Datadog.Trace
 Datadog.Trace.Bundle
 
 NodaTime

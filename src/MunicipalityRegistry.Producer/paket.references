@@ -10,7 +10,6 @@ Be.Vlaanderen.Basisregisters.Projector
 
 Microsoft.Extensions.DependencyInjection
 
-Datadog.Trace
 Datadog.Trace.Bundle
 
 AspNetCore.HealthChecks.SqlServer
