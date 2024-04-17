@@ -37,6 +37,7 @@
         public string PuriId { get; set; }
         public string Namespace { get; set; }
         public string VersionAsString { get; set; }
+        public bool IsFlemishRegion { get; private set; }
         private DateTimeOffset VersionTimestampAsDateTimeOffset { get; set; }
 
         public Instant VersionTimestamp
@@ -91,6 +92,11 @@
             builder.Property(MunicipalityLatestItem.VersionTimestampBackingPropertyName).HasColumnName("version_timestamp");
 
             builder.Ignore(x => x.VersionTimestamp);
+
+            builder.Property(x => x.IsFlemishRegion)
+                .HasColumnName("is_flemish_region")
+                .HasComputedColumnSql(
+                    "nis_code LIKE '1%' OR nis_code LIKE '3%' OR nis_code LIKE '4%' OR nis_code LIKE '7%' OR nis_code LIKE '23%' OR nis_code LIKE '24%'", stored:true);
 
             builder.HasIndex(x => x.NisCode).HasSortOrder(SortOrder.Ascending);
             builder.HasIndex(x => x.NameDutch);
