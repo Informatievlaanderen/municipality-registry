@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.0.4...v5.1.0) (2024-04-18)
+
+
+### Features
+
+* add isflemishregion to integrationdb ([445b6e8](https://github.com/informatievlaanderen/municipality-registry/commit/445b6e8652fae1c7e57ff76520638107556dce6c))
+
 ## [5.0.4](https://github.com/informatievlaanderen/municipality-registry/compare/v5.0.3...v5.0.4) (2024-04-05)
 
 ## [5.0.3](https://github.com/informatievlaanderen/municipality-registry/compare/v5.0.2...v5.0.3) (2024-04-03)
