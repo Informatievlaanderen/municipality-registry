@@ -438,17 +438,6 @@ jobs:
           CONFLUENCE_USERNAME: ${{ secrets.VBR_CONFLUENCE_USER }}
           CONFLUENCE_PASSWORD: ${{ secrets.VBR_CONFLUENCE_PASSWORD }}
 
-     # - name: Create Jira Release
-     #   shell: bash
-     #   run: ./packages/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-jira.sh
-     #   env:
-     #     CONFLUENCE_TITLE: ${{ env.REPOSITORY_NAME }}
-     #     CONFLUENCE_USERNAME: ${{ secrets.VBR_CONFLUENCE_USER }}
-     #     CONFLUENCE_PASSWORD: ${{ secrets.VBR_CONFLUENCE_PASSWORD }}
-     #     JIRA_PREFIX: Municipality
-     #     JIRA_PROJECT: GAWR
-     #     JIRA_VERSION: ${{ needs.release.outputs.version }}
-
   push_images:
     if: needs.release.outputs.version != 'none'
     needs: [ release ]
@@ -493,104 +482,6 @@ jobs:
         env:
           BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
           BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_DEVOPS_DOCKER_REGISTRY }}
-          IMAGE: ${{ matrix.image }}
-          SEMVER: ${{ needs.release.outputs.version }}
-          WORKSPACE: ${{ github.workspace }}
-
-  push_images_to_staging:
-    if: needs.release.outputs.version != 'none'
-    needs: [ release ]
-    name: Push images to Staging
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
-    steps:
-      - name: Configure AWS credentials (Staging)
-        uses: aws-actions/configure-aws-credentials@v4.0.2
-        with:
-          aws-access-key-id: ${{ secrets.VBR_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.VBR_AWS_REGION_PRD }}
-
-      - name: Login to Amazon ECR (Staging)
-        uses: aws-actions/amazon-ecr-login@v2
-
-      # Download artifact
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        continue-on-error: false
-        with:
-          name: ${{ matrix.image }}-${{ needs.release.outputs.version }}
-          path: ~/
-
-      # Load artifact
-      - name: Load artifact
-        shell: bash
-        run: |
-          echo mr-$IMAGE-image.tar
-          docker image load -i ~/mr-$IMAGE-image.tar
-        env:
-          IMAGE: ${{ matrix.image }}
-
-      - name: Push artifacts to ECR Staging
-        shell: bash
-        run: |
-          echo $IMAGE:$SEMVER
-          docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/$IMAGE:$SEMVER $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
-          docker push $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
-        env:
-          BUILD_DOCKER_REGISTRY_TST: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}
-          BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY }}
-          IMAGE: ${{ matrix.image }}
-          SEMVER: ${{ needs.release.outputs.version }}
-          WORKSPACE: ${{ github.workspace }}
-
-  push_images_to_new_production:
-    if: needs.release.outputs.version != 'none'
-    needs: [ release ]
-    name: Push images to New Production
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
-    steps:
-      - name: Configure AWS credentials (New Production)
-        uses: aws-actions/configure-aws-credentials@v4.0.2
-        with:
-          aws-access-key-id: ${{ secrets.VBR_AWS_ACCESS_KEY_ID_NEWPRD }}
-          aws-secret-access-key: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY_NEWPRD }}
-          aws-region: ${{ secrets.VBR_AWS_REGION_PRD }}
-
-      - name: Login to Amazon ECR (New Production)
-        uses: aws-actions/amazon-ecr-login@v2
-
-      # Download artifact
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        continue-on-error: false
-        with:
-          name: ${{ matrix.image }}-${{ needs.release.outputs.version }}
-          path: ~/
-
-      # Load artifact
-      - name: Load artifact
-        shell: bash
-        run: |
-          echo mr-$IMAGE-image.tar
-          docker image load -i ~/mr-$IMAGE-image.tar
-        env:
-          IMAGE: ${{ matrix.image }}
-
-      - name: Push artifacts to ECR New Production
-        shell: bash
-        run: |
-          echo $IMAGE:$SEMVER
-          docker tag $BUILD_DOCKER_REGISTRY_TST/municipality-registry/$IMAGE:$SEMVER $BUILD_DOCKER_REGISTRY_NEWPRD/municipality-registry/$IMAGE:$SEMVER
-          docker push $BUILD_DOCKER_REGISTRY_NEWPRD/municipality-registry/$IMAGE:$SEMVER
-        env:
-          BUILD_DOCKER_REGISTRY_TST: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}
-          BUILD_DOCKER_REGISTRY_NEWPRD: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_NEWPRD }}
           IMAGE: ${{ matrix.image }}
           SEMVER: ${{ needs.release.outputs.version }}
           WORKSPACE: ${{ github.workspace }}
@@ -673,85 +564,9 @@ jobs:
         SLACK_CHANNEL: ${{ secrets.VBR_NOTIFIER_CHANNEL_NAME }}
         REPOSITORY_NAME: ${{ env.REPOSITORY_NAME }}
 
-  # deploy_to_test_start_slack:
-  #   if: github.repository_owner == 'Informatievlaanderen'
-  #   needs: [ push_images_to_test ]
-  #   name: Deploy to test started
-  #   environment: test
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #   - name: Parse repository name
-  #     run: echo REPOSITORY_NAME=$(echo ""$GITHUB_REPOSITORY"" | awk -F / '{print $2}' | sed -e ""s/:refs//"") >> $GITHUB_ENV
-  #     shell: bash
-
-  #   - name: Notify deployment started
-  #     uses: slackapi/slack-github-action@v1.23.0
-  #     with:
-  #       channel-id: '#team-dinosaur-dev'
-  #       slack-message: Deployment of municipality-registry to test has started
-  #     env:
-  #       SLACK_BOT_TOKEN: ${{ secrets.VBR_SLACK_BOT_TOKEN }}
-  #       SLACK_CHANNEL: ${{ secrets.VBR_NOTIFIER_CHANNEL_NAME }}
-  #       REPOSITORY_NAME: ${{ env.REPOSITORY_NAME }}
-
-  # deploy_to_test:
-  #   if: github.repository_owner == 'Informatievlaanderen'
-  #   needs: [ push_images_to_test, release ]
-  #   name: Deploy to test
-  #   environment: test
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       services: ['municipality-registry-api', 'municipality-registry-import-api', 'municipality-registry-projections', 'municipality-registry-producer', 'municipality-registry-producer-snapshot-oslo']
-
-  #   steps:
-  #   - name: Deploy services
-  #     env:
-  #       BUILD_URL: ${{ secrets.VBR_AWS_BUILD_API }}/${{matrix.services}}
-  #       STATUS_URL: ${{ secrets.VBR_AWS_BUILD_STATUS_API }}/${{matrix.services}}
-  #     uses: informatievlaanderen/awscurl-polling-action/polling-action@main
-  #     with:
-  #         environment: test
-  #         version: ${{ needs.release.outputs.version }}
-  #         status-url: $STATUS_URL
-  #         deploy-url: $BUILD_URL
-  #         access-key: ${{ secrets.VBR_AWS_BUILD_USER_ACCESS_KEY_ID }}
-  #         secret-key: ${{ secrets.VBR_AWS_BUILD_USER_SECRET_ACCESS_KEY }}
-  #         region: eu-west-1
-  #         interval: 2
-
-  #   - name: Deploy services output
-  #     shell: bash
-  #     run: |
-  #       echo build-uuid: ${{ steps.awscurl-polling-action.outputs.build-uuid }}
-  #       echo Status: ${{ steps.awscurl-polling-action.outputs.status }}
-  #       echo ${{ steps.awscurl-polling-action.outputs.final-message }}
-
-  # deploy_to_test_finish_slack:
-  #   if: github.repository_owner == 'Informatievlaanderen'
-  #   needs: [ deploy_to_test ]
-  #   name: Deploy to test finished
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #   - name: Parse repository name
-  #     run: echo REPOSITORY_NAME=$(echo ""$GITHUB_REPOSITORY"" | awk -F / '{print $2}' | sed -e ""s/:refs//"") >> $GITHUB_ENV
-  #     shell: bash
-
-  #   - name: Notify deployment finished
-  #     uses: slackapi/slack-github-action@v1.23.0
-  #     with:
-  #       channel-id: '#team-dinosaur-dev'
-  #       slack-message: Deployment of municipality-registry to test has finished
-  #     env:
-  #       SLACK_BOT_TOKEN: ${{ secrets.VBR_SLACK_BOT_TOKEN }}
-  #       SLACK_CHANNEL: ${{ secrets.VBR_NOTIFIER_CHANNEL_NAME }}
-  #       REPOSITORY_NAME: ${{ env.REPOSITORY_NAME }}
-
   deploy_to_staging_start_slack:
     if: github.repository_owner == 'Informatievlaanderen'
-    needs: [ push_images_to_staging ] #, deploy_to_newtest_finish_slack ]
+    needs: [ push_images, release ]
     name: Deploy to staging started
     environment: stg
     runs-on: ubuntu-latest
@@ -773,30 +588,33 @@ jobs:
 
   deploy_to_staging:
     if: github.repository_owner == 'Informatievlaanderen'
-    needs: [ push_images_to_staging, deploy_to_staging_start_slack, release ]
+    needs: [ deploy_to_staging_start_slack, release ]
     name: Deploy to staging
+    environment: stg
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        services: ['municipality-registry-api', 'municipality-registry-projections', 'municipality-registry-producer', 'municipality-registry-producer-snapshot-oslo']
+        services: ['municipality-api', 'municipality-import-api', 'municipality-projections', 'municipality-producer', 'municipality-producer-snapshot-oslo']
 
     steps:
-    - name: CD services
+    - name: Deploy services
       env:
-        BUILD_URL: ${{ secrets.VBR_AWS_BUILD_API }}/${{matrix.services}}
-        STATUS_URL: ${{ secrets.VBR_AWS_BUILD_STATUS_API }}/${{matrix.services}}
+        BUILD_URL: ${{ vars.VBR_AWS_BUILD_API_DEVOPS }}/${{matrix.services}}
+        STATUS_URL: ${{ vars.VBR_AWS_BUILD_STATUS_API_DEVOPS }}/${{matrix.services}}
       uses: informatievlaanderen/awscurl-polling-action/polling-action@main
       with:
           environment: stg
           version: ${{ needs.release.outputs.version }}
           status-url: $STATUS_URL
           deploy-url: $BUILD_URL
-          access-key: ${{ secrets.VBR_AWS_BUILD_USER_ACCESS_KEY_ID }}
-          secret-key: ${{ secrets.VBR_AWS_BUILD_USER_SECRET_ACCESS_KEY }}
-          region: eu-west-1
+          access-key: ${{ secrets.VBR_AWS_ACCESS_KEY_ID_DEVOPS }}
+          secret-key: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY_DEVOPS }}
+          deploy-target: 'agb_ecs_service'
           interval: 2
+          domain: 'basisregisters'
+          project: 'basisregisters'
 
-    - name: output CD services
+    - name: Deploy services output
       shell: bash
       run: |
         echo build-uuid: ${{ steps.awscurl-polling-action.outputs.build-uuid }}
@@ -806,7 +624,7 @@ jobs:
   deploy_to_staging_finish_slack:
     if: github.repository_owner == 'Informatievlaanderen'
     needs: [ deploy_to_staging ]
-    name: Deploy to staging finished
+    name: Deploy to new staging finished
     runs-on: ubuntu-latest
 
     steps:
