@@ -1,3 +1,10 @@
+## [5.1.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.1.0...v5.1.1) (2024-05-13)
+
+
+### Bug Fixes
+
+* **ci:** add new staging ([148075c](https://github.com/informatievlaanderen/municipality-registry/commit/148075c481423167f1b6e66368d1b512b3ca027e))
+
 # [5.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.0.4...v5.1.0) (2024-04-18)
 
 
