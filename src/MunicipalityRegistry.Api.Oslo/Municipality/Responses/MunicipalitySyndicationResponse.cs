@@ -189,7 +189,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
     {
         private const string RawXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <feed xmlns=""http://www.w3.org/2005/Atom"">
-    <id>https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten.atom</id>
+    <id>https://api.basisregisters.vlaanderen.be/v2/feeds/gemeenten.atom</id>
     <title>Basisregisters Vlaanderen - feed 'gemeenten'</title>
     <subtitle>Deze Atom feed geeft leestoegang tot events op de resource 'gemeenten'.</subtitle>
     <generator uri=""https://basisregisters.vlaanderen.be"" version=""2.3.11.0"">Basisregisters Vlaanderen</generator>
@@ -199,11 +199,11 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
         <name>Digitaal Vlaanderen</name>
         <email>digitaal.vlaanderen@vlaanderen.be</email>
     </author>
-    <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten"" rel=""self"" />
-    <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten.atom"" rel=""alternate"" type=""application/atom+xml"" />
-    <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten.xml"" rel=""alternate"" type=""application/xml"" />
+    <link href=""https://api.basisregisters.vlaanderen.be/v2/feeds/gemeenten"" rel=""self"" />
+    <link href=""https://api.basisregisters.vlaanderen.be/v2/feeds/gemeenten.atom"" rel=""alternate"" type=""application/atom+xml"" />
+    <link href=""https://api.basisregisters.vlaanderen.be/v2/feeds/gemeenten.xml"" rel=""alternate"" type=""application/xml"" />
     <link href=""https://docs.basisregisters.vlaanderen.be/"" rel=""related"" />
-    <link href=""https://api.basisregisters.vlaanderen.be/v1/feeds/gemeenten?from=2&amp;limit=100&amp;embed=event,object"" rel=""next"" />
+    <link href=""https://api.basisregisters.vlaanderen.be/v2/feeds/gemeenten?from=2&amp;limit=100&amp;embed=event,object"" rel=""next"" />
     <entry>
         <id>0</id>
         <title>MunicipalityWasRegistered-0</title>
