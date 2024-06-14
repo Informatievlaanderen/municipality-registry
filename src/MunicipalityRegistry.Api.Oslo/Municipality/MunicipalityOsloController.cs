@@ -2,8 +2,11 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
 {
     using System;
     using System.Linq;
+    using System.Net.Mime;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using System.Xml;
     using Asp.Versioning;
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.Api.Exceptions;
@@ -11,14 +14,19 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
     using Be.Vlaanderen.Basisregisters.Api.Search.Filtering;
     using Be.Vlaanderen.Basisregisters.Api.Search.Pagination;
     using Be.Vlaanderen.Basisregisters.Api.Search.Sorting;
+    using Be.Vlaanderen.Basisregisters.Api.Syndication;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.Syndication;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Convertors;
     using Infrastructure.Options;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Options;
+    using Microsoft.SyndicationFeed;
+    using Microsoft.SyndicationFeed.Atom;
     using Projections.Legacy;
     using Query;
     using Responses;
@@ -161,6 +169,102 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
                 });
         }
 
+        /// <summary>
+        /// Vraag een lijst met wijzigingen van gemeenten op.
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="context"></param>
+        /// <param name="responseOptions"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet("sync")]
+        [Produces("text/xml")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalitySyndicationResponseExamples))]
+        [SwaggerResponseExample(StatusCodes.Status400BadRequest, typeof(BadRequestResponseExamples))]
+        [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
+        public async Task<IActionResult> Sync(
+            [FromServices] IConfiguration configuration,
+            [FromServices] LegacyContext context,
+            [FromServices] IOptions<ResponseOptions> responseOptions,
+            CancellationToken cancellationToken = default)
+        {
+            var filtering = Request.ExtractFilteringRequest<MunicipalitySyndicationFilter>();
+            var sorting = Request.ExtractSortingRequest();
+            var pagination = Request.ExtractPaginationRequest();
+
+            var lastFeedUpdate = await context
+                .MunicipalitySyndication
+                .AsNoTracking()
+                .OrderByDescending(item => item.Position)
+                .Select(item => item.SyndicationItemCreatedAt)
+                .FirstOrDefaultAsync(cancellationToken);
+
+            if (lastFeedUpdate == default)
+            {
+                lastFeedUpdate = new DateTimeOffset(2020, 1, 1, 0, 0, 0, TimeSpan.Zero);
+            }
+
+            var pagedMunicipalities =
+                new MunicipalitySyndicationQuery(
+                    context,
+                    filtering.Filter?.Embed ?? new SyncEmbedValue())
+                .Fetch(filtering, sorting, pagination);
+
+            return new ContentResult
+            {
+                Content = await BuildAtomFeed(lastFeedUpdate, pagedMunicipalities, responseOptions, configuration),
+                ContentType = MediaTypeNames.Text.Xml,
+                StatusCode = StatusCodes.Status200OK
+            };
+        }
+
+        private static async Task<string> BuildAtomFeed(
+            DateTimeOffset lastUpdate,
+            PagedQueryable<MunicipalitySyndicationQueryResult> pagedMunicipalities,
+            IOptions<ResponseOptions> responseOptions,
+            IConfiguration configuration)
+        {
+            var sw = new StringWriterWithEncoding(Encoding.UTF8);
+
+            using (var xmlWriter = XmlWriter.Create(sw, new XmlWriterSettings { Async = true, Indent = true, Encoding = sw.Encoding }))
+            {
+                var formatter = new AtomFormatter(null, xmlWriter.Settings) { UseCDATA = true };
+                var writer = new AtomFeedWriter(xmlWriter, null, formatter);
+                var syndicationConfiguration = configuration.GetSection("Syndication");
+                var atomConfiguration = AtomFeedConfigurationBuilder.CreateFrom(syndicationConfiguration, lastUpdate);
+
+                await writer.WriteDefaultMetadata(atomConfiguration);
+
+                var municipalities = await pagedMunicipalities.Items.ToListAsync();
+
+                var highestPosition = municipalities.Any()
+                    ? municipalities.Max(x => x.Position)
+                    : (long?)null;
+
+                var nextUri = BuildNextSyncUri(
+                    pagedMunicipalities.PaginationInfo.Limit,
+                    highestPosition + 1,
+                    syndicationConfiguration["NextUri"]);
+
+                if (nextUri != null)
+                {
+                    await writer.Write(new SyndicationLink(nextUri, GrArAtomLinkTypes.Next));
+                }
+
+                foreach (var municipality in municipalities)
+                {
+                    await writer.WriteMunicipality(responseOptions, formatter, syndicationConfiguration["Category"], municipality);
+                }
+
+                xmlWriter.Flush();
+            }
+
+            return sw.ToString();
+        }
+
         private static Uri? BuildNextUri(PaginationInfo paginationInfo, int itemsInCollection, string nextUrlBase)
         {
             var offset = paginationInfo.Offset;
@@ -168,6 +272,13 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
 
             return paginationInfo.HasNextPage(itemsInCollection)
                 ? new Uri(string.Format(nextUrlBase, offset + limit, limit))
+                : null;
+        }
+
+        private static Uri? BuildNextSyncUri(int limit, long? from, string nextUrlBase)
+        {
+            return from.HasValue
+                ? new Uri(string.Format(nextUrlBase, from.Value, limit))
                 : null;
         }
     }
