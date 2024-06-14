@@ -1,3 +1,10 @@
+# [5.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.1.1...v5.2.0) (2024-06-14)
+
+
+### Features
+
+* add syndication to oslo api ([f63c6c1](https://github.com/informatievlaanderen/municipality-registry/commit/f63c6c174e5107b225ef082408e1c171a4ede9f8))
+
 ## [5.1.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.1.0...v5.1.1) (2024-05-13)
 
 
