@@ -1,13 +1,13 @@
-namespace MunicipalityRegistry.Tests.GivenRegisteredMunicipality
+namespace MunicipalityRegistry.Tests.Crab.GivenRegisteredMunicipality
 {
     using AutoFixture;
     using Be.Vlaanderen.Basisregisters.AggregateSource.Testing;
     using Be.Vlaanderen.Basisregisters.Crab;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using global::AutoFixture;
-    using Municipality;
-    using Municipality.Commands.Crab;
-    using Municipality.Events;
+    using MunicipalityRegistry.Municipality;
+    using MunicipalityRegistry.Municipality.Commands.Crab;
+    using MunicipalityRegistry.Municipality.Events;
     using NodaTime;
     using Xunit;
     using Xunit.Abstractions;
@@ -41,7 +41,7 @@ namespace MunicipalityRegistry.Tests.GivenRegisteredMunicipality
                 .With(x => x.Geometry, new WkbGeometry(GeometryHelpers.ExampleWkb))
                 .Create();
 
-            var provenance = new MunicipalityProvenanceFactory().CreateFrom(1, false, importMunicipalityFromCrab.Timestamp, importMunicipalityFromCrab.Modification, importMunicipalityFromCrab.Operator, importMunicipalityFromCrab.Organisation);
+            var provenance = new MunicipalityCrabProvenanceFactory().CreateFrom(1, false, importMunicipalityFromCrab.Timestamp, importMunicipalityFromCrab.Modification, importMunicipalityFromCrab.Operator, importMunicipalityFromCrab.Organisation);
 
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(provenance);
@@ -88,7 +88,7 @@ namespace MunicipalityRegistry.Tests.GivenRegisteredMunicipality
                 .With(x => x.Geometry, new WkbGeometry(GeometryHelpers.ExampleWkb))
                 .Create();
 
-            var provenance = new MunicipalityProvenanceFactory().CreateFrom(1, false, importMunicipalityFromCrab.Timestamp, importMunicipalityFromCrab.Modification, importMunicipalityFromCrab.Operator, importMunicipalityFromCrab.Organisation);
+            var provenance = new MunicipalityCrabProvenanceFactory().CreateFrom(1, false, importMunicipalityFromCrab.Timestamp, importMunicipalityFromCrab.Modification, importMunicipalityFromCrab.Operator, importMunicipalityFromCrab.Organisation);
 
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(provenance);
@@ -130,7 +130,7 @@ namespace MunicipalityRegistry.Tests.GivenRegisteredMunicipality
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), retirementDate))
                 .Create();
 
-            var provenance = new MunicipalityProvenanceFactory().CreateFrom(1, false, importMunicipalityFromCrab.Timestamp, importMunicipalityFromCrab.Modification, importMunicipalityFromCrab.Operator, importMunicipalityFromCrab.Organisation);
+            var provenance = new MunicipalityCrabProvenanceFactory().CreateFrom(1, false, importMunicipalityFromCrab.Timestamp, importMunicipalityFromCrab.Modification, importMunicipalityFromCrab.Operator, importMunicipalityFromCrab.Organisation);
 
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(provenance);

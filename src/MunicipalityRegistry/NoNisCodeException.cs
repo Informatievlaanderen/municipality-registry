@@ -12,7 +12,7 @@ namespace MunicipalityRegistry
         private NoNisCodeException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         { }
-        
+
         public NoNisCodeException(string message)
             : base(message)
         { }

@@ -3,6 +3,7 @@ namespace MunicipalityRegistry
     using System;
     using Be.Vlaanderen.Basisregisters.AggregateSource;
     using Be.Vlaanderen.Basisregisters.Crab;
+    using Be.Vlaanderen.Basisregisters.Generators.Guid;
     using Newtonsoft.Json;
 
     public sealed class MunicipalityId : GuidValueObject<MunicipalityId>

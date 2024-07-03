@@ -1,13 +1,13 @@
-namespace MunicipalityRegistry.Tests.GivenRegisteredMunicipality
+namespace MunicipalityRegistry.Tests.Crab.GivenRegisteredMunicipality
 {
     using AutoFixture;
     using Be.Vlaanderen.Basisregisters.AggregateSource.Testing;
     using Be.Vlaanderen.Basisregisters.Crab;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using global::AutoFixture;
-    using Municipality;
-    using Municipality.Commands.Crab;
-    using Municipality.Events;
+    using MunicipalityRegistry.Municipality;
+    using MunicipalityRegistry.Municipality.Commands.Crab;
+    using MunicipalityRegistry.Municipality.Events;
     using Xunit;
     using Xunit.Abstractions;
 
@@ -39,7 +39,7 @@ namespace MunicipalityRegistry.Tests.GivenRegisteredMunicipality
                 .With(x => x.MunicipalityName, new CrabMunicipalityName(name, language))
                 .Create();
 
-            var provenance = new MunicipalityProvenanceFactory().CreateFrom(1, false, municipalityNameFromCrab.Timestamp, municipalityNameFromCrab.Modification, municipalityNameFromCrab.Operator, municipalityNameFromCrab.Organisation);
+            var provenance = new MunicipalityCrabProvenanceFactory().CreateFrom(1, false, municipalityNameFromCrab.Timestamp, municipalityNameFromCrab.Modification, municipalityNameFromCrab.Operator, municipalityNameFromCrab.Organisation);
 
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, _nisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(provenance);
@@ -71,7 +71,7 @@ namespace MunicipalityRegistry.Tests.GivenRegisteredMunicipality
                 .With(x => x.MunicipalityName, new CrabMunicipalityName(null, language))
                 .Create();
 
-            var provenance = new MunicipalityProvenanceFactory().CreateFrom(1, false, municipalityNameFromCrab.Timestamp, municipalityNameFromCrab.Modification, municipalityNameFromCrab.Operator, municipalityNameFromCrab.Organisation);
+            var provenance = new MunicipalityCrabProvenanceFactory().CreateFrom(1, false, municipalityNameFromCrab.Timestamp, municipalityNameFromCrab.Modification, municipalityNameFromCrab.Operator, municipalityNameFromCrab.Organisation);
 
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, _nisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(provenance);
