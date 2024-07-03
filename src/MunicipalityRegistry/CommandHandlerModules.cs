@@ -9,6 +9,10 @@ namespace MunicipalityRegistry
         public static void Register(ContainerBuilder containerBuilder)
         {
             containerBuilder
+                .RegisterType<MunicipalityCrabProvenanceFactory>()
+                .SingleInstance();
+
+            containerBuilder
                 .RegisterType<MunicipalityProvenanceFactory>()
                 .SingleInstance();
 

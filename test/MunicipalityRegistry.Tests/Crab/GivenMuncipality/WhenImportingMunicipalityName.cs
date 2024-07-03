@@ -1,13 +1,13 @@
-namespace MunicipalityRegistry.Tests.GivenMuncipality
+namespace MunicipalityRegistry.Tests.Crab.GivenMuncipality
 {
     using AutoFixture;
     using Be.Vlaanderen.Basisregisters.AggregateSource.Testing;
     using Be.Vlaanderen.Basisregisters.Crab;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using global::AutoFixture;
-    using Municipality;
-    using Municipality.Commands.Crab;
-    using Municipality.Events;
+    using MunicipalityRegistry.Municipality;
+    using MunicipalityRegistry.Municipality.Commands.Crab;
+    using MunicipalityRegistry.Municipality.Events;
     using Xunit;
     using Xunit.Abstractions;
 
@@ -214,7 +214,7 @@ namespace MunicipalityRegistry.Tests.GivenMuncipality
 
         private Provenance CreateProvenance(int version)
         {
-            return new MunicipalityProvenanceFactory().CreateFrom(
+            return new MunicipalityCrabProvenanceFactory().CreateFrom(
                 version,
                 false,
                 _fixture.Create<CrabTimestamp>(),

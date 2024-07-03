@@ -80,7 +80,7 @@ namespace MunicipalityRegistry.Tests
 
         private Provenance CreateProvenance(int version)
         {
-            return new MunicipalityProvenanceFactory().CreateFrom(
+            return new MunicipalityCrabProvenanceFactory().CreateFrom(
                 version,
                 false,
                 _fixture.Create<CrabTimestamp>(),

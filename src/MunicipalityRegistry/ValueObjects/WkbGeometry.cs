@@ -13,14 +13,4 @@ namespace MunicipalityRegistry
 
         public override string ToString() => Value.ToHexString();
     }
-
-    public sealed class ExtendedWkbGeometry : ByteArrayValueObject<ExtendedWkbGeometry>
-    {
-        [JsonConstructor]
-        public ExtendedWkbGeometry([JsonProperty("value")] byte[] ewkbBytes) : base(ewkbBytes) { }
-
-        public ExtendedWkbGeometry(string ewkbBytesHex) : base(ewkbBytesHex.ToByteArray()) { }
-
-        public override string ToString() => Value.ToHexString();
-    }
 }

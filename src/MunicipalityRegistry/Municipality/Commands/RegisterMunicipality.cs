@@ -1,25 +1,61 @@
 namespace MunicipalityRegistry.Municipality.Commands
 {
-    public sealed class RegisterMunicipality
+    using System;
+    using System.Collections.Generic;
+    using Be.Vlaanderen.Basisregisters.Generators.Guid;
+    using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
+    using Be.Vlaanderen.Basisregisters.Utilities;
+
+    public sealed class RegisterMunicipality : IHasCommandProvenance
     {
+        private static readonly Guid Namespace = new Guid("825968af-52b4-4a23-b4bd-d6c1dc0f26d8");
+
         public MunicipalityId MunicipalityId { get; }
 
         public NisCode NisCode { get; }
 
-        public Language? PrimaryLanguage { get; }
+        public List<Language> OfficialLanguages { get; }
 
-        public Language? SecondaryLanguage { get; }
+        public List<Language> FacilityLanguages { get; }
+
+        public List<MunicipalityName> Names { get; }
+
+        public ExtendedWkbGeometry Geometry { get; }
+
+        public Provenance Provenance { get; }
 
         public RegisterMunicipality(
             MunicipalityId municipalityId,
             NisCode nisCode,
-            Language? primaryLanguage,
-            Language? secondaryLanguage)
+            List<Language> officialLanguages,
+            List<Language> facilityLanguages,
+            List<MunicipalityName> names,
+            ExtendedWkbGeometry geometry,
+            Provenance provenance)
         {
             MunicipalityId = municipalityId;
             NisCode = nisCode;
-            PrimaryLanguage = primaryLanguage;
-            SecondaryLanguage = secondaryLanguage;
+            OfficialLanguages = officialLanguages;
+            FacilityLanguages = facilityLanguages;
+            Names = names;
+            Geometry = geometry;
+            Provenance = provenance;
+        }
+
+        public Guid CreateCommandId()
+            => Deterministic.Create(Namespace, $"{nameof(RegisterMunicipality)}-{ToString()}");
+
+        public override string? ToString()
+            => ToStringBuilder.ToString(IdentityFields());
+
+        private IEnumerable<object> IdentityFields()
+        {
+            yield return MunicipalityId;
+            yield return NisCode;
+            yield return OfficialLanguages;
+            yield return FacilityLanguages;
+            yield return Names;
+            yield return Geometry;
         }
     }
 }

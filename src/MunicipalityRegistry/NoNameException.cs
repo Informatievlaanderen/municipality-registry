@@ -12,7 +12,7 @@ namespace MunicipalityRegistry
         private NoNameException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         { }
-        
+
         public NoNameException(string message)
             : base(message)
         { }

@@ -1,15 +1,16 @@
 namespace MunicipalityRegistry.Municipality
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.Utilities.HexByteConvertor;
     using Events;
 
     public partial class Municipality
     {
-        private MunicipalityId _municipalityId; 
-        private NisCode _nisCode;
-        private MunicipalityStatus? _status;
+        public MunicipalityId MunicipalityId { get; private set; }
+        public NisCode NisCode { get; private set; }
+        public MunicipalityStatus? Status { get; private set; }
         private RetirementDate _retiredDate;
 
         private readonly Dictionary<Language, MunicipalityName> _names
@@ -18,7 +19,14 @@ namespace MunicipalityRegistry.Municipality
         private readonly List<Language> _officialLanguages = new List<Language>();
         private readonly List<Language> _facilitiesLanguages = new List<Language>();
 
-        private ExtendedWkbGeometry _geometry;
+        public IReadOnlyCollection<MunicipalityName> Names => _names.Values.ToList().AsReadOnly();
+        public IReadOnlyCollection<Language> OfficialLanguages => _officialLanguages.AsReadOnly();
+        public IReadOnlyCollection<Language> FacilitiesLanguages => _facilitiesLanguages.AsReadOnly();
+
+        public ExtendedWkbGeometry? Geometry { get; private set; }
+
+        private bool IsRetired => Status == MunicipalityStatus.Retired;
+        private bool IsCurrent => Status == MunicipalityStatus.Current;
 
         public Modification LastModificationBasedOnCrab { get; private set; }
 
@@ -69,18 +77,19 @@ namespace MunicipalityRegistry.Municipality
 
         private void When(MunicipalityWasRegistered @event)
         {
-            _municipalityId = new MunicipalityId(@event.MunicipalityId);
-            _nisCode = new NisCode(@event.NisCode);
+            MunicipalityId = new MunicipalityId(@event.MunicipalityId);
+            NisCode = new NisCode(@event.NisCode);
+            Status = MunicipalityStatus.Proposed;
         }
 
         private void When(MunicipalityNisCodeWasDefined @event)
         {
-            _nisCode = new NisCode(@event.NisCode);
+            NisCode = new NisCode(@event.NisCode);
         }
 
         private void When(MunicipalityNisCodeWasCorrected @event)
         {
-            _nisCode = new NisCode(@event.NisCode);
+            NisCode = new NisCode(@event.NisCode);
         }
 
         private void When(MunicipalityWasNamed @event)
@@ -125,44 +134,44 @@ namespace MunicipalityRegistry.Municipality
 
         private void When(MunicipalityWasDrawn @event)
         {
-            _geometry = new ExtendedWkbGeometry(@event.ExtendedWkbGeometry.ToByteArray());
+            Geometry = new ExtendedWkbGeometry(@event.ExtendedWkbGeometry.ToByteArray());
         }
 
         private void When(MunicipalityGeometryWasCorrected @event)
         {
-            _geometry = new ExtendedWkbGeometry(@event.ExtendedWkbGeometry.ToByteArray());
+            Geometry = new ExtendedWkbGeometry(@event.ExtendedWkbGeometry.ToByteArray());
         }
 
         private void When(MunicipalityGeometryWasCleared @event)
         {
-            _geometry = null;
+            Geometry = null;
         }
 
         private void When(MunicipalityGeometryWasCorrectedToCleared @event)
         {
-            _geometry = null;
+            Geometry = null;
         }
 
         private void When(MunicipalityBecameCurrent @event)
         {
-            _status = MunicipalityStatus.Current;
+            Status = MunicipalityStatus.Current;
         }
 
         private void When(MunicipalityWasRetired @event)
         {
-            _status = MunicipalityStatus.Retired;
+            Status = MunicipalityStatus.Retired;
             _retiredDate = new RetirementDate(@event.RetirementDate);
         }
 
         private void When(MunicipalityWasCorrectedToRetired @event)
         {
-            _status = MunicipalityStatus.Retired;
+            Status = MunicipalityStatus.Retired;
             _retiredDate = new RetirementDate(@event.RetirementDate);
         }
 
         private void When(MunicipalityWasCorrectedToCurrent @event)
         {
-            _status = MunicipalityStatus.Current;
+            Status = MunicipalityStatus.Current;
         }
     }
 }

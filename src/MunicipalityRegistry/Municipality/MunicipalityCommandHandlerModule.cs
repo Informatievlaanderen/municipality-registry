@@ -6,6 +6,7 @@ namespace MunicipalityRegistry.Municipality
     using Be.Vlaanderen.Basisregisters.CommandHandling.SqlStreamStore;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
+    using Commands;
     using Commands.Crab;
     using SqlStreamStore;
 
@@ -17,11 +18,12 @@ namespace MunicipalityRegistry.Municipality
             Func<IStreamStore> getStreamStore,
             EventMapping eventMapping,
             EventSerializer eventSerializer,
+            MunicipalityCrabProvenanceFactory crabProvenanceFactory,
             MunicipalityProvenanceFactory provenanceFactory)
         {
             For<ImportMunicipalityFromCrab>()
                 .AddSqlStreamStore(getStreamStore, getUnitOfWork, eventMapping, eventSerializer)
-                .AddProvenance(getUnitOfWork, provenanceFactory)
+                .AddProvenance(getUnitOfWork, crabProvenanceFactory)
                 .Handle(async (message, ct) =>
                 {
                     var municipalities = getMunicipalities();
@@ -53,7 +55,7 @@ namespace MunicipalityRegistry.Municipality
 
             For<ImportMunicipalityNameFromCrab>()
                 .AddSqlStreamStore(getStreamStore, getUnitOfWork, eventMapping, eventSerializer)
-                .AddProvenance(getUnitOfWork, provenanceFactory)
+                .AddProvenance(getUnitOfWork, crabProvenanceFactory)
                 .Handle(async (message, ct) =>
                 {
                     var municipalities = getMunicipalities();
@@ -71,6 +73,31 @@ namespace MunicipalityRegistry.Municipality
                         message.Command.Operator,
                         message.Command.Modification,
                         message.Command.Organisation);
+                });
+
+            For<RegisterMunicipality>()
+                .AddSqlStreamStore(getStreamStore, getUnitOfWork, eventMapping, eventSerializer)
+                .AddProvenance(getUnitOfWork, provenanceFactory)
+                .Handle(async (message, ct) =>
+                {
+                    var municipalities = getMunicipalities();
+
+                    var municipalityId = message.Command.MunicipalityId;
+
+                    var municipality = await municipalities.GetOptionalAsync(municipalityId, ct);
+
+                    if (municipality.HasValue)
+                        throw new AggregateSourceException($"Municipality with id {municipalityId} already exists");
+
+                    var newMunicipality = Municipality.Register(
+                        municipalityId,
+                        message.Command.NisCode,
+                        message.Command.OfficialLanguages,
+                        message.Command.FacilityLanguages,
+                        message.Command.Names,
+                        message.Command.Geometry);
+
+                    municipalities.Add(municipalityId, newMunicipality);
                 });
         }
     }
