@@ -1,6 +1,8 @@
 namespace MunicipalityRegistry.Producer.Extensions
 {
+    using System.Linq;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
+    using Be.Vlaanderen.Basisregisters.Utilities;
     using Contracts = Be.Vlaanderen.Basisregisters.GrAr.Contracts.MunicipalityRegistry;
     using ContractsCommon = Be.Vlaanderen.Basisregisters.GrAr.Contracts.Common;
     using Domain = Municipality.Events;
@@ -67,5 +69,15 @@ namespace MunicipalityRegistry.Producer.Extensions
 
         public static Contracts.MunicipalityWasDrawn ToContract(this Domain.MunicipalityWasDrawn message) =>
             new Contracts.MunicipalityWasDrawn(message.MunicipalityId.ToString("D"), message.ExtendedWkbGeometry, message.Provenance.ToContract());
+
+        public static Contracts.MunicipalityWasMerged ToContract(this Domain.MunicipalityWasMerged message) =>
+            new Contracts.MunicipalityWasMerged(
+                message.MunicipalityId.ToString("D"),
+                message.NisCode,
+                message.MunicipalityIdsToMergeWith.Select(x => x.ToString("D")),
+                message.NisCodesToMergeWith,
+                message.NewMunicipalityId.ToString("D"),
+                message.NewNisCode,
+                message.Provenance.ToContract());
     }
 }

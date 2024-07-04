@@ -191,6 +191,18 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                     ct);
             });
 
+            When<Envelope<MunicipalityWasMerged>>(async (context, message, ct) =>
+            {
+                await context.FindAndUpdateMunicipalityExtract(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        UpdateStatus(municipality, Retired);
+                        UpdateVersie(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
+            });
+
             When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) => await DoNothing());
             When<Envelope<MunicipalityFacilityLanguageWasRemoved>>(async (context, message, ct) => await DoNothing());
             When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());

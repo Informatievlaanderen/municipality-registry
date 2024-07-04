@@ -192,6 +192,15 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                     ct);
             });
 
+            When<Envelope<MunicipalityWasMerged>>(async (context, message, ct) =>
+            {
+                await context.CreateNewMunicipalitySyndicationItem(
+                    message.Message.MunicipalityId,
+                    message,
+                    x => x.Status = MunicipalityStatus.Retired,
+                    ct);
+            });
+
             When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());
             When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => await DoNothing());
             When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => await DoNothing());

@@ -39,7 +39,7 @@ namespace MunicipalityRegistry.Municipality.Commands
         }
 
         public Guid CreateCommandId()
-            => Deterministic.Create(Namespace, $"{nameof(RegisterMunicipality)}-{ToString()}");
+            => Deterministic.Create(Namespace, $"{nameof(MergeMunicipality)}-{ToString()}");
 
         public override string? ToString()
             => ToStringBuilder.ToString(IdentityFields());

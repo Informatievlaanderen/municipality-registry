@@ -259,6 +259,19 @@
                     },
                     ct);
             });
+
+            When<Envelope<MunicipalityWasMerged>>(async (context, message, ct) =>
+            {
+                await context.CreateNewMunicipalityVersion(
+                    message.Message.MunicipalityId,
+                    message,
+                    x =>
+                    {
+                        x.Status = MunicipalityStatus.Retired;
+                        x.OsloStatus = MunicipalityStatus.Retired.ConvertFromMunicipalityStatus();
+                    },
+                    ct);
+            });
         }
 
         private static void UpdateNameByLanguage(MunicipalityVersion municipalityVersion, Language language, string? name)
