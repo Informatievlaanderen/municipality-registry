@@ -2,6 +2,7 @@ namespace MunicipalityRegistry
 {
     using System.Collections.Generic;
     using Be.Vlaanderen.Basisregisters.AggregateSource;
+    using Exceptions;
 
     public sealed class MunicipalityName : ValueObject<MunicipalityName>
     {

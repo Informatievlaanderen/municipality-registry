@@ -4,6 +4,7 @@ namespace MunicipalityRegistry.Tests.Crab.GivenMuncipality
     using Be.Vlaanderen.Basisregisters.AggregateSource.Testing;
     using Be.Vlaanderen.Basisregisters.Crab;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
+    using Exceptions;
     using global::AutoFixture;
     using MunicipalityRegistry.Municipality;
     using MunicipalityRegistry.Municipality.Commands.Crab;

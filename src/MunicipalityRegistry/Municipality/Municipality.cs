@@ -5,6 +5,7 @@
     using System.Linq;
     using Be.Vlaanderen.Basisregisters.AggregateSource;
     using Events;
+    using Exceptions;
     using NetTopologySuite.Geometries;
 
     public sealed partial class Municipality : AggregateRootEntity
@@ -51,6 +52,27 @@
             municipality.Draw(geometry);
 
             return municipality;
+        }
+
+        public void Merge(
+            IEnumerable<MunicipalityId> municipalityIdsToMergeWithWith,
+            IEnumerable<NisCode> nisCodesToMergeWith,
+            MunicipalityId newMunicipalityId,
+            NisCode newNisCode)
+        {
+            if(!IsCurrent)
+                throw new MunicipalityHasInvalidStatusException();
+
+            if(MunicipalityId == newMunicipalityId)
+                throw new CannotMergeMunicipalityWithSelfException();
+
+            ApplyChange(new MunicipalityWasMerged(
+                MunicipalityId,
+                NisCode,
+                municipalityIdsToMergeWithWith,
+                nisCodesToMergeWith,
+                newMunicipalityId,
+                newNisCode));
         }
 
         private static void GuardPolygon(Geometry? geometry)

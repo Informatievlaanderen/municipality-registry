@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry
+namespace MunicipalityRegistry.Exceptions
 {
     using System;
     using System.Runtime.Serialization;

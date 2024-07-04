@@ -99,6 +99,24 @@ namespace MunicipalityRegistry.Municipality
 
                     municipalities.Add(municipalityId, newMunicipality);
                 });
+
+            For<MergeMunicipality>()
+                .AddSqlStreamStore(getStreamStore, getUnitOfWork, eventMapping, eventSerializer)
+                .AddProvenance(getUnitOfWork, provenanceFactory)
+                .Handle(async (message, ct) =>
+                {
+                    var municipalities = getMunicipalities();
+
+                    var municipalityId = message.Command.MunicipalityId;
+
+                    var municipality = await municipalities.GetAsync(municipalityId, ct);
+
+                    municipality.Merge(
+                        message.Command.MunicipalityIdsToMergeWithWith,
+                        message.Command.NisCodesToMergeWith,
+                        message.Command.NewMunicipalityId,
+                        message.Command.NewNisCode);
+                });
         }
     }
 }

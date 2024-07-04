@@ -4,6 +4,7 @@ namespace MunicipalityRegistry.Municipality
     using System.Linq;
     using Be.Vlaanderen.Basisregisters.Crab;
     using Events;
+    using Exceptions;
     using NodaTime;
 
     public sealed partial class Municipality

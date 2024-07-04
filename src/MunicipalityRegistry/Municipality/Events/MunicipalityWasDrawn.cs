@@ -12,10 +12,10 @@ namespace MunicipalityRegistry.Municipality.Events
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
-        
+
         [EventPropertyDescription("Extended WKB-voorstelling van de gemeentegrenzen.")]
         public string ExtendedWkbGeometry { get; }
-        
+
         [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 
