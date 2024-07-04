@@ -3,6 +3,7 @@
     using AutoFixture;
     using Be.Vlaanderen.Basisregisters.AggregateSource;
     using Be.Vlaanderen.Basisregisters.AggregateSource.Testing;
+    using Exceptions;
     using FluentAssertions;
     using global::AutoFixture;
     using Municipality;

@@ -59,6 +59,13 @@ namespace MunicipalityRegistry.Municipality
 
             Register<MunicipalityWasImportedFromCrab>(@event => WhenCrabEventApplied());
             Register<MunicipalityNameWasImportedFromCrab>(@event => WhenCrabEventApplied());
+
+            Register<MunicipalityWasMerged>(When);
+        }
+
+        private void When(MunicipalityWasMerged @event)
+        {
+            Status = MunicipalityStatus.Retired;
         }
 
         private void WhenCrabEventApplied()

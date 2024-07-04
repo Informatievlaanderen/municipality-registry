@@ -1,6 +1,7 @@
 namespace MunicipalityRegistry
 {
     using Be.Vlaanderen.Basisregisters.AggregateSource;
+    using Exceptions;
     using Newtonsoft.Json;
 
     public sealed class NisCode : StringValueObject<NisCode>
