@@ -191,6 +191,18 @@ namespace MunicipalityRegistry.Projections.Wfs.Municipality
                     },
                     ct);
             });
+
+            When<Envelope<MunicipalityWasMerged>>(async (context, message, ct) =>
+            {
+                await context.FindAndUpdateMunicipalityHelper(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.Status = MunicipalityStatus.Retired;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
+            });
         }
 
         private static void UpdateNameByLanguage(MunicipalityHelper municipality, Language? language, string name)

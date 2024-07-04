@@ -109,6 +109,11 @@ namespace MunicipalityRegistry.Projections.LastChangedList
                 await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
             });
 
+            When<Envelope<MunicipalityWasMerged>>(async (context, message, ct) =>
+            {
+                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+            });
+
             When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());
             When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => await DoNothing());
             When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => await DoNothing());
@@ -121,7 +126,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
         {
             var shortenedAcceptType = acceptType.ToString().ToLowerInvariant();
             return acceptType switch
-            {                
+            {
                 AcceptType.JsonLd => $"oslo/municipality:{{0}}.{shortenedAcceptType}",
                 _ => throw new NotImplementedException($"Cannot build CacheKey for type {typeof(AcceptType)}")
             };
@@ -130,7 +135,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
         protected override string BuildUri(AcceptType acceptType, string identifier)
         {
             return acceptType switch
-            {               
+            {
                 AcceptType.JsonLd => $"/v2/gemeenten/{{0}}",
                 _ => throw new NotImplementedException($"Cannot build Uri for type {typeof(AcceptType)}")
             };

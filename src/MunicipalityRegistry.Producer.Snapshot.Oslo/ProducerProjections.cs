@@ -412,6 +412,22 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     message.Position,
                     ct);
             });
+
+            When<Envelope<MunicipalityWasMerged>>(async (_, message, ct) =>
+            {
+                var municipalityDetail = GetMunicipalityDetail(legacyContext, message.Message.MunicipalityId);
+
+                await FindAndProduce(async () =>
+                        await snapshotManager.FindMatchingSnapshot(
+                            GetNisCode(municipalityDetail),
+                            message.Message.Provenance.Timestamp,
+                            null,
+                            message.Position,
+                            throwStaleWhenGone: false,
+                            ct),
+                    message.Position,
+                    ct);
+            });
         }
 
         private static string GetNisCode(MunicipalityDetail municipalityDetail)
