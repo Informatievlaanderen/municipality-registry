@@ -75,6 +75,17 @@
                 newNisCode));
         }
 
+        public void Activate()
+        {
+            if(Status == MunicipalityStatus.Current)
+                return;
+
+            if (Status == MunicipalityStatus.Retired)
+                throw new MunicipalityHasInvalidStatusException();
+
+            ApplyChange(new MunicipalityBecameCurrent(MunicipalityId));
+        }
+
         private static void GuardPolygon(Geometry? geometry)
         {
             if (geometry is Polygon
