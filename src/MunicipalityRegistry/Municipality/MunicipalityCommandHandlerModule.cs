@@ -117,6 +117,18 @@ namespace MunicipalityRegistry.Municipality
                         message.Command.NewMunicipalityId,
                         message.Command.NewNisCode);
                 });
+
+            For<ActivateMunicipality>()
+                .AddSqlStreamStore(getStreamStore, getUnitOfWork, eventMapping, eventSerializer)
+                .AddProvenance(getUnitOfWork, provenanceFactory)
+                .Handle(async (message, ct) =>
+                {
+                    var municipalityId = message.Command.MunicipalityId;
+
+                    var municipality = await getMunicipalities().GetAsync(municipalityId, ct);
+
+                    municipality.Activate();
+                });
         }
     }
 }
