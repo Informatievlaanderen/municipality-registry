@@ -21,7 +21,7 @@ updates:
   rebase-strategy: "disabled"
 
 - package-ecosystem: docker
-  directory: "/src/MunicipalityRegistry.Api.CrabImport"
+  directory: "/src/MunicipalityRegistry.Api.Import"
   schedule:
     interval: weekly
   rebase-strategy: "disabled"

@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Configuration
+namespace MunicipalityRegistry.Api.Import.Infrastructure.Configuration
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Http;

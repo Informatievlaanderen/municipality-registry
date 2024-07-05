@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.CrabImport.Infrastructure
+namespace MunicipalityRegistry.Api.Import.Infrastructure
 {
     using System;
     using System.Collections.Generic;

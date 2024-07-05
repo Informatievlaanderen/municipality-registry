@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.CrabImport.Infrastructure.Modules
+namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
 {
     using Autofac;
     using Autofac.Extensions.DependencyInjection;

@@ -85,17 +85,17 @@ jobs:
       dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
-  build-api-crab-import:
-    name: Build Api CrabImport
+  build-api-import:
+    name: Build Api Import
     uses: Informatievlaanderen/build-pipeline/.github/workflows/build-image.yml@main
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
       registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
-      image-file: mr-api-crab-import-image.tar
-      image-name: api-crab-import
+      image-file: mr-api-import-image.tar
+      image-name: api-import
       test-project: MunicipalityRegistry.Tests
-      build-project: MunicipalityRegistry.Api.CrabImport
+      build-project: MunicipalityRegistry.Api.Import
       semver: ${{ needs.set-release-version.outputs.version }}
       dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
@@ -199,19 +199,6 @@ jobs:
       dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
-  pack-api-crab-import:
-    name: Pack Api CrabImport
-    uses: Informatievlaanderen/build-pipeline/.github/workflows/pack.yml@main
-    needs: [ set-release-version ]
-    if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
-    with:
-      pack-file: Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.CrabImport
-      test-project: MunicipalityRegistry.Tests
-      build-project: MunicipalityRegistry.Api.CrabImport
-      semver: ${{ needs.set-release-version.outputs.version }}
-      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
-    secrets: inherit
-
   release:
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     name: Semantic Release
@@ -220,11 +207,10 @@ jobs:
       pack-api-legacy,
       pack-api-oslo,
       pack-api-extract,
-      pack-api-crab-import,
       build-api-legacy,
       build-api-oslo,
       build-api-extract,
-      build-api-crab-import,
+      build-api-import,
       build-projector,      
       build-producer,
       build-producer-snapshot-oslo ]
@@ -303,13 +289,6 @@ jobs:
         name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Extract-${{ needs.set-release-version.outputs.version }}
         path: dist/nuget/
 
-    - name: Download NuGet Api CrabImport
-      uses: actions/download-artifact@v4
-      continue-on-error: false
-      with:
-        name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.CrabImport-${{ needs.set-release-version.outputs.version }}
-        path: dist/nuget/
-
     - name: Run Semantic Release
       shell: bash
       run: npx semantic-release
@@ -370,19 +349,12 @@ jobs:
         name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Extract-${{ needs.release.outputs.version }}
         path: ~/
 
-    - name: Download NuGet package api-crab-import
-      uses: actions/download-artifact@v4
-      with:
-        name: nuget-Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.CrabImport-${{ needs.release.outputs.version }}
-        path: ~/
-
     - name: Publish packages to NuGet
       shell: bash
       run: |
         dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Legacy.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
         dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Oslo.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
         dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Extract.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
-        dotnet nuget push ~/Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.CrabImport.$SEMVER.nupkg --source nuget.org --api-key $NUGET_API_KEY
       env:
         SEMVER: ${{  needs.release.outputs.version }}
         WORKSPACE: ${{ github.workspace }}
@@ -445,7 +417,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['api-legacy', 'api-oslo', 'api-crab-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
+        image: ['api-legacy', 'api-oslo', 'api-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4.0.2

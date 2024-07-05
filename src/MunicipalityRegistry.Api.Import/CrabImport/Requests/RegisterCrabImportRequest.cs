@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.CrabImport.CrabImport.Requests
+namespace MunicipalityRegistry.Api.Import.CrabImport.Requests
 {
     using System.ComponentModel.DataAnnotations;
     using Newtonsoft.Json;
