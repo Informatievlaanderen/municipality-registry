@@ -28,5 +28,9 @@
     <ProjectReference Include="..\MunicipalityRegistry.Infrastructure\MunicipalityRegistry.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Merger\" />
+  </ItemGroup>
+
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

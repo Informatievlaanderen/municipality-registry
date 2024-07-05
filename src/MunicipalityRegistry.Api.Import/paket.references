@@ -9,5 +9,7 @@ Datadog.Trace.Bundle
 
 AspNetCore.HealthChecks.SqlServer
 
+Microsoft.EntityFrameworkCore.InMemory
+
 SourceLink.Embed.AllSourceFiles
 SourceLink.Copy.PdbFiles

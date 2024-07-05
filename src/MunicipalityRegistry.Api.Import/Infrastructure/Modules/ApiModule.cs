@@ -36,7 +36,8 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
             builder
                 .RegisterModule(new EventHandlingModule(typeof(DomainAssemblyMarker).Assembly, eventSerializerSettings))
                 .RegisterModule(new EnvelopeModule())
-                .RegisterModule(new CommandHandlingModule(_configuration));
+                .RegisterModule(new CommandHandlingModule(_configuration))
+                .RegisterModule(new ImportModule(_configuration, _services, _loggerFactory));
 
             _services.ConfigureIdempotency(
                 _configuration.GetSection(IdempotencyConfiguration.Section).Get<IdempotencyConfiguration>().ConnectionString,
