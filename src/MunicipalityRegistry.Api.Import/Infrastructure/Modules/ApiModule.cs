@@ -6,7 +6,6 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.EventHandling.Autofac;
-    using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.CrabImport;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -33,11 +32,6 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
         protected override void Load(ContainerBuilder builder)
         {
             var eventSerializerSettings = EventsJsonSerializerSettingsProvider.CreateSerializerSettings();
-
-            _services.ConfigureCrabImport(
-                _configuration.GetConnectionString("CrabImport"),
-                Schema.Import,
-                _loggerFactory);
 
             builder
                 .RegisterModule(new EventHandlingModule(typeof(DomainAssemblyMarker).Assembly, eventSerializerSettings))

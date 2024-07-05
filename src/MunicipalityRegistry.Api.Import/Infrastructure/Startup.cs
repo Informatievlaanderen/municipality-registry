@@ -8,15 +8,14 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
-    using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.CrabImport;
     using Configuration;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
-    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
     using Modules;
     using SqlStreamStore;
@@ -137,12 +136,12 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure
                         Info = groupName => $"Basisregisters Vlaanderen - Municipality Registry API {groupName}",
                         CSharpClientOptions =
                         {
-                            ClassName = "MunicipalityRegistryCrabImport",
+                            ClassName = "MunicipalityRegistryImport",
                             Namespace = "Be.Vlaanderen.Basisregisters"
                         },
                         TypeScriptClientOptions =
                         {
-                            ClassName = "MunicipalityRegistryCrabImport"
+                            ClassName = "MunicipalityRegistryImport"
                         }
                     },
                     MiddlewareHooks =
@@ -151,8 +150,7 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure
                     }
                 })
 
-                .UseIdempotencyDatabaseMigrations()
-                .UseCrabImportMigrations();
+                .UseIdempotencyDatabaseMigrations();
 
             StartupHelpers.CheckDatabases(healthCheckService, DatabaseTag, loggerFactory).GetAwaiter().GetResult();
         }
