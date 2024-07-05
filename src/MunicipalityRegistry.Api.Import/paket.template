@@ -1,8 +1,8 @@
 type file
 version 1.0.0
 
-id Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.CrabImport
-title Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.CrabImport
+id Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Import
+title Be.Vlaanderen.Basisregisters.MunicipalityRegistry.Api.Import
 
 authors Basisregisters Vlaanderen
 owners Digitaal Vlaanderen <https://vlaanderen.be/digitaal-vlaanderen>
@@ -24,10 +24,10 @@ dependencies
     AspNetCore.HealthChecks.SqlServer >= LOCKEDVERSION
 
 files
-  MunicipalityRegistry.Api.CrabImport.dll => lib\net8.0
-  MunicipalityRegistry.Api.CrabImport.pdb => lib\net8.0
-  MunicipalityRegistry.Api.CrabImport.xml => lib\net8.0
-  MunicipalityRegistry.Api.CrabImport.xml => content
+  MunicipalityRegistry.Api.Import.dll => lib\net8.0
+  MunicipalityRegistry.Api.Import.pdb => lib\net8.0
+  MunicipalityRegistry.Api.Import.xml => lib\net8.0
+  MunicipalityRegistry.Api.Import.xml => content
 
   MunicipalityRegistry.dll => lib\net8.0
   MunicipalityRegistry.pdb => lib\net8.0

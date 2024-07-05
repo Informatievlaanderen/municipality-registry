@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.CrabImport.CrabImport
+namespace MunicipalityRegistry.Api.Import.CrabImport
 {
     using System;
     using System.Threading;

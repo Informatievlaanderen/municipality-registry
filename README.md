@@ -19,7 +19,7 @@
 
 To fill up the database for the first time:
 
-* Run `MunicipalityRegistry.Api.CrabImport` (`MunicipalityRegistry.sln`)
+* Run `MunicipalityRegistry.Api.Import` (`MunicipalityRegistry.sln`)
 
 #### Projections
 
