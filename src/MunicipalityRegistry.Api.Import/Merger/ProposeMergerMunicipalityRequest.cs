@@ -7,12 +7,12 @@
     public sealed class ProposeMergerMunicipalityRequest
     {
         [JsonPropertyName("officieleTalen")]
-        public List<Taal> OfficialLanguages { get; set; }
+        public List<Taal> OfficialLanguages { get; set; } = [];
 
         [JsonPropertyName("faciliteitenTalen")]
-        public List<Taal> FacilitiesLanguages { get; set; }
+        public List<Taal> FacilitiesLanguages { get; set; } = [];
 
         [JsonPropertyName("namen")]
-        public Dictionary<Taal, string> Names { get; set; }
+        public Dictionary<Taal, string> Names { get; set; } = [];
     }
 }

@@ -10,18 +10,18 @@
 
     public class ImportApiTest : MunicipalityRegistryTest
     {
-        protected readonly FakeLegacyContext _legacyContext;
-        protected readonly FakeImportContext _importContext;
+        protected readonly FakeLegacyContext LegacyContext;
+        protected readonly FakeImportContext ImportContext;
 
         public ImportApiTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            _legacyContext = new FakeLegacyContextFactory().CreateDbContext();
-            _importContext = new FakeImportContextFactory().CreateDbContext();
+            LegacyContext = new FakeLegacyContextFactory().CreateDbContext();
+            ImportContext = new FakeImportContextFactory().CreateDbContext();
         }
 
         protected T CreateMergerControllerWithUser<T>(bool useSqs = false) where T : ApiController
         {
-            var controller = Activator.CreateInstance(typeof(T), _legacyContext, _importContext, Container.BeginLifetimeScope()) as T;
+            var controller = Activator.CreateInstance(typeof(T), LegacyContext, ImportContext, Container) as T;
 
             var claims = new List<Claim>
             {

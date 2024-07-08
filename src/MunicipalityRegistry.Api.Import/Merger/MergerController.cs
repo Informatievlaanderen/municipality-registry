@@ -110,6 +110,7 @@
                     Organisation.DigitaalVlaanderen)
             );
 
+            //TODO-rik register type IIdempotentCommandHandler
             await using var scopedContainer = _container.BeginLifetimeScope();
             var idempotentCommandHandler = scopedContainer.Resolve<IIdempotentCommandHandler>();
             await idempotentCommandHandler.Dispatch(
