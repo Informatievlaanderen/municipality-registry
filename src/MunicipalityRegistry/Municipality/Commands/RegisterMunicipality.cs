@@ -16,7 +16,7 @@ namespace MunicipalityRegistry.Municipality.Commands
 
         public List<Language> OfficialLanguages { get; }
 
-        public List<Language> FacilityLanguages { get; }
+        public List<Language> FacilitiesLanguages { get; }
 
         public List<MunicipalityName> Names { get; }
 
@@ -28,7 +28,7 @@ namespace MunicipalityRegistry.Municipality.Commands
             MunicipalityId municipalityId,
             NisCode nisCode,
             List<Language> officialLanguages,
-            List<Language> facilityLanguages,
+            List<Language> facilitiesLanguages,
             List<MunicipalityName> names,
             ExtendedWkbGeometry geometry,
             Provenance provenance)
@@ -36,7 +36,7 @@ namespace MunicipalityRegistry.Municipality.Commands
             MunicipalityId = municipalityId;
             NisCode = nisCode;
             OfficialLanguages = officialLanguages;
-            FacilityLanguages = facilityLanguages;
+            FacilitiesLanguages = facilitiesLanguages;
             Names = names;
             Geometry = geometry;
             Provenance = provenance;
@@ -53,7 +53,7 @@ namespace MunicipalityRegistry.Municipality.Commands
             yield return MunicipalityId;
             yield return NisCode;
             yield return OfficialLanguages;
-            yield return FacilityLanguages;
+            yield return FacilitiesLanguages;
             yield return Names;
             yield return Geometry;
         }

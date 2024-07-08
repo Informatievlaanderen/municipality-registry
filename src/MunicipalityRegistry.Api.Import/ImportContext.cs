@@ -9,6 +9,14 @@
         public ImportContext() { }
 
         public ImportContext(DbContextOptions<ImportContext> options)
-            : base(options) { }
+            : base(options)
+        { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new MunicipalityMergerConfiguration());
+        }
     }
 }

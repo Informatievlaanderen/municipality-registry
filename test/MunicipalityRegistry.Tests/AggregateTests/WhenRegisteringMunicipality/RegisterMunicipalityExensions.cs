@@ -36,7 +36,7 @@
                 command.MunicipalityId,
                 command.NisCode,
                 command.OfficialLanguages,
-                command.FacilityLanguages,
+                command.FacilitiesLanguages,
                 names.Select(n => new MunicipalityName(n.Value, n.Key)).ToList(),
                 command.Geometry,
                 command.Provenance);
@@ -48,7 +48,7 @@
                 command.MunicipalityId,
                 command.NisCode,
                 command.OfficialLanguages,
-                command.FacilityLanguages,
+                command.FacilitiesLanguages,
                 command.Names,
                 geometry,
                 command.Provenance);
