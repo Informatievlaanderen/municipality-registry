@@ -12,6 +12,8 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
     using Microsoft.Extensions.Logging;
     using MunicipalityRegistry.Infrastructure;
     using MunicipalityRegistry.Infrastructure.Modules;
+    using Projections.Legacy;
+    using Vrbg;
 
     public class ApiModule : Module
     {
@@ -37,7 +39,8 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
                 .RegisterModule(new EventHandlingModule(typeof(DomainAssemblyMarker).Assembly, eventSerializerSettings))
                 .RegisterModule(new EnvelopeModule())
                 .RegisterModule(new CommandHandlingModule(_configuration))
-                .RegisterModule(new ImportModule(_configuration, _services, _loggerFactory));
+                .RegisterModule(new ImportModule(_configuration, _services, _loggerFactory))
+                .RegisterModule(new LegacyModule(_configuration, _services, _loggerFactory));
 
             _services.ConfigureIdempotency(
                 _configuration.GetSection(IdempotencyConfiguration.Section).Get<IdempotencyConfiguration>().ConnectionString,
@@ -48,6 +51,11 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
             builder
                 .RegisterType<ProblemDetailsHelper>()
                 .AsSelf();
+
+            builder
+                .RegisterType<VrbgGeometryService>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
 
             builder.Populate(_services);
         }

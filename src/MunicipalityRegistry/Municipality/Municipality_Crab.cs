@@ -43,7 +43,7 @@ namespace MunicipalityRegistry.Municipality
 
         public void Draw(ExtendedWkbGeometry ewkb)
         {
-            GuardPolygon(WKBReaderFactory.Create().Read(ewkb));
+            GuardPolygon(GeometryConfiguration.CreateWkbReader().Read(ewkb));
 
             ApplyChange(new MunicipalityWasDrawn(MunicipalityId, ewkb));
         }
