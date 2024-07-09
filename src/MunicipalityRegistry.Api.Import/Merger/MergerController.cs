@@ -100,7 +100,7 @@
                 municipality.ProposeMunicipality!.OfficialLanguages.Select(ToLanguage).ToList(),
                 municipality.ProposeMunicipality.FacilitiesLanguages.Select(ToLanguage).ToList(),
                 municipality.ProposeMunicipality.Names.Select(n => new MunicipalityName(n.Value, ToLanguage(n.Key))).ToList(),
-                new ExtendedWkbGeometry(newMunicipalityGeometry.ToBinary()),
+                ExtendedWkbGeometry.CreateEWkb(newMunicipalityGeometry.ToBinary())!,
                 new Provenance(
                     SystemClock.Instance.GetCurrentInstant(),
                     Application.MunicipalityRegistry,
@@ -110,7 +110,6 @@
                     Organisation.DigitaalVlaanderen)
             );
 
-            //TODO-rik register type IIdempotentCommandHandler
             await using var scopedContainer = _container.BeginLifetimeScope();
             var idempotentCommandHandler = scopedContainer.Resolve<IIdempotentCommandHandler>();
             await idempotentCommandHandler.Dispatch(
@@ -124,6 +123,8 @@
 
         private static async Task<MultiPolygon> BuildMunicipalityGeometry(ProposeMergerRequest municipality, IMunicipalityGeometryReader municipalityGeometryReader)
         {
+            var geometryFactory = GeometryConfiguration.CreateGeometryFactory();
+
             var municipalityGeometriesToMerge = await Task.WhenAll(municipality.MergerOf.Select(municipalityGeometryReader.GetGeometry));
             var newMunicipalityGeometry = new MultiPolygon(
                 municipalityGeometriesToMerge.SelectMany(geometry =>
@@ -136,7 +137,10 @@
                         };
                     })
                     .ToArray(),
-                GeometryConfiguration.CreateGeometryFactory());
+                geometryFactory)
+            {
+                SRID = geometryFactory.SRID
+            };
             return newMunicipalityGeometry;
         }
 

@@ -48,6 +48,11 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
                 new IdempotencyTableInfo(Schema.Import),
                 _loggerFactory);
 
+            builder.RegisterType<IdempotentCommandHandler>()
+                .As<IIdempotentCommandHandler>()
+                .AsSelf()
+                .InstancePerLifetimeScope();
+
             builder
                 .RegisterType<ProblemDetailsHelper>()
                 .AsSelf();
