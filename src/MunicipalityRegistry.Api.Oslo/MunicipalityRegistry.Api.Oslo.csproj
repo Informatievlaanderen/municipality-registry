@@ -4,7 +4,6 @@
   <PropertyGroup>
     <ServerGarbageCollection>true</ServerGarbageCollection>
      <EnableDefaultContentItems>false</EnableDefaultContentItems>
-     <LangVersion>8</LangVersion>
  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

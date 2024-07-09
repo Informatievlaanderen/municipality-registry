@@ -6,13 +6,14 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.EventHandling.Autofac;
-    using Be.Vlaanderen.Basisregisters.GrAr.Import.Processing.CrabImport;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using MunicipalityRegistry.Infrastructure;
     using MunicipalityRegistry.Infrastructure.Modules;
+    using Projections.Legacy;
+    using Vrbg;
 
     public class ApiModule : Module
     {
@@ -34,15 +35,12 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
         {
             var eventSerializerSettings = EventsJsonSerializerSettingsProvider.CreateSerializerSettings();
 
-            _services.ConfigureCrabImport(
-                _configuration.GetConnectionString("CrabImport"),
-                Schema.Import,
-                _loggerFactory);
-
             builder
                 .RegisterModule(new EventHandlingModule(typeof(DomainAssemblyMarker).Assembly, eventSerializerSettings))
                 .RegisterModule(new EnvelopeModule())
-                .RegisterModule(new CommandHandlingModule(_configuration));
+                .RegisterModule(new CommandHandlingModule(_configuration))
+                .RegisterModule(new ImportModule(_configuration, _services, _loggerFactory))
+                .RegisterModule(new LegacyModule(_configuration, _services, _loggerFactory));
 
             _services.ConfigureIdempotency(
                 _configuration.GetSection(IdempotencyConfiguration.Section).Get<IdempotencyConfiguration>().ConnectionString,
@@ -50,9 +48,19 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
                 new IdempotencyTableInfo(Schema.Import),
                 _loggerFactory);
 
+            builder.RegisterType<IdempotentCommandHandler>()
+                .As<IIdempotentCommandHandler>()
+                .AsSelf()
+                .InstancePerLifetimeScope();
+
             builder
                 .RegisterType<ProblemDetailsHelper>()
                 .AsSelf();
+
+            builder
+                .RegisterType<VrbgGeometryService>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
 
             builder.Populate(_services);
         }

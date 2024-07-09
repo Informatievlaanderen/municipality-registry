@@ -3,6 +3,7 @@ xunit
 xunit.runner.visualstudio
 AutoFixture
 FluentAssertions
+Moq
 
 Be.Vlaanderen.Basisregisters.AggregateSource.Testing
 Be.Vlaanderen.Basisregisters.AggregateSource.Testing.SqlStreamStore.Autofac

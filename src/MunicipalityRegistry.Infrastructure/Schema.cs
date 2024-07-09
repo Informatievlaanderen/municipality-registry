@@ -19,6 +19,7 @@ namespace MunicipalityRegistry.Infrastructure
     {
         public const string Extract = "__EFMigrationsHistoryExtract";
         public const string Legacy = "__EFMigrationsHistoryLegacy";
+        public const string Import = "__EFMigrationsHistoryLegacy";
         public const string Producer = "__EFMigrationsHistoryProducer";
         public const string ProducerSnapshotOslo = "__EFMigrationsHistoryProducerSnapshotOslo";
         public const string RedisDataMigration = "__EFMigrationsHistoryDataMigration";

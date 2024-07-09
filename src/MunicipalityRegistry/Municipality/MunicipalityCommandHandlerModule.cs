@@ -93,7 +93,7 @@ namespace MunicipalityRegistry.Municipality
                         municipalityId,
                         message.Command.NisCode,
                         message.Command.OfficialLanguages,
-                        message.Command.FacilityLanguages,
+                        message.Command.FacilitiesLanguages,
                         message.Command.Names,
                         message.Command.Geometry);
 

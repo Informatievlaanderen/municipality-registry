@@ -10,7 +10,7 @@
     {
         public const int SridLambert72 = 31370;
 
-        private static readonly WKBReader WkbReader = WKBReaderFactory.Create();
+        private static readonly WKBReader WkbReader = GeometryConfiguration.CreateWkbReader();
 
         [JsonConstructor]
         public ExtendedWkbGeometry([JsonProperty("value")] byte[] ewkbBytes) : base(ewkbBytes) { }
