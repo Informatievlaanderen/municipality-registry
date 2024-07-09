@@ -37,13 +37,20 @@
                 {
                     var activateMunicipalityCommand = new ActivateMunicipality(newMunicipalityId, CreateProvenance($"Fusie {mergerYear}"));
 
-                    await using var scopedContainer = _container.BeginLifetimeScope();
-                    var idempotentCommandHandler = scopedContainer.Resolve<IIdempotentCommandHandler>();
-                    await idempotentCommandHandler.Dispatch(
-                        activateMunicipalityCommand.CreateCommandId(),
-                        activateMunicipalityCommand,
-                        new Dictionary<string, object>(),
-                        cancellationToken);
+                    try
+                    {
+                        await using var scopedContainer = _container.BeginLifetimeScope();
+                        var idempotentCommandHandler = scopedContainer.Resolve<IIdempotentCommandHandler>();
+                        await idempotentCommandHandler.Dispatch(
+                            activateMunicipalityCommand.CreateCommandId(),
+                            activateMunicipalityCommand,
+                            new Dictionary<string, object>(),
+                            cancellationToken);
+                    }
+                    catch (IdempotencyException)
+                    {
+                        // Do nothing
+                    }
                 }
 
                 foreach (var mergeMunicipality in mergersPerNewMunicipality)
@@ -57,13 +64,20 @@
                         CreateProvenance($"Fusie {mergerYear}")
                     );
 
-                    await using var scopedContainer = _container.BeginLifetimeScope();
-                    var idempotentCommandHandler = scopedContainer.Resolve<IIdempotentCommandHandler>();
-                    await idempotentCommandHandler.Dispatch(
-                        mergeMunicipalityCommand.CreateCommandId(),
-                        mergeMunicipalityCommand,
-                        new Dictionary<string, object>(),
-                        cancellationToken);
+                    try
+                    {
+                        await using var scopedContainer = _container.BeginLifetimeScope();
+                        var idempotentCommandHandler = scopedContainer.Resolve<IIdempotentCommandHandler>();
+                        await idempotentCommandHandler.Dispatch(
+                            mergeMunicipalityCommand.CreateCommandId(),
+                            mergeMunicipalityCommand,
+                            new Dictionary<string, object>(),
+                            cancellationToken);
+                    }
+                    catch (IdempotencyException)
+                    {
+                        // Do nothing
+                    }
                 }
             }
 
