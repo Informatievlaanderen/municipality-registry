@@ -1,18 +1,18 @@
 ﻿namespace MunicipalityRegistry.Api.Import.Merger
 {
     using System.Collections.Generic;
-    using System.Text.Json.Serialization;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
+    using Newtonsoft.Json;
 
     public sealed class ProposeMergerMunicipalityRequest
     {
-        [JsonPropertyName("officieleTalen")]
+        [JsonProperty("officieleTalen")]
         public List<Taal> OfficialLanguages { get; set; } = [];
 
-        [JsonPropertyName("faciliteitenTalen")]
+        [JsonProperty("faciliteitenTalen")]
         public List<Taal> FacilitiesLanguages { get; set; } = [];
 
-        [JsonPropertyName("namen")]
+        [JsonProperty("namen")]
         public Dictionary<Taal, string> Names { get; set; } = [];
     }
 }

@@ -1,14 +1,14 @@
 ﻿namespace MunicipalityRegistry.Api.Import.Merger
 {
     using System.Collections.Generic;
-    using System.Text.Json.Serialization;
+    using Newtonsoft.Json;
 
     public sealed class ProposeMergersRequest
     {
-        [JsonPropertyName("fusieJaar")]
+        [JsonProperty("fusieJaar")]
         public int MergerYear { get; set; }
 
-        [JsonPropertyName("gemeenten")]
+        [JsonProperty("gemeenten")]
         public List<ProposeMergerRequest> Municipalities { get; set; }
     }
 }

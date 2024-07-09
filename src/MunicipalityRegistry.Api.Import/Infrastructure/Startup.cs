@@ -3,6 +3,7 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure
     using System;
     using System.Linq;
     using System.Reflection;
+    using System.Threading;
     using Asp.Versioning.ApiExplorer;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
@@ -151,6 +152,11 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure
                 })
 
                 .UseIdempotencyDatabaseMigrations();
+
+            MigrationsHelper.RunAsync(
+                serviceProvider.GetRequiredService<IConfiguration>().GetConnectionString("Import")!,
+                loggerFactory,
+                CancellationToken.None).GetAwaiter().GetResult();
 
             StartupHelpers.CheckDatabases(healthCheckService, DatabaseTag, loggerFactory).GetAwaiter().GetResult();
         }

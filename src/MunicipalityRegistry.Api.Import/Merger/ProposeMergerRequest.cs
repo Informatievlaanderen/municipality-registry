@@ -1,17 +1,17 @@
 namespace MunicipalityRegistry.Api.Import.Merger
 {
     using System.Collections.Generic;
-    using System.Text.Json.Serialization;
+    using Newtonsoft.Json;
 
     public sealed class ProposeMergerRequest
     {
-        [JsonPropertyName("nisCode")]
+        [JsonProperty("nisCode")]
         public string NisCode { get; set; }
 
-        [JsonPropertyName("gemeenteVoorstel")]
+        [JsonProperty("gemeenteVoorstel")]
         public ProposeMergerMunicipalityRequest? ProposeMunicipality { get; set; }
 
-        [JsonPropertyName("fusieVan")]
+        [JsonProperty("fusieVan")]
         public List<string> MergerOf { get; set; }
     }
 }
