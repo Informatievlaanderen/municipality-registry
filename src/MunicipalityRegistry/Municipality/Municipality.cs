@@ -20,12 +20,12 @@
             IEnumerable<MunicipalityName> names,
             ExtendedWkbGeometry geometry)
         {
-            if(!officialLanguages.Any())
+            if (!officialLanguages.Any())
                 throw new NoOfficialLanguagesException();
 
             var municipalityNames = names as MunicipalityName[] ?? names.ToArray();
 
-            if(municipalityNames.Length == 0)
+            if (municipalityNames.Length == 0)
                 throw new NoNameException("At least one name is required.");
 
             var duplicateLanguages = municipalityNames
@@ -60,10 +60,13 @@
             MunicipalityId newMunicipalityId,
             NisCode newNisCode)
         {
-            if(!IsCurrent)
+            if (IsMerged)
+                return;
+
+            if (!IsCurrent)
                 throw new MunicipalityHasInvalidStatusException();
 
-            if(MunicipalityId == newMunicipalityId)
+            if (MunicipalityId == newMunicipalityId)
                 throw new CannotMergeMunicipalityWithSelfException();
 
             ApplyChange(new MunicipalityWasMerged(
@@ -77,7 +80,7 @@
 
         public void Activate()
         {
-            if(Status == MunicipalityStatus.Current)
+            if (Status == MunicipalityStatus.Current)
                 return;
 
             if (Status == MunicipalityStatus.Retired)

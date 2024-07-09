@@ -1,12 +1,12 @@
-namespace MunicipalityRegistry.Tests.ImportApi.Merger
+namespace MunicipalityRegistry.Tests.ImportApi.Merger.Propose
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Api.Import.Merger;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using FluentAssertions;
-    using Projections.Legacy.MunicipalityDetail;
+    using MunicipalityRegistry.Api.Import.Merger.Propose;
+    using MunicipalityRegistry.Projections.Legacy.MunicipalityDetail;
     using Xunit;
 
     public class ProposeMergerRequestValidatorTests

@@ -1,4 +1,4 @@
-﻿namespace MunicipalityRegistry.Api.Import.Merger
+﻿namespace MunicipalityRegistry.Api.Import.Merger.Propose
 {
     using System.Collections.Generic;
     using Newtonsoft.Json;

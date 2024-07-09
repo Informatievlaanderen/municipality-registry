@@ -42,6 +42,20 @@ namespace MunicipalityRegistry.Tests.AggregateTests.WhenMergingMunicipality
         }
 
         [Fact]
+        public void WithMunicipalityAlreadyMerged_ThenNone()
+        {
+            var command = _fixture.Create<MergeMunicipality>();
+
+            Assert(
+                new Scenario()
+                    .Given(_municipalityId,
+                        _fixture.Create<MunicipalityWasRegistered>(),
+                        _fixture.Create<MunicipalityWasMerged>())
+                    .When(command)
+                    .ThenNone());
+        }
+
+        [Fact]
         public void WithMunicipalityProposed_ThenMunicipalityHasInvalidStatusExceptionIsThrown()
         {
             var command = _fixture.Create<MergeMunicipality>();
@@ -118,6 +132,7 @@ namespace MunicipalityRegistry.Tests.AggregateTests.WhenMergingMunicipality
             // Assert
             sut.MunicipalityId.Should().Be(_municipalityId);
             sut.Status.Should().Be(MunicipalityStatus.Retired);
+            sut.IsMerged.Should().BeTrue();
         }
     }
 }
