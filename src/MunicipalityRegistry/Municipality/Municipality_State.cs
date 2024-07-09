@@ -27,6 +27,7 @@ namespace MunicipalityRegistry.Municipality
 
         private bool IsRetired => Status == MunicipalityStatus.Retired;
         private bool IsCurrent => Status == MunicipalityStatus.Current;
+        public bool IsMerged { get; private set; }
 
         public Modification LastModificationBasedOnCrab { get; private set; }
 
@@ -66,6 +67,7 @@ namespace MunicipalityRegistry.Municipality
         private void When(MunicipalityWasMerged @event)
         {
             Status = MunicipalityStatus.Retired;
+            IsMerged = true;
         }
 
         private void WhenCrabEventApplied()

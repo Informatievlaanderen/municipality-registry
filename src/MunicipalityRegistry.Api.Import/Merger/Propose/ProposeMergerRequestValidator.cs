@@ -1,9 +1,9 @@
-﻿namespace MunicipalityRegistry.Api.Import.Merger
+﻿namespace MunicipalityRegistry.Api.Import.Merger.Propose
 {
     using System;
     using System.Linq;
     using FluentValidation;
-    using Projections.Legacy;
+    using MunicipalityRegistry.Projections.Legacy;
 
     public sealed class ProposeMergerRequestValidator : AbstractValidator<ProposeMergerRequest>
     {

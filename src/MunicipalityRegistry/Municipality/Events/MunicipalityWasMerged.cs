@@ -7,6 +7,7 @@ namespace MunicipalityRegistry.Municipality.Events
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Newtonsoft.Json;
 
+    [EventTags(EventTag.For.Sync)]
     [EventName("MunicipalityWasMerged")]
     [EventDescription("De gemeente werd gefusioneerd.")]
     public sealed class MunicipalityWasMerged : IHasProvenance, ISetProvenance, IMessage
