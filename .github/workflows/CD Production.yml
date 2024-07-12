@@ -36,6 +36,7 @@ jobs:
       matrix:
         services: [
           'municipality-api',
+          'municipality-import-api',
           'municipality-projections',
           'municipality-producer',
           'municipality-producer-snapshot-oslo']
