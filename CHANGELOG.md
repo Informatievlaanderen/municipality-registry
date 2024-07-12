@@ -1,3 +1,15 @@
+# [5.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.2.0...v5.3.0) (2024-07-12)
+
+
+### Features
+
+* add activate municipality ([159c66a](https://github.com/informatievlaanderen/municipality-registry/commit/159c66a49b6b6c19033f36d245e7617f0dcc4ee1))
+* add merge endpoint GAWR-6520 ([3c958be](https://github.com/informatievlaanderen/municipality-registry/commit/3c958bead747a6a0cd25529c278ebfd8e783402f))
+* add merge municipality ([d6bb5b8](https://github.com/informatievlaanderen/municipality-registry/commit/d6bb5b81af3a157a05c10a5ad2587a056cfd334b))
+* add propose merger endpoint GAWR-6510 ([886ae40](https://github.com/informatievlaanderen/municipality-registry/commit/886ae40d1dc0c9b8b0ff9bc619dbcc451e2438ea))
+* refactor old domain + add register municipality ([47b2c7d](https://github.com/informatievlaanderen/municipality-registry/commit/47b2c7d5f20e64b52d78ebacde03ebd53ffe823d))
+* update projections with municipalitywasmerged ([43ddf4a](https://github.com/informatievlaanderen/municipality-registry/commit/43ddf4a10781e46303149412ec48037580568f4b))
+
 # [5.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.1.1...v5.2.0) (2024-06-14)
 
 
