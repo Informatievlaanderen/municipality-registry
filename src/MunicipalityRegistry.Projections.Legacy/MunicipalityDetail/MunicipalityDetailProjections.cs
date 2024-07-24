@@ -21,6 +21,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
                         {
                             MunicipalityId = message.Message.MunicipalityId,
                             NisCode = message.Message.NisCode,
+                            Status = MunicipalityStatus.Proposed,
                             VersionTimestamp = message.Message.Provenance.Timestamp
                         }, ct);
             });

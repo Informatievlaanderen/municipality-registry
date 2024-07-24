@@ -73,7 +73,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
         /// </summary>
         [DataMember(Name = "GemeenteStatus", Order = 4)]
         [JsonProperty(Required = Required.DisallowNull)]
-        public GemeenteStatus? GemeenteStatus { get; private set; }
+        public GemeenteStatus GemeenteStatus { get; private set; }
 
         public MunicipalityListOsloItemResponse(
             string id,
@@ -86,7 +86,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
             Identificator = new GemeenteIdentificator(naamruimte, id, version);
             Detail = new Uri(string.Format(detail, id));
             Gemeentenaam = new Gemeentenaam(geografischeNaam);
-            GemeenteStatus = municipalityStatus?.ConvertFromMunicipalityStatus();
+            GemeenteStatus = municipalityStatus.ConvertFromMunicipalityStatus();
         }
     }
 

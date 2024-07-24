@@ -17,6 +17,7 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
     public class MunicipalityExtractProjections : ConnectedProjection<ExtractContext>
     {
         // TODO: Probably need to get these from enums from config
+        private const string Proposed = "Voorgesteld";
         private const string InUse = "InGebruik";
         private const string Retired = "Gehistoreerd";
 
@@ -40,7 +41,8 @@ namespace MunicipalityRegistry.Projections.Extract.MunicipalityExtract
                         {
                             gemeenteid = { Value = message.Message.NisCode },
                             id = { Value = $"{_extractConfig.DataVlaanderenNamespace}/{message.Message.NisCode}" },
-                            versieid = { Value = message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset().FromDateTimeOffset() }
+                            versieid = { Value = message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset().FromDateTimeOffset() },
+                            status = { Value = Proposed }
                         }.ToBytes(_encoding)
                     }, ct);
             });

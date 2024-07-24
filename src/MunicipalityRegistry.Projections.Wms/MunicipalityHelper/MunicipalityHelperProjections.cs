@@ -20,7 +20,8 @@ namespace MunicipalityRegistry.Projections.Wms.Municipality
                         {
                             MunicipalityId = message.Message.MunicipalityId,
                             NisCode = message.Message.NisCode,
-                            VersionTimestamp = message.Message.Provenance.Timestamp
+                            VersionTimestamp = message.Message.Provenance.Timestamp,
+                            Status = MunicipalityStatus.Proposed
                         }, ct);
             });
 
