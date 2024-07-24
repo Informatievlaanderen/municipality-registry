@@ -25,7 +25,8 @@
                             NisCode = message.Message.NisCode,
                             VersionTimestamp = message.Message.Provenance.Timestamp,
                             Namespace = options.Value.Namespace,
-                            PuriId = $"{options.Value.Namespace}/{message.Message.NisCode}"
+                            PuriId = $"{options.Value.Namespace}/{message.Message.NisCode}",
+                            Status = MunicipalityStatus.Proposed
                         }, ct);
             });
 

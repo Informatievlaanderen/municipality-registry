@@ -23,7 +23,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                     RecordCreatedAt = message.Message.Provenance.Timestamp,
                     LastChangedOn = message.Message.Provenance.Timestamp,
                     ChangeType = message.EventName,
-                    SyndicationItemCreatedAt = DateTimeOffset.UtcNow
+                    SyndicationItemCreatedAt = DateTimeOffset.UtcNow,
+                    Status = MunicipalityStatus.Proposed
                 };
 
                 newMunicipalitySyndicationItem.ApplyProvenance(message.Message.Provenance);

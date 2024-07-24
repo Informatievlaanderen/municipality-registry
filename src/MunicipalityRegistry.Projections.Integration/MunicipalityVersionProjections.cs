@@ -26,7 +26,8 @@
                             VersionTimestamp = message.Message.Provenance.Timestamp,
                             Namespace = options.Value.Namespace,
                             PuriId = $"{options.Value.Namespace}/{message.Message.NisCode}",
-                            CreatedOnTimestamp = message.Message.Provenance.Timestamp
+                            CreatedOnTimestamp = message.Message.Provenance.Timestamp,
+                            Status = MunicipalityStatus.Proposed
                         }, ct);
             });
 
