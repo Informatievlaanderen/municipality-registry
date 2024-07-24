@@ -1,3 +1,10 @@
+## [5.3.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.3.0...v5.3.1) (2024-07-24)
+
+
+### Bug Fixes
+
+* set status to proposed by default ([c93a925](https://github.com/informatievlaanderen/municipality-registry/commit/c93a92540db3c3a1eb2eb153de73b3fe6c6806f5))
+
 # [5.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.2.0...v5.3.0) (2024-07-12)
 
 
