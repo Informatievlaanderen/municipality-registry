@@ -1,3 +1,10 @@
+# [5.4.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.3.1...v5.4.0) (2024-08-22)
+
+
+### Features
+
+* remove legacy api ([58c2162](https://github.com/informatievlaanderen/municipality-registry/commit/58c21621473fd65d587dbedf42be06d159b7ce38))
+
 ## [5.3.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.3.0...v5.3.1) (2024-07-24)
 
 
