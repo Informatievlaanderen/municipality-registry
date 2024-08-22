@@ -3,11 +3,11 @@ namespace MunicipalityRegistry.Api.Legacy.IntegrationTests
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Infrastructure;
     using Microsoft.AspNetCore.Mvc.Testing;
-    using Municipality.Responses;
     using MunicipalityRegistry.Api.IntegrationTests;
     using Newtonsoft.Json;
+    using Oslo.Infrastructure;
+    using Oslo.Municipality.Responses;
     using Xunit;
 
     public class MunicipalityControllerTests
@@ -29,15 +29,15 @@ namespace MunicipalityRegistry.Api.Legacy.IntegrationTests
                 IsFlemishRegion = true
             }));
 
-            var result = new List<MunicipalityListItemResponse>();
+            var result = new List<MunicipalityListOsloItemResponse>();
 
-            const string url = "/v1/gemeenten";
+            const string url = "/v2/gemeenten";
             while (true)
             {
                 // pagination
                 client.SetPaginationHeader("X-Pagination", offset, limit);
 
-                var response = await client.GetJsonAsync<MunicipalityListResponse>(url);
+                var response = await client.GetJsonAsync<MunicipalityListOsloResponse>(url);
                 if (response != null)
                 {
                     result.AddRange(response.Gemeenten);
