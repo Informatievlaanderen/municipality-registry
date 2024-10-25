@@ -461,7 +461,7 @@ namespace MunicipalityRegistry.Tests.Crab.GivenMuncipality
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
             ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
 
-            var expectedMunicipalityWasDrawn = new MunicipalityWasDrawn(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb));
+            var expectedMunicipalityWasDrawn = new MunicipalityGeometryWasCorrected(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb));
             ((ISetProvenance)expectedMunicipalityWasDrawn).SetProvenance(CreateProvenance(1));
 
             var municipalityWasDrawn = new MunicipalityWasDrawn(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.ExampleWkb));

@@ -89,6 +89,18 @@
             ApplyChange(new MunicipalityBecameCurrent(MunicipalityId));
         }
 
+        public void Draw(ExtendedWkbGeometry geometry)
+        {
+            GuardPolygon(GeometryConfiguration.CreateWkbReader().Read(geometry));
+            if(geometry.ToString() == Geometry?.ToString())
+                return;
+
+            if(Geometry is null)
+                ApplyChange(new MunicipalityWasDrawn(MunicipalityId, geometry));
+            else
+                ApplyChange(new MunicipalityGeometryWasCorrected(MunicipalityId, geometry));
+        }
+
         private static void GuardPolygon(Geometry? geometry)
         {
             if (geometry is Polygon
