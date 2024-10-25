@@ -129,6 +129,18 @@ namespace MunicipalityRegistry.Municipality
 
                     municipality.Activate();
                 });
+
+            For<DrawMunicipality>()
+                .AddSqlStreamStore(getStreamStore, getUnitOfWork, eventMapping, eventSerializer)
+                .AddProvenance(getUnitOfWork, provenanceFactory)
+                .Handle(async (message, ct) =>
+                {
+                    var municipalityId = message.Command.MunicipalityId;
+
+                    var municipality = await getMunicipalities().GetAsync(municipalityId, ct);
+
+                    municipality.Draw(message.Command.Geometry);
+                });
         }
     }
 }

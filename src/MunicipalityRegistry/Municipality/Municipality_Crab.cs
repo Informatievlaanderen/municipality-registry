@@ -41,13 +41,6 @@ namespace MunicipalityRegistry.Municipality
             ApplyChange(new MunicipalityNameWasCleared(MunicipalityId, language));
         }
 
-        public void Draw(ExtendedWkbGeometry ewkb)
-        {
-            GuardPolygon(GeometryConfiguration.CreateWkbReader().Read(ewkb));
-
-            ApplyChange(new MunicipalityWasDrawn(MunicipalityId, ewkb));
-        }
-
         public void ClearGeometry()
         {
             ApplyChange(new MunicipalityGeometryWasCleared(MunicipalityId));

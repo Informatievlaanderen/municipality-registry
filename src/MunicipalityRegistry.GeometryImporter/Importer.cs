@@ -12,7 +12,7 @@
 
     public class Importer
     {
-        private readonly XNamespace _vrbgNamespace = "https://geo.api.vlaanderen.be/VRBG";
+        private readonly XNamespace _vrbgNamespace = "https://geo.api.vlaanderen.be/VRBG2025";
 
         private const string WFS_GetMunicipalityGeometry =
             "https://geo.api.vlaanderen.be/VRBG/wfs?service=WFS" +
