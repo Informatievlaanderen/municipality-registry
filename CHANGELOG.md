@@ -1,3 +1,10 @@
+# [5.5.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.4.0...v5.5.0) (2024-10-28)
+
+
+### Features
+
+* update municipality geometry ([c40902c](https://github.com/informatievlaanderen/municipality-registry/commit/c40902cd4185cf5d29ebf7269164398ebebd13c3))
+
 # [5.4.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.3.1...v5.4.0) (2024-08-22)
 
 
