@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using Autofac;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
+    using Exceptions;
     using FluentAssertions;
     using FluentValidation;
     using Moq;
@@ -83,6 +84,9 @@
 
             var municipalityGeometryReaderMock = new Mock<IMunicipalityGeometryReader>();
             municipalityGeometryReaderMock
+                .Setup(x => x.GetGeometry("10000"))
+                .Throws(() => new InvalidPolygonException());
+            municipalityGeometryReaderMock
                 .Setup(x => x.GetGeometry("10001"))
                 .Returns(() => Task.FromResult(new WKTReader().Read("SRID=31370;POLYGON((0 0,0 1,1 1,1 0,0 0))")));
             municipalityGeometryReaderMock
@@ -102,7 +106,7 @@
             streamIds.Count.Should().Be(1);
             var newMunicipalityId = streamIds.Single();
 
-            municipalityGeometryReaderMock.Invocations.Count.Should().Be(2);
+            municipalityGeometryReaderMock.Invocations.Count.Should().Be(3);
 
             ImportContext.MunicipalityMergers.Count().Should().Be(2);
             var merge1 = ImportContext.MunicipalityMergers.ToList()[0];
