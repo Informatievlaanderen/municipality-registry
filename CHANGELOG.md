@@ -1,3 +1,10 @@
+## [5.5.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.5.0...v5.5.1) (2024-10-29)
+
+
+### Bug Fixes
+
+* try getting municipality geometry by new niscode first ([#645](https://github.com/informatievlaanderen/municipality-registry/issues/645)) ([cf24af2](https://github.com/informatievlaanderen/municipality-registry/commit/cf24af2934c9d30938b663c98d7b09409c5086bf))
+
 # [5.5.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.4.0...v5.5.0) (2024-10-28)
 
 
