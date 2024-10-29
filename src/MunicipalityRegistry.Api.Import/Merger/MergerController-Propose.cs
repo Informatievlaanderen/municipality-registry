@@ -92,12 +92,21 @@
             return registerMunicipalityCommand.MunicipalityId;
         }
 
-        private static async Task<MultiPolygon> BuildMunicipalityGeometry(ProposeMergerRequest municipality, IMunicipalityGeometryReader municipalityGeometryReader)
+        private static async Task<Geometry> BuildMunicipalityGeometry(ProposeMergerRequest municipality, IMunicipalityGeometryReader municipalityGeometryReader)
         {
             var geometryFactory = GeometryConfiguration.CreateGeometryFactory();
 
-            var municipalityGeometriesToMerge = await Task.WhenAll(municipality.MergerOf.Select(municipalityGeometryReader.GetGeometry));
-            var newMunicipalityGeometry = new MultiPolygon(
+            try
+            {
+                var newMunicipalityGeometry = await municipalityGeometryReader.GetGeometry(municipality.NisCode);
+                return newMunicipalityGeometry;
+            }
+            catch (InvalidPolygonException)
+            { }
+
+            var municipalityGeometriesToMerge =
+                await Task.WhenAll(municipality.MergerOf.Select(municipalityGeometryReader.GetGeometry));
+            var newMunicipalityCombinedGeometry = new MultiPolygon(
                 municipalityGeometriesToMerge.SelectMany(geometry =>
                     {
                         return geometry switch
@@ -112,7 +121,8 @@
             {
                 SRID = geometryFactory.SRID
             };
-            return newMunicipalityGeometry;
+
+            return newMunicipalityCombinedGeometry;
         }
 
         private static Language ToLanguage(Taal taal)
