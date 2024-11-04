@@ -9,16 +9,15 @@
     using Projections.Integration;
     using Serilog;
 
-
     public class Importer
     {
         private readonly XNamespace _vrbgNamespace = "https://geo.api.vlaanderen.be/VRBG2025";
 
         private const string WFS_GetMunicipalityGeometry =
-            "https://geo.api.vlaanderen.be/VRBG/wfs?service=WFS" +
+            "https://geo.api.vlaanderen.be/VRBG2025/wfs?service=WFS" +
             "&version=1.1.0" +
             "&request=GetFeature" +
-            "&typeName=VRBG:Refgem" +
+            "&typeName=VRBG2025:Refgem" +
             "&maxFeatures=1" +
             "&srsName=EPSG:31370" +
             "&CQL_FILTER=NISCODE=";
