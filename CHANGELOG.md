@@ -1,3 +1,11 @@
+## [5.5.2](https://github.com/informatievlaanderen/municipality-registry/compare/v5.5.1...v5.5.2) (2024-11-05)
+
+
+### Bug Fixes
+
+* **import:** only update flemish geometries ([165bf3d](https://github.com/informatievlaanderen/municipality-registry/commit/165bf3dee0494829caaf77046ef3871154ae2e93))
+* use new wfs url ([6ebd178](https://github.com/informatievlaanderen/municipality-registry/commit/6ebd178e6900e83f4a56f81895a48f46a30c089c))
+
 ## [5.5.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.5.0...v5.5.1) (2024-10-29)
 
 
