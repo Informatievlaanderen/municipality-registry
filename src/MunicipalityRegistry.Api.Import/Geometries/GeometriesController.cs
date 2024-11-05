@@ -8,6 +8,7 @@
     using Autofac;
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Infrastructure.Vrbg;
     using Microsoft.AspNetCore.Mvc;
@@ -48,7 +49,10 @@
                 {
                     x.MunicipalityId,
                     x.NisCode
-                });
+                })
+                .ToList()
+                .Where(x => RegionFilter.IsFlemishRegion(x.NisCode!))
+                .ToList();
 
             foreach (var municipality in municipalitiesToUpdate)
             {
