@@ -50,8 +50,8 @@ nuget Be.Vlaanderen.Basisregisters.CommandHandling 9.0.1
 nuget Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency 9.0.1
 nuget Be.Vlaanderen.Basisregisters.CommandHandling.SqlStreamStore 9.0.1
 
-nuget Be.Vlaanderen.Basisregisters.EventHandling 5.0.0
-nuget Be.Vlaanderen.Basisregisters.EventHandling.Autofac 5.0.0
+nuget Be.Vlaanderen.Basisregisters.EventHandling 6.0.0
+nuget Be.Vlaanderen.Basisregisters.EventHandling.Autofac 6.0.0
 
 nuget Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer 5.0.1
 
