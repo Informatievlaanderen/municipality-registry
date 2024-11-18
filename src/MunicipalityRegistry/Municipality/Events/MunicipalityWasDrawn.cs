@@ -6,6 +6,7 @@ namespace MunicipalityRegistry.Municipality.Events
     using Be.Vlaanderen.Basisregisters.Utilities.HexByteConvertor;
     using Newtonsoft.Json;
 
+    [HideEvent]
     [EventName("MunicipalityWasDrawn")]
     [EventDescription("De grenzen van de gemeente werden toegevoegd of gewijzigd.")]
     public sealed class MunicipalityWasDrawn : IHasProvenance, ISetProvenance, IMessage

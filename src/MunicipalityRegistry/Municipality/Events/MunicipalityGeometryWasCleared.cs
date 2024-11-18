@@ -5,13 +5,14 @@ namespace MunicipalityRegistry.Municipality.Events
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Newtonsoft.Json;
 
+    [HideEvent]
     [EventName("MunicipalityGeometryWasCleared")]
     [EventDescription("De grenzen van de gemeente werden gewist.")]
     public sealed class MunicipalityGeometryWasCleared : IHasProvenance, ISetProvenance, IMessage
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
-        
+
         [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 

@@ -6,16 +6,17 @@ namespace MunicipalityRegistry.Municipality.Events
     using Be.Vlaanderen.Basisregisters.Utilities.HexByteConvertor;
     using Newtonsoft.Json;
 
+    [HideEvent]
     [EventName("MunicipalityGeometryWasCorrected")]
     [EventDescription("De grenzen van de gemeente werden gecorrigeerd.")]
     public sealed class MunicipalityGeometryWasCorrected : IHasProvenance, ISetProvenance, IMessage
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]
         public Guid MunicipalityId { get; }
-        
+
         [EventPropertyDescription("Extended WKB-voorstelling van de gemeentegrenzen.")]
         public string ExtendedWkbGeometry { get; }
-        
+
         [EventPropertyDescription("Metadata bij het event.")]
         public ProvenanceData Provenance { get; private set; }
 

@@ -5,37 +5,38 @@ namespace MunicipalityRegistry.Municipality.Events
     using Newtonsoft.Json;
     using NodaTime;
 
+    [HideEvent]
     [EventName("Crab-MunicipalityNameWasImported")]
     [EventDescription("Legacy event om tblGemeenteNaam en tblGemeenteNaam_hist te importeren.")]
     public sealed class MunicipalityNameWasImportedFromCrab : IMessage
     {
         [EventPropertyDescription("CRAB-identificator van de gemeente.")]
         public int CrabMunicipalityId { get; }
-        
+
         [EventPropertyDescription("CRAB-identificator van de gemeentenaam.")]
         public int CrabMunicipalityNameId { get; }
-        
+
         [EventPropertyDescription("Officiële spelling van de gemeente.")]
         public string MunicipalityNameName { get; }
-        
+
         [EventPropertyDescription("Taal waarin de officiële naam staat.")]
         public CrabLanguage? MunicipalityNameLanguage { get; }
-        
+
         [EventPropertyDescription("Datum waarop het object is ontstaan in werkelijkheid.")]
         public LocalDateTime? BeginDateTime { get; }
-        
-        [EventPropertyDescription("Datum waarop het object in werkelijkheid ophoudt te bestaan.")] 
+
+        [EventPropertyDescription("Datum waarop het object in werkelijkheid ophoudt te bestaan.")]
         public LocalDateTime? EndDateTime { get; }
-        
-        [EventPropertyDescription("Tijdstip waarop het object werd ingevoerd in de databank.")] 
+
+        [EventPropertyDescription("Tijdstip waarop het object werd ingevoerd in de databank.")]
         public Instant Timestamp { get; }
-        
-        [EventPropertyDescription("Operator door wie het object werd ingevoerd in de databank.")] 
+
+        [EventPropertyDescription("Operator door wie het object werd ingevoerd in de databank.")]
         public string Operator { get; }
-        
-        [EventPropertyDescription("Bewerking waarmee het object werd ingevoerd in de databank.")] 
+
+        [EventPropertyDescription("Bewerking waarmee het object werd ingevoerd in de databank.")]
         public CrabModification? Modification { get; }
-        
+
         [EventPropertyDescription("Organisatie die het object heeft ingevoerd in de databank.")]
         public CrabOrganisation? Organisation { get; }
 
