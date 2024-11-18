@@ -1,3 +1,10 @@
+# [5.6.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.5.2...v5.6.0) (2024-11-18)
+
+
+### Features
+
+* update event-handling ([5b35a59](https://github.com/informatievlaanderen/municipality-registry/commit/5b35a59d3ca6d7fa139014234b1b82971fe192ea))
+
 ## [5.5.2](https://github.com/informatievlaanderen/municipality-registry/compare/v5.5.1...v5.5.2) (2024-11-05)
 
 
