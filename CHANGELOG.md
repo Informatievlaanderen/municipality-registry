@@ -1,3 +1,10 @@
+## [5.6.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.6.0...v5.6.1) (2024-11-18)
+
+
+### Bug Fixes
+
+* hide extra events ([80329a5](https://github.com/informatievlaanderen/municipality-registry/commit/80329a5d183a53e74053ec69484e2eb9b51def71))
+
 # [5.6.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.5.2...v5.6.0) (2024-11-18)
 
 
