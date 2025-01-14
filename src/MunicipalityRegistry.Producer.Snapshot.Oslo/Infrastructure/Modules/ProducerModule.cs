@@ -59,6 +59,8 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo.Infrastructure.Modules
                 .RegisterEventstreamModule(_configuration)
                 .RegisterModule(new ProjectorModule(_configuration));
 
+            _services.AddOsloProxy(_configuration["OsloApiUrl"]);
+
             RegisterProjections(builder);
         }
 

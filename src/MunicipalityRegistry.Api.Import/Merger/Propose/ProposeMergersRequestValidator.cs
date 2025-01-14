@@ -10,7 +10,7 @@
         public ProposeMergersRequestValidator(LegacyContext legacyContext, ImportContext importContext)
         {
             RuleFor(request => request.MergerYear)
-                .GreaterThan(DateTime.Now.Year)
+                .GreaterThanOrEqualTo(DateTime.Now.Year)
                 .DependentRules(() =>
                 {
                     RuleFor(request => request.MergerYear)

@@ -63,7 +63,7 @@
 
             var request = new ProposeMergersRequest
             {
-                MergerYear = 2025,
+                MergerYear = DateTime.Now.Year + 1,
                 Municipalities =
                 [
                     new ProposeMergerRequest
@@ -147,7 +147,7 @@
 
             var request = new ProposeMergersRequest
             {
-                MergerYear = 2025,
+                MergerYear = DateTime.Now.Year + 1,
                 Municipalities =
                 [
                     new ProposeMergerRequest
