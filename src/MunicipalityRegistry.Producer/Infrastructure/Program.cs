@@ -34,7 +34,7 @@ namespace MunicipalityRegistry.Producer.Infrastructure
             AppDomain.CurrentDomain.UnhandledException += (_, eventArgs) =>
                 Log.Fatal((Exception)eventArgs.ExceptionObject, "Encountered a fatal exception, exiting program.");
 
-            Log.Information("Initializing ParcelRegistry.Producer");
+            Log.Information("Initializing MunicipalityRegistry.Producer");
 
             var host = new HostBuilder()
                 .ConfigureAppConfiguration((_, configurationBuilder) =>
@@ -120,7 +120,7 @@ namespace MunicipalityRegistry.Producer.Infrastructure
                 .UseConsoleLifetime()
                 .Build();
 
-            Log.Information("Starting ParcelRegistry.Producer");
+            Log.Information("Starting MunicipalityRegistry.Producer");
 
             var logger = host.Services.GetRequiredService<ILogger<Program>>();
             var configuration = host.Services.GetRequiredService<IConfiguration>();
