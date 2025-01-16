@@ -1,3 +1,10 @@
+## [5.6.2](https://github.com/informatievlaanderen/municipality-registry/compare/v5.6.1...v5.6.2) (2025-01-16)
+
+
+### Bug Fixes
+
+* **import-api:** correct validation merger year ([eca2bcf](https://github.com/informatievlaanderen/municipality-registry/commit/eca2bcf4e2cb0e3de09acc5c7faa35d0a3de5a41))
+
 ## [5.6.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.6.0...v5.6.1) (2024-11-18)
 
 
