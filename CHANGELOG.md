@@ -1,3 +1,10 @@
+## [5.6.3](https://github.com/informatievlaanderen/municipality-registry/compare/v5.6.2...v5.6.3) (2025-01-20)
+
+
+### Bug Fixes
+
+* **snapshot-producer:** register legacymodule ([b7f48c2](https://github.com/informatievlaanderen/municipality-registry/commit/b7f48c2829b6abc53d529c2c603535c6f0c9bdd9))
+
 ## [5.6.2](https://github.com/informatievlaanderen/municipality-registry/compare/v5.6.1...v5.6.2) (2025-01-16)
 
 
