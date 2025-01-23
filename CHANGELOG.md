@@ -1,3 +1,10 @@
+# [5.7.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.6.3...v5.7.0) (2025-01-23)
+
+
+### Features
+
+* **geometry:** update VRBG to final 2025 borders ([9be0049](https://github.com/informatievlaanderen/municipality-registry/commit/9be0049c254b72a2d37ecd240f64872e5be6c90b))
+
 ## [5.6.3](https://github.com/informatievlaanderen/municipality-registry/compare/v5.6.2...v5.6.3) (2025-01-20)
 
 
