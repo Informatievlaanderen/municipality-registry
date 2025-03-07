@@ -10,6 +10,7 @@ namespace MunicipalityRegistry.Infrastructure
 
         public const string Producer = "MunicipalityRegistryProducer";
         public const string ProducerSnapshotOslo = "MunicipalityRegistryProducerSnapshotOslo";
+        public const string ProducerLdes = "MunicipalityRegistryProducerLdes";
         public const string Wfs = "wfs.municipality";
         public const string Wms = "wms.municipality";
         public const string Integration = "integration_municipality";
@@ -22,6 +23,7 @@ namespace MunicipalityRegistry.Infrastructure
         public const string Import = "__EFMigrationsHistoryLegacy";
         public const string Producer = "__EFMigrationsHistoryProducer";
         public const string ProducerSnapshotOslo = "__EFMigrationsHistoryProducerSnapshotOslo";
+        public const string ProducerLdes = "__EFMigrationsHistoryProducerLdes";
         public const string RedisDataMigration = "__EFMigrationsHistoryDataMigration";
         public const string Wfs = "__EFMigrationsHistoryWfsMunicipality";
         public const string Wms = "__EFMigrationsHistoryWmsMunicipality";
