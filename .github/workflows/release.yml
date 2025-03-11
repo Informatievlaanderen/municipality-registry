@@ -145,6 +145,21 @@ jobs:
       dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
     secrets: inherit
 
+  build-producer-ldes:
+    name: Build Producer Ldes
+    uses: Informatievlaanderen/build-pipeline/.github/workflows/build-image.yml@main
+    needs: [ set-release-version ]
+    if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
+    with:
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
+      image-file: mr-producer-ldes-image.tar
+      image-name: producer-ldes
+      test-project: MunicipalityRegistry.Tests
+      build-project: MunicipalityRegistry.Producer.Ldes
+      semver: ${{ needs.set-release-version.outputs.version }}
+      dotnet-version: ${{ vars.VBR_DOTNET_VERSION_8 }}
+    secrets: inherit
+
   pack-api-oslo:
     name: Pack Api Oslo
     uses: Informatievlaanderen/build-pipeline/.github/workflows/pack.yml@main
@@ -181,9 +196,10 @@ jobs:
       build-api-oslo,
       build-api-extract,
       build-api-import,
-      build-projector,      
+      build-projector,
       build-producer,
-      build-producer-snapshot-oslo ]
+      build-producer-snapshot-oslo,
+      build-producer-ldes]
     outputs:
       version: ${{ steps.set-version.outputs.version }}
     steps:
@@ -444,8 +460,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        services: ['municipality-api', 'municipality-import-api', 'municipality-projections', 'municipality-producer', 'municipality-producer-snapshot-oslo']
-
+        services: [
+          'municipality-api',
+          'municipality-import-api',
+          'municipality-projections',
+          'municipality-producer',
+          'municipality-producer-snapshot-oslo',
+          'municipality-producer-ldes']
     steps:
     - name: Deploy services
       env:
@@ -522,8 +543,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        services: ['municipality-api', 'municipality-import-api', 'municipality-projections', 'municipality-producer', 'municipality-producer-snapshot-oslo']
-
+        services: [
+          'municipality-api',
+          'municipality-import-api',
+          'municipality-projections',
+          'municipality-producer',
+          'municipality-producer-snapshot-oslo',
+          'municipality-producer-ldes']
     steps:
     - name: Deploy services
       env:
