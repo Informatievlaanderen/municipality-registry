@@ -389,7 +389,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['api-oslo', 'api-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
+        image: ['api-oslo', 'api-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo', 'producer-ldes']
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4.0.2
