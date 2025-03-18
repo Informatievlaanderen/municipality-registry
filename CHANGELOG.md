@@ -1,3 +1,10 @@
+# [5.8.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.7.0...v5.8.0) (2025-03-18)
+
+
+### Features
+
+* add Ldes Producer ([e72c88c](https://github.com/informatievlaanderen/municipality-registry/commit/e72c88c5a800d33f68bc35edb8c856c4dbd5465c))
+
 # [5.7.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.6.3...v5.7.0) (2025-01-23)
 
 
