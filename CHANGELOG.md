@@ -1,3 +1,10 @@
+## [5.8.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.8.0...v5.8.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* add ldes producer to push images ([2bf510d](https://github.com/informatievlaanderen/municipality-registry/commit/2bf510d65352b8fdbe59957799ff2406cdc1d6fb))
+
 # [5.8.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.7.0...v5.8.0) (2025-03-18)
 
 
