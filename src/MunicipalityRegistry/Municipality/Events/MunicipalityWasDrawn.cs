@@ -18,7 +18,7 @@ namespace MunicipalityRegistry.Municipality.Events
         public string ExtendedWkbGeometry { get; }
 
         [EventPropertyDescription("Metadata bij het event.")]
-        public ProvenanceData Provenance { get; private set; }
+        public ProvenanceData Provenance { get; private set; } = null!;
 
         public MunicipalityWasDrawn(
             MunicipalityId municipalityId,
@@ -35,7 +35,7 @@ namespace MunicipalityRegistry.Municipality.Events
             ProvenanceData provenance) :
             this(
                 new MunicipalityId(municipalityId),
-                new ExtendedWkbGeometry(extendedWkbGeometry.ToByteArray())) => ((ISetProvenance)this).SetProvenance(provenance.ToProvenance());
+                new ExtendedWkbGeometry(extendedWkbGeometry.ToByteArray()!)) => ((ISetProvenance)this).SetProvenance(provenance.ToProvenance());
 
         void ISetProvenance.SetProvenance(Provenance provenance) => Provenance = new ProvenanceData(provenance);
     }

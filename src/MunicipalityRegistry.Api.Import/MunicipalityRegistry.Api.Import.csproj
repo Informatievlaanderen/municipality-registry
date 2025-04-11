@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-  <Import Project="..\..\packages\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.App.props" />
+  <Import Project="..\..\.build\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.App.props" />
 
   <PropertyGroup>
     <ServerGarbageCollection>true</ServerGarbageCollection>
@@ -20,7 +20,6 @@
     <Content Include="Dockerfile" CopyToOutputDirectory="Always" />
     <Content Include="appsettings.json" CopyToOutputDirectory="Always" />
     <Content Include="appsettings.*.json" CopyToOutputDirectory="Always" />
-    <Content Include="paket.template" CopyToOutputDirectory="Always" />
     <Content Include="init.sh" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
@@ -29,5 +28,19 @@
     <ProjectReference Include="..\MunicipalityRegistry.Projections.Legacy\MunicipalityRegistry.Projections.Legacy.csproj" />
   </ItemGroup>
 
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" />
+    <PackageReference Include="Datadog.Trace.Bundle" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
+
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.Api" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.GrAr.Import" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.GrAr.Legacy" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.EventHandling.Autofac" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac" />
+
+    <PackageReference Include="SourceLink.Embed.AllSourceFiles" PrivateAssets="all" />
+    <PackageReference Include="SourceLink.Copy.PdbFiles" PrivateAssets="all" />
+  </ItemGroup>
 </Project>

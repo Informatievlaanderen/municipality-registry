@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\packages\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.Test.props" />
+  <Import Project="..\..\.build\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.Test.props" />
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\MunicipalityRegistry.Api.Import\MunicipalityRegistry.Api.Import.csproj" />
@@ -7,10 +7,20 @@
     <ProjectReference Include="..\..\src\MunicipalityRegistry.Projections.Integration\MunicipalityRegistry.Projections.Integration.csproj" />
     <ProjectReference Include="..\..\src\MunicipalityRegistry\MunicipalityRegistry.csproj" />
   </ItemGroup>
-
   <ItemGroup>
-    <Folder Include="Crab\" />
-  </ItemGroup>
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.AggregateSource.Testing" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.AggregateSource.Testing.SqlStreamStore.Autofac" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.AggregateSource.Testing.Xunit" />
 
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector.Testing" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.ProjectionHandling.Testing.Xunit" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.EventHandling.Autofac" />
+
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="AutoFixture" />
+  </ItemGroup>
 </Project>
