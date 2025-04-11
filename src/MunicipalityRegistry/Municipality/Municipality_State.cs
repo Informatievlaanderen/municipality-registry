@@ -8,10 +8,10 @@ namespace MunicipalityRegistry.Municipality
 
     public partial class Municipality
     {
-        public MunicipalityId MunicipalityId { get; private set; }
-        public NisCode NisCode { get; private set; }
+        public MunicipalityId MunicipalityId { get; private set; } = null!;
+        public NisCode NisCode { get; private set; } = null!;
         public MunicipalityStatus? Status { get; private set; }
-        private RetirementDate _retiredDate;
+        private RetirementDate? _retiredDate;
 
         private readonly Dictionary<Language, MunicipalityName> _names
             = new Dictionary<Language, MunicipalityName>();
@@ -58,8 +58,8 @@ namespace MunicipalityRegistry.Municipality
             Register<MunicipalityWasRetired>(When);
             Register<MunicipalityWasCorrectedToRetired>(When);
 
-            Register<MunicipalityWasImportedFromCrab>(@event => WhenCrabEventApplied());
-            Register<MunicipalityNameWasImportedFromCrab>(@event => WhenCrabEventApplied());
+            Register<MunicipalityWasImportedFromCrab>(_ => WhenCrabEventApplied());
+            Register<MunicipalityNameWasImportedFromCrab>(_ => WhenCrabEventApplied());
 
             Register<MunicipalityWasMerged>(When);
         }
@@ -143,12 +143,12 @@ namespace MunicipalityRegistry.Municipality
 
         private void When(MunicipalityWasDrawn @event)
         {
-            Geometry = new ExtendedWkbGeometry(@event.ExtendedWkbGeometry.ToByteArray());
+            Geometry = new ExtendedWkbGeometry(@event.ExtendedWkbGeometry.ToByteArray()!);
         }
 
         private void When(MunicipalityGeometryWasCorrected @event)
         {
-            Geometry = new ExtendedWkbGeometry(@event.ExtendedWkbGeometry.ToByteArray());
+            Geometry = new ExtendedWkbGeometry(@event.ExtendedWkbGeometry.ToByteArray()!);
         }
 
         private void When(MunicipalityGeometryWasCleared @event)
