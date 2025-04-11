@@ -17,7 +17,7 @@ namespace MunicipalityRegistry.Municipality.Events
         public Language Language { get; }
 
         [EventPropertyDescription("Metadata bij het event.")]
-        public ProvenanceData Provenance { get; private set; }
+        public ProvenanceData Provenance { get; private set; } = null!;
 
         public MunicipalityNameWasCleared(
             MunicipalityId municipalityId,

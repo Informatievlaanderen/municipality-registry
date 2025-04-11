@@ -9,8 +9,8 @@ namespace MunicipalityRegistry
         [JsonConstructor]
         public WkbGeometry([JsonProperty("value")] byte[] wkbBytes) : base(wkbBytes) { }
 
-        public WkbGeometry(string wkbBytesHex) : base(wkbBytesHex.ToByteArray()) { }
+        public WkbGeometry(string wkbBytesHex) : base(wkbBytesHex.ToByteArray()!) { }
 
-        public override string ToString() => Value.ToHexString();
+        public override string ToString() => Value.ToHexString()!;
     }
 }

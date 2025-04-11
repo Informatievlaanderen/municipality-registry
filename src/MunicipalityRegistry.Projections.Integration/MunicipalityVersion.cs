@@ -161,7 +161,7 @@
             builder.Property(MunicipalityVersion.CreatedOnTimestampBackingPropertyName).HasColumnName("created_on_timestamp");
 
             builder.Property(x => x.MunicipalityId).IsRequired();
-            builder.HasIndex(x => x.NisCode).HasSortOrder(SortOrder.Ascending);
+            builder.HasIndex(x => x.NisCode).IsDescending(false);
             builder.HasIndex(x => x.IsRemoved);
             builder.HasIndex(MunicipalityVersion.VersionTimestampBackingPropertyName);
 

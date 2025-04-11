@@ -1,9 +1,0 @@
-Be.Vlaanderen.Basisregisters.AggregateSource
-Be.Vlaanderen.Basisregisters.Api
-
-Datadog.Trace.Bundle
-
-AspNetCore.HealthChecks.SqlServer
-
-SourceLink.Embed.AllSourceFiles
-SourceLink.Copy.PdbFiles

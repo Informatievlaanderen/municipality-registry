@@ -9,7 +9,6 @@ namespace MunicipalityRegistry.Municipality
             var validOp =
                 new NetTopologySuite.Operation.Valid.IsValidOp(geometry)
                 {
-                    IsSelfTouchingRingFormingHoleValid = true,
                     SelfTouchingRingFormingHoleValid = true
                 };
 
