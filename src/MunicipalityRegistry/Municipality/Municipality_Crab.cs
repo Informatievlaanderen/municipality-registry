@@ -59,18 +59,18 @@ namespace MunicipalityRegistry.Municipality
             CrabLanguage? facilityLanguage,
             NumberOfFlags numberOfFlags,
             CrabLifetime crabLifetime,
-            WkbGeometry geometry,
+            WkbGeometry? geometry,
             CrabTimestamp crabTimestamp,
             CrabOperator crabOperator,
             CrabModification? crabModification,
             CrabOrganisation? crabOrganisation)
         {
-            var endTime = crabLifetime?.EndDateTime;
+            var endTime = crabLifetime.EndDateTime;
 
             CheckChangedNisCode(nisCode, crabModification);
             CheckChangedOfficialLanguages(new[] { primaryLanguage?.ToLanguage(), secondaryLanguage?.ToLanguage() });
             CheckChangedFacilityLanguages(facilityLanguage?.ToLanguage());
-            CheckChangedGeometry(geometry == null ? null : geometry, crabModification);
+            CheckChangedGeometry(geometry is null ? (byte[]?)null : geometry, crabModification);
             CheckChangedStatus(endTime, crabModification);
 
             // Legacy Event
@@ -155,9 +155,9 @@ namespace MunicipalityRegistry.Municipality
             }
         }
 
-        private void CheckChangedNisCode(NisCode? nisCode, CrabModification? crabModification)
+        private void CheckChangedNisCode(NisCode nisCode, CrabModification? crabModification)
         {
-            if (nisCode == null)
+            if (string.IsNullOrWhiteSpace(NisCode))
             {
                 throw new NoNisCodeException("Cannot clear NisCode of a municipality.");
             }
@@ -177,7 +177,7 @@ namespace MunicipalityRegistry.Municipality
             }
         }
 
-        private void CheckChangedGeometry(byte[] wkb, CrabModification? modification)
+        private void CheckChangedGeometry(byte[]? wkb, CrabModification? modification)
         {
             var ewkb = ExtendedWkbGeometry.CreateEWkb(wkb);
 
@@ -186,7 +186,7 @@ namespace MunicipalityRegistry.Municipality
                 return;
             }
 
-            if (ewkb != null)
+            if (ewkb is not null)
             {
                 if (modification == CrabModification.Correction)
                 {

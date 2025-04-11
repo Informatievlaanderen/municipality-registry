@@ -18,7 +18,7 @@ namespace MunicipalityRegistry
 
             containerBuilder
                 .RegisterType<MunicipalityCommandHandlerModule>()
-                .Named<CommandHandlerModule>(typeof(MunicipalityCommandHandlerModule).FullName)
+                .Named<CommandHandlerModule>(typeof(MunicipalityCommandHandlerModule).FullName!)
                 .As<CommandHandlerModule>();
         }
     }

@@ -18,7 +18,7 @@ namespace MunicipalityRegistry.Municipality.Events
         public Instant RetirementDate { get; }
 
         [EventPropertyDescription("Metadata bij het event.")]
-        public ProvenanceData Provenance { get; private set; }
+        public ProvenanceData Provenance { get; private set; } = null!;
 
         public MunicipalityWasRetired(
             MunicipalityId municipalityId,
