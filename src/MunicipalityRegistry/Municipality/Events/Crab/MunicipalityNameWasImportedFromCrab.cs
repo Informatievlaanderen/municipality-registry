@@ -52,7 +52,7 @@ namespace MunicipalityRegistry.Municipality.Events
         {
             CrabMunicipalityId = crabMunicipalityId;
             CrabMunicipalityNameId = crabMunicipalityNameId;
-            MunicipalityNameName = municipalityName?.Name;
+            MunicipalityNameName = municipalityName.Name;
             MunicipalityNameLanguage = municipalityName?.Language;
             BeginDateTime = lifetime.BeginDateTime;
             EndDateTime = lifetime.EndDateTime;

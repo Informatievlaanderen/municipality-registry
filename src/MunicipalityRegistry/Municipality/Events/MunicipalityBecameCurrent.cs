@@ -14,7 +14,7 @@ namespace MunicipalityRegistry.Municipality.Events
         public Guid MunicipalityId { get; }
 
         [EventPropertyDescription("Metadata bij het event.")]
-        public ProvenanceData Provenance { get; private set; }
+        public ProvenanceData Provenance { get; private set; } = null!;
 
         public MunicipalityBecameCurrent(
             MunicipalityId municipalityId)

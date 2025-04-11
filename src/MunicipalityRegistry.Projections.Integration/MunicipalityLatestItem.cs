@@ -98,7 +98,7 @@
                 .HasComputedColumnSql(
                     "nis_code LIKE '1%' OR nis_code LIKE '3%' OR nis_code LIKE '4%' OR nis_code LIKE '7%' OR nis_code LIKE '23%' OR nis_code LIKE '24%'", stored:true);
 
-            builder.HasIndex(x => x.NisCode).HasSortOrder(SortOrder.Ascending);
+            builder.HasIndex(x => x.NisCode).IsDescending(false);
             builder.HasIndex(x => x.NameDutch);
             builder.HasIndex(x => x.NameFrench);
             builder.HasIndex(x => x.NameGerman);
