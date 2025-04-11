@@ -30,7 +30,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
 
         public static IQueryable<MunicipalityListItem> FlemishMunicipalities(this IQueryable<MunicipalityListItem> municipalities) => municipalities
             .ToList()
-            .Where(x => Be.Vlaanderen.Basisregisters.GrAr.Legacy.RegionFilter.IsFlemishRegion(x.NisCode))
+            .Where(x => Be.Vlaanderen.Basisregisters.GrAr.Common.RegionFilter.IsFlemishRegion(x.NisCode))
             .AsQueryable();
 
         private static ProjectionItemNotFoundException<MunicipalityListProjections> DatabaseItemNotFound(Guid municipalityId)

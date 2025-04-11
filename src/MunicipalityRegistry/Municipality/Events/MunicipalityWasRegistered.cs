@@ -17,7 +17,7 @@ namespace MunicipalityRegistry.Municipality.Events
         public string NisCode { get; }
 
         [EventPropertyDescription("Metadata bij het event.")]
-        public ProvenanceData Provenance { get; private set; }
+        public ProvenanceData Provenance { get; private set; } = null!;
 
         public MunicipalityWasRegistered(
             MunicipalityId municipalityId,
