@@ -5,6 +5,7 @@ namespace MunicipalityRegistry.Tests.Crab.GivenMuncipality
     using Be.Vlaanderen.Basisregisters.Crab;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Exceptions;
+    using FluentAssertions;
     using global::AutoFixture;
     using MunicipalityRegistry.Municipality;
     using MunicipalityRegistry.Municipality.Commands.Crab;
@@ -12,6 +13,7 @@ namespace MunicipalityRegistry.Tests.Crab.GivenMuncipality
     using NodaTime;
     using Xunit;
     using Xunit.Abstractions;
+    using Xunit.Sdk;
 
     public class WhenImportMunicipalityFromCrab : MunicipalityRegistryTest
     {
@@ -34,23 +36,8 @@ namespace MunicipalityRegistry.Tests.Crab.GivenMuncipality
         [Fact]
         public void WithNoNisCode()
         {
-            var importMunicipalityFromCrab = _fixture
-                .Build<ImportMunicipalityFromCrab>()
-                .With(x => x.NisCode, (NisCode) null)
-                .Create();
-
-            var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, importMunicipalityFromCrab.NisCode);
-            ((ISetProvenance)municipalityWasRegistered).SetProvenance(CreateProvenance(1));
-
-            Assert(
-                new Scenario()
-                    .Given(_municipalityId,
-                        municipalityWasRegistered,
-                        _fixture.Create<MunicipalityNisCodeWasDefined>(),
-                        _fixture.Create<MunicipalityBecameCurrent>())
-
-                    .When(importMunicipalityFromCrab)
-                    .Throws(new NoNisCodeException("NisCode of a municipality cannot be empty.")));
+            Xunit.Assert.Throws<NoNisCodeException>(() => new NisCode(null)).Message
+                .Should().Be("NisCode of a municipality cannot be empty.");
         }
 
         [Fact]

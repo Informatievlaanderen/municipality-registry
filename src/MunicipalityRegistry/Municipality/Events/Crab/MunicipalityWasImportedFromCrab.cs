@@ -51,9 +51,9 @@ namespace MunicipalityRegistry.Municipality.Events
             NisCode nisCode,
             CrabLanguage? primaryLanguage,
             CrabLanguage? secondaryLanguage,
-            NumberOfFlags numberOfFlags,
+            NumberOfFlags? numberOfFlags,
             CrabLifetime lifetime,
-            WkbGeometry wkbGeometry,
+            WkbGeometry? wkbGeometry,
             CrabTimestamp timestamp,
             CrabOperator @operator,
             CrabModification? modification,
@@ -63,10 +63,10 @@ namespace MunicipalityRegistry.Municipality.Events
             NisCode = nisCode;
             PrimaryLanguage = primaryLanguage;
             SecondaryLanguage = secondaryLanguage;
-            NumberOfFlags = numberOfFlags;
+            NumberOfFlags = numberOfFlags ?? (int?)null;
             BeginDate = lifetime.BeginDateTime;
             EndDate = lifetime.EndDateTime;
-            WkbGeometry = wkbGeometry?.ToString();
+            WkbGeometry = wkbGeometry?.ToString()!;
             Timestamp = timestamp;
             Operator = @operator;
             Modification = modification;
