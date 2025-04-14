@@ -1,3 +1,10 @@
+## [6.0.2](https://github.com/informatievlaanderen/municipality-registry/compare/v6.0.1...v6.0.2) (2025-04-14)
+
+
+### Bug Fixes
+
+* clean packages + update xml csproj ([98c6165](https://github.com/informatievlaanderen/municipality-registry/commit/98c6165f2fdf5e377a2243c4283f2f608feddf89))
+
 ## [6.0.1](https://github.com/informatievlaanderen/municipality-registry/compare/v6.0.0...v6.0.1) (2025-04-14)
 
 
