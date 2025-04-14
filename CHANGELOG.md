@@ -1,3 +1,15 @@
+# [6.0.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.8.1...v6.0.0) (2025-04-14)
+
+
+### Code Refactoring
+
+* use renovate and nuget + update pipeline ([1635f85](https://github.com/informatievlaanderen/municipality-registry/commit/1635f854e06e707886410237732bccec2ab6a848))
+
+
+### BREAKING CHANGES
+
+* update to dotnet 9
+
 ## [5.8.1](https://github.com/informatievlaanderen/municipality-registry/compare/v5.8.0...v5.8.1) (2025-03-18)
 
 
