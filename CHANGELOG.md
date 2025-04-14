@@ -1,3 +1,10 @@
+## [6.0.1](https://github.com/informatievlaanderen/municipality-registry/compare/v6.0.0...v6.0.1) (2025-04-14)
+
+
+### Bug Fixes
+
+* **ci:** upgrade slack ([c387343](https://github.com/informatievlaanderen/municipality-registry/commit/c3873438b8b36a953cdf05f21407758a59c506f7))
+
 # [6.0.0](https://github.com/informatievlaanderen/municipality-registry/compare/v5.8.1...v6.0.0) (2025-04-14)
 
 
