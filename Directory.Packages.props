@@ -69,7 +69,7 @@
         <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Extracts" Version="22.0.0" />
         <PackageVersion Include="Be.Vlaanderen.Basisregisters.Shaperon" Version="11.0.0" />
 
-        <PackageVersion Include="Structurizr.Core" Version="0.9.7" />
+        <PackageVersion Include="Structurizr.Core" Version="1.1.1" />
         <PackageVersion Include="Structurizr.Client" Version="0.9.7" />
         <PackageVersion Include="Structurizr.AdrTools" Version="0.9.3" />
 
