@@ -37,5 +37,7 @@
     <ProjectReference Include="..\MunicipalityRegistry.Api.Import\MunicipalityRegistry.Api.Import.csproj" />
   </ItemGroup>
 
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+  </ItemGroup>
 </Project>

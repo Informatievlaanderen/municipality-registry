@@ -2,9 +2,7 @@
   <Import Project="..\..\.build\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.Library.props" />
   <ItemGroup>
     <PackageReference Include="Autofac" />
-    <!-- <PackageReference Include="Newtonsoft.Json" /> -->
     <PackageReference Include="NodaTime" />
-    <!-- <PackageReference Include="SqlStreamStore.MsSql" /> -->
     <PackageReference Include="NetTopologySuite" />
 
     <PackageReference Include="Be.Vlaanderen.Basisregisters.AggregateSource" />

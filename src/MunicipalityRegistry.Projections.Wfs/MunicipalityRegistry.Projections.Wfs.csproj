@@ -14,8 +14,6 @@
     <PackageReference Include="Be.Vlaanderen.Basisregisters.GrAr.Common" />
     <PackageReference Include="Be.Vlaanderen.Basisregisters.GrAr.Legacy" />
 
-    <!-- <PackageReference Include="SqlStreamStore.MsSql" /> -->
-
     <PackageReference Include="SourceLink.Embed.AllSourceFiles" PrivateAssets="all" />
     <PackageReference Include="SourceLink.Copy.PdbFiles" PrivateAssets="all" />
   </ItemGroup>
