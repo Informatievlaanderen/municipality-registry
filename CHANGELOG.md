@@ -1,3 +1,10 @@
+## [6.0.3](https://github.com/informatievlaanderen/municipality-registry/compare/v6.0.2...v6.0.3) (2025-04-15)
+
+
+### Bug Fixes
+
+* **projections:** update all modelcontextsnapshots ([8982126](https://github.com/informatievlaanderen/municipality-registry/commit/8982126c42e8c9ea186cf190132da6eba91b77dd))
+
 ## [6.0.2](https://github.com/informatievlaanderen/municipality-registry/compare/v6.0.1...v6.0.2) (2025-04-14)
 
 
