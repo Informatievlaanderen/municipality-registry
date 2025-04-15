@@ -88,7 +88,7 @@ jobs:
 
     - name: Test
       shell: bash
-      run: dotnet dotCover cover-dotnet --ReportType=HTML --Output=dotCover.Output.html -- test --nologo --no-build --filter 'FullyQualifiedName!~IntegrationTests'  MunicipalityRegistry.sln
+      run: dotCover cover-dotnet --ReportType=HTML --Output=dotCover.Output.html -- test --nologo --no-build --filter 'FullyQualifiedName!~IntegrationTests'  MunicipalityRegistry.sln
 
     - name: Sonar end build & analyze
       env:

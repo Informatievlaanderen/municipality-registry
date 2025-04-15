@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MunicipalityRegistry.Projections.Extract;
 
+#nullable disable
+
 namespace MunicipalityRegistry.Projections.Extract.Migrations
 {
     [DbContext(typeof(ExtractContext))]
@@ -15,9 +17,10 @@ namespace MunicipalityRegistry.Projections.Extract.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "9.0.4")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.ProjectionStates.ProjectionStateItem", b =>
                 {
@@ -36,15 +39,14 @@ namespace MunicipalityRegistry.Projections.Extract.Migrations
                     b.Property<long>("Position")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Name")
-                        .HasAnnotation("SqlServer:Clustered", true);
+                    b.HasKey("Name");
 
-                    b.ToTable("ProjectionStates","MunicipalityRegistryExtract");
+                    b.ToTable("ProjectionStates", "MunicipalityRegistryExtract");
                 });
 
             modelBuilder.Entity("MunicipalityRegistry.Projections.Extract.MunicipalityExtract.MunicipalityExtractItem", b =>
                 {
-                    b.Property<Guid?>("MunicipalityId")
+                    b.Property<Guid>("MunicipalityId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -67,16 +69,18 @@ namespace MunicipalityRegistry.Projections.Extract.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("OfficialLanguagesAsString")
-                        .HasColumnName("OfficialLanguages")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("OfficialLanguages");
 
-                    b.HasKey("MunicipalityId")
-                        .HasAnnotation("SqlServer:Clustered", false);
+                    b.HasKey("MunicipalityId");
 
-                    b.HasIndex("NisCode")
-                        .HasAnnotation("SqlServer:Clustered", true);
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("MunicipalityId"), false);
 
-                    b.ToTable("Municipality","MunicipalityRegistryExtract");
+                    b.HasIndex("NisCode");
+
+                    SqlServerIndexBuilderExtensions.IsClustered(b.HasIndex("NisCode"));
+
+                    b.ToTable("Municipality", "MunicipalityRegistryExtract");
                 });
 #pragma warning restore 612, 618
         }
