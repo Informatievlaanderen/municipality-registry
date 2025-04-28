@@ -59,9 +59,9 @@
       },
       "Structurizr.Core": {
         "type": "Direct",
-        "requested": "[0.9.7, )",
-        "resolved": "0.9.7",
-        "contentHash": "lOFSqPfjIoWCBF3SSbQpmnM9dynzKcV+DTCDxLGM4JQtGrqIQXy1SWOnXdR/bZYceOfk0Q6tcN7m1Mc+h+K9fg==",
+        "requested": "[1.1.1, )",
+        "resolved": "1.1.1",
+        "contentHash": "CrrJdYWSkBrZ8bidwOGmyw17vxandXQuvR5JD5PiBKTUvhomruKmvah/4EbBwQMMXxISR7x7etwnotUNOhiLUA==",
         "dependencies": {
           "Newtonsoft.Json": "10.0.3"
         }
