@@ -2270,7 +2270,7 @@
       },
       "Autofac": {
         "type": "CentralTransitive",
-        "requested": "[8.2.1, )",
+        "requested": "[8.3.0, )",
         "resolved": "8.2.1",
         "contentHash": "q5xYBykgdvBlcmrXzHcDWcfeVktGEraluypkC0IRTupfxk+r+z+JcXgKj5kldKGe1fflyW3Ya3y9Soe9J2CqEA==",
         "dependencies": {
