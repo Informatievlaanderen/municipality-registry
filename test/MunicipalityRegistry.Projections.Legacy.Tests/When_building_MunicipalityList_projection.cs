@@ -237,6 +237,48 @@ namespace MunicipalityRegistry.Projections.Legacy.Tests
                 })
                 .Assert();
         }
+
+        [Fact]
+        public async Task Given_MunicipalityWasRemoved_Then_municipality_is_not_in_context()
+        {
+            var projection = new MunicipalityListProjections();
+            var resolver = ConcurrentResolve.WhenEqualToHandlerMessageType(projection.Handlers);
+
+            var crabMunicipalityId = new CrabMunicipalityId(1);
+            var municipalityId = MunicipalityId.CreateFor(crabMunicipalityId);
+
+            var nisCode = "456";
+            var municipalityWasRegistered = new MunicipalityWasRegistered(municipalityId, new NisCode(nisCode));
+            ((ISetProvenance)municipalityWasRegistered).SetProvenance(_provenance);
+
+            var municipalityNisCodeWasDefined = new MunicipalityNisCodeWasDefined(municipalityId, new NisCode(nisCode));
+            ((ISetProvenance)municipalityNisCodeWasDefined).SetProvenance(_provenance);
+
+            var municipalityWasRemoved = new MunicipalityWasRemoved(municipalityId, new NisCode(nisCode));
+            ((ISetProvenance)municipalityWasRemoved).SetProvenance(_provenance);
+
+            await new ConnectedProjectionScenario<LegacyContext>(resolver)
+                .Given(
+                    new Envelope<MunicipalityWasRegistered>(new Envelope(
+                        municipalityWasRegistered,
+                        EmptyMetadata)),
+
+                    new Envelope<MunicipalityNisCodeWasDefined>(new Envelope(
+                        municipalityNisCodeWasDefined,
+                        EmptyMetadata)),
+
+                    new Envelope<MunicipalityWasRemoved>(new Envelope(
+                        municipalityWasRemoved,
+                        EmptyMetadata)))
+                .Verify(async context =>
+                {
+                    var municipality = await context.MunicipalityList.FirstOrDefaultAsync(a => a.NisCode == nisCode);
+                    municipality.Should().Be(null);
+
+                    return VerificationResult.Pass();
+                })
+                .Assert();
+        }
     }
 
     public static class ConnectedProjectionTestSpecificationExtensions

@@ -101,6 +101,14 @@
                 ApplyChange(new MunicipalityGeometryWasCorrected(MunicipalityId, geometry));
         }
 
+        public void Remove()
+        {
+            if (IsRemoved)
+                return;
+
+            ApplyChange(new MunicipalityWasRemoved(MunicipalityId, NisCode));
+        }
+
         private static void GuardPolygon(Geometry? geometry)
         {
             if (geometry is Polygon

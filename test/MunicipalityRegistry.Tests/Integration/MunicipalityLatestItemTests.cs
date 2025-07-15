@@ -590,6 +590,36 @@
                 });
         }
 
+        [Fact]
+        public async Task WhenMunicipalityWasRemoved()
+        {
+            var position = _fixture.Create<long>();
+            var municipalityWasRegistered = _fixture.Create<MunicipalityWasRegistered>();
+            var municipalityWasRegisteredMetadata = new Dictionary<string, object>
+            {
+                { AddEventHashPipe.HashMetadataKey, _fixture.Create<string>() },
+                { Envelope.PositionMetadataKey, position }
+            };
+            var municipalityWasRemoved = _fixture.Create<MunicipalityWasRemoved>();
+            var municipalityWasRemovedMetadata = new Dictionary<string, object>
+            {
+                { AddEventHashPipe.HashMetadataKey, _fixture.Create<string>() },
+                { Envelope.PositionMetadataKey, position + 1 }
+            };
+
+            await Sut
+                .Given(new Envelope<MunicipalityWasRegistered>(new Envelope(municipalityWasRegistered, municipalityWasRegisteredMetadata)),
+                    new Envelope<MunicipalityWasRemoved>(new Envelope(municipalityWasRemoved, municipalityWasRemovedMetadata)))
+                .Then(async ct =>
+                {
+                    var expectedLatestItem =
+                        await ct.MunicipalityLatestItems.FindAsync(municipalityWasRemoved.MunicipalityId);
+                    expectedLatestItem.Should().NotBeNull();
+                    expectedLatestItem!.IsRemoved.Should().BeTrue();
+                    expectedLatestItem.VersionTimestamp.Should().Be(municipalityWasRemoved.Provenance.Timestamp);
+                });
+        }
+
         protected override MunicipalityLatestItemProjections CreateProjection()
             => new MunicipalityLatestItemProjections(
                 new OptionsWrapper<IntegrationOptions>(new IntegrationOptions { Namespace = Namespace }));

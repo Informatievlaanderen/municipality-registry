@@ -26,6 +26,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Query
         {
             var municipalities = _context
                 .MunicipalityList
+                .Where(x => !x.IsRemoved)
                 .OrderBy(x => x.NisCode)
                 .AsNoTracking();
 
@@ -86,7 +87,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Query
                     municipalities = municipalities.Where(m => m.Status.HasValue && (int)m.Status.Value == -1);
                 }
             }
-            
+
             // this should be the last filter item processed because it implicitly realizes a list
             if (filtering.Filter.IsFlemishRegion)
             {

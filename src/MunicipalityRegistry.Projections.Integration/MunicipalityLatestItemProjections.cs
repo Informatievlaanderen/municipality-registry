@@ -276,6 +276,18 @@
                     },
                     ct);
             });
+
+            When<Envelope<MunicipalityWasRemoved>>(async (context, message, ct) =>
+            {
+                await context.FindAndUpdateMunicipality(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.IsRemoved = true;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
+            });
         }
 
         private static void UpdateNameByLanguage(MunicipalityLatestItem municipality, Language? language, string? name)

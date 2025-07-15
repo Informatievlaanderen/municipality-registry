@@ -66,6 +66,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
                 ? new List<Language>()
                 : JsonConvert.DeserializeObject<List<Language>>(OfficialLanguagesAsString);
         }
+
+        public bool IsRemoved { get; set; }
     }
 
     public class MunicipalityListConfiguration : IEntityTypeConfiguration<MunicipalityListItem>
@@ -91,6 +93,9 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
             b.Property(x => x.NameGermanSearch);
             b.Property(x => x.NameEnglishSearch);
 
+            b.Property(x => x.IsRemoved)
+                .HasDefaultValue(false);
+
             b.Ignore(x => x.VersionTimestamp);
             b.Ignore(x => x.OfficialLanguages);
 
@@ -108,6 +113,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
             b.HasIndex(x => x.NameGermanSearch);
             b.HasIndex(x => x.NameEnglishSearch);
             b.HasIndex(x => x.NisCode).IsClustered();
+            b.HasIndex(x => x.IsRemoved);
         }
     }
 }

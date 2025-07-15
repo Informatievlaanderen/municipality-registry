@@ -46,6 +46,7 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
         public string? Reason { get; set; }
         public string? EventDataAsXml { get; set; }
         public DateTimeOffset SyndicationItemCreatedAt { get; set; }
+        public bool IsRemoved { get; set; }
 
         public MunicipalitySyndicationItem CloneAndApplyEventInfo(
             long newPosition,
@@ -80,7 +81,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
                 Operator = Operator,
                 Organisation = Organisation,
                 Reason = Reason,
-                SyndicationItemCreatedAt = DateTimeOffset.UtcNow
+                SyndicationItemCreatedAt = DateTimeOffset.UtcNow,
+                IsRemoved = IsRemoved
             };
 
             editFunc(newItem);
@@ -128,6 +130,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalitySyndication
             b.Property(x => x.Organisation);
             b.Property(x => x.Reason);
             b.Property(x => x.EventDataAsXml);
+            b.Property(x => x.IsRemoved)
+                .HasDefaultValue(false);
             b.Property(x => x.SyndicationItemCreatedAt).IsRequired();
 
             b.Ignore(x => x.RecordCreatedAt);

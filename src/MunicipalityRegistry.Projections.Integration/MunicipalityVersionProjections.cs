@@ -273,6 +273,18 @@
                     },
                     ct);
             });
+
+            When<Envelope<MunicipalityWasRemoved>>(async (context, message, ct) =>
+            {
+                await context.CreateNewMunicipalityVersion(
+                    message.Message.MunicipalityId,
+                    message,
+                    x =>
+                    {
+                        x.IsRemoved = true;
+                    },
+                    ct);
+            });
         }
 
         private static void UpdateNameByLanguage(MunicipalityVersion municipalityVersion, Language language, string? name)

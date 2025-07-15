@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MunicipalityRegistry.Projections.Legacy;
 
@@ -11,9 +12,11 @@ using MunicipalityRegistry.Projections.Legacy;
 namespace MunicipalityRegistry.Projections.Legacy.Migrations
 {
     [DbContext(typeof(LegacyContext))]
-    partial class LegacyContextModelSnapshot : ModelSnapshot
+    [Migration("20250715071453_AddIsRemovedSyndication")]
+    partial class AddIsRemovedSyndication
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,11 +56,6 @@ namespace MunicipalityRegistry.Projections.Legacy.Migrations
                     b.Property<string>("FacilitiesLanguagesAsString")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("FacilitiesLanguages");
-
-                    b.Property<bool>("IsRemoved")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
 
                     b.Property<string>("NameDutch")
                         .HasColumnType("nvarchar(max)");
@@ -105,11 +103,6 @@ namespace MunicipalityRegistry.Projections.Legacy.Migrations
                     b.Property<string>("DefaultName")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("IsRemoved")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
                     b.Property<string>("NameDutch")
                         .HasColumnType("nvarchar(max)");
 
@@ -153,8 +146,6 @@ namespace MunicipalityRegistry.Projections.Legacy.Migrations
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("MunicipalityId"), false);
 
                     b.HasIndex("DefaultName");
-
-                    b.HasIndex("IsRemoved");
 
                     b.HasIndex("NameDutchSearch");
 
