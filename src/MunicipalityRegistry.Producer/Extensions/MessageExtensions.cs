@@ -2,7 +2,6 @@ namespace MunicipalityRegistry.Producer.Extensions
 {
     using System.Linq;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
-    using Be.Vlaanderen.Basisregisters.Utilities;
     using Contracts = Be.Vlaanderen.Basisregisters.GrAr.Contracts.MunicipalityRegistry;
     using ContractsCommon = Be.Vlaanderen.Basisregisters.GrAr.Contracts.Common;
     using Domain = Municipality.Events;
@@ -79,5 +78,8 @@ namespace MunicipalityRegistry.Producer.Extensions
                 message.NewMunicipalityId.ToString("D"),
                 message.NewNisCode,
                 message.Provenance.ToContract());
+
+        public static Contracts.MunicipalityWasRemoved ToContract(this Domain.MunicipalityWasRemoved message) =>
+            new Contracts.MunicipalityWasRemoved(message.MunicipalityId.ToString("D"), message.NisCode, message.Provenance.ToContract());
     }
 }

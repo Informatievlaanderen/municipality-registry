@@ -27,6 +27,8 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
             get => Instant.FromDateTimeOffset(VersionTimestampAsDateTimeOffset);
             set => VersionTimestampAsDateTimeOffset = value.ToDateTimeOffset();
         }
+
+        public bool IsRemoved { get; set; }
     }
 
     public class MunicipalityDetailConfiguration : IEntityTypeConfiguration<MunicipalityDetail>
@@ -59,6 +61,9 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
             b.Property(x => x.NameFrench);
             b.Property(x => x.NameGerman);
             b.Property(x => x.NameEnglish);
+
+            b.Property(x => x.IsRemoved)
+                .HasDefaultValue(false);
 
             b.HasIndex(x => x.NisCode).IsClustered();
         }

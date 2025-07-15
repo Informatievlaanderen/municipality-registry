@@ -20,6 +20,7 @@
         public string? NameGerman { get; set; }
         public string? NameEnglish { get; set; }
 
+        public bool IsRemoved { get; set; }
         public MunicipalityStatus? Status { get; set; }
 
         private DateTimeOffset VersionTimestampAsDateTimeOffset { get; set; }
@@ -121,6 +122,8 @@
             b.Property(x => x.NameFrench);
             b.Property(x => x.NameGerman);
             b.Property(x => x.NameEnglish);
+            b.Property(x => x.IsRemoved)
+                .HasDefaultValue(false);
 
             b.HasIndex(x => x.NisCode).IsClustered();
         }

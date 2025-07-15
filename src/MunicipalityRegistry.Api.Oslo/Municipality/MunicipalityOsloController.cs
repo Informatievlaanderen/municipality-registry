@@ -72,6 +72,9 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
             if (municipality == null)
                 throw new ApiException("Onbestaande gemeente.", StatusCodes.Status404NotFound);
 
+            if(municipality.IsRemoved)
+                throw new ApiException("Verwijderde gemeente.", StatusCodes.Status410Gone);
+
             return Ok(
                 new MunicipalityOsloResponse(
                     responseOptions.Value.Naamruimte,

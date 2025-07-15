@@ -28,6 +28,7 @@ namespace MunicipalityRegistry.Municipality
         private bool IsRetired => Status == MunicipalityStatus.Retired;
         private bool IsCurrent => Status == MunicipalityStatus.Current;
         public bool IsMerged { get; private set; }
+        public bool IsRemoved { get; private set; }
 
         public Modification LastModificationBasedOnCrab { get; private set; }
 
@@ -62,12 +63,18 @@ namespace MunicipalityRegistry.Municipality
             Register<MunicipalityNameWasImportedFromCrab>(_ => WhenCrabEventApplied());
 
             Register<MunicipalityWasMerged>(When);
+            Register<MunicipalityWasRemoved>(When);
         }
 
         private void When(MunicipalityWasMerged @event)
         {
             Status = MunicipalityStatus.Retired;
             IsMerged = true;
+        }
+
+        private void When(MunicipalityWasRemoved @event)
+        {
+            IsRemoved = true;
         }
 
         private void WhenCrabEventApplied()
@@ -89,6 +96,7 @@ namespace MunicipalityRegistry.Municipality
             MunicipalityId = new MunicipalityId(@event.MunicipalityId);
             NisCode = new NisCode(@event.NisCode);
             Status = MunicipalityStatus.Proposed;
+            IsRemoved = false;
         }
 
         private void When(MunicipalityNisCodeWasDefined @event)

@@ -204,6 +204,13 @@ namespace MunicipalityRegistry.Projections.Wms.Municipality
                     },
                     ct);
             });
+
+            When<Envelope<MunicipalityWasRemoved>>(async (context, message, ct) =>
+            {
+                var municipality = await context.MunicipalityHelper.FindAsync(message.Message.MunicipalityId, ct);
+                if(municipality is not null)
+                    context.MunicipalityHelper.Remove(municipality);
+            });
         }
 
         private static void UpdateNameByLanguage(MunicipalityHelper municipality, Language? language, string name)

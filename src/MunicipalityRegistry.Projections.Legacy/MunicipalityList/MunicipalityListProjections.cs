@@ -2,13 +2,11 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
 {
     using System.Linq;
     using System.Threading.Tasks;
-    using Azure.Messaging;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Municipality.Events;
     using NodaTime;
-    using Polly;
 
     [ConnectedProjectionName("API endpoint lijst gemeenten")]
     [ConnectedProjectionDescription("Projectie die de gemeenten data voor de gemeenten lijst voorziet.")]
@@ -212,6 +210,13 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityList
                         UpdateVersionTimestamp(municipalityListItem, message.Message.Provenance.Timestamp);
                     },
                     ct);
+            });
+
+            When<Envelope<MunicipalityWasRemoved>>(async (context, message, ct) =>
+            {
+                var municipality = await context.MunicipalityList.FindAsync(message.Message.MunicipalityId, cancellationToken: ct);
+                if (municipality is not null)
+                    context.MunicipalityList.Remove(municipality);
             });
 
             When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());

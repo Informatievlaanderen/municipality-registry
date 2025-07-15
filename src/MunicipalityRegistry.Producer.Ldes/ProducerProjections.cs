@@ -292,6 +292,20 @@ namespace MunicipalityRegistry.Producer.Ldes
                 await Produce(context, message.Message.MunicipalityId, message.Position, ct);
             });
 
+            When<Envelope<MunicipalityWasRemoved>>(async (context, message, ct) =>
+            {
+                await context.FindAndUpdateMunicipalityDetail(
+                    message.Message.MunicipalityId,
+                    municipality =>
+                    {
+                        municipality.IsRemoved = true;
+                        UpdateVersionTimestamp(municipality, message.Message.Provenance.Timestamp);
+                    },
+                    ct);
+
+                await Produce(context, message.Message.MunicipalityId, message.Position, ct);
+            });
+
             When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());
             When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => await DoNothing());
             When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => await DoNothing());

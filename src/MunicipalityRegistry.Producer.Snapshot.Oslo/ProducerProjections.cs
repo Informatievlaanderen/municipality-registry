@@ -428,6 +428,11 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
                     message.Position,
                     ct);
             });
+
+            When<Envelope<MunicipalityWasRemoved>>(async (_, message, ct) =>
+            {
+                await Produce($"{osloNamespace}/{message.Message.NisCode}", message.Message.NisCode.ToString(),"{}", message.Position, ct);
+            });
         }
 
         private static string GetNisCode(MunicipalityDetail municipalityDetail)
