@@ -96,9 +96,9 @@
       },
       "Be.Vlaanderen.Basisregisters.GrAr.Contracts": {
         "type": "Direct",
-        "requested": "[22.0.0, )",
-        "resolved": "22.0.0",
-        "contentHash": "vAp0lWs24/5ajuKdIWr+0TuKCudALqTVjDsvotIk7bzRcyuXbEJjXUzH000E7UQVUuYtA0AiaHdwsUz2+PWnEw=="
+        "requested": "[22.1.1, )",
+        "resolved": "22.1.1",
+        "contentHash": "rD3+xRh81tGrtkEvMD3dL9tYFf7aqwNSlLgXY6ucC97c7FjmRKM/tLLcYHEMkaYWJnau6a+kHCIQX0aeSlMKtQ=="
       },
       "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer": {
         "type": "Direct",
