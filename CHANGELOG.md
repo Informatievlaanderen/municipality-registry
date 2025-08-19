@@ -1,3 +1,10 @@
+# [6.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.0.3...v6.1.0) (2025-08-19)
+
+
+### Features
+
+* add remove Municipality GAWR-4168 ([6241550](https://github.com/informatievlaanderen/municipality-registry/commit/62415508deab540de4934ace6ca443c9876e0c49))
+
 ## [6.0.3](https://github.com/informatievlaanderen/municipality-registry/compare/v6.0.2...v6.0.3) (2025-04-15)
 
 
