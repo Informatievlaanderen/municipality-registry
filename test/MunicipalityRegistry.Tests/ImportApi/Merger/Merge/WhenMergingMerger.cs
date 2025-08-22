@@ -1,28 +1,21 @@
 ﻿namespace MunicipalityRegistry.Tests.ImportApi.Merger.Merge
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Api.Import;
+    using Api.Import.Merger;
     using Autofac;
     using Be.Vlaanderen.Basisregisters.CommandHandling;
     using Be.Vlaanderen.Basisregisters.EventHandling;
-    using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using FluentAssertions;
     using FluentValidation;
     using global::AutoFixture;
-    using Moq;
     using Municipality.Commands;
     using Municipality.Events;
-    using MunicipalityRegistry.Api.Import.Infrastructure.Vrbg;
-    using MunicipalityRegistry.Api.Import.Merger;
-    using MunicipalityRegistry.Api.Import.Merger.Propose;
-    using MunicipalityRegistry.Projections.Legacy.MunicipalityDetail;
-    using NetTopologySuite.IO;
     using Newtonsoft.Json;
+    using Projections.Legacy.MunicipalityDetail;
     using SqlStreamStore;
     using SqlStreamStore.Streams;
     using Xunit;
