@@ -1,3 +1,10 @@
+# [6.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.1.0...v6.2.0) (2025-08-25)
+
+
+### Features
+
+* **import:** add remove municipality endpoint ([a48d9c3](https://github.com/informatievlaanderen/municipality-registry/commit/a48d9c3b6f0077ba9da26429f9a1b47607028b5d))
+
 # [6.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.0.3...v6.1.0) (2025-08-19)
 
 
