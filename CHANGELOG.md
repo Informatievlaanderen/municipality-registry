@@ -1,3 +1,10 @@
+## [6.2.1](https://github.com/informatievlaanderen/municipality-registry/compare/v6.2.0...v6.2.1) (2025-08-28)
+
+
+### Bug Fixes
+
+* **producer:** dotnet upgrade migrations fix ([3fdc2a6](https://github.com/informatievlaanderen/municipality-registry/commit/3fdc2a6acc11e78f49641f1ac1ba2340891e0f84))
+
 # [6.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.1.0...v6.2.0) (2025-08-25)
 
 
