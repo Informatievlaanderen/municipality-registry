@@ -1,3 +1,10 @@
+## [6.2.2](https://github.com/informatievlaanderen/municipality-registry/compare/v6.2.1...v6.2.2) (2025-09-16)
+
+
+### Bug Fixes
+
+* **producer-oslo:** fix dotnet upgrade migration ([630532d](https://github.com/informatievlaanderen/municipality-registry/commit/630532d8dbc4ce50dd346ed49fed1a6df9160ffe))
+
 ## [6.2.1](https://github.com/informatievlaanderen/municipality-registry/compare/v6.2.0...v6.2.1) (2025-08-28)
 
 
