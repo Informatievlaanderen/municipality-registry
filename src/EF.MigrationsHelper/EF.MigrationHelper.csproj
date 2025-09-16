@@ -34,6 +34,7 @@
     <ProjectReference Include="..\MunicipalityRegistry.Projector\MunicipalityRegistry.Projector.csproj" />
 	  <ProjectReference Include="..\MunicipalityRegistry.Producer\MunicipalityRegistry.Producer.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Producer.Ldes\MunicipalityRegistry.Producer.Ldes.csproj" />
+    <ProjectReference Include="..\MunicipalityRegistry.Producer.Snapshot.Oslo\MunicipalityRegistry.Producer.Snapshot.Oslo.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Api.Import\MunicipalityRegistry.Api.Import.csproj" />
   </ItemGroup>
 
