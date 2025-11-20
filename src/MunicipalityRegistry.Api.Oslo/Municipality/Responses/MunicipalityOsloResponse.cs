@@ -68,6 +68,13 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
         [JsonProperty(Required = Required.DisallowNull)]
         public GemeenteStatus GemeenteStatus { get; private set; }
 
+        /// <summary>
+        /// De hyperlinks die gerelateerd zijn aan de gemeente.
+        /// </summary>
+        [DataMember(Name = "_links", Order = 99)]
+        [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public MunicipalityDetailOsloResponseLinks? Links { get; set; }
+
         public MunicipalityOsloResponse(
             string naamruimte,
             string contextUrlDetail,
@@ -79,7 +86,11 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
             string nameFrench,
             string nameGerman,
             string nameEnglish,
-            DateTimeOffset version)
+            DateTimeOffset version,
+            string selfDetailUrl,
+            string straatnamenLinkUrl,
+            string adressenLinkUrl,
+            string postInfoLinkUrl)
         {
             Context = contextUrlDetail;
             Identificator = new GemeenteIdentificator(naamruimte, nisCode, version);
@@ -96,6 +107,57 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
             };
 
             Gemeentenamen = gemeenteNamen.Where(x => !string.IsNullOrEmpty(x.Spelling)).ToList();
+
+            Links = new MunicipalityDetailOsloResponseLinks(
+                self: new Link
+                {
+                    Href = new Uri(string.Format(selfDetailUrl, nisCode))
+                },
+                straatnamen: new Link
+                {
+                    Href = new Uri(string.Format(straatnamenLinkUrl, nisCode))
+                },
+                adressen: new Link
+                {
+                    Href = new Uri(string.Format(adressenLinkUrl, nisCode))
+                },
+                postInfo: new Link
+                {
+                    Href = new Uri(string.Format(postInfoLinkUrl, nameDutch ?? nameFrench))
+                }
+            );
+        }
+    }
+
+    [DataContract(Name = "_links", Namespace = "")]
+    public class MunicipalityDetailOsloResponseLinks
+    {
+        [DataMember(Name = "self")]
+        [JsonProperty(Required = Required.DisallowNull)]
+        public Link Self { get; set; }
+
+        [DataMember(Name = "straatnamen", EmitDefaultValue = false)]
+        [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Link? Straatnamen { get; set; }
+
+        [DataMember(Name = "adressen", EmitDefaultValue = false)]
+        [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Link? Adressen { get; set; }
+
+        [DataMember(Name = "postinfo", EmitDefaultValue = false)]
+        [JsonProperty(Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public Link? PostInfo { get; set; }
+
+        public MunicipalityDetailOsloResponseLinks(
+            Link self,
+            Link? straatnamen = null,
+            Link? adressen = null,
+            Link? postInfo = null)
+        {
+            Self = self;
+            Straatnamen = straatnamen;
+            Adressen = adressen;
+            PostInfo = postInfo;
         }
     }
 
@@ -118,7 +180,11 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
                 "Bruges",
                 "Brügge",
                 "Bruges",
-                DateTimeOffset.Now.ToExampleOffset());
+                DateTimeOffset.Now.ToExampleOffset(),
+                _responseOptions.DetailUrl,
+                _responseOptions.MunicipalityDetailStreetNamesLink,
+                _responseOptions.MunicipalityDetailAddressesLink,
+                _responseOptions.MunicipalityDetailPostInfoLink);
     }
 
     public class MunicipalityNotFoundResponseExamples : IExamplesProvider<ProblemDetails>

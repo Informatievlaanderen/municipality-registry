@@ -7,5 +7,9 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure.Options
         public string DetailUrl { get; set; }
         public string ContextUrlList { get; set; }
         public string ContextUrlDetail { get; set; }
+
+        public string MunicipalityDetailAddressesLink { get; set; }
+        public string MunicipalityDetailStreetNamesLink { get; set; }
+        public string MunicipalityDetailPostInfoLink { get; set; }
     }
 }

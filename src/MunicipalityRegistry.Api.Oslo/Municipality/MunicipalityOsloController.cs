@@ -87,7 +87,11 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
                     municipality.NameFrench,
                     municipality.NameGerman,
                     municipality.NameEnglish,
-                    municipality.VersionTimestamp.ToBelgianDateTimeOffset()));
+                    municipality.VersionTimestamp.ToBelgianDateTimeOffset(),
+                    responseOptions.Value.DetailUrl,
+                    responseOptions.Value.MunicipalityDetailStreetNamesLink,
+                    responseOptions.Value.MunicipalityDetailAddressesLink,
+                    responseOptions.Value.MunicipalityDetailPostInfoLink));
         }
 
         /// <summary>
