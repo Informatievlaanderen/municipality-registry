@@ -1,3 +1,10 @@
+# [6.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.2.2...v6.3.0) (2025-11-21)
+
+
+### Features
+
+* **oslo:** add municipality detail links GAWR-7137 ([89dc7a8](https://github.com/informatievlaanderen/municipality-registry/commit/89dc7a8dfa9844abe9c4786402b2bcf329487a0c))
+
 ## [6.2.2](https://github.com/informatievlaanderen/municipality-registry/compare/v6.2.1...v6.2.2) (2025-09-16)
 
 
