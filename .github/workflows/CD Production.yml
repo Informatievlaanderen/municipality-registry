@@ -34,7 +34,6 @@ jobs:
           'municipality-import-api',
           'municipality-projections',
           'municipality-producer',
-          'municipality-producer-ldes',
           'municipality-producer-snapshot-oslo']
     steps:
     - name: CD
