@@ -1,3 +1,10 @@
+# [6.4.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.3.0...v6.4.0) (2025-12-01)
+
+
+### Features
+
+* remove ldes producer GAWR-7170 ([57d7df1](https://github.com/informatievlaanderen/municipality-registry/commit/57d7df10ae2c95878c99bb8998ef2b90963fc9e3))
+
 # [6.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.2.2...v6.3.0) (2025-11-21)
 
 
