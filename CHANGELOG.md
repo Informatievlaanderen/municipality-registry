@@ -1,3 +1,10 @@
+## [6.4.1](https://github.com/informatievlaanderen/municipality-registry/compare/v6.4.0...v6.4.1) (2025-12-04)
+
+
+### Bug Fixes
+
+* **oslo:** add docs links ([147c4f9](https://github.com/informatievlaanderen/municipality-registry/commit/147c4f992b6a5eed5c03ce74b6985a2b37306ae3))
+
 # [6.4.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.3.0...v6.4.0) (2025-12-01)
 
 
