@@ -129,6 +129,9 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
         }
     }
 
+    /// <summary>
+    /// De hyperlinks die gerelateerd zijn aan de gemeente.
+    /// </summary>
     [DataContract(Name = "_links", Namespace = "")]
     public class MunicipalityDetailOsloResponseLinks
     {
