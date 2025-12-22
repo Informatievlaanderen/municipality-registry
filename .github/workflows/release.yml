@@ -408,40 +408,23 @@ jobs:
     if: github.repository_owner == 'Informatievlaanderen'
     needs: [ deploy_to_test_start_slack, release ]
     name: Deploy to test
-    environment: test
-    runs-on: ubuntu-latest
+    uses: informatievlaanderen/build-pipeline/.github/workflows/deploy-v4.yml@main
     strategy:
       matrix:
         services: [
           'municipality-api',
           'municipality-import-api',
-          'municipality-projections',
           'municipality-producer',
-          'municipality-producer-snapshot-oslo']
-    steps:
-    - name: Deploy services
-      env:
-        BUILD_URL: ${{ vars.VBR_AWS_BUILD_API_DEVOPS }}/${{matrix.services}}
-        STATUS_URL: ${{ vars.VBR_AWS_BUILD_STATUS_API_DEVOPS }}/${{matrix.services}}
-      uses: informatievlaanderen/awscurl-polling-action/polling-action@main
-      with:
-          environment: tst
-          version: ${{ needs.release.outputs.version }}
-          status-url: $STATUS_URL
-          deploy-url: $BUILD_URL
-          access-key: ${{ secrets.VBR_AWS_ACCESS_KEY_ID_DEVOPS }}
-          secret-key: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY_DEVOPS }}          
-          deploy-target: 'agb_ecs_service'
-          interval: 2
-          domain: 'basisregisters'
-          project: 'basisregisters'
-
-    - name: Deploy services output
-      shell: bash
-      run: |
-        echo build-uuid: ${{ steps.awscurl-polling-action.outputs.build-uuid }}
-        echo Status: ${{ steps.awscurl-polling-action.outputs.status }}
-        echo ${{ steps.awscurl-polling-action.outputs.final-message }}
+          'municipality-producer-snapshot-oslo',
+          'municipality-projections'
+        ]
+    with:
+      environment: tst
+      service-name: ${{ matrix.services }}
+      version: ${{ needs.release.outputs.version }}
+      domain: 'basisregisters'
+      project: 'basisregisters'
+    secrets: inherit
 
   deploy_to_test_finish_slack:
     if: github.repository_owner == 'Informatievlaanderen'
@@ -480,40 +463,23 @@ jobs:
     if: github.repository_owner == 'Informatievlaanderen'
     needs: [ deploy_to_staging_start_slack, release ]
     name: Deploy to staging
-    environment: stg
-    runs-on: ubuntu-latest
+    uses: informatievlaanderen/build-pipeline/.github/workflows/deploy-v4.yml@main
     strategy:
       matrix:
         services: [
           'municipality-api',
           'municipality-import-api',
-          'municipality-projections',
           'municipality-producer',
-          'municipality-producer-snapshot-oslo']
-    steps:
-    - name: Deploy services
-      env:
-        BUILD_URL: ${{ vars.VBR_AWS_BUILD_API_DEVOPS }}/${{matrix.services}}
-        STATUS_URL: ${{ vars.VBR_AWS_BUILD_STATUS_API_DEVOPS }}/${{matrix.services}}
-      uses: informatievlaanderen/awscurl-polling-action/polling-action@main
-      with:
-          environment: stg
-          version: ${{ needs.release.outputs.version }}
-          status-url: $STATUS_URL
-          deploy-url: $BUILD_URL
-          access-key: ${{ secrets.VBR_AWS_ACCESS_KEY_ID_DEVOPS }}
-          secret-key: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY_DEVOPS }}
-          deploy-target: 'agb_ecs_service'
-          interval: 2
-          domain: 'basisregisters'
-          project: 'basisregisters'
-
-    - name: Deploy services output
-      shell: bash
-      run: |
-        echo build-uuid: ${{ steps.awscurl-polling-action.outputs.build-uuid }}
-        echo Status: ${{ steps.awscurl-polling-action.outputs.status }}
-        echo ${{ steps.awscurl-polling-action.outputs.final-message }}
+          'municipality-producer-snapshot-oslo',
+          'municipality-projections'
+        ]
+    with:
+      environment: stg
+      service-name: ${{ matrix.services }}
+      version: ${{ needs.release.outputs.version }}
+      domain: 'basisregisters'
+      project: 'basisregisters'
+    secrets: inherit
 
   deploy_to_staging_finish_slack:
     if: github.repository_owner == 'Informatievlaanderen'
