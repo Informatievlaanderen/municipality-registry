@@ -1,6 +1,7 @@
 namespace MunicipalityRegistry.Api.Oslo.Municipality
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Net.Mime;
     using System.Text;
@@ -18,15 +19,18 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Common.Syndication;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
+    using CloudNative.CloudEvents;
     using Convertors;
     using Infrastructure.Options;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.OutputCaching;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Options;
     using Microsoft.SyndicationFeed;
     using Microsoft.SyndicationFeed.Atom;
+    using Projections.Feed;
     using Projections.Legacy;
     using Query;
     using Responses;
@@ -174,6 +178,90 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
                             .MunicipalityList
                             .CountAsync(cancellationToken)
                 });
+        }
+
+        /// <summary>
+        /// Vraag wijzigingen van alle gemeenten op.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="page">Page in route is gebruikt voor cache opvulling.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet("wijzigingen")]
+        [Produces("application/cloudevents-batch+json")]
+        [OutputCache(
+            VaryByQueryKeys = ["page"],
+            VaryByHeaderNames = [ExtractFilteringRequestExtension.HeaderName])]
+        [ProducesResponseType(typeof(List<CloudEvent>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalityFeedResultExample))]
+        [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
+        public async Task<IActionResult> Changes(
+            [FromServices] FeedContext context,
+            [FromRoute] int? page,
+            CancellationToken cancellationToken = default)
+        {
+            var filtering = Request.ExtractFilteringRequest<MunicipalityFeedFilter>();
+            if(page is null)
+                page = filtering.Filter?.Page ?? 1;
+
+            var feedPosition = filtering.Filter?.FeedPosition;
+
+            if (feedPosition.HasValue && filtering.Filter?.Page.HasValue == false)
+            {
+                page = context.MunicipalityFeed
+                    .Where(x => x.Position == feedPosition.Value)
+                    .Select(x => x.Page)
+                    .Distinct()
+                    .AsEnumerable()
+                    .DefaultIfEmpty(1)
+                    .Min();
+            }
+
+            var feedItemsEvents = await context
+                .MunicipalityFeed
+                .Where(x => x.Page == page)
+                .OrderBy(x => x.Id)
+                .Select(x => x.CloudEventAsString)
+                .ToListAsync(cancellationToken);
+
+            var jsonContent = "[" + string.Join(",", feedItemsEvents) + "]";
+
+            return Content(jsonContent, "application/cloudevents-batch+json");
+        }
+
+        /// <summary>
+        /// Vraag wijzigingen van een bepaalde gemeente op.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="nisCode">NisCode van de gemeente</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet("{nisCode}/wijzigingen")]
+        [Produces("application/cloudevents-batch+json")]
+        [ProducesResponseType(typeof(List<CloudEvent>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalityFeedResultExample))]
+        [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
+        public async Task<IActionResult> ChangesByNisCode(
+            [FromServices] FeedContext context,
+            [FromRoute] string nisCode,
+            CancellationToken cancellationToken = default)
+        {
+            var pagination = (PaginationRequest)Request.ExtractPaginationRequest();
+
+            var feedItemsEvents = await context
+                .MunicipalityFeed
+                .Where(x => x.NisCode == nisCode)
+                .OrderBy(x => x.Id)
+                .Select(x => x.CloudEventAsString)
+                .Skip(pagination.Offset)
+                .Take(pagination.Limit)
+                .ToListAsync(cancellationToken);
+
+            var jsonContent = "[" + string.Join(",", feedItemsEvents) + "]";
+
+            return Content(jsonContent, "application/cloudevents-batch+json");
         }
 
         /// <summary>

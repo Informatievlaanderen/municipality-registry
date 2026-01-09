@@ -21,6 +21,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Microsoft.OpenApi.Models;
     using Modules;
     using MunicipalityRegistry.Projections.Extract;
+    using MunicipalityRegistry.Projections.Feed;
+    using MunicipalityRegistry.Projections.Feed.MunicipalityFeed;
     using MunicipalityRegistry.Projections.Integration.Infrastructure;
     using MunicipalityRegistry.Projections.Legacy;
     using MunicipalityRegistry.Projections.Wfs;
@@ -122,6 +124,10 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                                     $"dbcontext-{nameof(LegacyContext).ToLowerInvariant()}",
                                     tags: new[] {DatabaseTag, "sql", "sqlserver"});
 
+                                health.AddDbContextCheck<FeedContext>(
+                                    $"dbcontext-{nameof(FeedContext).ToLowerInvariant()}",
+                                    tags: new[] {DatabaseTag, "sql", "sqlserver"});
+
                                 health.AddDbContextCheck<LastChangedListContext>(
                                     $"dbcontext-{nameof(LastChangedListContext).ToLowerInvariant()}",
                                     tags: new[] {DatabaseTag, "sql", "sqlserver"});
@@ -137,7 +143,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                         }
                     })
                 .Configure<ExtractConfig>(_configuration.GetSection("Extract"))
-                .Configure<IntegrationOptions>(_configuration.GetSection("Integration"));
+                .Configure<IntegrationOptions>(_configuration.GetSection("Integration"))
+                .Configure<MunicipalityFeedConfig>(_configuration.GetSection("MunicipalityFeed"));
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new LoggingModule(_configuration, services));

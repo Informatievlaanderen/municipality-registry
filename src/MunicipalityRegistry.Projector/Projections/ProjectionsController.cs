@@ -22,6 +22,7 @@ namespace MunicipalityRegistry.Projector.Projections
             RegisterConnectionString(Schema.Extract, configuration.GetConnectionString("ExtractProjections"));
             RegisterConnectionString(Schema.Wfs, configuration.GetConnectionString("WfsProjections"));
             RegisterConnectionString(Schema.Wms, configuration.GetConnectionString("WmsProjections"));
+            RegisterConnectionString(Schema.Feed, configuration.GetConnectionString("FeedProjections"));
             RegisterConnectionString(Schema.Integration, configuration.GetConnectionString("IntegrationProjections"));
         }
     }

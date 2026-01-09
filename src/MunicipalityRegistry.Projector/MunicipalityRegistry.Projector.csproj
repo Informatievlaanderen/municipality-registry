@@ -31,6 +31,7 @@
     <ProjectReference Include="..\MunicipalityRegistry.Projections.Legacy\MunicipalityRegistry.Projections.Legacy.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Projections.Wfs\MunicipalityRegistry.Projections.Wfs.csproj" />
     <ProjectReference Include="..\MunicipalityRegistry.Projections.Wms\MunicipalityRegistry.Projections.Wms.csproj" />
+    <ProjectReference Include="..\MunicipalityRegistry.Projections.Feed\MunicipalityRegistry.Projections.Feed.csproj" />
   </ItemGroup>
 
   <ItemGroup>

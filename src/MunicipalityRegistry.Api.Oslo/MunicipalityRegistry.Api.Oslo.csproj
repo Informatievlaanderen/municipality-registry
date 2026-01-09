@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MunicipalityRegistry.Infrastructure\MunicipalityRegistry.Infrastructure.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\MunicipalityRegistry.Projections.Legacy\MunicipalityRegistry.Projections.Legacy.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\MunicipalityRegistry.Projections.Feed\MunicipalityRegistry.Projections.Feed.csproj" PrivateAssets="All" />
   </ItemGroup>
 
   <PropertyGroup>

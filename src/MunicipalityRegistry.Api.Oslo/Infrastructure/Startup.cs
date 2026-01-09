@@ -18,6 +18,7 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure
     using Microsoft.OpenApi.Models;
     using Modules;
     using Options;
+    using Projections.Feed.MunicipalityFeed;
     using Projections.Legacy;
 
     /// <summary>Represents the startup process for the application.</summary>
@@ -48,6 +49,7 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure
                 : baseUrl;
 
             services
+                .AddOutputCache(options => options.DefaultExpirationTimeSpan = TimeSpan.FromHours(1))
                 .ConfigureDefaultForApi<Startup>(
                     new StartupConfigureOptions
                     {
@@ -77,7 +79,8 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure
                                     Url = new Uri("https://oslo.basisregisters.vlaanderen")
                                 }
                             },
-                            XmlCommentPaths = new[] { typeof(Startup).GetTypeInfo().Assembly.GetName().Name }
+                            XmlCommentPaths = new[] { typeof(Startup).GetTypeInfo().Assembly.GetName().Name },
+                            MiddlewareHooks = { AfterSwaggerGen = options => options.SchemaFilter<CloudEventSchemaFilter>() }
                         },
                         MiddlewareHooks =
                         {
@@ -97,9 +100,11 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure
                                     $"dbcontext-{nameof(LegacyContext).ToLowerInvariant()}",
                                     tags: new[] { DatabaseTag, "sql", "sqlserver" });
                             }
-                        }
+                        },
+
                     })
-                .Configure<ResponseOptions>(_configuration);
+                .Configure<ResponseOptions>(_configuration)
+                .Configure<MunicipalityFeedConfig>(_configuration.GetSection("MunicipalityFeed"));
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new ApiModule(_configuration, services, _loggerFactory));
@@ -146,6 +151,7 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure
                     },
                     MiddlewareHooks =
                     {
+                        AfterAuthorization = x => x.UseOutputCache(),
                         AfterMiddleware = x => x.UseMiddleware<AddNoCacheHeadersMiddleware>(),
                     }
                 });
