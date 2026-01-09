@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\.build\Be.Vlaanderen.Basisregisters.Build.Pipeline\Content\Be.Vlaanderen.Basisregisters.Build.Pipeline.Settings.Library.props" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\MunicipalityRegistry.Infrastructure\MunicipalityRegistry.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.AggregateSource" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.EventHandling.Autofac" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac" />
+
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.GrAr.Common" />
+    <PackageReference Include="Be.Vlaanderen.Basisregisters.GrAr.Legacy" />
+
+    <PackageReference Include="CloudNative.CloudEvents.NewtonsoftJson" />
+
+    <PackageReference Include="SourceLink.Embed.AllSourceFiles" PrivateAssets="all" />
+    <PackageReference Include="SourceLink.Copy.PdbFiles" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

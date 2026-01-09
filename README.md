@@ -125,6 +125,7 @@ The new version 1.2 of the European Union Public Licence (EUPL) is published in 
 * [FluentAssertions](https://github.com/fluentassertions/fluentassertions/blob/master/LICENSE) - _Fluent API for asserting the results of unit tests._ - [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
 * [.NET Topology Suite](https://github.com/NetTopologySuite/NetTopologySuite/blob/develop/License.md) - _A .NET GIS solution that is fast and reliable for the .NET platform._ - [BSD](https://choosealicense.com/licenses/bsd-3-clause/)
 * [Serilog](https://github.com/serilog/serilog/blob/dev/LICENSE) - _Simple .NET logging with fully-structured events._ - [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
+* [CloudEvents](https://github.com/cloudevents/sdk-csharp) - _CSharp SDK for CloudEvents_ - [Apache License 2.0](https://choosealicense.com/licenses/apache-2.0/)
 
 ### Tooling
 
