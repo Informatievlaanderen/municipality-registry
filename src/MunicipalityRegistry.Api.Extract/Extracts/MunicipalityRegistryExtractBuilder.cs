@@ -23,7 +23,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
                 .Single(m => m.Name == typeof(MunicipalityExtractProjections).FullName);
             var extractMetadata = new Dictionary<string,string>
             {
-                { ExtractMetadataKeys.LatestEventId, municipalityProjectionState.Position.ToString()}
+                { ExtractMetadataKeys.LatestEventId, municipalityProjectionState.Position.ToString()},
             };
 
             yield return ExtractBuilder.CreateDbfFile<MunicipalityDbaseRecord>(

@@ -25,6 +25,7 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
         /// Vraag een dump van het volledige register op.
         /// </summary>
         /// <param name="context"></param>
+        /// <param name="feedContext"></param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Als gemeenteregister kan gedownload worden.</response>
         /// <response code="500">Als er een interne fout is opgetreden.</response>
@@ -36,7 +37,10 @@ namespace MunicipalityRegistry.Api.Extract.Extracts
         public IActionResult Get(
             [FromServices] ExtractContext context,
             CancellationToken cancellationToken = default) =>
-            new IsolationExtractArchive($"{ZipName}-{DateTime.Now:yyyy-MM-dd}", context) { MunicipalityRegistryExtractBuilder.CreateMunicipalityFiles(context) }
+            new IsolationExtractArchive($"{ZipName}-{DateTime.Now:yyyy-MM-dd}", context)
+                {
+                    MunicipalityRegistryExtractBuilder.CreateMunicipalityFiles(context)
+                }
                 .CreateFileCallbackResult(cancellationToken);
     }
 }

@@ -3,6 +3,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api.Exceptions;
+    using Be.Vlaanderen.Basisregisters.AspNetCore.Mvc.Formatters.Json;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.EventHandling.Autofac;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
@@ -19,6 +20,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using MunicipalityRegistry.Infrastructure;
     using MunicipalityRegistry.Projections.Extract;
     using MunicipalityRegistry.Projections.Extract.MunicipalityExtract;
+    using MunicipalityRegistry.Projections.Feed;
+    using MunicipalityRegistry.Projections.Feed.MunicipalityFeed;
     using MunicipalityRegistry.Projections.Integration;
     using MunicipalityRegistry.Projections.Integration.Infrastructure;
     using MunicipalityRegistry.Projections.LastChangedList;
@@ -29,6 +32,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using MunicipalityRegistry.Projections.Wfs;
     using MunicipalityRegistry.Projections.Wfs.Municipality;
     using MunicipalityRegistry.Projections.Wms;
+    using Newtonsoft.Json;
     using LastChangedListContextMigrationFactory =
         MunicipalityRegistry.Projections.LastChangedList.LastChangedListContextMigrationFactory;
 
@@ -75,6 +79,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
             RegisterLegacyProjections(builder);
             RegisterWfsProjections(builder);
             RegisterWmsProjections(builder);
+            RegisterFeedProjections(builder);
 
             if(_configuration.GetSection("Integration").GetValue("Enabled", false))
                 RegisterIntegrationProjections(builder);
@@ -132,6 +137,31 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                 .RegisterProjections<MunicipalityListProjections, LegacyContext>(ConnectedProjectionSettings.Default)
                 .RegisterProjections<MunicipalitySyndicationProjections, LegacyContext>(ConnectedProjectionSettings
                     .Default);
+        }
+
+        private void RegisterFeedProjections(ContainerBuilder builder)
+        {
+            builder
+                .RegisterModule(
+                    new FeedModule(
+                        _configuration,
+                        _services,
+                        _loggerFactory,
+                        new JsonSerializerSettings().ConfigureDefaultForApi()));
+            builder
+                .RegisterProjectionMigrator<FeedContextMigrationFactory>(
+                    _configuration,
+                    _loggerFactory)
+                .RegisterProjections<MunicipalityFeedProjections, FeedContext>(context =>
+                    new MunicipalityFeedProjections(
+                        context.Resolve<IOptions<MunicipalityFeedConfig>>().Value,
+                        context.Resolve<LastChangedListContext>(),
+                        new JsonSerializerSettings().ConfigureDefaultForApi()),
+                    ConnectedProjectionSettings.Configure(c =>
+                    {
+                        c.ConfigureCatchUpPageSize(1);
+                        c.ConfigureCatchUpUpdatePositionMessageInterval(1);
+                    }));
         }
 
         private void RegisterIntegrationProjections(ContainerBuilder builder)
