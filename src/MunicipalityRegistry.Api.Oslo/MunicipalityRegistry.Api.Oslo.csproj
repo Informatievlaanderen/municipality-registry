@@ -66,6 +66,8 @@
     <ItemGroup>
       <BuildOutputInPackage Include="$(MSBuildProjectDirectory)\$(OutputPath)MunicipalityRegistry.Projections.Legacy.dll" />
       <BuildOutputInPackage Include="$(MSBuildProjectDirectory)\$(OutputPath)MunicipalityRegistry.Projections.Legacy.pdb" />
+      <BuildOutputInPackage Include="$(MSBuildProjectDirectory)\$(OutputPath)MunicipalityRegistry.Projections.Feed.dll" />
+      <BuildOutputInPackage Include="$(MSBuildProjectDirectory)\$(OutputPath)MunicipalityRegistry.Projections.Feed.pdb" />
 
       <BuildOutputInPackage Include="$(MSBuildProjectDirectory)\$(OutputPath)MunicipalityRegistry.dll" />
       <BuildOutputInPackage Include="$(MSBuildProjectDirectory)\$(OutputPath)MunicipalityRegistry.pdb" />
