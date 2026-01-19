@@ -1,3 +1,10 @@
+## [6.5.1](https://github.com/informatievlaanderen/municipality-registry/compare/v6.5.0...v6.5.1) (2026-01-19)
+
+
+### Bug Fixes
+
+* **api:** add package dependency ([1af12a2](https://github.com/informatievlaanderen/municipality-registry/commit/1af12a26c2eb21b3184dee9d6f6b90365cec15a1))
+
 # [6.5.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.4.1...v6.5.0) (2026-01-19)
 
 
