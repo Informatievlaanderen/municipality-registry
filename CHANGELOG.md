@@ -1,3 +1,10 @@
+## [6.5.2](https://github.com/informatievlaanderen/municipality-registry/compare/v6.5.1...v6.5.2) (2026-01-19)
+
+
+### Bug Fixes
+
+* **api:** use response options for config injection feeds ([3ba43c4](https://github.com/informatievlaanderen/municipality-registry/commit/3ba43c49eb5e98bd7e73a47887c18b6fd939ad2d))
+
 ## [6.5.1](https://github.com/informatievlaanderen/municipality-registry/compare/v6.5.0...v6.5.1) (2026-01-19)
 
 
