@@ -1,3 +1,10 @@
+# [6.5.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.4.1...v6.5.0) (2026-01-19)
+
+
+### Features
+
+* **feed:** add cloudevents-based municipality feed projection GAWR-7253 ([3dd704d](https://github.com/informatievlaanderen/municipality-registry/commit/3dd704d0c7b0b92d7461c8d72b7c3b80502e0dd9))
+
 ## [6.4.1](https://github.com/informatievlaanderen/municipality-registry/compare/v6.4.0...v6.4.1) (2025-12-04)
 
 
