@@ -1,5 +1,7 @@
 namespace MunicipalityRegistry.Api.Oslo.Infrastructure.Options
 {
+    using Projections.Feed.MunicipalityFeed;
+
     public class ResponseOptions
     {
         public string Naamruimte { get; set; }
@@ -11,5 +13,7 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure.Options
         public string MunicipalityDetailAddressesLink { get; set; }
         public string MunicipalityDetailStreetNamesLink { get; set; }
         public string MunicipalityDetailPostInfoLink { get; set; }
+
+        public MunicipalityFeedConfig MunicipalityFeed { get; set; }
     }
 }

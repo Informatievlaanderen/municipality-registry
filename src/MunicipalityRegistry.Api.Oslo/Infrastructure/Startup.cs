@@ -80,7 +80,8 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure
                                 }
                             },
                             XmlCommentPaths = new[] { typeof(Startup).GetTypeInfo().Assembly.GetName().Name },
-                            MiddlewareHooks = { AfterSwaggerGen = options => options.SchemaFilter<CloudEventSchemaFilter>() }
+                            MiddlewareHooks =
+                                { AfterSwaggerGen = options => options.SchemaFilter<CloudEventSchemaFilter>() }
                         },
                         MiddlewareHooks =
                         {
@@ -103,8 +104,7 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure
                         },
 
                     })
-                .Configure<ResponseOptions>(_configuration)
-                .Configure<MunicipalityFeedConfig>(_configuration.GetSection("MunicipalityFeed"));
+                .Configure<ResponseOptions>(_configuration);
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new ApiModule(_configuration, services, _loggerFactory));
