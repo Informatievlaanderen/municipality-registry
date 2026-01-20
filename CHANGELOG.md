@@ -1,3 +1,10 @@
+## [6.5.3](https://github.com/informatievlaanderen/municipality-registry/compare/v6.5.2...v6.5.3) (2026-01-20)
+
+
+### Bug Fixes
+
+* **extract:** remove unused connectionstring ([eed1524](https://github.com/informatievlaanderen/municipality-registry/commit/eed1524e8a7dcc79a344967b0ca630e1f73de3be))
+
 ## [6.5.2](https://github.com/informatievlaanderen/municipality-registry/compare/v6.5.1...v6.5.2) (2026-01-19)
 
 
