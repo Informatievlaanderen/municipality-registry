@@ -1,3 +1,10 @@
+## [6.5.4](https://github.com/informatievlaanderen/municipality-registry/compare/v6.5.3...v6.5.4) (2026-01-21)
+
+
+### Bug Fixes
+
+* **feed:** correct versieid timestamp ([1c31f2c](https://github.com/informatievlaanderen/municipality-registry/commit/1c31f2c4114179110b5ed87a3aa693daae0c24ad))
+
 ## [6.5.3](https://github.com/informatievlaanderen/municipality-registry/compare/v6.5.2...v6.5.3) (2026-01-20)
 
 
