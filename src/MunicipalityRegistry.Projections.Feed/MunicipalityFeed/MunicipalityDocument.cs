@@ -23,13 +23,13 @@
         public Instant RecordCreatedAt
         {
             get => Instant.FromDateTimeOffset(RecordCreatedAtAsDateTimeOffset);
-            set => RecordCreatedAtAsDateTimeOffset = value.ToDateTimeOffset();
+            set => RecordCreatedAtAsDateTimeOffset = value.ToBelgianDateTimeOffset();
         }
 
         public Instant LastChangedOn
         {
             get => Instant.FromDateTimeOffset(LastChangedOnAsDateTimeOffset);
-            set => LastChangedOnAsDateTimeOffset = value.ToDateTimeOffset();
+            set => LastChangedOnAsDateTimeOffset = value.ToBelgianDateTimeOffset();
         }
 
         public MunicipalityJsonDocument Document { get; set; }

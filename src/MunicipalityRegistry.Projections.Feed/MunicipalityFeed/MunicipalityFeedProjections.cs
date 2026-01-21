@@ -18,7 +18,6 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Be.Vlaanderen.Basisregisters.Utilities;
     using CloudNative.CloudEvents;
-    using CloudNative.CloudEvents.Http;
     using CloudNative.CloudEvents.NewtonsoftJson;
     using Contract;
     using Microsoft.EntityFrameworkCore;
