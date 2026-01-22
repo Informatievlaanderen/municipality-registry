@@ -1,3 +1,10 @@
+# [6.6.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.5.4...v6.6.0) (2026-01-22)
+
+
+### Features
+
+* **api:** add changefeed isComplete header ([fe7cdb5](https://github.com/informatievlaanderen/municipality-registry/commit/fe7cdb5b9bd49d9d1f49162564016ed70fde49ad))
+
 ## [6.5.4](https://github.com/informatievlaanderen/municipality-registry/compare/v6.5.3...v6.5.4) (2026-01-21)
 
 
