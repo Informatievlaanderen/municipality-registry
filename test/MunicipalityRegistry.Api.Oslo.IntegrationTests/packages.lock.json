@@ -2243,7 +2243,7 @@
         "dependencies": {
           "AspNetCore.HealthChecks.SqlServer": "[9.0.0, )",
           "Be.Vlaanderen.Basisregisters.AggregateSource": "[10.0.2, )",
-          "Be.Vlaanderen.Basisregisters.Api": "[24.0.0, )",
+          "Be.Vlaanderen.Basisregisters.Api": "[24.2.0, )",
           "Datadog.Trace.Bundle": "[3.16.0, )"
         }
       },
@@ -2291,9 +2291,9 @@
       },
       "Be.Vlaanderen.Basisregisters.Api": {
         "type": "CentralTransitive",
-        "requested": "[24.0.0, )",
-        "resolved": "24.0.0",
-        "contentHash": "1ohRUYTZWJdpTqsN/DWQg21XRY8u4sIXVAdO15do2uqqBrgf9m17JCb+kLuhsFv+ICCPCocP3p0i0bkwpFE1lw==",
+        "requested": "[24.2.0, )",
+        "resolved": "24.2.0",
+        "contentHash": "Qss5u+Ulomrnmyw9MNShjc++nMiMReSNkGPwJ7w4OrnPDU/9TXUgCBdvrlfzlehF3LZu5iws3zcv6DAXgcZv9g==",
         "dependencies": {
           "Asp.Versioning.Mvc.ApiExplorer": "8.1.0",
           "Autofac": "8.2.1",

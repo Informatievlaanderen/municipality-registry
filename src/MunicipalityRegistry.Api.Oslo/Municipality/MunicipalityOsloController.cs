@@ -23,7 +23,9 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
     using Convertors;
     using Infrastructure.Options;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Http.HttpResults;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.AspNetCore.OutputCaching;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -227,6 +229,8 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
 
             var jsonContent = "[" + string.Join(",", feedItemsEvents) + "]";
 
+            Response.Headers.Append("X-Page-Complete", (feedItemsEvents.Count >= 100).ToString());
+
             return Content(jsonContent, "application/cloudevents-batch+json");
         }
 
@@ -261,7 +265,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
 
             var jsonContent = "[" + string.Join(",", feedItemsEvents) + "]";
 
-            return Content(jsonContent, "application/cloudevents-batch+json");
+            return new ChangeFeedResult(jsonContent,  feedItemsEvents.Count >= 100);
         }
 
         /// <summary>
