@@ -1,14 +1,7 @@
 namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
 {
-    using System;
     using System.Linq;
-    using System.Threading;
     using System.Threading.Tasks;
-    using System.Xml.Linq;
-    using Be.Vlaanderen.Basisregisters.EventHandling;
-    using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
-    using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
-    using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Microsoft.EntityFrameworkCore;
 
     public static class MunicipalityFeedExtensions

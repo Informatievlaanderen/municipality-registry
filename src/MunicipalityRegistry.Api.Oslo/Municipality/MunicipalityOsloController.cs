@@ -33,6 +33,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
     using Microsoft.SyndicationFeed;
     using Microsoft.SyndicationFeed.Atom;
     using Projections.Feed;
+    using Projections.Feed.MunicipalityFeed;
     using Projections.Legacy;
     using Query;
     using Responses;
@@ -190,7 +191,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("wijzigingen")]
-        [Produces("application/cloudevents-batch+json")]
+        [Produces(AcceptTypes.JsonCloudEventsBatch)]
         [OutputCache(
             VaryByQueryKeys = ["page"],
             VaryByHeaderNames = [ExtractFilteringRequestExtension.HeaderName])]
@@ -229,9 +230,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
 
             var jsonContent = "[" + string.Join(",", feedItemsEvents) + "]";
 
-            Response.Headers.Append("X-Page-Complete", (feedItemsEvents.Count >= 100).ToString());
-
-            return Content(jsonContent, "application/cloudevents-batch+json");
+            return new ChangeFeedResult(jsonContent,  feedItemsEvents.Count >= MunicipalityFeedProjections.MaxPageSize);
         }
 
         /// <summary>
@@ -242,7 +241,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpGet("{nisCode}/wijzigingen")]
-        [Produces("application/cloudevents-batch+json")]
+        [Produces(AcceptTypes.JsonCloudEventsBatch)]
         [ProducesResponseType(typeof(List<CloudEvent>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalityFeedResultExample))]
@@ -265,7 +264,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
 
             var jsonContent = "[" + string.Join(",", feedItemsEvents) + "]";
 
-            return new ChangeFeedResult(jsonContent,  feedItemsEvents.Count >= 100);
+            return Content(jsonContent, AcceptTypes.JsonCloudEventsBatch);
         }
 
         /// <summary>
