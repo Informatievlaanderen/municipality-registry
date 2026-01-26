@@ -1,6 +1,6 @@
 namespace MunicipalityRegistry.Api.Oslo.Infrastructure.Options
 {
-    using Projections.Feed.MunicipalityFeed;
+    using Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed;
 
     public class ResponseOptions
     {
@@ -14,6 +14,6 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure.Options
         public string MunicipalityDetailStreetNamesLink { get; set; }
         public string MunicipalityDetailPostInfoLink { get; set; }
 
-        public MunicipalityFeedConfig MunicipalityFeed { get; set; }
+        public ChangeFeedConfig MunicipalityFeed { get; set; }
     }
 }

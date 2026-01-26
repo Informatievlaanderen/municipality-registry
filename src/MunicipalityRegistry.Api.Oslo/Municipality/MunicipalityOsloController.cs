@@ -16,6 +16,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
     using Be.Vlaanderen.Basisregisters.Api.Search.Pagination;
     using Be.Vlaanderen.Basisregisters.Api.Search.Sorting;
     using Be.Vlaanderen.Basisregisters.Api.Syndication;
+    using Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Common.Syndication;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
@@ -23,9 +24,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
     using Convertors;
     using Infrastructure.Options;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Http.HttpResults;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.AspNetCore.OutputCaching;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -33,7 +32,6 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
     using Microsoft.SyndicationFeed;
     using Microsoft.SyndicationFeed.Atom;
     using Projections.Feed;
-    using Projections.Feed.MunicipalityFeed;
     using Projections.Legacy;
     using Query;
     using Responses;
@@ -230,7 +228,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
 
             var jsonContent = "[" + string.Join(",", feedItemsEvents) + "]";
 
-            return new ChangeFeedResult(jsonContent,  feedItemsEvents.Count >= MunicipalityFeedProjections.MaxPageSize);
+            return new ChangeFeedResult(jsonContent,  feedItemsEvents.Count >= ChangeFeedService.DefaultMaxPageSize);
         }
 
         /// <summary>
