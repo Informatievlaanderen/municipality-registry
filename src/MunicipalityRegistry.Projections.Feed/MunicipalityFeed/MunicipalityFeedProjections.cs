@@ -328,7 +328,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                     Type = MunicipalityEventTypes.TransformV1,
                     Source = _feedSourceUri,
                     DataContentType = MediaTypeNames.Application.Json,
-                    Data = new BaseRegistriesCloudTransformEvent
+                    Data = new MunicipalityCloudTransformEvent
                     {
                        From = message.Message.NisCode,
                        To = message.Message.NewNisCode,

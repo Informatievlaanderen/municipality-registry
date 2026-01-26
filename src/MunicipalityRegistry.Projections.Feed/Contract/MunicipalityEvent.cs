@@ -20,7 +20,7 @@
         public const string MunicipalityNames = "gemeentenamen";
     }
 
-    public sealed class BaseRegistriesCloudTransformEvent
+    public sealed class MunicipalityCloudTransformEvent
     {
         [JsonProperty("vanObjectId", Order = 0)]
         public required string From { get; set; }
