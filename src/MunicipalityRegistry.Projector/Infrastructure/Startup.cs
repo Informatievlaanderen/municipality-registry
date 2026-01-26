@@ -8,6 +8,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api;
+    using Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
     using Be.Vlaanderen.Basisregisters.Projector.ConnectedProjections;
     using Configuration;
@@ -22,7 +23,6 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Modules;
     using MunicipalityRegistry.Projections.Extract;
     using MunicipalityRegistry.Projections.Feed;
-    using MunicipalityRegistry.Projections.Feed.MunicipalityFeed;
     using MunicipalityRegistry.Projections.Integration.Infrastructure;
     using MunicipalityRegistry.Projections.Legacy;
     using MunicipalityRegistry.Projections.Wfs;
@@ -144,7 +144,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                     })
                 .Configure<ExtractConfig>(_configuration.GetSection("Extract"))
                 .Configure<IntegrationOptions>(_configuration.GetSection("Integration"))
-                .Configure<MunicipalityFeedConfig>(_configuration.GetSection("MunicipalityFeed"));
+                .Configure<ChangeFeedConfig>(_configuration.GetSection("MunicipalityFeed"));
 
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new LoggingModule(_configuration, services));

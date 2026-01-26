@@ -6,6 +6,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
     using Be.Vlaanderen.Basisregisters.AspNetCore.Mvc.Formatters.Json;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.EventHandling.Autofac;
+    using Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac;
     using Be.Vlaanderen.Basisregisters.Projector;
@@ -148,15 +149,21 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                         _services,
                         _loggerFactory,
                         new JsonSerializerSettings().ConfigureDefaultForApi()));
+
+            builder.Register(c => new ChangeFeedService(
+                    c.Resolve<IOptions<ChangeFeedConfig>>().Value,
+                    c.Resolve<LastChangedListContext>(),
+                    new JsonSerializerSettings().ConfigureDefaultForApi()))
+                .AsImplementedInterfaces()
+                .AsSelf()
+                .SingleInstance();
+
             builder
                 .RegisterProjectionMigrator<FeedContextMigrationFactory>(
                     _configuration,
                     _loggerFactory)
                 .RegisterProjections<MunicipalityFeedProjections, FeedContext>(context =>
-                    new MunicipalityFeedProjections(
-                        context.Resolve<IOptions<MunicipalityFeedConfig>>().Value,
-                        context.Resolve<LastChangedListContext>(),
-                        new JsonSerializerSettings().ConfigureDefaultForApi()),
+                    new MunicipalityFeedProjections(context.Resolve<IChangeFeedService>()),
                     ConnectedProjectionSettings.Configure(c =>
                     {
                         c.ConfigureCatchUpPageSize(1);

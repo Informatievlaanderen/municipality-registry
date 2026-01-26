@@ -2,70 +2,29 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
-    using System.Net.Mime;
-    using System.Text;
     using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.EventHandling;
+    using Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
-    using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
-    using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList.Model;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
-    using Be.Vlaanderen.Basisregisters.Utilities;
-    using CloudNative.CloudEvents;
-    using CloudNative.CloudEvents.NewtonsoftJson;
     using Contract;
     using Microsoft.EntityFrameworkCore;
     using Municipality.Events;
-    using Newtonsoft.Json;
-
-    public sealed class MunicipalityFeedConfig
-    {
-        public required string Namespace { get; set; }
-        public required string FeedUrl { get; set; }
-        public required string DataSchemaUrl { get; set; }
-        public required string DataSchemaUrlTransform { get; set; }
-    }
 
     [ConnectedProjectionName("Feed endpoint gemeenten")]
     [ConnectedProjectionDescription("Projectie die de gemeenten data voor de gemeenten cloudevent feed voorziet.")]
     public class MunicipalityFeedProjections : ConnectedProjection<FeedContext>
     {
-        public const int MaxPageSize = 100;
+        private readonly IChangeFeedService _changeFeedService;
 
-        private static readonly CloudEventAttribute EventTypeAttribute =
-            CloudEventAttribute.CreateExtension(BaseRegistriesCloudEventAttribute.BaseRegistriesEventType, CloudEventAttributeType.String);
-        private static readonly CloudEventAttribute CausationIdAttribute =
-            CloudEventAttribute.CreateExtension(BaseRegistriesCloudEventAttribute.BaseRegistriesCausationId, CloudEventAttributeType.String);
-
-        public static readonly IReadOnlyList<CloudEventAttribute> ExtensionAttributes =
-            [EventTypeAttribute, CausationIdAttribute];
-
-        private readonly MunicipalityFeedConfig _feedConfig;
-        private readonly LastChangedListContext _lastChangedListContext;
-        private readonly JsonEventFormatter _jsonEventFormatter;
-
-        private readonly Uri _feedSourceUri;
-        private readonly Uri _dataSchemaUri;
-        private readonly Uri _dataSchemaUriTransform;
-
-        public MunicipalityFeedProjections(
-            MunicipalityFeedConfig feedConfig,
-            LastChangedListContext  lastChangedListContext,
-            JsonSerializerSettings jsonSerializerSettings)
+        public MunicipalityFeedProjections(IChangeFeedService changeFeedService)
         {
-            _feedConfig = feedConfig;
-            _lastChangedListContext = lastChangedListContext;
-            _jsonEventFormatter = new JsonEventFormatter(JsonSerializer.Create(jsonSerializerSettings));
-
-            _feedSourceUri = new Uri(feedConfig.FeedUrl);
-            _dataSchemaUri = new Uri(feedConfig.DataSchemaUrl);
-            _dataSchemaUriTransform = new Uri(feedConfig.DataSchemaUrlTransform);
+            _changeFeedService = changeFeedService;
 
             When<Envelope<MunicipalityWasRegistered>>(async (context, message, ct) =>
             {
@@ -321,26 +280,23 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 };
                 await context.MunicipalityFeed.AddAsync(municipalityFeedItem, ct);
 
-                var cloudEvent = new CloudEvent(CloudEventsSpecVersion.V1_0, ExtensionAttributes)
+                var transformData = new MunicipalityCloudTransformEvent
                 {
-                    Id = municipalityFeedItem.Id.ToString(CultureInfo.InvariantCulture),
-                    Time = message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset(),
-                    Type = MunicipalityEventTypes.TransformV1,
-                    Source = _feedSourceUri,
-                    DataContentType = MediaTypeNames.Application.Json,
-                    Data = new MunicipalityCloudTransformEvent
-                    {
-                       From = message.Message.NisCode,
-                       To = message.Message.NewNisCode,
-                       NisCodes = nisCodes
-                    },
-                    DataSchema = _dataSchemaUriTransform,
-                    [BaseRegistriesCloudEventAttribute.BaseRegistriesEventType] = message.EventName,
-                    [BaseRegistriesCloudEventAttribute.BaseRegistriesCausationId] = message.Metadata["CommandId"].ToString()
+                    From = message.Message.NisCode,
+                    To = message.Message.NewNisCode,
+                    NisCodes = nisCodes
                 };
 
-                cloudEvent.Validate();
-                municipalityFeedItem.CloudEventAsString = SerializeCloudEvent(cloudEvent);
+                var cloudEvent = _changeFeedService.CreateCloudEvent(
+                    municipalityFeedItem.Id,
+                    message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset(),
+                    MunicipalityEventTypes.TransformV1,
+                    transformData,
+                    _changeFeedService.DataSchemaUriTransform,
+                    message.EventName,
+                    message.Metadata["CommandId"].ToString()!);
+
+                municipalityFeedItem.CloudEventAsString = _changeFeedService.SerializeCloudEvent(cloudEvent);
                 await CheckToUpdateCache(page, context);
             });
 
@@ -388,29 +344,18 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
             };
             await context.MunicipalityFeed.AddAsync(municipalityFeedItem);
 
-            var cloudEvent = new CloudEvent(CloudEventsSpecVersion.V1_0, ExtensionAttributes)
-            {
-                Id = municipalityFeedItem.Id.ToString(CultureInfo.InvariantCulture),
-                Time = message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset(),
-                Type = eventType,
-                Source = _feedSourceUri,
-                DataContentType = MediaTypeNames.Application.Json,
-                Data = new BaseRegistriesCloudEvent
-                {
-                    Id = $"{_feedConfig.Namespace}/{document.NisCode}",
-                    ObjectId = document.NisCode,
-                    Namespace = _feedConfig.Namespace,
-                    VersionId = new Rfc3339SerializableDateTimeOffset(document.LastChangedOnAsDateTimeOffset).ToString(),
-                    NisCodes = [document.NisCode],
-                    Attributes = attributes
-                },
-                DataSchema = _dataSchemaUri,
-                [BaseRegistriesCloudEventAttribute.BaseRegistriesEventType] = message.EventName,
-                [BaseRegistriesCloudEventAttribute.BaseRegistriesCausationId] = message.Metadata["CommandId"].ToString()
-            };
+            var cloudEvent = _changeFeedService.CreateCloudEventWithData(
+                municipalityFeedItem.Id,
+                message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset(),
+                eventType,
+                document.NisCode,
+                document.LastChangedOnAsDateTimeOffset,
+                [document.NisCode],
+                attributes,
+                message.EventName,
+                message.Metadata["CommandId"].ToString()!);
 
-            cloudEvent.Validate();
-            municipalityFeedItem.CloudEventAsString = SerializeCloudEvent(cloudEvent);
+            municipalityFeedItem.CloudEventAsString = _changeFeedService.SerializeCloudEvent(cloudEvent);
             await CheckToUpdateCache(page, context);
         }
 
@@ -433,28 +378,12 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
             }
         }
 
-        private string SerializeCloudEvent(CloudEvent cloudEvent)
+        private async Task CheckToUpdateCache(int page, FeedContext context)
         {
-            var bytes = _jsonEventFormatter.EncodeStructuredModeMessage(cloudEvent, out _);
-            return Encoding.UTF8.GetString(bytes.Span);
-        }
-
-        private async Task CheckToUpdateCache(int page, FeedContext feedContext)
-        {
-            var pageItemsCount = await feedContext.MunicipalityFeed.CountAsync(x => x.Page == page);
-            if(pageItemsCount < (MaxPageSize-1))
-                return;
-
-            await feedContext.SaveChangesAsync();
-            await _lastChangedListContext.LastChangedList.AddAsync(new LastChangedRecord
-            {
-                AcceptType = "application/cloudevents-batch+json",
-                CacheKey = $"feed/municipality:{page}",
-                Id = $"{page}.v1.feed",
-                Position = page,
-                Uri = $"/v2/gemeenten/wijzigingen?page={page}"
-            });
-            await _lastChangedListContext.SaveChangesAsync();
+            await _changeFeedService.CheckToUpdateCacheAsync(
+                page,
+                context,
+                async p => await context.MunicipalityFeed.CountAsync(x => x.Page == p));
         }
 
         private static async Task DoNothing()

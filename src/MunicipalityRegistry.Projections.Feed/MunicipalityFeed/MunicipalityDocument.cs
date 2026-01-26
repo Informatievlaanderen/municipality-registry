@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Text.Json;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
@@ -11,7 +10,6 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Newtonsoft.Json;
     using NodaTime;
-    using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
     public sealed class MunicipalityDocument
     {
