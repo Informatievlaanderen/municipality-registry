@@ -10,6 +10,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
     using System.Xml;
     using Asp.Versioning;
     using Be.Vlaanderen.Basisregisters.Api;
+    using Be.Vlaanderen.Basisregisters.Api.ChangeFeed;
     using Be.Vlaanderen.Basisregisters.Api.Exceptions;
     using Be.Vlaanderen.Basisregisters.Api.Search;
     using Be.Vlaanderen.Basisregisters.Api.Search.Filtering;
@@ -77,7 +78,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
             if (municipality == null)
                 throw new ApiException("Onbestaande gemeente.", StatusCodes.Status404NotFound);
 
-            if(municipality.IsRemoved)
+            if (municipality.IsRemoved)
                 throw new ApiException("Verwijderde gemeente.", StatusCodes.Status410Gone);
 
             return Ok(
@@ -139,10 +140,12 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
                             responseOptions.Value.Naamruimte,
                             responseOptions.Value.DetailUrl,
                             m.VersionTimestamp.ToBelgianDateTimeOffset(),
-                            new GeografischeNaam(m.DefaultName, m.OfficialLanguages.FirstOrDefault().ConvertFromLanguage()),
+                            new GeografischeNaam(m.DefaultName,
+                                m.OfficialLanguages.FirstOrDefault().ConvertFromLanguage()),
                             m.Status))
                         .ToList(),
-                    Volgende = BuildNextUri(pagedMunicipalities.PaginationInfo, municipalities.Count, responseOptions.Value.VolgendeUrl)
+                    Volgende = BuildNextUri(pagedMunicipalities.PaginationInfo, municipalities.Count,
+                        responseOptions.Value.VolgendeUrl)
                 });
         }
 
@@ -203,7 +206,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
             CancellationToken cancellationToken = default)
         {
             var filtering = Request.ExtractFilteringRequest<MunicipalityFeedFilter>();
-            if(page is null)
+            if (page is null)
                 page = filtering.Filter?.Page ?? 1;
 
             var feedPosition = filtering.Filter?.FeedPosition;
@@ -228,7 +231,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
 
             var jsonContent = "[" + string.Join(",", feedItemsEvents) + "]";
 
-            return new ChangeFeedResult(jsonContent,  feedItemsEvents.Count >= ChangeFeedService.DefaultMaxPageSize);
+            return new ChangeFeedResult(jsonContent, feedItemsEvents.Count >= ChangeFeedService.DefaultMaxPageSize);
         }
 
         /// <summary>
@@ -263,6 +266,75 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
             var jsonContent = "[" + string.Join(",", feedItemsEvents) + "]";
 
             return Content(jsonContent, AcceptTypes.JsonCloudEventsBatch);
+        }
+
+        [HttpGet("posities")]
+        [Produces(AcceptTypes.Json)]
+        [ProducesResponseType(typeof(FeedPositieResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetPositions(
+            [FromServices] LegacyContext legacyContext,
+            [FromServices] FeedContext feedContext,
+            CancellationToken cancellationToken = default)
+        {
+            var filtering = Request.ExtractFilteringRequest<MunicipalityPositionFilter>();
+            var response = new FeedPositieResponse();
+            if (filtering.ShouldFilter && !filtering.Filter.HasMoreThanOneFilter)
+            {
+                if (filtering.Filter.Download.HasValue)
+                {
+                    var businessFeedPosition = await legacyContext
+                        .MunicipalitySyndication
+                        .AsNoTracking()
+                        .Where(x => x.Position <= filtering.Filter.Download.Value)
+                        .OrderByDescending(x => x.Position)
+                        .Select(x => x.Position)
+                        .FirstOrDefaultAsync(cancellationToken);
+
+                    var changeFeed = await feedContext
+                        .MunicipalityFeed
+                        .AsNoTracking()
+                        .Where(x => x.Position <= filtering.Filter.Download.Value)
+                        .OrderByDescending(x => x.Position)
+                        .Select(x => new { x.Id, x.Page })
+                        .FirstOrDefaultAsync(cancellationToken);
+
+                    response.Feed = businessFeedPosition;
+                    response.WijzigingenFeedPagina = changeFeed?.Page;
+                    response.WijzigingenFeedId = changeFeed?.Id;
+                }
+                else if (filtering.Filter.Sync.HasValue)
+                {
+                    var changeFeed = await feedContext
+                        .MunicipalityFeed
+                        .AsNoTracking()
+                        .Where(x => x.Position <= filtering.Filter.Download.Value)
+                        .OrderByDescending(x => x.Position)
+                        .Select(x => new { x.Id, x.Page })
+                        .FirstOrDefaultAsync(cancellationToken);
+
+                    response.Feed = filtering.Filter.Sync.Value;
+                    response.WijzigingenFeedPagina = changeFeed?.Page;
+                    response.WijzigingenFeedId = changeFeed?.Id;
+                }
+                else if (filtering.Filter.ChangeFeedId.HasValue)
+                {
+                    var feedItem = await feedContext
+                        .MunicipalityFeed
+                        .AsNoTracking()
+                        .Where(x => x.Id == filtering.Filter.ChangeFeedId.Value)
+                        .Select(x => new { x.Id, x.Page, x.Position })
+                        .FirstOrDefaultAsync(cancellationToken);
+
+                    if (feedItem is null)
+                        return Ok(response);
+
+                    response.Feed = feedItem.Position;
+                    response.WijzigingenFeedPagina = feedItem.Page;
+                    response.WijzigingenFeedId = feedItem.Id;
+                }
+            }
+
+            return Ok(response);
         }
 
         /// <summary>
@@ -305,9 +377,9 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
 
             var pagedMunicipalities =
                 new MunicipalitySyndicationQuery(
-                    context,
-                    filtering.Filter?.Embed ?? new SyncEmbedValue())
-                .Fetch(filtering, sorting, pagination);
+                        context,
+                        filtering.Filter?.Embed ?? new SyncEmbedValue())
+                    .Fetch(filtering, sorting, pagination);
 
             return new ContentResult
             {
@@ -325,7 +397,8 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
         {
             var sw = new StringWriterWithEncoding(Encoding.UTF8);
 
-            using (var xmlWriter = XmlWriter.Create(sw, new XmlWriterSettings { Async = true, Indent = true, Encoding = sw.Encoding }))
+            using (var xmlWriter = XmlWriter.Create(sw,
+                       new XmlWriterSettings { Async = true, Indent = true, Encoding = sw.Encoding }))
             {
                 var formatter = new AtomFormatter(null, xmlWriter.Settings) { UseCDATA = true };
                 var writer = new AtomFeedWriter(xmlWriter, null, formatter);
@@ -352,7 +425,8 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
 
                 foreach (var municipality in municipalities)
                 {
-                    await writer.WriteMunicipality(responseOptions, formatter, syndicationConfiguration["Category"], municipality);
+                    await writer.WriteMunicipality(responseOptions, formatter, syndicationConfiguration["Category"],
+                        municipality);
                 }
 
                 xmlWriter.Flush();
