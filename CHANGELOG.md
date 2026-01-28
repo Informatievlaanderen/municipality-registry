@@ -1,3 +1,10 @@
+# [6.7.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.6.0...v6.7.0) (2026-01-28)
+
+
+### Features
+
+* add posities endpoint ([59c4c86](https://github.com/informatievlaanderen/municipality-registry/commit/59c4c867fe45c3dddbb8b5618a35e945e2a7e88f))
+
 # [6.6.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.5.4...v6.6.0) (2026-01-22)
 
 
