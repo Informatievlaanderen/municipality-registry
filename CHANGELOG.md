@@ -1,3 +1,10 @@
+## [6.7.1](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.0...v6.7.1) (2026-02-03)
+
+
+### Bug Fixes
+
+* **feed:** change tranform ([df743d3](https://github.com/informatievlaanderen/municipality-registry/commit/df743d3ddbc3e3780b8a54f30b0f282d295daefc))
+
 # [6.7.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.6.0...v6.7.0) (2026-01-28)
 
 
