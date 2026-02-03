@@ -3,7 +3,7 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure.Modules
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api.Exceptions;
-    using Be.Vlaanderen.Basisregisters.EventHandling;
+    using Be.Vlaanderen.Basisregisters.AspNetCore.Mvc.Formatters.Json;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
@@ -31,7 +31,7 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure.Modules
         {
             builder
                 .RegisterModule(new LegacyModule(_configuration, _services, _loggerFactory))
-                .RegisterModule(new FeedModule(_configuration, _services, _loggerFactory, new JsonSerializerSettings().ConfigureDefaultForEvents()));
+                .RegisterModule(new FeedModule(_configuration, _services, _loggerFactory, new JsonSerializerSettings().ConfigureDefaultForApi()));
 
             builder
                 .RegisterType<ProblemDetailsHelper>()

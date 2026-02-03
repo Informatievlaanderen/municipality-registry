@@ -22,10 +22,10 @@
 
     public sealed class MunicipalityCloudTransformEvent
     {
-        [JsonProperty("vanObjectId", Order = 0)]
+        [JsonProperty("vanId", Order = 0)]
         public required string From { get; set; }
 
-        [JsonProperty("naarObjectId", Order = 1)]
+        [JsonProperty("naarId", Order = 1)]
         public required string To { get; set; }
 
         [JsonProperty("nisCodes", Order = 2)]

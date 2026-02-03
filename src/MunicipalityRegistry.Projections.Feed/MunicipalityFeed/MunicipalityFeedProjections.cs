@@ -9,6 +9,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
+    using Be.Vlaanderen.Basisregisters.GrAr.Oslo;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
@@ -282,8 +283,8 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
 
                 var transformData = new MunicipalityCloudTransformEvent
                 {
-                    From = message.Message.NisCode,
-                    To = message.Message.NewNisCode,
+                    From = OsloNamespaces.Gemeente.ToPuri(message.Message.NisCode),
+                    To = OsloNamespaces.Gemeente.ToPuri(message.Message.NewNisCode),
                     NisCodes = nisCodes
                 };
 
