@@ -32,16 +32,11 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
                                      "@id": "https://data.vlaanderen.be/id/gemeente/11001",
                                      "objectId": "11001",
                                      "naamruimte": "https://data.vlaanderen.be/id/gemeente",
-                                     "versieId": "2002-08-13T15:32:32Z",
+                                     "versieId": "2002-08-13T17:32:32+02:00",
                                      "nisCodes": [
                                          "11001"
                                      ],
                                      "attributen": [
-                                         {
-                                             "naam": "nisCode",
-                                             "oudeWaarde": null,
-                                             "nieuweWaarde": "11001"
-                                         },
                                          {
                                              "naam": "gemeenteStatus",
                                              "oudeWaarde": null,
@@ -64,7 +59,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
                                      "@id": "https://data.vlaanderen.be/id/gemeente/11001",
                                      "objectId": "11001",
                                      "naamruimte": "https://data.vlaanderen.be/id/gemeente",
-                                     "versieId": "2002-08-13T15:32:32Z",
+                                     "versieId": "2002-08-13T17:32:32+02:00",
                                      "nisCodes": [
                                          "11001"
                                      ],

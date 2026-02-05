@@ -13,7 +13,6 @@
 
     public static class MunicipalityAttributeNames
     {
-        public const string NisCode = "nisCode";
         public const string StatusName = "gemeenteStatus";
         public const string OfficialLanguages = "officieleTalen";
         public const string FacilitiesLanguages = "faciliteitenTalen";

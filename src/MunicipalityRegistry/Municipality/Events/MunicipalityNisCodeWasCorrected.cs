@@ -8,6 +8,7 @@ namespace MunicipalityRegistry.Municipality.Events
     [EventTags(EventTag.For.Sync)]
     [EventName("MunicipalityNisCodeWasCorrected")]
     [EventDescription("De persistente lokale identificator (NIS-code) van de gemeente werd gecorrigeerd.")]
+    [Obsolete("Currently is not used, be careful implementing, check all projections, can be seen as an non changing Id")]
     public sealed class MunicipalityNisCodeWasCorrected : IHasProvenance, ISetProvenance, IMessage
     {
         [EventPropertyDescription("Interne GUID van de gemeente.")]

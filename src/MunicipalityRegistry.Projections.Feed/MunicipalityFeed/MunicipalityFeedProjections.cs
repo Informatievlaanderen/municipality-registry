@@ -33,42 +33,9 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 await context.MunicipalityDocuments.AddAsync(document, ct);
 
                 await AddCloudEvent(message, document, context, [
-                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.NisCode, null, document.NisCode),
                     new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, null,
                         GemeenteStatus.Voorgesteld)
                 ], MunicipalityEventTypes.CreateV1);
-            });
-
-            When<Envelope<MunicipalityNisCodeWasDefined>>(async (context, message, ct) =>
-            {
-                var document = await context.MunicipalityDocuments.FindAsync(message.Message.MunicipalityId, ct);
-                if (document == null)
-                    throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
-
-                var oldNisCode = document.Document.NisCode;
-                document.NisCode = message.Message.NisCode;
-                document.Document.NisCode = message.Message.NisCode;
-                document.LastChangedOn = message.Message.Provenance.Timestamp;
-
-                await AddCloudEvent(message, document, context, [
-                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.NisCode, oldNisCode, document.NisCode)
-                ]);
-            });
-
-            When<Envelope<MunicipalityNisCodeWasCorrected>>(async (context, message, ct) =>
-            {
-                var document = await context.MunicipalityDocuments.FindAsync(message.Message.MunicipalityId, ct);
-                if (document == null)
-                    throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
-
-                var oldNisCode = document.Document.NisCode;
-                document.NisCode = message.Message.NisCode;
-                document.Document.NisCode = message.Message.NisCode;
-                document.LastChangedOn = message.Message.Provenance.Timestamp;
-
-                await AddCloudEvent(message, document, context, [
-                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.NisCode, oldNisCode, document.NisCode)
-                ]);
             });
 
             When<Envelope<MunicipalityWasNamed>>(async (context, message, ct) =>
