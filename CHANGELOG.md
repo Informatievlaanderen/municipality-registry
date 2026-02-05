@@ -1,3 +1,10 @@
+## [6.7.2](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.1...v6.7.2) (2026-02-05)
+
+
+### Bug Fixes
+
+* **feed:** remove id from attribute change ([a471b2f](https://github.com/informatievlaanderen/municipality-registry/commit/a471b2f9f51ec967454c7da86d73772f457040bd))
+
 ## [6.7.1](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.0...v6.7.1) (2026-02-03)
 
 
