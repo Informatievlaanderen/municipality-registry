@@ -295,6 +295,13 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
             string eventType = MunicipalityEventTypes.UpdateV1)
             where T : IHasProvenance, IMessage
         {
+            // Minimal prevention of wrong event type.
+            if (eventType == MunicipalityEventTypes.DeleteV1 && attributes.Count > 0)
+            {
+                throw new ArgumentException("Probably wrong event type!");
+            }
+
+            // Why is this?
             context.Entry(document).Property(x => x.Document).IsModified = true;
 
             var page = await context.CalculatePage();
@@ -312,6 +319,8 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
             };
             await context.MunicipalityFeed.AddAsync(municipalityFeedItem);
 
+            // Is the municipalityFeedItem.Id already known at this moment in time?
+            // I'd think only upon SaveChanges as it is database generated?
             var cloudEvent = _changeFeedService.CreateCloudEventWithData(
                 municipalityFeedItem.Id,
                 message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset(),
@@ -324,6 +333,8 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 message.Metadata["CommandId"].ToString()!);
 
             municipalityFeedItem.CloudEventAsString = _changeFeedService.SerializeCloudEvent(cloudEvent);
+
+            // This method does a hidden SaveChanges on the FeedContext. This is not so explicit?
             await CheckToUpdateCache(page, context);
         }
 
