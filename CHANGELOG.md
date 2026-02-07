@@ -1,3 +1,10 @@
+## [6.7.3](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.2...v6.7.3) (2026-02-07)
+
+
+### Bug Fixes
+
+* **feed:** solve edge case more than 100 in page ([e16cd1a](https://github.com/informatievlaanderen/municipality-registry/commit/e16cd1a0208b761f3b83b4524c523b8280cc3dcf))
+
 ## [6.7.2](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.1...v6.7.2) (2026-02-05)
 
 
