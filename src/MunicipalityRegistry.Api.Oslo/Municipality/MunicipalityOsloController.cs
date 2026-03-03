@@ -307,7 +307,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
                     var changeFeed = await feedContext
                         .MunicipalityFeed
                         .AsNoTracking()
-                        .Where(x => x.Position <= filtering.Filter.Download.Value)
+                        .Where(x => x.Position <= filtering.Filter.Sync.Value)
                         .OrderByDescending(x => x.Position)
                         .Select(x => new { x.Id, x.Page })
                         .FirstOrDefaultAsync(cancellationToken);
