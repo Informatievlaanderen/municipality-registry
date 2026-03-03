@@ -202,7 +202,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
         [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
         public async Task<IActionResult> Changes(
             [FromServices] FeedContext context,
-            [FromRoute] int? page,
+            [FromQuery] int? page,
             CancellationToken cancellationToken = default)
         {
             var filtering = Request.ExtractFilteringRequest<MunicipalityFeedFilter>();
