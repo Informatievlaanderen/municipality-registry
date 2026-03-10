@@ -21,13 +21,19 @@
 
     public sealed class MunicipalityCloudTransformEvent
     {
-        [JsonProperty("vanId", Order = 0)]
-        public required string From { get; set; }
+        [JsonProperty("nisCodes", Order = 0)]
+        public required List<string> NisCodes { get; set; }
+
+        [JsonProperty("transformatie", Order = 1)]
+        public required MunicipalityCloudTransformData Transformatie { get; set; }
+    }
+
+    public sealed class MunicipalityCloudTransformData
+    {
+        [JsonProperty("vanIds", Order = 0)]
+        public required List<string> FromIds { get; set; }
 
         [JsonProperty("naarId", Order = 1)]
         public required string To { get; set; }
-
-        [JsonProperty("nisCodes", Order = 2)]
-        public required List<string> NisCodes { get; set; }
     }
 }

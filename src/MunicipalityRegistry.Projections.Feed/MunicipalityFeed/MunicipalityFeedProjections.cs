@@ -252,11 +252,17 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 };
                 await context.MunicipalityFeed.AddAsync(municipalityFeedItem, ct);
 
+                var fromIds = new List<string> { OsloNamespaces.Gemeente.ToPuri(message.Message.NisCode) };
+                fromIds.AddRange(message.Message.NisCodesToMergeWith.Select(x => OsloNamespaces.Gemeente.ToPuri(x)));
+
                 var transformData = new MunicipalityCloudTransformEvent
                 {
-                    From = OsloNamespaces.Gemeente.ToPuri(message.Message.NisCode),
-                    To = OsloNamespaces.Gemeente.ToPuri(message.Message.NewNisCode),
-                    NisCodes = nisCodes
+                    NisCodes = nisCodes,
+                    Transformatie = new MunicipalityCloudTransformData
+                    {
+                        FromIds = fromIds,
+                        To = OsloNamespaces.Gemeente.ToPuri(message.Message.NewNisCode)
+                    }
                 };
 
                 var cloudEvent = _changeFeedService.CreateCloudEvent(
