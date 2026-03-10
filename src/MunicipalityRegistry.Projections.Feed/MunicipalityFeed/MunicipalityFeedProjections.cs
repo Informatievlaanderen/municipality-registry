@@ -227,6 +227,10 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
 
             When<Envelope<MunicipalityWasMerged>>(async (context, message, ct) =>
             {
+                var document = await context.MunicipalityDocuments.FindAsync(message.Message.MunicipalityId, ct);
+                if (document == null)
+                    throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
+
                 var nisCodes = new List<string>(message.Message.NisCodesToMergeWith)
                 {
                     message.Message.NewNisCode,
@@ -266,6 +270,14 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
 
                 municipalityFeedItem.CloudEventAsString = _changeFeedService.SerializeCloudEvent(cloudEvent);
                 await CheckToUpdateCache(page, context);
+
+                var oldStatus = document.Document.Status;
+                document.Document.Status = GemeenteStatus.Gehistoreerd;
+                document.LastChangedOn = message.Message.Provenance.Timestamp;
+
+                await AddCloudEvent(message, document, context, [
+                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, oldStatus, document.Document.Status)
+                ]);
             });
 
             When<Envelope<MunicipalityWasRemoved>>(async (context, message, ct) =>
