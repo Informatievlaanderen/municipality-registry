@@ -1,3 +1,12 @@
+## [6.7.4](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.3...v6.7.4) (2026-03-10)
+
+
+### Bug Fixes
+
+* changes internal url to use query param ([7064da2](https://github.com/informatievlaanderen/municipality-registry/commit/7064da2d83cf6f76eeff24496d9f15761a148713))
+* feed mapping position endpoint ([e3cbd49](https://github.com/informatievlaanderen/municipality-registry/commit/e3cbd49865e14829d8ebce1528eed36525128efe))
+* **feed:** add retire after merge transform ([5510ed0](https://github.com/informatievlaanderen/municipality-registry/commit/5510ed0a3e2879598f2e11386df6c7e45a54f236))
+
 ## [6.7.3](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.2...v6.7.3) (2026-02-07)
 
 
