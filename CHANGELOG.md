@@ -1,3 +1,10 @@
+## [6.7.5](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.4...v6.7.5) (2026-03-11)
+
+
+### Bug Fixes
+
+* **feed:** check cache counts local items ([53cf043](https://github.com/informatievlaanderen/municipality-registry/commit/53cf043749581d0a4ed9ce4d3181b144939f201b))
+
 ## [6.7.4](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.3...v6.7.4) (2026-03-10)
 
 
