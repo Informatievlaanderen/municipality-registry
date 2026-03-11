@@ -363,7 +363,12 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
             await _changeFeedService.CheckToUpdateCacheAsync(
                 page,
                 context,
-                async p => await context.MunicipalityFeed.CountAsync(x => x.Page == p));
+                async p =>
+                {
+                    var localCount = context.MunicipalityFeed.Local
+                        .Count(x => x.Page == page && context.Entry(x).State == EntityState.Added);
+                    return await context.MunicipalityFeed.CountAsync(x => x.Page == p) + localCount - 1; //exclude current item
+                });
         }
 
         private static async Task DoNothing()
