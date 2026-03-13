@@ -1,3 +1,10 @@
+## [6.7.6](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.5...v6.7.6) (2026-03-13)
+
+
+### Bug Fixes
+
+* **feed:** set Document.VersionId when LastChangedOn is updated ([c9e5907](https://github.com/informatievlaanderen/municipality-registry/commit/c9e5907d2ac43fa34062d941802be7c25a0d8e5b))
+
 ## [6.7.5](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.4...v6.7.5) (2026-03-11)
 
 
