@@ -27,7 +27,12 @@
         public Instant LastChangedOn
         {
             get => Instant.FromDateTimeOffset(LastChangedOnAsDateTimeOffset);
-            set => LastChangedOnAsDateTimeOffset = value.ToBelgianDateTimeOffset();
+            set
+            {
+                var belgianDateTimeOffset = value.ToBelgianDateTimeOffset();
+                LastChangedOnAsDateTimeOffset = belgianDateTimeOffset;
+                Document.VersionId = belgianDateTimeOffset;
+            }
         }
 
         public MunicipalityJsonDocument Document { get; set; }
@@ -40,14 +45,14 @@
             MunicipalityId = municipalityId;
             NisCode = nisCode;
             RecordCreatedAt = createdTimestamp;
-            LastChangedOn = createdTimestamp;
             Document = new MunicipalityJsonDocument
             {
                 MunicipalityId = municipalityId,
                 NisCode = nisCode,
                 Status = GemeenteStatus.Voorgesteld,
-                VersionId = createdTimestamp.ToBelgianDateTimeOffset()
             };
+
+            LastChangedOn = createdTimestamp;
         }
     }
 
