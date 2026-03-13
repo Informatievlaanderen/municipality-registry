@@ -80,9 +80,9 @@
       },
       "xunit.runner.visualstudio": {
         "type": "Direct",
-        "requested": "[3.1.0, )",
-        "resolved": "3.1.0",
-        "contentHash": "K9O9TOzugqOo4LJ87uuq1VG8RAqGp20Ng85Wx932oT5LNBkIgeeGYubVW5UMnOOTanFNbGavmbuYrJr4INzSwg=="
+        "requested": "[3.1.5, )",
+        "resolved": "3.1.5",
+        "contentHash": "tKi7dSTwP4m5m9eXPM2Ime4Kn7xNf4x4zT9sdLO/G4hZVnQCRiMTWoSZqI/pYTVeI27oPPqHBKYI/DjJ9GsYgA=="
       },
       "Asp.Versioning.Abstractions": {
         "type": "Transitive",
@@ -2255,7 +2255,7 @@
           "Microsoft.AspNetCore.Mvc.Testing": "[9.0.4, )",
           "Microsoft.NET.Test.Sdk": "[17.13.0, )",
           "xunit": "[2.9.3, )",
-          "xunit.runner.visualstudio": "[3.1.0, )"
+          "xunit.runner.visualstudio": "[3.1.5, )"
         }
       },
       "AspNetCore.HealthChecks.SqlServer": {
