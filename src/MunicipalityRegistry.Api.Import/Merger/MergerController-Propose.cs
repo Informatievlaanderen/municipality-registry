@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using Autofac;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Exceptions;
@@ -94,7 +95,7 @@
 
         private static async Task<Geometry> BuildMunicipalityGeometry(ProposeMergerRequest municipality, IMunicipalityGeometryReader municipalityGeometryReader)
         {
-            var geometryFactory = GeometryConfiguration.CreateGeometryFactory();
+            var geometryFactory = NtsGeometryFactory.CreateGeometryFactoryLambert72();
 
             try
             {
