@@ -56,7 +56,7 @@
 
             foreach (var municipality in municipalitiesToUpdate)
             {
-                var geometry = await _municipalityGeometryReader.GetGeometry(municipality.NisCode!);
+                var geometry = await _municipalityGeometryReader.GetGeometry(municipality.NisCode!, ExtendedWkbGeometry.SridLambert72);
                 var drawCommand = new DrawMunicipality(
                     new MunicipalityId(municipality.MunicipalityId!.Value),
                     ExtendedWkbGeometry.CreateEWkb(geometry.ToBinary())!,

@@ -98,7 +98,7 @@
 
             try
             {
-                var newMunicipalityGeometry = await municipalityGeometryReader.GetGeometry(municipality.NisCode);
+                var newMunicipalityGeometry = await municipalityGeometryReader.GetGeometry(municipality.NisCode, ExtendedWkbGeometry.SridLambert72);
                 return newMunicipalityGeometry;
             }
             catch (InvalidPolygonException)

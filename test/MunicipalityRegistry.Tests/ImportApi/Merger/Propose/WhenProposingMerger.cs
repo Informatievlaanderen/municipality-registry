@@ -5,17 +5,17 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Api.Import.Infrastructure.Vrbg;
+    using Api.Import.Merger;
+    using Api.Import.Merger.Propose;
     using Autofac;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Exceptions;
     using FluentAssertions;
     using FluentValidation;
     using Moq;
-    using MunicipalityRegistry.Api.Import.Infrastructure.Vrbg;
-    using MunicipalityRegistry.Api.Import.Merger;
-    using MunicipalityRegistry.Api.Import.Merger.Propose;
-    using MunicipalityRegistry.Projections.Legacy.MunicipalityDetail;
     using NetTopologySuite.IO;
+    using Projections.Legacy.MunicipalityDetail;
     using SqlStreamStore;
     using Xunit;
     using Xunit.Abstractions;
@@ -84,13 +84,13 @@
 
             var municipalityGeometryReaderMock = new Mock<IMunicipalityGeometryReader>();
             municipalityGeometryReaderMock
-                .Setup(x => x.GetGeometry("10000"))
+                .Setup(x => x.GetGeometry("10000", It.IsAny<int>()))
                 .Throws(() => new InvalidPolygonException());
             municipalityGeometryReaderMock
-                .Setup(x => x.GetGeometry("10001"))
+                .Setup(x => x.GetGeometry("10001", It.IsAny<int>()))
                 .Returns(() => Task.FromResult(new WKTReader().Read("SRID=31370;POLYGON((0 0,0 1,1 1,1 0,0 0))")));
             municipalityGeometryReaderMock
-                .Setup(x => x.GetGeometry("10002"))
+                .Setup(x => x.GetGeometry("10002", It.IsAny<int>()))
                 .Returns(() => Task.FromResult(new WKTReader().Read("SRID=31370;POLYGON((10 0,10 1,11 1,11 0,10 0))")));
 
             await _controller.Propose(
