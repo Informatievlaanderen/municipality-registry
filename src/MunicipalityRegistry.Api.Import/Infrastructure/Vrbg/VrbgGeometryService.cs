@@ -4,6 +4,7 @@
     using System.Net.Http;
     using System.Threading.Tasks;
     using System.Xml.Linq;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using Exceptions;
     using NetTopologySuite.Geometries;
     using NetTopologySuite.IO.GML2;
@@ -22,7 +23,12 @@
             "&srsName=EPSG:{0}" +
             "&CQL_FILTER=NISCODE=";
 
-        public async Task<Geometry> GetGeometry(string nisCode, int srid = 31370)
+        public Task<Geometry> GetGeometry(string nisCode)
+        {
+            return GetGeometry(nisCode, SystemReferenceId.SridLambert72);
+        }
+
+        public async Task<Geometry> GetGeometry(string nisCode, int srid)
         {
             using var httpClient = new HttpClient();
 

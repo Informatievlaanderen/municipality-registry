@@ -63,7 +63,7 @@ jobs:
     - name: Install DotCover
       shell: bash
       run: |
-        dotnet tool install --global JetBrains.dotCover.CommandLineTools
+        dotnet tool install --global JetBrains.dotCover.CommandLineTools --version 2025.1.2
         
     - name: Install SonarCloud scanner
       if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'

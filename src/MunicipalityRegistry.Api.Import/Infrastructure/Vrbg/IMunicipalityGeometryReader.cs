@@ -5,6 +5,7 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Vrbg
 
     public interface IMunicipalityGeometryReader
     {
+        Task<Geometry> GetGeometry(string nisCode);
         Task<Geometry> GetGeometry(string nisCode, int srid);
     }
 }

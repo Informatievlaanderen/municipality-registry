@@ -4,6 +4,8 @@
     using System.Net.Http;
     using System.Threading.Tasks;
     using System.Xml.Linq;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
+    using Microsoft.EntityFrameworkCore;
     using NetTopologySuite.Geometries;
     using NetTopologySuite.IO.GML2;
     using NetTopologySuite.Operation.Valid;
@@ -12,8 +14,8 @@
 
     public class Importer
     {
-        private const int SrIdLambert72 = 31370;
-        private const int SrIdLambert08 = 3812;
+        private const int SrIdLambert72 = SystemReferenceId.SridLambert72;
+        private const int SrIdLambert08 = SystemReferenceId.SridLambert2008;
         private readonly XNamespace _vrbgNamespace = "https://geo.api.vlaanderen.be/VRBG";
 
         private static readonly string WFS_GetMunicipalityGeometry = "https://geo.api.vlaanderen.be/VRBG/wfs?service=WFS" +
@@ -35,10 +37,10 @@
         {
             using var httpClient = new HttpClient();
 
-            foreach (var nisCode in _integrationContext.MunicipalityLatestItems.Select(x => x.NisCode))
+            foreach (var nisCode in await _integrationContext.MunicipalityLatestItems.Select(x => x.NisCode).ToListAsync())
             {
-                var response08 = await httpClient.GetAsync(string.Format(WFS_GetMunicipalityGeometry, SrIdLambert08) + nisCode);
-                var response72 = await httpClient.GetAsync(string.Format(WFS_GetMunicipalityGeometry, SrIdLambert72) + nisCode);
+                using var response08 = await httpClient.GetAsync(string.Format(WFS_GetMunicipalityGeometry, SrIdLambert08) + nisCode);
+                using var response72 = await httpClient.GetAsync(string.Format(WFS_GetMunicipalityGeometry, SrIdLambert72) + nisCode);
 
                 var geometry08 = await ExtractGeometryFromResponse(response08, nisCode, SrIdLambert08);
                 var geometry72 = await ExtractGeometryFromResponse(response72, nisCode, SrIdLambert72);
@@ -62,8 +64,7 @@
                 }
                 else
                 {
-                    municipalityGeometry = _integrationContext.MunicipalityGeometries.First(x => x.NisCode == nisCode);
-                    if (municipalityGeometry.Geometry == geometry72 && municipalityGeometry.GeometryLambert08 == geometry08)
+                    if (municipalityGeometry.Geometry.EqualsTopologically(geometry72) && municipalityGeometry.GeometryLambert08.EqualsTopologically(geometry08))
                     {
                         continue;
                     }
@@ -77,9 +78,9 @@
             }
         }
 
-        private static bool ValidateMunicipalityGeometry(Geometry geometry72, string nisCode)
+        private static bool ValidateMunicipalityGeometry(Geometry geometry, string nisCode)
         {
-            var validOp = new IsValidOp(geometry72)
+            var validOp = new IsValidOp(geometry)
             {
                 IsSelfTouchingRingFormingHoleValid = true
             };
@@ -95,6 +96,8 @@
 
         private async Task<Geometry?> ExtractGeometryFromResponse(HttpResponseMessage response, string nisCode, int srid)
         {
+            response.EnsureSuccessStatusCode(); // ok to crash at this point
+
             var stream = await response.Content.ReadAsStreamAsync();
 
             var data = XDocument.Load(stream);

@@ -106,7 +106,7 @@
             { }
 
             var municipalityGeometriesToMerge =
-                await Task.WhenAll(municipality.MergerOf.Select(municipalityGeometryReader.GetGeometry));
+                await Task.WhenAll(municipality.MergerOf.Select(x => municipalityGeometryReader.GetGeometry(x, SystemReferenceId.SridLambert72)));
             var newMunicipalityCombinedGeometry = new MultiPolygon(
                 municipalityGeometriesToMerge.SelectMany(geometry =>
                     {

@@ -45,7 +45,7 @@
         [Fact]
         public void WithNoGeometryAndNewLambert08Geometry_ThenMunicipalityIsDrawn()
         {
-            var command = new DrawMunicipality(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.OtherExampleExtendedWkb), _fixture.Create<Provenance>());
+            var command = new DrawMunicipality(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.OtherExampleExtendedWkbLambert08), _fixture.Create<Provenance>());
 
             Assert(
                 new Scenario()

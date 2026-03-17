@@ -36,8 +36,8 @@ namespace MunicipalityRegistry.Tests
                 "POLYGON ((641295.776594846 685195.2879561504, 641292.7453139233 685189.4559618587, 641294.7539155019 685188.0317005885, 641293.1859401851 685185.7811638667, 641294.223339454 685184.9788619005, 641292.8300422457 685183.0681832506, 641294.7996107029 685181.5888777754, 641295.2192766365 685183.5589599519, 641295.4229375275 685183.4370011945, 641301.9992834505 685191.3724409295, 641295.776594846 685195.2879561504))";
             var otherGeometry08 = new WKTReader { DefaultSRID = SystemReferenceId.SridLambert2008 }.Read(otherValidPolygonLambert08);
             OtherExampleWkbLambert08 = otherGeometry08.AsBinary();
-            otherGeometry.SRID = SystemReferenceId.SridLambert2008;
-            OtherExampleExtendedWkbLambert08 = WkbWriter.Write(otherGeometry);
+            otherGeometry08.SRID = SystemReferenceId.SridLambert2008;
+            OtherExampleExtendedWkbLambert08 = WkbWriter.Write(otherGeometry08);
         }
 
         // Polygon is invalid because interior and exterior rings intersect
