@@ -43,6 +43,22 @@
         }
 
         [Fact]
+        public void WithNoGeometryAndNewLambert08Geometry_ThenMunicipalityIsDrawn()
+        {
+            var command = new DrawMunicipality(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.OtherExampleExtendedWkb), _fixture.Create<Provenance>());
+
+            Assert(
+                new Scenario()
+                    .Given(_municipalityId,
+                        _fixture.Create<MunicipalityWasRegistered>())
+                    .When(command)
+                    .Then(new Fact(_municipalityId,
+                        new MunicipalityWasDrawn(
+                            _municipalityId,
+                            command.Geometry))));
+        }
+
+        [Fact]
         public void WithNoChangeInGeometry_ThenNone()
         {
             var command = _fixture.Create<DrawMunicipality>();
@@ -60,6 +76,23 @@
         public void WithGeometryPresent_ThenMunicipalityGeometryWasCorrected()
         {
             var command = new DrawMunicipality(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.OtherExampleExtendedWkb), _fixture.Create<Provenance>());
+
+            Assert(
+                new Scenario()
+                    .Given(_municipalityId,
+                        _fixture.Create<MunicipalityWasRegistered>(),
+                        _fixture.Create<MunicipalityWasDrawn>())
+                    .When(command)
+                    .Then(new Fact(_municipalityId,
+                        new MunicipalityGeometryWasCorrected(
+                            _municipalityId,
+                            command.Geometry))));
+        }
+
+        [Fact]
+        public void WithGeometryPresentAndNewLambert08Geometry_ThenMunicipalityGeometryWasCorrected()
+        {
+            var command = new DrawMunicipality(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.OtherExampleExtendedWkbLambert08), _fixture.Create<Provenance>());
 
             Assert(
                 new Scenario()

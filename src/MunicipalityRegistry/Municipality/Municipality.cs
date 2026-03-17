@@ -114,14 +114,14 @@
         private static void GuardPolygon(Geometry? geometry)
         {
             if (geometry is Polygon
-                && geometry.SRID == ExtendedWkbGeometry.SridLambert72
+                && geometry.SRID is SystemReferenceId.SridLambert72 or SystemReferenceId.SridLambert2008
                 && GeometryValidator.IsValid(geometry))
             {
                 return;
             }
 
             if (geometry is MultiPolygon multiPolygon
-                && multiPolygon.SRID == ExtendedWkbGeometry.SridLambert72
+                && multiPolygon.SRID is SystemReferenceId.SridLambert72 or SystemReferenceId.SridLambert2008
                 && multiPolygon.Geometries.All(GeometryValidator.IsValid))
             {
                 return;

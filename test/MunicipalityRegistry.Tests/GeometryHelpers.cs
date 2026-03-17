@@ -1,16 +1,20 @@
 namespace MunicipalityRegistry.Tests
 {
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using NetTopologySuite.Geometries;
-    using NetTopologySuite.Geometries.Implementation;
     using NetTopologySuite.IO;
     using NetTopologySuite.IO.GML2;
 
     public static class GeometryHelpers
     {
+        public static WKBWriter WkbWriter { get; } = new WKBWriter { Strict = false, HandleSRID = true };
+
         public static byte[] ExampleWkb { get; }
         public static byte[] OtherExampleWkb { get; }
         public static byte[] ExampleExtendedWkb { get; }
         public static byte[] OtherExampleExtendedWkb { get; }
+        public static byte[] OtherExampleWkbLambert08 { get; }
+        public static byte[] OtherExampleExtendedWkbLambert08 { get; }
 
         static GeometryHelpers()
         {
@@ -19,14 +23,21 @@ namespace MunicipalityRegistry.Tests
             var geometry = new WKTReader { DefaultSRID = SpatialReferenceSystemId.Lambert72 }.Read(validPolygon);
             ExampleWkb = geometry.AsBinary();
             geometry.SRID = SpatialReferenceSystemId.Lambert72;
-            ExampleExtendedWkb = new WKBWriter { Strict = false, HandleSRID = true }.Write(geometry);
+            ExampleExtendedWkb = WkbWriter.Write(geometry);
 
             var otherValidPolygon =
                 "POLYGON ((141297.83027724177 185196.03552261365, 141294.79827723652 185190.20384261012, 141296.80672523379 185188.7793306075, 141295.2384692356 185186.52896260843, 141296.27578123659 185185.72653060779, 141294.88224523515 185183.81600260362, 141296.85165324062 185182.33645060286, 141297.27155724168 185184.30649860576, 141297.47520523518 185184.18451460451, 141304.05254924297 185192.11923461035, 141297.83027724177 185196.03552261365))";
             var otherGeometry = new WKTReader { DefaultSRID = SpatialReferenceSystemId.Lambert72 }.Read(otherValidPolygon);
             OtherExampleWkb = otherGeometry.AsBinary();
             otherGeometry.SRID = SpatialReferenceSystemId.Lambert72;
-            OtherExampleExtendedWkb = new WKBWriter { Strict = false, HandleSRID = true }.Write(otherGeometry);
+            OtherExampleExtendedWkb = WkbWriter.Write(otherGeometry);
+
+            var otherValidPolygonLambert08 =
+                "POLYGON ((641295.776594846 685195.2879561504, 641292.7453139233 685189.4559618587, 641294.7539155019 685188.0317005885, 641293.1859401851 685185.7811638667, 641294.223339454 685184.9788619005, 641292.8300422457 685183.0681832506, 641294.7996107029 685181.5888777754, 641295.2192766365 685183.5589599519, 641295.4229375275 685183.4370011945, 641301.9992834505 685191.3724409295, 641295.776594846 685195.2879561504))";
+            var otherGeometry08 = new WKTReader { DefaultSRID = SystemReferenceId.SridLambert2008 }.Read(otherValidPolygonLambert08);
+            OtherExampleWkbLambert08 = otherGeometry08.AsBinary();
+            otherGeometry.SRID = SystemReferenceId.SridLambert2008;
+            OtherExampleExtendedWkbLambert08 = WkbWriter.Write(otherGeometry);
         }
 
         // Polygon is invalid because interior and exterior rings intersect
@@ -49,11 +60,7 @@ namespace MunicipalityRegistry.Tests
             "</gml:Polygon>";
 
         public static GMLReader CreateGmlReader() =>
-            new GMLReader(
-                new GeometryFactory(
-                    new PrecisionModel(PrecisionModels.Floating),
-                    ExtendedWkbGeometry.SridLambert72,
-                    new DotSpatialAffineCoordinateSequenceFactory(Ordinates.XY)));
+            new GMLReader(NtsGeometryFactory.CreateGeometryFactoryLambert72());
 
         public static Geometry ToGeometry(this string gml)
         {
@@ -72,7 +79,7 @@ namespace MunicipalityRegistry.Tests
 
             geometry.SRID = SpatialReferenceSystemId.Lambert72;
 
-            return new ExtendedWkbGeometry(geometry.AsBinary());
+            return new ExtendedWkbGeometry(WkbWriter.Write(geometry));
         }
     }
 }
