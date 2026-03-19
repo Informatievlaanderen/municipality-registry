@@ -4,6 +4,7 @@
     using System.Net.Http;
     using System.Threading.Tasks;
     using System.Xml.Linq;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using Exceptions;
     using NetTopologySuite.Geometries;
     using NetTopologySuite.IO.GML2;
@@ -19,14 +20,19 @@
             "&request=GetFeature" +
             "&typeName=VRBG:Refgem" +
             "&maxFeatures=1" +
-            "&srsName=EPSG:31370" +
+            "&srsName=EPSG:{0}" +
             "&CQL_FILTER=NISCODE=";
 
-        public async Task<Geometry> GetGeometry(string nisCode)
+        public Task<Geometry> GetGeometry(string nisCode)
+        {
+            return GetGeometry(nisCode, SystemReferenceId.SridLambert72);
+        }
+
+        public async Task<Geometry> GetGeometry(string nisCode, int srid)
         {
             using var httpClient = new HttpClient();
 
-            var response = await httpClient.GetAsync(WFS_GetMunicipalityGeometry + nisCode);
+            var response = await httpClient.GetAsync(string.Format(WFS_GetMunicipalityGeometry, srid) + nisCode);
 
             var stream = await response.Content.ReadAsStreamAsync();
 
@@ -49,7 +55,7 @@
 
             var gmlReader = new GMLReader();
             var geometry = gmlReader.Read(gml?.ToString());
-            geometry.SRID = ExtendedWkbGeometry.SridLambert72;
+            geometry.SRID = srid;
 
             var validOp = new IsValidOp(geometry)
             {

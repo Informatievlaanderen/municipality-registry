@@ -7,6 +7,7 @@
     using System.Threading.Tasks;
     using Autofac;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Exceptions;
@@ -94,18 +95,18 @@
 
         private static async Task<Geometry> BuildMunicipalityGeometry(ProposeMergerRequest municipality, IMunicipalityGeometryReader municipalityGeometryReader)
         {
-            var geometryFactory = GeometryConfiguration.CreateGeometryFactory();
+            var geometryFactory = NtsGeometryFactory.CreateGeometryFactoryLambert72();
 
             try
             {
-                var newMunicipalityGeometry = await municipalityGeometryReader.GetGeometry(municipality.NisCode);
+                var newMunicipalityGeometry = await municipalityGeometryReader.GetGeometry(municipality.NisCode, ExtendedWkbGeometry.SridLambert72);
                 return newMunicipalityGeometry;
             }
             catch (InvalidPolygonException)
             { }
 
             var municipalityGeometriesToMerge =
-                await Task.WhenAll(municipality.MergerOf.Select(municipalityGeometryReader.GetGeometry));
+                await Task.WhenAll(municipality.MergerOf.Select(x => municipalityGeometryReader.GetGeometry(x, SystemReferenceId.SridLambert72)));
             var newMunicipalityCombinedGeometry = new MultiPolygon(
                 municipalityGeometriesToMerge.SelectMany(geometry =>
                     {

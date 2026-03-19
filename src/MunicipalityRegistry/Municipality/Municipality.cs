@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Be.Vlaanderen.Basisregisters.AggregateSource;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using Events;
     using Exceptions;
     using NetTopologySuite.Geometries;
@@ -91,7 +92,8 @@
 
         public void Draw(ExtendedWkbGeometry geometry)
         {
-            GuardPolygon(GeometryConfiguration.CreateWkbReader().Read(geometry));
+            var reader = WKBReaderFactory.CreateForEwkb(geometry);
+            GuardPolygon(reader.Read(geometry));
             if(geometry.ToString() == Geometry?.ToString())
                 return;
 
@@ -112,14 +114,14 @@
         private static void GuardPolygon(Geometry? geometry)
         {
             if (geometry is Polygon
-                && geometry.SRID == ExtendedWkbGeometry.SridLambert72
+                && geometry.SRID is SystemReferenceId.SridLambert72 or SystemReferenceId.SridLambert2008
                 && GeometryValidator.IsValid(geometry))
             {
                 return;
             }
 
             if (geometry is MultiPolygon multiPolygon
-                && multiPolygon.SRID == ExtendedWkbGeometry.SridLambert72
+                && multiPolygon.SRID is SystemReferenceId.SridLambert72 or SystemReferenceId.SridLambert2008
                 && multiPolygon.Geometries.All(GeometryValidator.IsValid))
             {
                 return;

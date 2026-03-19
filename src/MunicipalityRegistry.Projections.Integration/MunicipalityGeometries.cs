@@ -9,6 +9,7 @@
     {
         public string NisCode { get; set; }
         public Geometry Geometry { get; set; }
+        public Geometry GeometryLambert08 { get; set; }
 
         public MunicipalityGeometry()
         { }
@@ -30,8 +31,14 @@
             builder.Property(x => x.Geometry)
                 .HasColumnName("geometry");
 
+            builder.Property(x => x.GeometryLambert08)
+                .HasColumnName("geometry_lambert08");
+
             builder.HasIndex(x => x.NisCode);
             builder.HasIndex(x => x.Geometry)
+                .HasMethod("GIST");
+
+            builder.HasIndex(x => x.GeometryLambert08)
                 .HasMethod("GIST");
         }
     }
