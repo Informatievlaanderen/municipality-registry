@@ -1,3 +1,10 @@
+# [6.8.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.6...v6.8.0) (2026-03-19)
+
+
+### Features
+
+* add lambert08 geometry support in domain ([ef8bb60](https://github.com/informatievlaanderen/municipality-registry/commit/ef8bb60b729e09750d85de3847069a6acde41cec))
+
 ## [6.7.6](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.5...v6.7.6) (2026-03-13)
 
 
