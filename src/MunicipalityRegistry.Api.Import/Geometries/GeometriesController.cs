@@ -9,6 +9,7 @@
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Infrastructure.Vrbg;
     using Microsoft.AspNetCore.Mvc;
@@ -56,10 +57,10 @@
 
             foreach (var municipality in municipalitiesToUpdate)
             {
-                var geometry = await _municipalityGeometryReader.GetGeometry(municipality.NisCode!, ExtendedWkbGeometry.SridLambert72);
+                var geometry = await _municipalityGeometryReader.GetGeometry(municipality.NisCode!, SystemReferenceId.SridLambert2008);
                 var drawCommand = new DrawMunicipality(
                     new MunicipalityId(municipality.MunicipalityId!.Value),
-                    ExtendedWkbGeometry.CreateEWkb(geometry.ToBinary())!,
+                    ExtendedWkbGeometry.CreateEWkb(geometry)!,
                     CreateProvenance("update geometry"));
 
                 await using var scope = _container.BeginLifetimeScope();

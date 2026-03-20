@@ -5,13 +5,14 @@
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
     using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using Be.Vlaanderen.Basisregisters.Utilities.HexByteConvertor;
+    using NetTopologySuite.Geometries;
     using NetTopologySuite.IO;
     using Newtonsoft.Json;
 
     public sealed class ExtendedWkbGeometry : ByteArrayValueObject<ExtendedWkbGeometry>
     {
         public const int SridLambert72 = SystemReferenceId.SridLambert72;
-        private static readonly WKBWriter WkbWriter = new WKBWriter { Strict = false, HandleSRID = true };
+        public static readonly WKBWriter WkbWriter = new WKBWriter { Strict = false, HandleSRID = true };
 
         [JsonConstructor]
         public ExtendedWkbGeometry([JsonProperty("value")] byte[] ewkbBytes) : base(ewkbBytes) { }
@@ -20,16 +21,24 @@
 
         public override string ToString() => Value.ToHexString()!;
 
+        public static ExtendedWkbGeometry? CreateEWkb(Geometry geometry)
+        {
+            if(geometry.SRID <= 0)
+                return null;
+
+            return new ExtendedWkbGeometry(WkbWriter.Write(geometry));
+        }
+
         /// <summary>
         /// Create an ExtendedWkbGeometry from a WKB or an EWKB byte array.
-        /// If the WKB does not contain an SRID, the method will attempt to read the geometry using the specified SRID (defaulting to Lambert72).
+        /// If the WKB does not contain an SRID, the method will attempt to read the geometry using the specified SRID.
         /// If the SRID in the EWKB does not match the expected SRID, an InvalidOperationException is thrown.
         /// </summary>
         /// <param name="wkb"></param>
         /// <param name="useSrid"></param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
-        public static ExtendedWkbGeometry? CreateEWkb(byte[]? wkb, int useSrid = SridLambert72)
+        public static ExtendedWkbGeometry? CreateEWkb(byte[]? wkb, int useSrid)
         {
             if (wkb == null)
             {
