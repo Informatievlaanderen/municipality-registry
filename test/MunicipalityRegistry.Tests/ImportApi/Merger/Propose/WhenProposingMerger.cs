@@ -9,6 +9,7 @@
     using Api.Import.Merger;
     using Api.Import.Merger.Propose;
     using Autofac;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Exceptions;
     using FluentAssertions;
@@ -88,10 +89,10 @@
                 .Throws(() => new InvalidPolygonException());
             municipalityGeometryReaderMock
                 .Setup(x => x.GetGeometry("10001", It.IsAny<int>()))
-                .Returns(() => Task.FromResult(new WKTReader().Read("SRID=31370;POLYGON((0 0,0 1,1 1,1 0,0 0))")));
+                .Returns(() => Task.FromResult(new WKTReader().Read($"SRID={SystemReferenceId.SridLambert2008};POLYGON((0 0,0 1,1 1,1 0,0 0))")));
             municipalityGeometryReaderMock
                 .Setup(x => x.GetGeometry("10002", It.IsAny<int>()))
-                .Returns(() => Task.FromResult(new WKTReader().Read("SRID=31370;POLYGON((10 0,10 1,11 1,11 0,10 0))")));
+                .Returns(() => Task.FromResult(new WKTReader().Read($"SRID={SystemReferenceId.SridLambert2008};POLYGON((10 0,10 1,11 1,11 0,10 0))")));
 
             await _controller.Propose(
                 request,

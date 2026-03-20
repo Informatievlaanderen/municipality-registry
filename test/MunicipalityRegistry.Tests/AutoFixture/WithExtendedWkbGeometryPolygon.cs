@@ -1,5 +1,6 @@
 namespace MunicipalityRegistry.Tests.AutoFixture
 {
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using global::AutoFixture;
     using global::AutoFixture.Kernel;
 
@@ -7,7 +8,7 @@ namespace MunicipalityRegistry.Tests.AutoFixture
     {
         public void Customize(IFixture fixture)
         {
-            var extendedWkbGeometry = ExtendedWkbGeometry.CreateEWkb(GeometryHelpers.ExampleExtendedWkb);
+            var extendedWkbGeometry = ExtendedWkbGeometry.CreateEWkb(GeometryHelpers.ExampleExtendedWkb, SystemReferenceId.SridLambert72);
 
             fixture.Customize<ExtendedWkbGeometry>(c => c.FromFactory(
                 () => extendedWkbGeometry));
