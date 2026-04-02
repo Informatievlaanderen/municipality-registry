@@ -1,3 +1,15 @@
+# [6.9.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.8.0...v6.9.0) (2026-04-02)
+
+
+### Bug Fixes
+
+* **feed:** update packages + disable cache ([f02ab49](https://github.com/informatievlaanderen/municipality-registry/commit/f02ab49be69f750c415162463e6cc25b60ebd12b))
+
+
+### Features
+
+* **integration:** add 2019 geometries ([a975eda](https://github.com/informatievlaanderen/municipality-registry/commit/a975eda9b79774c5e53a3f21d2e4e4c26c38963c))
+
 # [6.8.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.7.6...v6.8.0) (2026-03-19)
 
 
