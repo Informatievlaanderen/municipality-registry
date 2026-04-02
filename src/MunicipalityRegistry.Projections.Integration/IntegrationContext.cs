@@ -12,6 +12,7 @@ namespace MunicipalityRegistry.Projections.Integration
         public DbSet<MunicipalityVersion> MunicipalityVersions => Set<MunicipalityVersion>();
 
         public DbSet<MunicipalityGeometry> MunicipalityGeometries => Set<MunicipalityGeometry>();
+        public DbSet<MunicipalityGeometry2019> MunicipalityGeometries2019 => Set<MunicipalityGeometry2019>();
 
         // This needs to be here to please EF
         public IntegrationContext() { }
