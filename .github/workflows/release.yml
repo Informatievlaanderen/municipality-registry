@@ -18,7 +18,7 @@ jobs:
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
           persist-credentials: false
 
@@ -183,7 +183,7 @@ jobs:
       version: ${{ steps.set-version.outputs.version }}
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
           persist-credentials: false
 
@@ -270,7 +270,7 @@ jobs:
 
     steps:
     - name: Checkout Code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v4
