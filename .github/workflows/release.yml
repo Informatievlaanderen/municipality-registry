@@ -60,7 +60,7 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality
       image-file: mr-api-oslo-image.tar
       image-name: api-oslo
       test-project: MunicipalityRegistry.Tests
@@ -76,9 +76,9 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
-      image-file: mr-api-import-image.tar
-      image-name: api-import
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality
+      image-file: mr-import-api-image.tar
+      image-name: import-api
       test-project: MunicipalityRegistry.Tests
       build-project: MunicipalityRegistry.Api.Import
       semver: ${{ needs.set-release-version.outputs.version }}
@@ -92,7 +92,7 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality
       image-file: mr-api-extract-image.tar
       image-name: api-extract
       test-project: MunicipalityRegistry.Tests
@@ -108,7 +108,7 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality
       image-file: mr-projector-image.tar
       image-name: projector
       test-project: MunicipalityRegistry.Tests
@@ -124,7 +124,7 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality
       image-file: mr-producer-image.tar
       image-name: producer
       test-project: MunicipalityRegistry.Tests
@@ -140,7 +140,7 @@ jobs:
     needs: [ set-release-version ]
     if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.set-release-version.outputs.version != 'none') }}
     with:
-      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality-registry
+      registry: ${{ vars.VBR_DEVOPS_DOCKER_REGISTRY }}/municipality
       image-file: mr-producer-snapshot-oslo-image.tar
       image-name: producer-snapshot-oslo
       test-project: MunicipalityRegistry.Tests
@@ -295,50 +295,6 @@ jobs:
         WORKSPACE: ${{ github.workspace }}
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
 
-  publish_to_atlassian:
-    needs: [ release ]
-    if: ${{ (github.repository_owner == 'Informatievlaanderen') && (needs.release.outputs.version != 'none') }}
-    name: Publish to Atlassian
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Parse repository name
-        run: echo REPOSITORY_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//") >> $GITHUB_ENV
-        shell: bash
-
-      - name: Cache Python
-        uses: actions/cache@v4
-        env:
-          cache-name: cache-pip
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-build-${{ env.cache-name }}
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
-      - name: Install Python dependencies
-        shell: bash
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests markdown argparse
-
-      - name: Restore build-pipeline
-        shell: bash
-        run: ./pre-restore.sh
-
-      - name: Publish to Confluence
-        shell: bash
-        run: bash ./.build/Be.Vlaanderen.Basisregisters.Build.Pipeline/Content/ci-confluence.sh
-        env:
-          CONFLUENCE_TITLE: ${{ env.REPOSITORY_NAME }}
-          CONFLUENCE_USERNAME: ${{ secrets.VBR_CONFLUENCE_USER }}
-          CONFLUENCE_PASSWORD: ${{ secrets.VBR_CONFLUENCE_PASSWORD }}
-
   push_images:
     if: needs.release.outputs.version != 'none'
     needs: [ release ]
@@ -346,13 +302,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        image: ['api-oslo', 'api-import', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
+        image: ['api-oslo', 'import-api', 'api-extract', 'projector', 'producer', 'producer-snapshot-oslo']
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4.2.0
         with:
-          aws-access-key-id: ${{ secrets.VBR_AWS_ACCESS_KEY_ID_DEVOPS }}
-          aws-secret-access-key: ${{ secrets.VBR_AWS_SECRET_ACCESS_KEY_DEVOPS }}
+          role-to-assume: ${{ secrets.VBR_AWS_CICD_ROLE }}
           aws-region: ${{ secrets.VBR_AWS_REGION_PRD }}
 
       - name: Login to Amazon ECR
@@ -379,9 +334,8 @@ jobs:
         shell: bash
         run: |
           echo $IMAGE:$SEMVER
-          docker push $BUILD_DOCKER_REGISTRY/municipality-registry/$IMAGE:$SEMVER
+          docker push $BUILD_DOCKER_REGISTRY/municipality/$IMAGE:$SEMVER
         env:
-          BUILD_DOCKER_REGISTRY_TST: ${{ secrets.VBR_BUILD_DOCKER_REGISTRY_TST }}
           BUILD_DOCKER_REGISTRY: ${{ secrets.VBR_DEVOPS_DOCKER_REGISTRY }}
           IMAGE: ${{ matrix.image }}
           SEMVER: ${{ needs.release.outputs.version }}
@@ -408,22 +362,24 @@ jobs:
     if: github.repository_owner == 'Informatievlaanderen'
     needs: [ deploy_to_test_start_slack, release ]
     name: Deploy to test
-    uses: informatievlaanderen/build-pipeline/.github/workflows/deploy-v4.yml@main
+    uses: informatievlaanderen/build-pipeline/.github/workflows/deploy-v4.1.yml@main
     strategy:
       matrix:
         services: [
-          'municipality-api',
-          'municipality-import-api',
-          'municipality-producer',
-          'municipality-producer-snapshot-oslo',
-          'municipality-projections'
+          'api',
+          'import-api',
+          'producer',
+          'producer-snapshot-oslo',
+          'projector'
         ]
     with:
-      environment: tst
+      environment: test
       service-name: ${{ matrix.services }}
+      application: ${{ matrix.services }}
       version: ${{ needs.release.outputs.version }}
-      domain: 'basisregisters'
-      project: 'basisregisters'
+      domain: 'municipality'
+      project: 'grawr'
+      use-subfolder: true
     secrets: inherit
 
   deploy_to_test_finish_slack:
@@ -463,22 +419,24 @@ jobs:
     if: github.repository_owner == 'Informatievlaanderen'
     needs: [ deploy_to_staging_start_slack, release ]
     name: Deploy to staging
-    uses: informatievlaanderen/build-pipeline/.github/workflows/deploy-v4.yml@main
+    uses: informatievlaanderen/build-pipeline/.github/workflows/deploy-v4.1.yml@main
     strategy:
       matrix:
         services: [
-          'municipality-api',
-          'municipality-import-api',
-          'municipality-producer',
-          'municipality-producer-snapshot-oslo',
-          'municipality-projections'
+          'api',
+          'import-api',
+          'producer',
+          'producer-snapshot-oslo',
+          'projector'
         ]
     with:
       environment: stg
       service-name: ${{ matrix.services }}
+      application: ${{ matrix.services }}
       version: ${{ needs.release.outputs.version }}
-      domain: 'basisregisters'
-      project: 'basisregisters'
+      domain: 'municipality'
+      project: 'grawr'
+      use-subfolder: true
     secrets: inherit
 
   deploy_to_staging_finish_slack:
