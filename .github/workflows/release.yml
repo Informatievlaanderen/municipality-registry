@@ -5,6 +5,9 @@ on:
 
 concurrency: Release
 
+permissions:
+  id-token: write
+
 jobs:
   set-release-version:
     if: github.repository_owner == 'Informatievlaanderen'
