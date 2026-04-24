@@ -289,8 +289,8 @@
       },
       "Datadog.Trace": {
         "type": "Transitive",
-        "resolved": "3.16.0",
-        "contentHash": "inbkllX9QI/FoHqtmNAMAk8I2ZcLpDJSL3caZSpTxLfunNoNlmpnnAE3fcqdNgSj2dxD3PleDp4oG698I+R6Kg==",
+        "resolved": "3.42.0",
+        "contentHash": "ukWwgI9IqSOupPlF0zG0dgle5FMkHMGqUS2HTuBhmZz7yFrd1/IPqog0OAYJDmBSBFmmkTNT0fqlKtfVdrE9cA==",
         "dependencies": {
           "System.Diagnostics.DiagnosticSource": "4.4.1"
         }
@@ -1649,7 +1649,7 @@
           "Be.Vlaanderen.Basisregisters.GrAr.Import": "[22.9.0, )",
           "Be.Vlaanderen.Basisregisters.GrAr.Legacy": "[22.9.0, )",
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac": "[15.0.1, )",
-          "Datadog.Trace.Bundle": "[3.16.0, )",
+          "Datadog.Trace.Bundle": "[3.42.0, )",
           "Microsoft.EntityFrameworkCore.InMemory": "[9.0.4, )",
           "MunicipalityRegistry.Infrastructure": "[1.0.0, )",
           "MunicipalityRegistry.Projections.Legacy": "[1.0.0, )"
@@ -1678,7 +1678,7 @@
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer": "[15.0.1, )",
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac": "[15.0.1, )",
           "Be.Vlaanderen.Basisregisters.Projector": "[16.0.0, )",
-          "Datadog.Trace.Bundle": "[3.16.0, )",
+          "Datadog.Trace.Bundle": "[3.42.0, )",
           "Microsoft.Extensions.DependencyInjection": "[9.0.4, )",
           "MunicipalityRegistry.Infrastructure": "[1.0.0, )"
         }
@@ -1695,7 +1695,7 @@
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer": "[15.0.1, )",
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac": "[15.0.1, )",
           "Be.Vlaanderen.Basisregisters.Projector": "[16.0.0, )",
-          "Datadog.Trace.Bundle": "[3.16.0, )",
+          "Datadog.Trace.Bundle": "[3.42.0, )",
           "Microsoft.Extensions.DependencyInjection": "[9.0.4, )",
           "MunicipalityRegistry.Infrastructure": "[1.0.0, )",
           "MunicipalityRegistry.Projections.Legacy": "[1.0.0, )"
@@ -1799,7 +1799,7 @@
           "Be.Vlaanderen.Basisregisters.Api": "[24.3.0, )",
           "Be.Vlaanderen.Basisregisters.EventHandling.Autofac": "[7.0.0, )",
           "Be.Vlaanderen.Basisregisters.Projector": "[16.0.0, )",
-          "Datadog.Trace.Bundle": "[3.16.0, )",
+          "Datadog.Trace.Bundle": "[3.42.0, )",
           "Microsoft.Extensions.DependencyInjection": "[9.0.4, )",
           "MunicipalityRegistry.Infrastructure": "[1.0.0, )",
           "MunicipalityRegistry.Projections.Extract": "[1.0.0, )",
@@ -2288,11 +2288,11 @@
       },
       "Datadog.Trace.Bundle": {
         "type": "CentralTransitive",
-        "requested": "[3.16.0, )",
-        "resolved": "3.16.0",
-        "contentHash": "kNi4zZQNPpYZeICdTAS1DsrR4F54Czo4/1dZHjelyDytx/Ag5sN0+hrvoqxH/7ozkjfPHi2Nz2Kq4IE5fsjBBw==",
+        "requested": "[3.42.0, )",
+        "resolved": "3.42.0",
+        "contentHash": "EynbKFLao7rI4PekgKgPrcUNezg+t1dngbDE0kKc0iWHzECnON5eqjdDEaR705RaeFSQpEpkiXzBgZ86ACOOQQ==",
         "dependencies": {
-          "Datadog.Trace": "3.16.0"
+          "Datadog.Trace": "3.42.0"
         }
       },
       "Destructurama.JsonNet": {
