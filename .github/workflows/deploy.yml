@@ -12,11 +12,14 @@ on:
         description: 'Environment to deploy to'
         type: choice
         required: true
-        default: 'tst'
+        default: 'test'
         options:
-          - 'tst'
+          - 'test'
           - 'stg'
           - 'prd'
+
+permissions:
+  id-token: write
 
 jobs:
   deploy_start_slack:
@@ -39,22 +42,24 @@ jobs:
     if: github.repository_owner == 'Informatievlaanderen'
     needs: [ deploy_start_slack ]
     name: Deploy
-    uses: informatievlaanderen/build-pipeline/.github/workflows/deploy-v4.yml@main
+    uses: informatievlaanderen/build-pipeline/.github/workflows/deploy-v4.1.yml@main
     strategy:
       matrix:
         services: [
-          'municipality-api',
-          'municipality-import-api',
-          'municipality-producer',
-          'municipality-producer-snapshot-oslo',
-          'municipality-projections'
+          'api',
+          'import-api',
+          'producer',
+          'producer-snapshot-oslo',
+          'projector'
         ]
     with:
       environment: ${{ github.event.inputs.environment }}
       service-name: ${{ matrix.services }}
+      application: ${{ matrix.services }}
       version: ${{ github.event.inputs.version }}
-      domain: 'basisregisters'
-      project: 'basisregisters'
+      domain: 'municipality'
+      project: 'grawr'
+      use-subfolder: true
     secrets: inherit
 
   deploy_finish_slack:
