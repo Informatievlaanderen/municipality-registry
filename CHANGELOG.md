@@ -1,3 +1,10 @@
+## [6.9.2](https://github.com/informatievlaanderen/municipality-registry/compare/v6.9.1...v6.9.2) (2026-04-24)
+
+
+### Bug Fixes
+
+* **ci:** bump to trigger build ([d25ee58](https://github.com/informatievlaanderen/municipality-registry/commit/d25ee583896e58e711cca0e6da5aec721fe1a890))
+
 ## [6.9.1](https://github.com/informatievlaanderen/municipality-registry/compare/v6.9.0...v6.9.1) (2026-04-24)
 
 
