@@ -1,3 +1,10 @@
+## [6.9.3](https://github.com/informatievlaanderen/municipality-registry/compare/v6.9.2...v6.9.3) (2026-05-08)
+
+
+### Bug Fixes
+
+* **feed:** facility languages ([423c6a9](https://github.com/informatievlaanderen/municipality-registry/commit/423c6a9d9d5b8378172796632e14e9b85c790508))
+
 ## [6.9.2](https://github.com/informatievlaanderen/municipality-registry/compare/v6.9.1...v6.9.2) (2026-04-24)
 
 
