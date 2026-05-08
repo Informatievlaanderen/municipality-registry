@@ -147,7 +147,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
-                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.FacilitiesLanguages, oldFacilitiesLanguages, document.Document.OfficialLanguages)
+                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.FacilitiesLanguages, oldFacilitiesLanguages, document.Document.FacilitiesLanguages)
                 ]);
             });
 
@@ -162,7 +162,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
-                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.FacilitiesLanguages, oldFacilitiesLanguages, document.Document.OfficialLanguages)
+                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.FacilitiesLanguages, oldFacilitiesLanguages, document.Document.FacilitiesLanguages)
                 ]);
             });
 
