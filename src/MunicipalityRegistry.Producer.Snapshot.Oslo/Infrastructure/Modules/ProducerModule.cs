@@ -39,7 +39,6 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo.Infrastructure.Modules
 
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterModule(new LegacyModule(_configuration, _services, _loggerFactory));
             RegisterProjectionSetup(builder);
 
             builder

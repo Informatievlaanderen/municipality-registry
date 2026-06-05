@@ -1,23 +1,23 @@
 namespace MunicipalityRegistry.Projections.Extract
 {
     using System;
-    using Autofac;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer.MigrationExtensions;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using MunicipalityExtract;
 
-    public class ExtractModule : Module
+    public static class ExtractModule
     {
-        public ExtractModule(
+        public static IServiceCollection RegisterExtractModule(
+            this IServiceCollection services,
             IConfiguration configuration,
-            IServiceCollection services,
             ILoggerFactory loggerFactory,
             bool enableRetry = true)
         {
-            var logger = loggerFactory.CreateLogger<ExtractModule>();
+            var logger = loggerFactory.CreateLogger<MunicipalityExtractProjections>();
             var connectionString = configuration.GetConnectionString("ExtractProjections");
 
             var hasConnectionString = !string.IsNullOrWhiteSpace(connectionString);
@@ -33,6 +33,8 @@ namespace MunicipalityRegistry.Projections.Extract
                 Environment.NewLine +
                 "\tTableName: {TableName}",
                 nameof(ExtractContext), Schema.Extract, MigrationTables.Extract);
+
+            return services;
         }
 
         private static void RunOnSqlServer(

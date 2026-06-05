@@ -88,11 +88,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
 
         private void RegisterExtractProjections(ContainerBuilder builder)
         {
-            builder.RegisterModule(
-                new ExtractModule(
-                    _configuration,
-                    _services,
-                    _loggerFactory));
+            _services.RegisterExtractModule(_configuration, _loggerFactory);
 
             builder
                 .RegisterProjectionMigrator<ExtractContextMigrationFactory>(
@@ -124,12 +120,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
 
         private void RegisterLegacyProjections(ContainerBuilder builder)
         {
-            builder
-                .RegisterModule(
-                    new LegacyModule(
-                        _configuration,
-                        _services,
-                        _loggerFactory));
+            _services.RegisterLegacyModule(_configuration, _loggerFactory);
+
             builder
                 .RegisterProjectionMigrator<LegacyContextMigrationFactory>(
                     _configuration,
@@ -142,13 +134,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
 
         private void RegisterFeedProjections(ContainerBuilder builder)
         {
-            builder
-                .RegisterModule(
-                    new FeedModule(
-                        _configuration,
-                        _services,
-                        _loggerFactory,
-                        new JsonSerializerSettings().ConfigureDefaultForApi()));
+            _services.RegisterFeedModule(_configuration, _loggerFactory, new JsonSerializerSettings().ConfigureDefaultForApi());
 
             builder.Register(c => new ChangeFeedService(
                     c.Resolve<IOptions<ChangeFeedConfig>>().Value,
