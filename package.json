@@ -27,7 +27,7 @@
     "merge": "2.1.1",
     "semantic-release": "24.2.3",
     "lodash": "4.17.21",
-    "newman": "6.2.1"
+    "newman": "6.2.2"
   },
   "scripts": {
     "commit": "git-cz",
