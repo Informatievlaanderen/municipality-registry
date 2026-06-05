@@ -5,7 +5,6 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure
     using System.Reflection;
     using System.Threading;
     using Asp.Versioning.ApiExplorer;
-    using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
@@ -17,8 +16,12 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure
     using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using Microsoft.OpenApi.Models;
+    using Microsoft.OpenApi;
     using Modules;
+    using MunicipalityRegistry.Infrastructure;
+    using Projections.Legacy;
+    using Serilog;
+    using Serilog.Extensions.Logging;
     using SqlStreamStore;
 
     /// <summary>Represents the startup process for the application.</summary>
@@ -26,22 +29,18 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure
     {
         private const string DatabaseTag = "db";
 
-        private IContainer _applicationContainer;
-
         private readonly IConfiguration _configuration;
         private readonly ILoggerFactory _loggerFactory;
 
-        public Startup(
-            IConfiguration configuration,
-            ILoggerFactory loggerFactory)
+        public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
-            _loggerFactory = loggerFactory;
+            _loggerFactory = new SerilogLoggerFactory(Log.Logger);
         }
 
         /// <summary>Configures services for the application.</summary>
         /// <param name="services">The collection of services to configure the application with.</param>
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             var baseUrl = _configuration.GetValue<string>("BaseUrl");
             var baseUrlForExceptions = baseUrl.EndsWith("/")
@@ -99,13 +98,14 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure
                                     tags: new[] { DatabaseTag, "sql", "sqlserver" });
                             }
                         }
-                    });
-
-            var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterModule(new ApiModule(_configuration, services, _loggerFactory));
-            _applicationContainer = containerBuilder.Build();
-
-            return new AutofacServiceProvider(_applicationContainer);
+                    })
+                .RegisterImportModule(_configuration, _loggerFactory)
+                .RegisterLegacyModule(_configuration, _loggerFactory)
+                .ConfigureIdempotency(
+                    _configuration.GetSection(IdempotencyConfiguration.Section).Get<IdempotencyConfiguration>()!.ConnectionString!,
+                    new IdempotencyMigrationsTableInfo(Schema.Import),
+                    new IdempotencyTableInfo(Schema.Import),
+                    _loggerFactory);
         }
 
         public void Configure(
@@ -125,7 +125,7 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure
                 {
                     Common =
                     {
-                        ApplicationContainer = _applicationContainer,
+                        ApplicationContainer = serviceProvider.GetAutofacRoot(),
                         ServiceProvider = serviceProvider,
                         HostingEnvironment = env,
                         ApplicationLifetime = appLifetime,

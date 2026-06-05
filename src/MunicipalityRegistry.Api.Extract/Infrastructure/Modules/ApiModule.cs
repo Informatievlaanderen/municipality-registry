@@ -10,30 +10,11 @@ namespace MunicipalityRegistry.Api.Extract.Infrastructure.Modules
 
     public class ApiModule : Module
     {
-        private readonly IConfiguration _configuration;
-        private readonly IServiceCollection _services;
-        private readonly ILoggerFactory _loggerFactory;
-
-        public ApiModule(
-            IConfiguration configuration,
-            IServiceCollection services,
-            ILoggerFactory loggerFactory)
-        {
-            _configuration = configuration;
-            _services = services;
-            _loggerFactory = loggerFactory;
-        }
-
         protected override void Load(ContainerBuilder builder)
         {
             builder
-                .RegisterModule(new ExtractModule(_configuration, _services, _loggerFactory, false));
-
-            builder
                 .RegisterType<ProblemDetailsHelper>()
                 .AsSelf();
-
-            builder.Populate(_services);
         }
     }
 }

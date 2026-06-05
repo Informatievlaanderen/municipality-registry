@@ -18,17 +18,10 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
     public class ApiModule : Module
     {
         private readonly IConfiguration _configuration;
-        private readonly IServiceCollection _services;
-        private readonly ILoggerFactory _loggerFactory;
 
-        public ApiModule(
-            IConfiguration configuration,
-            IServiceCollection services,
-            ILoggerFactory loggerFactory)
+        public ApiModule(IConfiguration configuration)
         {
             _configuration = configuration;
-            _services = services;
-            _loggerFactory = loggerFactory;
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -38,15 +31,7 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
             builder
                 .RegisterModule(new EventHandlingModule(typeof(DomainAssemblyMarker).Assembly, eventSerializerSettings))
                 .RegisterModule(new EnvelopeModule())
-                .RegisterModule(new CommandHandlingModule(_configuration))
-                .RegisterModule(new ImportModule(_configuration, _services, _loggerFactory))
-                .RegisterModule(new LegacyModule(_configuration, _services, _loggerFactory));
-
-            _services.ConfigureIdempotency(
-                _configuration.GetSection(IdempotencyConfiguration.Section).Get<IdempotencyConfiguration>().ConnectionString,
-                new IdempotencyMigrationsTableInfo(Schema.Import),
-                new IdempotencyTableInfo(Schema.Import),
-                _loggerFactory);
+                .RegisterModule(new CommandHandlingModule(_configuration));
 
             builder.RegisterType<IdempotentCommandHandler>()
                 .As<IIdempotentCommandHandler>()
@@ -61,8 +46,6 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
                 .RegisterType<VrbgGeometryService>()
                 .AsImplementedInterfaces()
                 .SingleInstance();
-
-            builder.Populate(_services);
         }
     }
 }

@@ -8,10 +8,12 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
     using Be.Vlaanderen.Basisregisters.Api;
+    using Be.Vlaanderen.Basisregisters.AspNetCore.Mvc.Formatters.Json;
     using Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.LastChangedList;
     using Be.Vlaanderen.Basisregisters.Projector.ConnectedProjections;
     using Configuration;
+    using FluentValidation;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
@@ -19,7 +21,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
-    using Microsoft.OpenApi.Models;
+    using Microsoft.OpenApi;
     using Modules;
     using MunicipalityRegistry.Projections.Extract;
     using MunicipalityRegistry.Projections.Feed;
@@ -27,29 +29,24 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using MunicipalityRegistry.Projections.Legacy;
     using MunicipalityRegistry.Projections.Wfs;
     using MunicipalityRegistry.Projections.Wms;
+    using Newtonsoft.Json;
 
     /// <summary>Represents the startup process for the application.</summary>
     public class Startup
     {
         private const string DatabaseTag = "db";
 
-        private IContainer _applicationContainer;
-
         private readonly IConfiguration _configuration;
-        private readonly ILoggerFactory _loggerFactory;
         private readonly CancellationTokenSource _projectionsCancellationTokenSource = new CancellationTokenSource();
 
-        public Startup(
-            IConfiguration configuration,
-            ILoggerFactory loggerFactory)
+        public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
-            _loggerFactory = loggerFactory;
         }
 
         /// <summary>Configures services for the application.</summary>
         /// <param name="services">The collection of services to configure the application with.</param>
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             var baseUrl = _configuration.GetValue<string>("BaseUrl");
             var baseUrlForExceptions = baseUrl.EndsWith("/")
@@ -90,8 +87,6 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                         },
                         MiddlewareHooks =
                         {
-                            FluentValidation = fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>(),
-
                             AfterHealthChecks = health =>
                             {
                                 var connectionStrings = _configuration
@@ -142,16 +137,11 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                             }
                         }
                     })
+                .AddValidatorsFromAssemblyContaining<Startup>()
+                .RegisterLoggingModule(_configuration)
                 .Configure<ExtractConfig>(_configuration.GetSection("Extract"))
                 .Configure<IntegrationOptions>(_configuration.GetSection("Integration"))
                 .Configure<ChangeFeedConfig>(_configuration.GetSection("MunicipalityFeed"));
-
-            var containerBuilder = new ContainerBuilder();
-            containerBuilder.RegisterModule(new LoggingModule(_configuration, services));
-            containerBuilder.RegisterModule(new ApiModule(_configuration, services, _loggerFactory));
-            _applicationContainer = containerBuilder.Build();
-
-            return new AutofacServiceProvider(_applicationContainer);
         }
 
         public void Configure(
@@ -170,7 +160,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure
                 {
                     Common =
                     {
-                        ApplicationContainer = _applicationContainer,
+                        ApplicationContainer = serviceProvider.GetAutofacRoot(),
                         ServiceProvider = serviceProvider,
                         HostingEnvironment = env,
                         ApplicationLifetime = appLifetime,
@@ -199,7 +189,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure
             appLifetime.ApplicationStopping.Register(() => _projectionsCancellationTokenSource.Cancel());
             appLifetime.ApplicationStarted.Register(() =>
             {
-                var projectionsManager = _applicationContainer.Resolve<IConnectedProjectionsManager>();
+                var projectionsManager = serviceProvider.GetRequiredService<IConnectedProjectionsManager>();
                 projectionsManager.Resume(_projectionsCancellationTokenSource.Token);
             });
         }
