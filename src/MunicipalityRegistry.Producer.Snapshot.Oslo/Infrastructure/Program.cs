@@ -14,6 +14,7 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo.Infrastructure
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Modules;
+    using Projections.Legacy;
     using Serilog;
     using Serilog.Debugging;
     using Serilog.Extensions.Logging;
@@ -101,6 +102,8 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo.Infrastructure
                 {
                     var services = new ServiceCollection();
                     var loggerFactory = new SerilogLoggerFactory(Log.Logger);
+
+                    services.RegisterLegacyModule(hostContext.Configuration, loggerFactory);
 
                     builder.RegisterModule(new ProducerModule(hostContext.Configuration, services, loggerFactory));
 

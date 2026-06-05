@@ -2,20 +2,21 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
 {
     using System;
     using Autofac;
+    using CrabImport;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using MunicipalityRegistry.Infrastructure;
 
-    public class ImportModule : Module
+    public static class ImportModule
     {
-        public ImportModule(
+        public static IServiceCollection RegisterImportModule(
+            this IServiceCollection services,
             IConfiguration configuration,
-            IServiceCollection services,
             ILoggerFactory loggerFactory)
         {
-            var logger = loggerFactory.CreateLogger<ImportModule>();
+            var logger = loggerFactory.CreateLogger<CrabImportController>();
             var connectionString = configuration.GetConnectionString("Import");
 
             var hasConnectionString = !string.IsNullOrWhiteSpace(connectionString);
@@ -31,6 +32,8 @@ namespace MunicipalityRegistry.Api.Import.Infrastructure.Modules
                 Environment.NewLine +
                 "\tTableName: {TableName}",
                 nameof(ImportContext), Schema.Import, MigrationTables.Import);
+
+            return services;
         }
 
         private static void RunOnSqlServer(
