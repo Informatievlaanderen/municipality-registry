@@ -1,3 +1,15 @@
+# [7.0.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.9.3...v7.0.0) (2026-06-08)
+
+
+### Features
+
+* update packages + upgrade to dotnet 10 ([5d3243a](https://github.com/informatievlaanderen/municipality-registry/commit/5d3243a3220d6f80c82fe3f94a444586c6385983))
+
+
+### BREAKING CHANGES
+
+* update to dotnet 10
+
 ## [6.9.3](https://github.com/informatievlaanderen/municipality-registry/compare/v6.9.2...v6.9.3) (2026-05-08)
 
 
