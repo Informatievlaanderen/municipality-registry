@@ -384,8 +384,8 @@
       },
       "Datadog.Trace": {
         "type": "Transitive",
-        "resolved": "3.45.0",
-        "contentHash": "X9pNQFNLdElEAvJv/rNDnqjivFIChAAdMbq13QqdPVIy9eykkRYEpP/MZus21WxW1XhxG/h/735F/UVDWbi3+w=="
+        "resolved": "3.46.0",
+        "contentHash": "Ht7MIx8sDaqi6OIkS276bq0mSESd4dzRQW6JC6J/FpekwEDj9boAXWHo7ZQptozVoBw0nvbNGak1WtfRuccNWQ=="
       },
       "Fare": {
         "type": "Transitive",
@@ -1297,7 +1297,7 @@
           "Be.Vlaanderen.Basisregisters.GrAr.Import": "[24.1.0, )",
           "Be.Vlaanderen.Basisregisters.GrAr.Legacy": "[24.1.0, )",
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac": "[16.0.0, )",
-          "Datadog.Trace.Bundle": "[3.45.0, )",
+          "Datadog.Trace.Bundle": "[3.46.0, )",
           "Microsoft.EntityFrameworkCore.InMemory": "[10.0.8, )",
           "MunicipalityRegistry.Infrastructure": "[1.0.0, )",
           "MunicipalityRegistry.Projections.Legacy": "[1.0.0, )"
@@ -1663,11 +1663,11 @@
       },
       "Datadog.Trace.Bundle": {
         "type": "CentralTransitive",
-        "requested": "[3.45.0, )",
-        "resolved": "3.45.0",
-        "contentHash": "ax3lAy2poa1SRgxkMXUpQaCe2vl/Kf0DnopfIltXyRw6o6TSkChFB4Rj9JO3K41Od6A5oMLuf4tMhrCdRRUdfg==",
+        "requested": "[3.46.0, )",
+        "resolved": "3.46.0",
+        "contentHash": "dlcxJakbE4JrZlUho9Qnhq5vAun4e3JhUx9N+KZO+fiEDLSm/d7ezrZIwRQOXmgy4r5YeqQNzZiQsCPXZ8dhuw==",
         "dependencies": {
-          "Datadog.Trace": "3.45.0"
+          "Datadog.Trace": "3.46.0"
         }
       },
       "Destructurama.JsonNet": {
