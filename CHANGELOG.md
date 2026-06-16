@@ -1,3 +1,10 @@
+## [7.0.1](https://github.com/informatievlaanderen/municipality-registry/compare/v7.0.0...v7.0.1) (2026-06-16)
+
+
+### Bug Fixes
+
+* **api:** api xml docs ([d7029ce](https://github.com/informatievlaanderen/municipality-registry/commit/d7029ce5f813a36c3fd3338da6df18a092b47bf3))
+
 # [7.0.0](https://github.com/informatievlaanderen/municipality-registry/compare/v6.9.3...v7.0.0) (2026-06-08)
 
 
