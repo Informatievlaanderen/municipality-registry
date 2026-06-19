@@ -1314,7 +1314,7 @@
           "Be.Vlaanderen.Basisregisters.Api": "[27.0.0, )",
           "Be.Vlaanderen.Basisregisters.EventHandling.Autofac": "[7.1.0, )",
           "Be.Vlaanderen.Basisregisters.GrAr.Contracts": "[24.1.0, )",
-          "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer": "[7.0.0, )",
+          "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer": "[7.1.0, )",
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer": "[16.0.0, )",
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac": "[16.0.0, )",
           "Be.Vlaanderen.Basisregisters.Projector": "[17.0.0, )",
@@ -1330,7 +1330,7 @@
           "Be.Vlaanderen.Basisregisters.EventHandling.Autofac": "[7.1.0, )",
           "Be.Vlaanderen.Basisregisters.GrAr.Legacy": "[24.1.0, )",
           "Be.Vlaanderen.Basisregisters.GrAr.Oslo": "[24.1.0, )",
-          "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer": "[7.0.0, )",
+          "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer": "[7.1.0, )",
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer": "[16.0.0, )",
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac": "[16.0.0, )",
           "Be.Vlaanderen.Basisregisters.Projector": "[17.0.0, )",
@@ -1761,9 +1761,9 @@
       },
       "Be.Vlaanderen.Basisregisters.MessageHandling.Kafka.Producer": {
         "type": "CentralTransitive",
-        "requested": "[7.0.0, )",
-        "resolved": "7.0.0",
-        "contentHash": "iEg9ypqkbTJNl7HhupR6IG4UV/7wacnny+FNzGSFGX1iS9sbTfscxcFGd06tZZ88NZkheiAECXiOUS3e5JJOwg==",
+        "requested": "[7.1.0, )",
+        "resolved": "7.1.0",
+        "contentHash": "Uszzc1YoH0PTMR11NMx/dGVbcm2TOwQNBU94DOw87lTBxL6xFs1blawfpTVNfkWikTA3uCSSUe8E3+8atoHd2Q==",
         "dependencies": {
           "Confluent.Kafka": "2.14.2",
           "Newtonsoft.Json": "13.0.4"
