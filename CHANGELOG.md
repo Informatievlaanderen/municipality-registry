@@ -1,3 +1,10 @@
+## [7.0.3](https://github.com/informatievlaanderen/municipality-registry/compare/v7.0.2...v7.0.3) (2026-06-19)
+
+
+### Bug Fixes
+
+* **projector:** try to fix resume projections ([e2e393d](https://github.com/informatievlaanderen/municipality-registry/commit/e2e393d9cabedca68c8a407737f18ac2d0b9e623))
+
 ## [7.0.2](https://github.com/informatievlaanderen/municipality-registry/compare/v7.0.1...v7.0.2) (2026-06-19)
 
 
