@@ -4,6 +4,7 @@ namespace MunicipalityRegistry.Projector.Infrastructure
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using System.Threading.Tasks;
     using Asp.Versioning.ApiExplorer;
     using Autofac;
     using Autofac.Extensions.DependencyInjection;
@@ -190,7 +191,9 @@ namespace MunicipalityRegistry.Projector.Infrastructure
             appLifetime.ApplicationStarted.Register(() =>
             {
                 var projectionsManager = serviceProvider.GetRequiredService<IConnectedProjectionsManager>();
-                projectionsManager.Resume(_projectionsCancellationTokenSource.Token);
+                Task.Run(async () =>
+                    await projectionsManager.Resume(_projectionsCancellationTokenSource.Token).ConfigureAwait(false)
+                ).ConfigureAwait(false);
             });
         }
 
