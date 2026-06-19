@@ -1,3 +1,10 @@
+## [7.0.2](https://github.com/informatievlaanderen/municipality-registry/compare/v7.0.1...v7.0.2) (2026-06-19)
+
+
+### Bug Fixes
+
+* **projector:** error on startup resolving projector manager ([19543aa](https://github.com/informatievlaanderen/municipality-registry/commit/19543aa77673cba425c8116adcd3c6d81f10024c))
+
 ## [7.0.1](https://github.com/informatievlaanderen/municipality-registry/compare/v7.0.0...v7.0.1) (2026-06-16)
 
 
