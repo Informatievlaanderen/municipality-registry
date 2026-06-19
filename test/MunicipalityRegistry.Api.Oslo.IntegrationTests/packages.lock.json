@@ -1274,7 +1274,7 @@
       },
       "Autofac": {
         "type": "CentralTransitive",
-        "requested": "[9.1.0, )",
+        "requested": "[9.2.0, )",
         "resolved": "9.1.0",
         "contentHash": "onT/BcnnfWcQNXiuC7R/0h8ALQzRdsAI20gpB7nfrudXpFMXdVZKz1umdtHXDwjc/bmWEsrCBAxck3+Arnk15g=="
       },
