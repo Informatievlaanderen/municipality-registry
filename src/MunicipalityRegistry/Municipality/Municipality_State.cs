@@ -53,6 +53,7 @@ namespace MunicipalityRegistry.Municipality
             Register<MunicipalityGeometryWasCorrected>(When);
             Register<MunicipalityGeometryWasCleared>(When);
             Register<MunicipalityGeometryWasCorrectedToCleared>(When);
+            Register<MunicipalityGeometryCrsWasChanged>(When);
 
             Register<MunicipalityBecameCurrent>(When);
             Register<MunicipalityWasCorrectedToCurrent>(When);
@@ -167,6 +168,11 @@ namespace MunicipalityRegistry.Municipality
         private void When(MunicipalityGeometryWasCorrectedToCleared @event)
         {
             Geometry = null;
+        }
+
+        private void When(MunicipalityGeometryCrsWasChanged @event)
+        {
+            Geometry = new ExtendedWkbGeometry(@event.ExtendedWkbGeometry.ToByteArray()!);
         }
 
         private void When(MunicipalityBecameCurrent @event)

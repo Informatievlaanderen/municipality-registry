@@ -8,7 +8,7 @@ namespace MunicipalityRegistry.Tests.AutoFixture
     {
         public void Customize(IFixture fixture)
         {
-            var extendedWkbGeometry = ExtendedWkbGeometry.CreateEWkb(GeometryHelpers.ExampleExtendedWkb, SystemReferenceId.SridLambert72);
+            var extendedWkbGeometry = ExtendedWkbGeometry.CreateEWkb(GeometryHelpers.ExampleExtendedWkbLambert08, SystemReferenceId.SridLambert2008);
 
             fixture.Customize<ExtendedWkbGeometry>(c => c.FromFactory(
                 () => extendedWkbGeometry));

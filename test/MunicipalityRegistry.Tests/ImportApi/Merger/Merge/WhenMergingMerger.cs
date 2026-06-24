@@ -89,7 +89,7 @@
                 [Language.Dutch],
                 [],
                 [new MunicipalityName(_fixture.Create<string>(), Language.Dutch)],
-                new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb),
+                new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkbLambert08),
                 _fixture.Create<Provenance>()));
             DispatchArrangeCommand(new RegisterMunicipality(
                 new MunicipalityId(municipality2.MunicipalityId.Value),
@@ -97,7 +97,7 @@
                 [Language.Dutch],
                 [],
                 [new MunicipalityName(_fixture.Create<string>(), Language.Dutch)],
-                new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb),
+                new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkbLambert08),
                 _fixture.Create<Provenance>()));
             DispatchArrangeCommand(new RegisterMunicipality(
                 new MunicipalityId(newMunicipality.MunicipalityId.Value),
@@ -105,7 +105,7 @@
                 [Language.Dutch],
                 [],
                 [new MunicipalityName(_fixture.Create<string>(), Language.Dutch)],
-                new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb),
+                new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkbLambert08),
                 _fixture.Create<Provenance>()));
 
             DispatchArrangeCommand(new ActivateMunicipality(
