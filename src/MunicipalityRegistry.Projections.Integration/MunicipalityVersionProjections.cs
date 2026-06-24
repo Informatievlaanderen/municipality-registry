@@ -1,5 +1,6 @@
 ﻿namespace MunicipalityRegistry.Projections.Integration
 {
+    using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using Convertors;
@@ -285,6 +286,8 @@
                     },
                     ct);
             });
+
+            When<Envelope<MunicipalityGeometryCrsWasChanged>>(async (_, _, _) => await Task.CompletedTask);
         }
 
         private static void UpdateNameByLanguage(MunicipalityVersion municipalityVersion, Language language, string? name)
