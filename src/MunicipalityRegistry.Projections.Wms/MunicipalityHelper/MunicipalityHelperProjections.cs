@@ -1,5 +1,6 @@
 namespace MunicipalityRegistry.Projections.Wms.Municipality
 {
+    using System.Threading.Tasks;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore;
     using MunicipalityRegistry.Municipality.Events;
@@ -211,6 +212,8 @@ namespace MunicipalityRegistry.Projections.Wms.Municipality
                 if(municipality is not null)
                     context.MunicipalityHelper.Remove(municipality);
             });
+
+            When<Envelope<MunicipalityGeometryCrsWasChanged>>((_, _, _) => Task.CompletedTask);
         }
 
         private static void UpdateNameByLanguage(MunicipalityHelper municipality, Language? language, string name)

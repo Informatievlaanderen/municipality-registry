@@ -171,6 +171,8 @@ namespace MunicipalityRegistry.Producer.Snapshot.Oslo
             //            ct);
             //});
 
+            When<Envelope<MunicipalityGeometryCrsWasChanged>>(async (_, _, _) => await Task.CompletedTask);
+
             When<Envelope<MunicipalityNameWasCleared>>(async (_, message, ct) =>
             {
                 if (message.Message.Provenance.Timestamp.ToDateTimeOffset().Year < 2020)

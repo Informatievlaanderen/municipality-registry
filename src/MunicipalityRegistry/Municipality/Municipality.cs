@@ -103,6 +103,19 @@
                 ApplyChange(new MunicipalityGeometryWasCorrected(MunicipalityId, geometry));
         }
 
+        public void TransformToLambert2008(ExtendedWkbGeometry geometry)
+        {
+            if (IsRemoved)
+                throw new MunicipalityIsRemovedException();
+
+            var reader = WKBReaderFactory.CreateForEwkb(geometry);
+            GuardPolygon(reader.Read(geometry));
+            if(geometry.ToString() == Geometry?.ToString())
+                return;
+
+            ApplyChange(new MunicipalityGeometryCrsWasChanged(MunicipalityId, geometry));
+        }
+
         public void Remove()
         {
             if (IsRemoved)
@@ -114,14 +127,14 @@
         private static void GuardPolygon(Geometry? geometry)
         {
             if (geometry is Polygon
-                && geometry.SRID is SystemReferenceId.SridLambert72 or SystemReferenceId.SridLambert2008
+                && geometry.SRID is SystemReferenceId.SridLambert2008
                 && GeometryValidator.IsValid(geometry))
             {
                 return;
             }
 
             if (geometry is MultiPolygon multiPolygon
-                && multiPolygon.SRID is SystemReferenceId.SridLambert72 or SystemReferenceId.SridLambert2008
+                && multiPolygon.SRID is SystemReferenceId.SridLambert2008
                 && multiPolygon.Geometries.All(GeometryValidator.IsValid))
             {
                 return;
