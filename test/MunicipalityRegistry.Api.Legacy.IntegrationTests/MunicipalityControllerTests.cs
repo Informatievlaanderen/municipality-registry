@@ -7,7 +7,7 @@ namespace MunicipalityRegistry.Api.Legacy.IntegrationTests
     using MunicipalityRegistry.Api.IntegrationTests;
     using Newtonsoft.Json;
     using Oslo.Infrastructure;
-    using Oslo.Municipality.Responses;
+    using Oslo.Municipality.V2.Responses;
     using Xunit;
 
     public class MunicipalityControllerTests

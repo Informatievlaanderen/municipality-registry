@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
+namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
 {
     using System;
     using System.Collections.Generic;
@@ -166,9 +166,9 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
 
     public class MunicipalityOsloResponseExamples : IExamplesProvider<MunicipalityOsloResponse>
     {
-        private readonly ResponseOptions _responseOptions;
+        private readonly ResponseOptionsV3 _responseOptions;
 
-        public MunicipalityOsloResponseExamples(IOptions<ResponseOptions> responseOptionsProvider)
+        public MunicipalityOsloResponseExamples(IOptions<ResponseOptionsV3> responseOptionsProvider)
             => _responseOptions = responseOptionsProvider.Value;
 
         public MunicipalityOsloResponse GetExamples()
@@ -210,7 +210,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
                 HttpStatus = StatusCodes.Status404NotFound,
                 Title = ProblemDetails.DefaultTitle,
                 Detail = "Onbestaande gemeente.",
-                ProblemInstanceUri = _problemDetailsHelper.GetInstanceUri(_httpContextAccessor.HttpContext, "v2")
+                ProblemInstanceUri = _problemDetailsHelper.GetInstanceUri(_httpContextAccessor.HttpContext, "v3")
             };
     }
 }

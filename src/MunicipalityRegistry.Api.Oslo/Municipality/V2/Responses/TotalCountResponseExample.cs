@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
+namespace MunicipalityRegistry.Api.Oslo.Municipality.V2.Responses
 {
     using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
     using Swashbuckle.AspNetCore.Filters;

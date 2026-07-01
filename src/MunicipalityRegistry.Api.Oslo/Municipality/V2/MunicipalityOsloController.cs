@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Oslo.Municipality
+namespace MunicipalityRegistry.Api.Oslo.Municipality.V2
 {
     using System;
     using System.Collections.Generic;
@@ -65,7 +65,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
         [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
         public async Task<IActionResult> Get(
             [FromServices] LegacyContext context,
-            [FromServices] IOptions<ResponseOptions> responseOptions,
+            [FromServices] IOptions<ResponseOptionsV2> responseOptions,
             [FromRoute] string nisCode,
             CancellationToken cancellationToken = default)
         {
@@ -117,7 +117,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
         [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
         public async Task<IActionResult> List(
             [FromServices] LegacyContext context,
-            [FromServices] IOptions<ResponseOptions> responseOptions,
+            [FromServices] IOptions<ResponseOptionsV2> responseOptions,
             Taal? taal,
             CancellationToken cancellationToken = default)
         {
@@ -356,7 +356,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
         public async Task<IActionResult> Sync(
             [FromServices] IConfiguration configuration,
             [FromServices] LegacyContext context,
-            [FromServices] IOptions<ResponseOptions> responseOptions,
+            [FromServices] IOptions<ResponseOptionsV2> responseOptions,
             CancellationToken cancellationToken = default)
         {
             var filtering = Request.ExtractFilteringRequest<MunicipalitySyndicationFilter>();
@@ -383,7 +383,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
 
             return new ContentResult
             {
-                Content = await BuildAtomFeed(lastFeedUpdate, pagedMunicipalities, responseOptions, configuration),
+                Content = await BuildAtomFeed(lastFeedUpdate, pagedMunicipalities, responseOptions.Value, configuration),
                 ContentType = MediaTypeNames.Text.Xml,
                 StatusCode = StatusCodes.Status200OK
             };
@@ -392,7 +392,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
         private static async Task<string> BuildAtomFeed(
             DateTimeOffset lastUpdate,
             PagedQueryable<MunicipalitySyndicationQueryResult> pagedMunicipalities,
-            IOptions<ResponseOptions> responseOptions,
+            ResponseOptions responseOptions,
             IConfiguration configuration)
         {
             var sw = new StringWriterWithEncoding(Encoding.UTF8);
@@ -402,7 +402,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality
             {
                 var formatter = new AtomFormatter(null, xmlWriter.Settings) { UseCDATA = true };
                 var writer = new AtomFeedWriter(xmlWriter, null, formatter);
-                var syndicationConfiguration = configuration.GetSection("Syndication");
+                var syndicationConfiguration = configuration.GetSection("V2:Syndication");
                 var atomConfiguration = AtomFeedConfigurationBuilder.CreateFrom(syndicationConfiguration, lastUpdate);
 
                 await writer.WriteDefaultMetadata(atomConfiguration);

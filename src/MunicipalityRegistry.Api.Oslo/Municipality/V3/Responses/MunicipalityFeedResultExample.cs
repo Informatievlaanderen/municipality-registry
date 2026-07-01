@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
+namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
 {
     using Infrastructure.Options;
     using Microsoft.Extensions.Options;
@@ -7,9 +7,9 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
 
     public sealed class MunicipalityFeedResultExample : IExamplesProvider<object>
     {
-        private readonly ResponseOptions _feedConfig;
+        private readonly ResponseOptionsV3 _feedConfig;
 
-        public MunicipalityFeedResultExample(IOptions<ResponseOptions> feedConfig)
+        public MunicipalityFeedResultExample(IOptions<ResponseOptionsV3> feedConfig)
         {
             _feedConfig = feedConfig.Value;
         }
