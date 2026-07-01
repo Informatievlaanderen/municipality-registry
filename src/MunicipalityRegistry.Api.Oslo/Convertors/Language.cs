@@ -4,9 +4,6 @@ namespace MunicipalityRegistry.Api.Oslo.Convertors
 
     public static class LanguageExtensions
     {
-        public static Taal ConvertFromLanguage(this Language? language)
-            => ConvertFromLanguage(language ?? Language.Dutch);
-
         public static Taal ConvertFromLanguage(this Language language)
         {
             switch (language)
@@ -23,6 +20,25 @@ namespace MunicipalityRegistry.Api.Oslo.Convertors
 
                 case Language.English:
                     return Taal.EN;
+            }
+        }
+
+        public static Be.Vlaanderen.Basisregisters.GrAr.Oslo.Taal ConvertOsloFromLanguage(this Language language)
+        {
+            switch (language)
+            {
+                default:
+                case Language.Dutch:
+                    return Be.Vlaanderen.Basisregisters.GrAr.Oslo.Taal.Nl;
+
+                case Language.French:
+                    return Be.Vlaanderen.Basisregisters.GrAr.Oslo.Taal.Fr;
+
+                case Language.German:
+                    return Be.Vlaanderen.Basisregisters.GrAr.Oslo.Taal.De;
+
+                case Language.English:
+                    return Be.Vlaanderen.Basisregisters.GrAr.Oslo.Taal.En;
             }
         }
     }

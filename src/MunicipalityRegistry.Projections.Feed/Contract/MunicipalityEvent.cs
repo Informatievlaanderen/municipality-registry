@@ -13,10 +13,10 @@
 
     public static class MunicipalityAttributeNames
     {
-        public const string StatusName = "gemeenteStatus";
-        public const string OfficialLanguages = "officieleTalen";
-        public const string FacilitiesLanguages = "faciliteitenTalen";
-        public const string MunicipalityNames = "gemeentenamen";
+        public const string StatusName = "status";
+        public const string OfficialLanguages = "officieleTaal";
+        public const string FacilitiesLanguages = "faciliteitenTaal";
+        public const string MunicipalityNames = "gemeentenaam";
     }
 
     public sealed class MunicipalityCloudTransformEvent

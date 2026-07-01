@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
-    using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
-    using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
+    using Be.Vlaanderen.Basisregisters.GrAr.Oslo;
+    using Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente;
     using Infrastructure;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -49,7 +49,7 @@
             {
                 MunicipalityId = municipalityId,
                 NisCode = nisCode,
-                Status = GemeenteStatus.Voorgesteld,
+                Status = new Status(GemeenteStatus.Voorgesteld),
             };
 
             LastChangedOn = createdTimestamp;
@@ -60,7 +60,7 @@
     {
         public Guid MunicipalityId { get; set; }
         public string NisCode { get; set; } = null!;
-        public GemeenteStatus Status { get; set; }
+        public Status Status { get; set; }
         public DateTimeOffset VersionId { get; set; }
         public List<GeografischeNaam> Names { get; set; } = [];
         public List<Taal> OfficialLanguages { get; set; } = [];

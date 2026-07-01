@@ -1,0 +1,19 @@
+namespace MunicipalityRegistry.Api.Oslo.Infrastructure.Options
+{
+    using Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed;
+
+    public sealed class ResponseOptionsV3
+    {
+        public string Naamruimte { get; set; }
+        public string VolgendeUrl { get; set; }
+        public string DetailUrl { get; set; }
+        public string ContextUrlList { get; set; }
+        public string ContextUrlDetail { get; set; }
+
+        public string MunicipalityDetailAddressesLink { get; set; }
+        public string MunicipalityDetailStreetNamesLink { get; set; }
+        public string MunicipalityDetailPostInfoLink { get; set; }
+
+        public ChangeFeedConfig MunicipalityFeed { get; set; }
+    }
+}

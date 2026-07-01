@@ -104,7 +104,8 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure
                     })
                 .RegisterLegacyModule(_configuration, _loggerFactory)
                 .RegisterFeedModule(_configuration, _loggerFactory, new JsonSerializerSettings().ConfigureDefaultForApi())
-                .Configure<ResponseOptions>(_configuration);
+                .Configure<ResponseOptionsV2>(_configuration.GetSection("V2"))
+                .Configure<ResponseOptionsV3>(_configuration.GetSection("V3"));
         }
 
         public void Configure(

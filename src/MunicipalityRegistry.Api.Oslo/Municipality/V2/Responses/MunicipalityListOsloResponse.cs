@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
+namespace MunicipalityRegistry.Api.Oslo.Municipality.V2.Responses
 {
     using System;
     using System.Collections.Generic;
@@ -92,9 +92,9 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
 
     public class MunicipalityListOsloResponseExamples : IExamplesProvider<MunicipalityListOsloResponse>
     {
-        private readonly ResponseOptions _responseOptions;
+        private readonly ResponseOptionsV2 _responseOptions;
 
-        public MunicipalityListOsloResponseExamples(IOptions<ResponseOptions> responseOptionsProvider)
+        public MunicipalityListOsloResponseExamples(IOptions<ResponseOptionsV2> responseOptionsProvider)
             => _responseOptions = responseOptionsProvider.Value;
 
         public MunicipalityListOsloResponse GetExamples()

@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
+namespace MunicipalityRegistry.Api.Oslo.Municipality.V2.Responses
 {
     using System;
     using System.Collections.Generic;
@@ -166,9 +166,9 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
 
     public class MunicipalityOsloResponseExamples : IExamplesProvider<MunicipalityOsloResponse>
     {
-        private readonly ResponseOptions _responseOptions;
+        private readonly ResponseOptionsV2 _responseOptions;
 
-        public MunicipalityOsloResponseExamples(IOptions<ResponseOptions> responseOptionsProvider)
+        public MunicipalityOsloResponseExamples(IOptions<ResponseOptionsV2> responseOptionsProvider)
             => _responseOptions = responseOptionsProvider.Value;
 
         public MunicipalityOsloResponse GetExamples()
@@ -210,6 +210,30 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
                 HttpStatus = StatusCodes.Status404NotFound,
                 Title = ProblemDetails.DefaultTitle,
                 Detail = "Onbestaande gemeente.",
+                ProblemInstanceUri = _problemDetailsHelper.GetInstanceUri(_httpContextAccessor.HttpContext, "v2")
+            };
+    }
+
+    public class MunicipalityGoneResponseExamples : IExamplesProvider<ProblemDetails>
+    {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ProblemDetailsHelper _problemDetailsHelper;
+
+        public MunicipalityGoneResponseExamples(
+            IHttpContextAccessor httpContextAccessor,
+            ProblemDetailsHelper problemDetailsHelper)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _problemDetailsHelper = problemDetailsHelper;
+        }
+
+        public ProblemDetails GetExamples()
+            => new ProblemDetails
+            {
+                ProblemTypeUri = "urn:be.vlaanderen.basisregisters.api:municipality:gone",
+                HttpStatus = StatusCodes.Status410Gone,
+                Title = ProblemDetails.DefaultTitle,
+                Detail = "Verwijderde gemeente.",
                 ProblemInstanceUri = _problemDetailsHelper.GetInstanceUri(_httpContextAccessor.HttpContext, "v2")
             };
     }

@@ -1,0 +1,363 @@
+namespace MunicipalityRegistry.Api.Oslo.Municipality.V3
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Asp.Versioning;
+    using Be.Vlaanderen.Basisregisters.Api;
+    using Be.Vlaanderen.Basisregisters.Api.ChangeFeed;
+    using Be.Vlaanderen.Basisregisters.Api.Exceptions;
+    using Be.Vlaanderen.Basisregisters.Api.Search;
+    using Be.Vlaanderen.Basisregisters.Api.Search.Filtering;
+    using Be.Vlaanderen.Basisregisters.Api.Search.Pagination;
+    using Be.Vlaanderen.Basisregisters.Api.Search.Sorting;
+    using Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common;
+    using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
+    using CloudNative.CloudEvents;
+    using Convertors;
+    using Infrastructure.Options;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.OutputCaching;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Options;
+    using Projections.Feed;
+    using Projections.Legacy;
+    using Projections.Legacy.MunicipalityList;
+    using Query;
+    using Responses;
+    using Swashbuckle.AspNetCore.Filters;
+    using GeografischeNaam = Be.Vlaanderen.Basisregisters.GrAr.Oslo.GeografischeNaam;
+    using ProblemDetails = Be.Vlaanderen.Basisregisters.BasicApiProblem.ProblemDetails;
+
+    [ApiVersion("3.0")]
+    [AdvertiseApiVersions("3.0")]
+    [ApiRoute("gemeenten")]
+    [ApiExplorerSettings(GroupName = "Gemeenten")]
+    public class MunicipalityOsloController : ApiController
+    {
+        /// <summary>
+        /// Vraag een gemeente op.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="responseOptions"></param>
+        /// <param name="nisCode">Identificator van de gemeente.</param>
+        /// <param name="cancellationToken"></param>
+        /// <response code="200">Als de gemeente gevonden is.</response>
+        /// <response code="404">Als de gemeente niet gevonden kan worden.</response>
+        /// <response code="500">Als er een interne fout is opgetreden.</response>
+        [HttpGet("{nisCode}")]
+        [Produces(AcceptTypes.JsonLd)]
+        [ProducesResponseType(typeof(MunicipalityOsloResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status410Gone)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalityOsloResponseExamples))]
+        [SwaggerResponseExample(StatusCodes.Status404NotFound, typeof(MunicipalityNotFoundResponseExamples))]
+        [SwaggerResponseExample(StatusCodes.Status410Gone, typeof(MunicipalityGoneResponseExamples))]
+        [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
+        public async Task<IActionResult> Get(
+            [FromServices] LegacyContext context,
+            [FromServices] IOptions<ResponseOptionsV3> responseOptions,
+            [FromRoute] string nisCode,
+            CancellationToken cancellationToken = default)
+        {
+            var municipality =
+                await context
+                    .MunicipalityDetail
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync(item => item.NisCode == nisCode, cancellationToken);
+
+            if (municipality == null)
+                throw new ApiException("Onbestaande gemeente.", StatusCodes.Status404NotFound);
+
+            if (municipality.IsRemoved)
+                throw new ApiException("Verwijderde gemeente.", StatusCodes.Status410Gone);
+
+            return Ok(
+                new MunicipalityOsloResponse(
+                    responseOptions.Value.ContextUrlDetail,
+                    municipality.Status.ConvertOsloFromMunicipalityStatus(),
+                    municipality.NisCode,
+                    municipality.OfficialLanguages,
+                    municipality.FacilitiesLanguages,
+                    municipality.NameDutch,
+                    municipality.NameFrench,
+                    municipality.NameGerman,
+                    municipality.NameEnglish,
+                    municipality.VersionTimestamp.ToBelgianDateTimeOffset(),
+                    responseOptions.Value.DetailUrl,
+                    responseOptions.Value.MunicipalityDetailStreetNamesLink,
+                    responseOptions.Value.MunicipalityDetailAddressesLink,
+                    responseOptions.Value.MunicipalityDetailPostInfoLink));
+        }
+
+        /// <summary>
+        /// Vraag een lijst met actieve gemeenten op.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="taal">Gewenste taal van de respons.</param>
+        /// <param name="responseOptions"></param>
+        /// <param name="cancellationToken"></param>
+        /// <response code="200">Als de opvraging van een lijst met gemeenten gelukt is.</response>
+        /// <response code="500">Als er een interne fout is opgetreden.</response>
+        [HttpGet]
+        [Produces(AcceptTypes.JsonLd)]
+        [ProducesResponseType(typeof(MunicipalityListOsloResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalityListOsloResponseExamples))]
+        [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
+        public async Task<IActionResult> List(
+            [FromServices] LegacyContext context,
+            [FromServices] IOptions<ResponseOptionsV3> responseOptions,
+            Taal? taal,
+            CancellationToken cancellationToken = default)
+        {
+            var filtering = Request.ExtractFilteringRequest<MunicipalityListFilter>();
+            var sorting = Request.ExtractSortingRequest();
+            var pagination = Request.ExtractPaginationRequest();
+
+            var pagedMunicipalities = new MunicipalityListOsloQuery(context).Fetch(filtering, sorting, pagination);
+            var municipalities = await pagedMunicipalities.Items.ToListAsync(cancellationToken);
+
+            Response.AddPagedQueryResultHeaders(pagedMunicipalities);
+
+            return Ok(
+                new MunicipalityListOsloResponse
+                {
+                    Context = responseOptions.Value.ContextUrlList,
+                    Gemeenten = municipalities
+                        .Select(m => new MunicipalityListOsloItemResponse(
+                            m.NisCode,
+                            responseOptions.Value.DetailUrl,
+                            m.VersionTimestamp.ToBelgianDateTimeOffset(),
+                            GetOfficialGeografischeNamen(m),
+                            m.Status))
+                        .ToList(),
+                    Volgende = BuildNextUri(pagedMunicipalities.PaginationInfo, municipalities.Count,
+                        responseOptions.Value.VolgendeUrl)
+                });
+        }
+
+        private static IEnumerable<GeografischeNaam> GetOfficialGeografischeNamen(MunicipalityListItem item)
+        {
+            var gemeenteNamen = new List<GeografischeNaam>
+            {
+                new(item.NameDutch, Be.Vlaanderen.Basisregisters.GrAr.Oslo.Taal.Nl),
+                new(item.NameFrench, Be.Vlaanderen.Basisregisters.GrAr.Oslo.Taal.Fr),
+                new(item.NameGerman, Be.Vlaanderen.Basisregisters.GrAr.Oslo.Taal.De),
+                new(item.NameEnglish, Be.Vlaanderen.Basisregisters.GrAr.Oslo.Taal.En)
+            };
+
+            return gemeenteNamen.Where(x => !string.IsNullOrWhiteSpace(x.Spelling)).ToList();
+        }
+
+        /// <summary>
+        /// Vraag het totaal aantal van actieve gemeenten op.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="cancellationToken"></param>
+        /// <response code="200">Als de opvraging van het totaal aantal gelukt is.</response>
+        /// <response code="500">Als er een interne fout is opgetreden.</response>
+        [HttpGet("totaal-aantal")]
+        [Produces(AcceptTypes.JsonLd)]
+        [ProducesResponseType(typeof(TotaalAantalResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(TotalCountResponseExample))]
+        [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
+        public async Task<IActionResult> Count(
+            [FromServices] LegacyContext context,
+            CancellationToken cancellationToken = default)
+        {
+            var filtering = Request.ExtractFilteringRequest<MunicipalityListFilter>();
+            var sorting = Request.ExtractSortingRequest();
+            var pagination = new NoPaginationRequest();
+
+            return Ok(
+                new TotaalAantalResponse
+                {
+                    Aantal = filtering.ShouldFilter
+                        ? await new MunicipalityListOsloQuery(context)
+                            .Fetch(filtering, sorting, pagination)
+                            .Items
+                            .CountAsync(cancellationToken)
+                        : await context
+                            .MunicipalityList
+                            .CountAsync(cancellationToken)
+                });
+        }
+
+        /// <summary>
+        /// Vraag wijzigingen van alle gemeenten op.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="page">Page in route is gebruikt voor cache opvulling.</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet("wijzigingen")]
+        [Produces(AcceptTypes.JsonCloudEventsBatch)]
+        [OutputCache(
+            VaryByQueryKeys = ["page"],
+            VaryByHeaderNames = [ExtractFilteringRequestExtension.HeaderName])]
+        [ProducesResponseType(typeof(List<CloudEvent>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalityFeedResultExample))]
+        [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
+        public async Task<IActionResult> Changes(
+            [FromServices] FeedContext context,
+            [FromQuery] int? page,
+            CancellationToken cancellationToken = default)
+        {
+            var filtering = Request.ExtractFilteringRequest<MunicipalityFeedFilter>();
+            if (page is null)
+                page = filtering.Filter?.Page ?? 1;
+
+            var feedPosition = filtering.Filter?.FeedPosition;
+
+            if (feedPosition.HasValue && filtering.Filter?.Page.HasValue == false)
+            {
+                page = context.MunicipalityFeed
+                    .Where(x => x.Position == feedPosition.Value)
+                    .Select(x => x.Page)
+                    .Distinct()
+                    .AsEnumerable()
+                    .DefaultIfEmpty(1)
+                    .Min();
+            }
+
+            var feedItemsEvents = await context
+                .MunicipalityFeed
+                .Where(x => x.Page == page)
+                .OrderBy(x => x.Id)
+                .Select(x => x.CloudEventAsString)
+                .ToListAsync(cancellationToken);
+
+            var jsonContent = "[" + string.Join(",", feedItemsEvents) + "]";
+
+            return new ChangeFeedResult(jsonContent, feedItemsEvents.Count >= ChangeFeedService.DefaultMaxPageSize);
+        }
+
+        /// <summary>
+        /// Vraag wijzigingen van een bepaalde gemeente op.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="nisCode">NisCode van de gemeente</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet("{nisCode}/wijzigingen")]
+        [Produces(AcceptTypes.JsonCloudEventsBatch)]
+        [ProducesResponseType(typeof(List<CloudEvent>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
+        [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalityFeedResultExample))]
+        [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
+        public async Task<IActionResult> ChangesByNisCode(
+            [FromServices] FeedContext context,
+            [FromRoute] string nisCode,
+            CancellationToken cancellationToken = default)
+        {
+            var pagination = (PaginationRequest)Request.ExtractPaginationRequest();
+
+            var feedItemsEvents = await context
+                .MunicipalityFeed
+                .Where(x => x.NisCode == nisCode)
+                .OrderBy(x => x.Id)
+                .Select(x => x.CloudEventAsString)
+                .Skip(pagination.Offset)
+                .Take(pagination.Limit)
+                .ToListAsync(cancellationToken);
+
+            var jsonContent = "[" + string.Join(",", feedItemsEvents) + "]";
+
+            return Content(jsonContent, AcceptTypes.JsonCloudEventsBatch);
+        }
+
+        [HttpGet("posities")]
+        [Produces(AcceptTypes.Json)]
+        [ProducesResponseType(typeof(FeedPositieResponse), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetPositions(
+            [FromServices] LegacyContext legacyContext,
+            [FromServices] FeedContext feedContext,
+            CancellationToken cancellationToken = default)
+        {
+            var filtering = Request.ExtractFilteringRequest<MunicipalityPositionFilter>();
+            var response = new FeedPositieResponse();
+            if (filtering.ShouldFilter && !filtering.Filter.HasMoreThanOneFilter)
+            {
+                if (filtering.Filter.Download.HasValue)
+                {
+                    var businessFeedPosition = await legacyContext
+                        .MunicipalitySyndication
+                        .AsNoTracking()
+                        .Where(x => x.Position <= filtering.Filter.Download.Value)
+                        .OrderByDescending(x => x.Position)
+                        .Select(x => x.Position)
+                        .FirstOrDefaultAsync(cancellationToken);
+
+                    var changeFeed = await feedContext
+                        .MunicipalityFeed
+                        .AsNoTracking()
+                        .Where(x => x.Position <= filtering.Filter.Download.Value)
+                        .OrderByDescending(x => x.Position)
+                        .Select(x => new { x.Id, x.Page })
+                        .FirstOrDefaultAsync(cancellationToken);
+
+                    response.Feed = businessFeedPosition;
+                    response.WijzigingenFeedPagina = changeFeed?.Page;
+                    response.WijzigingenFeedId = changeFeed?.Id;
+                }
+                else if (filtering.Filter.Sync.HasValue)
+                {
+                    var changeFeed = await feedContext
+                        .MunicipalityFeed
+                        .AsNoTracking()
+                        .Where(x => x.Position <= filtering.Filter.Sync.Value)
+                        .OrderByDescending(x => x.Position)
+                        .Select(x => new { x.Id, x.Page })
+                        .FirstOrDefaultAsync(cancellationToken);
+
+                    response.Feed = filtering.Filter.Sync.Value;
+                    response.WijzigingenFeedPagina = changeFeed?.Page;
+                    response.WijzigingenFeedId = changeFeed?.Id;
+                }
+                else if (filtering.Filter.ChangeFeedId.HasValue)
+                {
+                    var feedItem = await feedContext
+                        .MunicipalityFeed
+                        .AsNoTracking()
+                        .Where(x => x.Id == filtering.Filter.ChangeFeedId.Value)
+                        .Select(x => new { x.Id, x.Page, x.Position })
+                        .FirstOrDefaultAsync(cancellationToken);
+
+                    if (feedItem is null)
+                        return Ok(response);
+
+                    response.Feed = feedItem.Position;
+                    response.WijzigingenFeedPagina = feedItem.Page;
+                    response.WijzigingenFeedId = feedItem.Id;
+                }
+            }
+
+            return Ok(response);
+        }
+
+        private static Uri? BuildNextUri(PaginationInfo paginationInfo, int itemsInCollection, string nextUrlBase)
+        {
+            var offset = paginationInfo.Offset;
+            var limit = paginationInfo.Limit;
+
+            return paginationInfo.HasNextPage(itemsInCollection)
+                ? new Uri(string.Format(nextUrlBase, offset + limit, limit))
+                : null;
+        }
+
+        private static Uri? BuildNextSyncUri(int limit, long? from, string nextUrlBase)
+        {
+            return from.HasValue
+                ? new Uri(string.Format(nextUrlBase, from.Value, limit))
+                : null;
+        }
+    }
+}
