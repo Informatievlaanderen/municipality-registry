@@ -7,8 +7,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
-    using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
-    using Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente;
+    using Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente;
     using Be.Vlaanderen.Basisregisters.GrAr.Oslo;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.ProjectionHandling.Connector;
@@ -34,7 +33,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
 
                 await AddCloudEvent(message, document, context, [
                     new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, null,
-                        GemeenteStatus.Voorgesteld)
+                        document.Document.Status.Id)
                 ], MunicipalityEventTypes.CreateV1);
             });
 
@@ -172,11 +171,12 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 if (document == null)
                     throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
 
-                document.Document.Status = GemeenteStatus.InGebruik;
+                var oldStatus = document.Document.Status.Id;
+                document.Document.Status = new Status(GemeenteStatus.InGebruik);
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
-                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, GemeenteStatus.Voorgesteld, document.Document.Status)
+                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, oldStatus, document.Document.Status.Id)
                 ]);
             });
 
@@ -186,12 +186,12 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 if (document == null)
                     throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
 
-                var oldStatus = document.Document.Status;
-                document.Document.Status = GemeenteStatus.InGebruik;
+                var oldStatus = document.Document.Status.Id;
+                document.Document.Status = new Status(GemeenteStatus.InGebruik);
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
-                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, oldStatus, document.Document.Status)
+                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, oldStatus, document.Document.Status.Id)
                 ]);
             });
 
@@ -201,12 +201,12 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 if (document == null)
                     throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
 
-                var oldStatus = document.Document.Status;
-                document.Document.Status = GemeenteStatus.Gehistoreerd;
+                var oldStatus = document.Document.Status.Id;
+                document.Document.Status = new Status(GemeenteStatus.Gehistoreerd);
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
-                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, oldStatus, document.Document.Status)
+                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, oldStatus, document.Document.Status.Id)
                 ]);
             });
 
@@ -216,12 +216,12 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 if (document == null)
                     throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
 
-                var oldStatus = document.Document.Status;
-                document.Document.Status = GemeenteStatus.Gehistoreerd;
+                var oldStatus = document.Document.Status.Id;
+                document.Document.Status = new Status(GemeenteStatus.Gehistoreerd);
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
-                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, oldStatus, document.Document.Status)
+                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, oldStatus, document.Document.Status.Id)
                 ]);
             });
 
@@ -263,6 +263,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                     municipalityFeedItem.Id,
                     message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset(),
                     MunicipalityEventTypes.TransformV1,
+                    municipalityFeedItem.NisCode,
                     transformData,
                     _changeFeedService.DataSchemaUriTransform,
                     message.EventName,
@@ -271,12 +272,12 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 municipalityFeedItem.CloudEventAsString = _changeFeedService.SerializeCloudEvent(cloudEvent);
                 await CheckToUpdateCache(page, context);
 
-                var oldStatus = document.Document.Status;
-                document.Document.Status = GemeenteStatus.Gehistoreerd;
+                var oldStatus = document.Document.Status.Id;
+                document.Document.Status = new Status(GemeenteStatus.Gehistoreerd);
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
-                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, oldStatus, document.Document.Status)
+                    new BaseRegistriesCloudEventAttribute(MunicipalityAttributeNames.StatusName, oldStatus, document.Document.Status.Id)
                 ]);
             });
 
@@ -345,16 +346,16 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
             {
                 default:
                 case Language.Dutch:
-                    return Taal.NL;
+                    return Taal.Nl;
 
                 case Language.French:
-                    return Taal.FR;
+                    return Taal.Fr;
 
                 case Language.German:
-                    return Taal.DE;
+                    return Taal.De;
 
                 case Language.English:
-                    return Taal.EN;
+                    return Taal.En;
             }
         }
 

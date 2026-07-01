@@ -1,4 +1,4 @@
-namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
+namespace MunicipalityRegistry.Api.Oslo.Municipality.V2.Responses
 {
     using System;
     using System.Collections.Generic;
@@ -14,7 +14,6 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Convertors;
     using Infrastructure.Options;
-    using Microsoft.Extensions.Options;
     using Microsoft.SyndicationFeed;
     using Microsoft.SyndicationFeed.Atom;
     using Query;
@@ -25,7 +24,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
     {
         public static async Task WriteMunicipality(
             this ISyndicationFeedWriter writer,
-            IOptions<ResponseOptions> responseOptions,
+            ResponseOptions responseOptions,
             AtomFormatter formatter,
             string category,
             MunicipalitySyndicationQueryResult municipality)
@@ -36,14 +35,14 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.Responses
                 Title = $"{municipality.ChangeType}-{municipality.Position}",
                 Published = municipality.RecordCreatedAt.ToBelgianDateTimeOffset(),
                 LastUpdated = municipality.LastChangedOn.ToBelgianDateTimeOffset(),
-                Description = BuildDescription(municipality, responseOptions.Value.Naamruimte)
+                Description = BuildDescription(municipality, responseOptions.Naamruimte)
             };
 
             if (!string.IsNullOrWhiteSpace(municipality.NisCode))
             {
                 item.AddLink(
                     new SyndicationLink(
-                        new Uri($"{responseOptions.Value.Naamruimte}/{municipality.NisCode}"),
+                        new Uri($"{responseOptions.Naamruimte}/{municipality.NisCode}"),
                         AtomLinkTypes.Related));
             }
 

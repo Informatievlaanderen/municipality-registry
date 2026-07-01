@@ -5,7 +5,7 @@ namespace MunicipalityRegistry.Api.Oslo.IntegrationTests
     using System.Threading.Tasks;
     using Infrastructure;
     using Microsoft.AspNetCore.Mvc.Testing;
-    using Municipality.Responses;
+    using Municipality.V2.Responses;
     using MunicipalityRegistry.Api.IntegrationTests;
     using Newtonsoft.Json;
     using Xunit;
