@@ -115,6 +115,8 @@ namespace MunicipalityRegistry.Projector.Infrastructure.Modules
                     _configuration,
                     _loggerFactory)
                 .RegisterProjections<LastChangedListProjections, LastChangedListContext>(ConnectedProjectionSettings
+                    .Default)
+                .RegisterProjections<LastChangedListProjectionsV3, LastChangedListContext>(ConnectedProjectionSettings
                     .Default);
         }
 
