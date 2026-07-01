@@ -78,7 +78,7 @@
                 municipality.ProposeMunicipality!.OfficialLanguages.Select(ToLanguage).ToList(),
                 municipality.ProposeMunicipality.FacilitiesLanguages.Select(ToLanguage).ToList(),
                 municipality.ProposeMunicipality.Names.Select(n => new MunicipalityName(n.Value, ToLanguage(n.Key))).ToList(),
-                ExtendedWkbGeometry.CreateEWkb(newMunicipalityGeometry.ToBinary())!,
+                ExtendedWkbGeometry.CreateEWkb(newMunicipalityGeometry)!,
                 CreateProvenance($"Fusie {mergerYear}")
             );
 
@@ -95,18 +95,18 @@
 
         private static async Task<Geometry> BuildMunicipalityGeometry(ProposeMergerRequest municipality, IMunicipalityGeometryReader municipalityGeometryReader)
         {
-            var geometryFactory = NtsGeometryFactory.CreateGeometryFactoryLambert72();
+            var geometryFactory = NtsGeometryFactory.CreateGeometryFactoryLambert2008();
 
             try
             {
-                var newMunicipalityGeometry = await municipalityGeometryReader.GetGeometry(municipality.NisCode, ExtendedWkbGeometry.SridLambert72);
+                var newMunicipalityGeometry = await municipalityGeometryReader.GetGeometry(municipality.NisCode, SystemReferenceId.SridLambert2008);
                 return newMunicipalityGeometry;
             }
             catch (InvalidPolygonException)
             { }
 
             var municipalityGeometriesToMerge =
-                await Task.WhenAll(municipality.MergerOf.Select(x => municipalityGeometryReader.GetGeometry(x, SystemReferenceId.SridLambert72)));
+                await Task.WhenAll(municipality.MergerOf.Select(x => municipalityGeometryReader.GetGeometry(x, SystemReferenceId.SridLambert2008)));
             var newMunicipalityCombinedGeometry = new MultiPolygon(
                 municipalityGeometriesToMerge.SelectMany(geometry =>
                     {

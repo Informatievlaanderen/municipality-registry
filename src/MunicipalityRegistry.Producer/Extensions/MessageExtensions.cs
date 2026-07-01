@@ -81,5 +81,8 @@ namespace MunicipalityRegistry.Producer.Extensions
 
         public static Contracts.MunicipalityWasRemoved ToContract(this Domain.MunicipalityWasRemoved message) =>
             new Contracts.MunicipalityWasRemoved(message.MunicipalityId.ToString("D"), message.NisCode, message.Provenance.ToContract());
+
+        public static Contracts.MunicipalityGeometryCrsWasChanged ToContract(this Domain.MunicipalityGeometryCrsWasChanged message) =>
+            new Contracts.MunicipalityGeometryCrsWasChanged(message.MunicipalityId.ToString("D"), message.ExtendedWkbGeometry, message.Provenance.ToContract());
     }
 }

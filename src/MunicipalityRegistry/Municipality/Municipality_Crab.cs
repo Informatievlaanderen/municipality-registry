@@ -3,6 +3,7 @@ namespace MunicipalityRegistry.Municipality
     using System.Collections.Generic;
     using System.Linq;
     using Be.Vlaanderen.Basisregisters.Crab;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using Events;
     using Exceptions;
     using NodaTime;
@@ -179,7 +180,7 @@ namespace MunicipalityRegistry.Municipality
 
         private void CheckChangedGeometry(byte[]? wkb, CrabModification? modification)
         {
-            var ewkb = ExtendedWkbGeometry.CreateEWkb(wkb);
+            var ewkb = ExtendedWkbGeometry.CreateEWkb(wkb, SystemReferenceId.SridLambert72);
 
             if (Geometry == ewkb)
             {
