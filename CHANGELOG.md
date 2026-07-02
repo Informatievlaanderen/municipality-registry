@@ -1,3 +1,10 @@
+## [7.0.4](https://github.com/informatievlaanderen/municipality-registry/compare/v7.0.3...v7.0.4) (2026-07-02)
+
+
+### Bug Fixes
+
+* **extract:** disable retry ([0e3dcde](https://github.com/informatievlaanderen/municipality-registry/commit/0e3dcde3691e871e8cb4a764c0f88f92b16b4ac8))
+
 ## [7.0.3](https://github.com/informatievlaanderen/municipality-registry/compare/v7.0.2...v7.0.3) (2026-06-19)
 
 
