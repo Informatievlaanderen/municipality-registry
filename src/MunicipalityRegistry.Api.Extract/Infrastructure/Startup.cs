@@ -97,7 +97,7 @@ namespace MunicipalityRegistry.Api.Extract.Infrastructure
                 .RegisterExtractModule(
                     _configuration,
                     _loggerFactory,
-                    enableRetry: true);
+                    enableRetry: false);
         }
 
         public void Configure(
