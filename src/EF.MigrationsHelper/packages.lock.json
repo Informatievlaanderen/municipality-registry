@@ -1286,7 +1286,7 @@
           "Be.Vlaanderen.Basisregisters.Api": "[27.0.0, )",
           "Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency": "[11.0.0, )",
           "Be.Vlaanderen.Basisregisters.EventHandling.Autofac": "[7.1.0, )",
-          "Be.Vlaanderen.Basisregisters.GrAr.Import": "[24.1.0, )",
+          "Be.Vlaanderen.Basisregisters.GrAr.Import": "[24.4.1, )",
           "Be.Vlaanderen.Basisregisters.GrAr.Legacy": "[24.1.0, )",
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac": "[16.0.0, )",
           "Datadog.Trace.Bundle": "[3.46.0, )",
@@ -1703,9 +1703,9 @@
       },
       "Be.Vlaanderen.Basisregisters.GrAr.Import": {
         "type": "CentralTransitive",
-        "requested": "[24.1.0, )",
-        "resolved": "24.1.0",
-        "contentHash": "4aMmSSPtbNnpTEaXEf6sxCrfgx18YnV+gCxar0yKZK7hgMcAfe+hrkbc0AJ7TC3wNh7RMtQsxI8Hd/lFQMnRVg==",
+        "requested": "[24.4.1, )",
+        "resolved": "24.4.1",
+        "contentHash": "+c6lCzIIygtEx1due8w6QZJsfNIgwqCCSO9fk35nhQj7xN3LKiVehbsHAW53U2+R+rgVe9sdVbPSg7MaxL6hKw==",
         "dependencies": {
           "Autofac": "9.1.0",
           "Be.Vlaanderen.Basisregisters.AggregateSource.SqlStreamStore": "11.0.0",
