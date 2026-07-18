@@ -3,6 +3,7 @@
         <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
         <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
         <CentralPackageVersionOverrideEnabled>false</CentralPackageVersionOverrideEnabled>
+        <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
     </PropertyGroup>
 
     <ItemGroup>
@@ -61,14 +62,14 @@
         <PackageVersion Include="Be.Vlaanderen.Basisregisters.ProjectionHandling.Testing.Xunit" Version="16.0.0" />
         <PackageVersion Include="Be.Vlaanderen.Basisregisters.Projector" Version="17.0.0" />
         <PackageVersion Include="Be.Vlaanderen.Basisregisters.Crab" Version="5.1.0" />
-        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Common" Version="24.1.0" />
-        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Contracts" Version="24.1.0" />
-        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Import" Version="24.1.0" />
-        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Legacy" Version="24.1.0" />
-        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Oslo" Version="24.1.0" />
-        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Provenance" Version="24.1.0" />
-        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Extracts" Version="24.1.0" />
-        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed" Version="24.1.0" />
+        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Common" Version="24.4.0" />
+        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Contracts" Version="24.4.0" />
+        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Import" Version="24.4.0" />
+        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Legacy" Version="24.4.0" />
+        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Oslo" Version="24.4.0" />
+        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Provenance" Version="24.4.0" />
+        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.Extracts" Version="24.4.0" />
+        <PackageVersion Include="Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed" Version="24.4.0" />
         <PackageVersion Include="Be.Vlaanderen.Basisregisters.Shaperon" Version="11.1.0" />
 
         <PackageVersion Include="Structurizr.Core" Version="0.9.7" />

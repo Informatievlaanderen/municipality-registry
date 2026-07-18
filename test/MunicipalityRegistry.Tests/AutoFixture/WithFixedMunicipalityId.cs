@@ -73,13 +73,6 @@ namespace MunicipalityRegistry.Tests.AutoFixture
                     new ParameterSpecification(
                         typeof(string),
                         "wkbGeometry")));
-
-            fixture.Customizations.Add(
-                new FilteringSpecimenBuilder(
-                    new FixedBuilder((int)SpatialReferenceSystemId.Lambert72),
-                    new ParameterSpecification(
-                        typeof(int),
-                        "spatialReferenceSystemId")));
         }
     }
 

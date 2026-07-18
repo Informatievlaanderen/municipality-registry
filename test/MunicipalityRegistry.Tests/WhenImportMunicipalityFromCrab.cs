@@ -30,7 +30,7 @@ namespace MunicipalityRegistry.Tests
                 .With(x => x.SecondaryLanguage, CrabLanguage.French)
                 .With(x => x.FacilityLanguage, CrabLanguage.English)
                 .With(x => x.Lifetime, new CrabLifetime(_fixture.Create<LocalDateTime>(), null))
-                .With(x => x.Geometry, new WkbGeometry(GeometryHelpers.ExampleWkb))
+                .With(x => x.Geometry, new WkbGeometry(GeometryHelpers.ExampleWkbLambert1972))
                 .Create();
 
             _municipalityId = new MunicipalityId(_importMunicipalityFromCrab.MunicipalityId.CreateDeterministicId());
@@ -43,7 +43,7 @@ namespace MunicipalityRegistry.Tests
             _fixture.Freeze<MunicipalityId>();
         }
 
-        [Fact]
+        [Fact(Skip = "Cannot import from CRAB, lambert 1972 has been deprecated")]
         public void ThenMunicipalityIsRegistered()
         {
             var municipalityWasRegistered = new MunicipalityWasRegistered(_municipalityId, _importMunicipalityFromCrab.NisCode);
@@ -58,7 +58,7 @@ namespace MunicipalityRegistry.Tests
             var facilityLanguageWasAdded = new MunicipalityFacilityLanguageWasAdded(_municipalityId, Language.English);
             ((ISetProvenance)facilityLanguageWasAdded).SetProvenance(CreateProvenance(1));
 
-            var municipalityWasDrawn = new MunicipalityWasDrawn(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb));
+            var municipalityWasDrawn = new MunicipalityWasDrawn(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb1972));
             ((ISetProvenance)municipalityWasDrawn).SetProvenance(CreateProvenance(1));
 
             var municipalityBecameCurrent = new MunicipalityBecameCurrent(_municipalityId);

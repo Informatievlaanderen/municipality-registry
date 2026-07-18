@@ -218,12 +218,13 @@ namespace MunicipalityRegistry.Projections.Legacy.MunicipalityDetail
                     ct);
             });
 
-            When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrected>>(async (context, message, ct) => await DoNothing());
-            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (context, message, ct) => await DoNothing());
-            When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => await DoNothing());
-            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
-            When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCleared>>(async (_, _, _) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrected>>(async (_, _, _) => await DoNothing());
+            When<Envelope<MunicipalityGeometryWasCorrectedToCleared>>(async (_, _, _) => await DoNothing());
+            When<Envelope<MunicipalityWasDrawn>>(async (_, _, _) => await DoNothing());
+            When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (_, _, _) => await DoNothing());
+            When<Envelope<MunicipalityWasImportedFromCrab>>(async (_, _, _) => await DoNothing());
+            When<Envelope<MunicipalityGeometryCrsWasChanged>>(async (_, _, _) => await DoNothing());
         }
 
         private static void UpdateNameByLanguage(MunicipalityDetail municipality, Language? language, string name)

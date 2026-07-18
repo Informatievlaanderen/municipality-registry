@@ -9,6 +9,7 @@
     using Be.Vlaanderen.Basisregisters.Api;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
     using Be.Vlaanderen.Basisregisters.GrAr.Common;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Infrastructure.Vrbg;
     using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,7 @@
         {
             var municipalitiesToUpdate = _legacyContext
                 .MunicipalityList
-                .Where(x => x.Status != MunicipalityStatus.Retired)
+                .Where(x => x.Status != MunicipalityStatus.Retired && !x.IsRemoved)
                 .AsNoTracking()
                 .Select(x =>
                 new
@@ -56,11 +57,47 @@
 
             foreach (var municipality in municipalitiesToUpdate)
             {
-                var geometry = await _municipalityGeometryReader.GetGeometry(municipality.NisCode!, ExtendedWkbGeometry.SridLambert72);
+                var geometry = await _municipalityGeometryReader.GetGeometry(municipality.NisCode!, SystemReferenceId.SridLambert2008);
                 var drawCommand = new DrawMunicipality(
                     new MunicipalityId(municipality.MunicipalityId!.Value),
-                    ExtendedWkbGeometry.CreateEWkb(geometry.ToBinary())!,
+                    ExtendedWkbGeometry.CreateEWkb(geometry)!,
                     CreateProvenance("update geometry"));
+
+                await using var scope = _container.BeginLifetimeScope();
+                await scope.Resolve<IIdempotentCommandHandler>()
+                    .Dispatch(drawCommand.CreateCommandId(),
+                        drawCommand,
+                        new Dictionary<string, object>(),
+                        cancellationToken);
+            }
+
+            return Accepted();
+        }
+
+        [HttpPost("transform2008")]
+        public async Task<IActionResult> Transform2008(CancellationToken cancellationToken = default)
+        {
+            var municipalitiesToUpdate = _legacyContext
+                .MunicipalityList
+                .Where(x => !x.IsRemoved)
+                .AsNoTracking()
+                .Select(x =>
+                    new
+                    {
+                        x.MunicipalityId,
+                        x.NisCode
+                    })
+                .ToList()
+                .Where(x => RegionFilter.IsFlemishRegion(x.NisCode!))
+                .ToList();
+
+            foreach (var municipality in municipalitiesToUpdate)
+            {
+                var geometry = await _municipalityGeometryReader.GetGeometry(municipality.NisCode!, SystemReferenceId.SridLambert2008);
+                var drawCommand = new TransformToLambert2008(
+                    new MunicipalityId(municipality.MunicipalityId!.Value),
+                    ExtendedWkbGeometry.CreateEWkb(geometry)!,
+                    CreateProvenance("transform geometry to 2008"));
 
                 await using var scope = _container.BeginLifetimeScope();
                 await scope.Resolve<IIdempotentCommandHandler>()
