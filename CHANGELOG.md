@@ -1,3 +1,10 @@
+# [7.1.0](https://github.com/informatievlaanderen/municipality-registry/compare/v7.0.4...v7.1.0) (2026-07-20)
+
+
+### Features
+
+* **api:** add V3 + refactor feeds to match V3 ([c1a9bc9](https://github.com/informatievlaanderen/municipality-registry/commit/c1a9bc9ebe9168019655ac29a95ae4d46f7652cc))
+
 ## [7.0.4](https://github.com/informatievlaanderen/municipality-registry/compare/v7.0.3...v7.0.4) (2026-07-02)
 
 
