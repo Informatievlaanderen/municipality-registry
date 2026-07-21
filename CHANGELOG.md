@@ -1,3 +1,10 @@
+## [7.2.2](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.1...v7.2.2) (2026-07-21)
+
+
+### Bug Fixes
+
+* **oslo:** rename oslo responses ([1149ed0](https://github.com/informatievlaanderen/municipality-registry/commit/1149ed01075e1377f8830ded8fabb2cd07676e77))
+
 ## [7.2.1](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.0...v7.2.1) (2026-07-21)
 
 
