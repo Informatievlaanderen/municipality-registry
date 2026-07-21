@@ -51,7 +51,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3
         /// <response code="500">Als er een interne fout is opgetreden.</response>
         [HttpGet("{nisCode}")]
         [Produces(AcceptTypes.JsonLd)]
-        [ProducesResponseType(typeof(MunicipalityOsloResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MunicipalityOsloV3Response), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status410Gone)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
@@ -78,7 +78,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3
                 throw new ApiException("Verwijderde gemeente.", StatusCodes.Status410Gone);
 
             return Ok(
-                new MunicipalityOsloResponse(
+                new MunicipalityOsloV3Response(
                     responseOptions.Value.ContextUrlDetail,
                     municipality.Status.ConvertOsloFromMunicipalityStatus(),
                     municipality.NisCode,
@@ -106,7 +106,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3
         /// <response code="500">Als er een interne fout is opgetreden.</response>
         [HttpGet]
         [Produces(AcceptTypes.JsonLd)]
-        [ProducesResponseType(typeof(MunicipalityListOsloResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MunicipalityListOsloV3Response), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status500InternalServerError)]
         [SwaggerResponseExample(StatusCodes.Status200OK, typeof(MunicipalityListOsloResponseExamples))]
         [SwaggerResponseExample(StatusCodes.Status500InternalServerError, typeof(InternalServerErrorResponseExamples))]
@@ -126,11 +126,11 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3
             Response.AddPagedQueryResultHeaders(pagedMunicipalities);
 
             return Ok(
-                new MunicipalityListOsloResponse
+                new MunicipalityListOsloV3Response
                 {
                     Context = responseOptions.Value.ContextUrlList,
                     Gemeenten = municipalities
-                        .Select(m => new MunicipalityListOsloItemResponse(
+                        .Select(m => new MunicipalityListOsloItemV3Response(
                             m.NisCode,
                             responseOptions.Value.DetailUrl,
                             m.VersionTimestamp.ToBelgianDateTimeOffset(),

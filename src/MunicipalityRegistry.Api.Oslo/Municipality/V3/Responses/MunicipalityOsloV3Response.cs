@@ -15,7 +15,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
     using Swashbuckle.AspNetCore.Filters;
     using ProblemDetails = Be.Vlaanderen.Basisregisters.BasicApiProblem.ProblemDetails;
 
-    public class MunicipalityOsloResponse
+    public class MunicipalityOsloV3Response
     {
         /// <summary>
         /// De linked-data context van de gemeente.
@@ -33,15 +33,15 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         /// De details van de gemeente.
         /// </summary>
         [JsonProperty(PropertyName = "data", Order = 2, Required = Required.DisallowNull)]
-        public MunicipalityDetailOsloResponseData ResponseData { get; set; }
+        public MunicipalityDetailOsloV3ResponseData V3ResponseData { get; set; }
 
         /// <summary>
         /// De hyperlinks die gerelateerd zijn aan de gemeente.
         /// </summary>
         [JsonProperty(PropertyName = "_links", Order = 99, Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public MunicipalityDetailOsloResponseLinks? Links { get; set; }
+        public MunicipalityDetailOsloV3ResponseLinks? Links { get; set; }
 
-        public MunicipalityOsloResponse(
+        public MunicipalityOsloV3Response(
             string contextUrlDetail,
             GemeenteStatus status,
             string nisCode,
@@ -58,7 +58,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
             string postInfoLinkUrl)
         {
             Context = contextUrlDetail;
-            ResponseData = new MunicipalityDetailOsloResponseData(
+            V3ResponseData = new MunicipalityDetailOsloV3ResponseData(
                 status,
                 nisCode,
                 officialLanguages,
@@ -69,7 +69,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
                 nameEnglish,
                 version);
 
-            Links = new MunicipalityDetailOsloResponseLinks(
+            Links = new MunicipalityDetailOsloV3ResponseLinks(
                 self: new Link
                 {
                     Href = new Uri(string.Format(selfDetailUrl, nisCode))
@@ -90,7 +90,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         }
     }
 
-    public class MunicipalityDetailOsloResponseData
+    public class MunicipalityDetailOsloV3ResponseData
     {
         /// <summary>
         /// Het linked-data type van de gemeente.
@@ -114,13 +114,13 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         /// De officiële talen van de gemeente.
         /// </summary>
         [JsonProperty(PropertyName = "officieleTaal", Order = 3, Required = Required.DisallowNull)]
-        public List<MunicipalityDetailOsloLanguage> OfficialLanguages { get; private set; }
+        public List<MunicipalityDetailOsloV3Language> OfficialLanguages { get; private set; }
 
         /// <summary>
         /// De faciliteiten talen van de gemeente.
         /// </summary>
         [JsonProperty(PropertyName = "faciliteitenTaal", Order = 4, Required = Required.DisallowNull)]
-        public List<MunicipalityDetailOsloLanguage> FacilitiesLanguages { get; private set; }
+        public List<MunicipalityDetailOsloV3Language> FacilitiesLanguages { get; private set; }
 
         /// <summary>
         /// De officiële namen van de gemeente.
@@ -134,7 +134,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         [JsonProperty(PropertyName = "status", Order = 6, Required = Required.DisallowNull)]
         public Status GemeenteStatus { get; private set; }
 
-        public MunicipalityDetailOsloResponseData(
+        public MunicipalityDetailOsloV3ResponseData(
             GemeenteStatus status,
             string nisCode,
             IEnumerable<Language> officialLanguages,
@@ -150,10 +150,10 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
             GemeenteStatus = new Status(status);
             OfficialLanguages = officialLanguages
                 .Select(LanguageExtensions.ConvertOsloFromLanguage)
-                .Select(x => new MunicipalityDetailOsloLanguage(x)).ToList();
+                .Select(x => new MunicipalityDetailOsloV3Language(x)).ToList();
             FacilitiesLanguages = facilitiesLanguages
                 .Select(LanguageExtensions.ConvertOsloFromLanguage)
-                .Select(x => new MunicipalityDetailOsloLanguage(x)).ToList();
+                .Select(x => new MunicipalityDetailOsloV3Language(x)).ToList();
 
             var gemeenteNamen = new List<GeografischeNaam>
             {
@@ -170,7 +170,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         }
     }
 
-    public class MunicipalityDetailOsloLanguage
+    public class MunicipalityDetailOsloV3Language
     {
         /// <summary>
         /// Het linked-data type van de taal.
@@ -184,7 +184,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         [JsonProperty(PropertyName = "@value", Required = Required.DisallowNull, Order = 1)]
         public Taal Value { get; set; }
 
-        public MunicipalityDetailOsloLanguage(Taal taal)
+        public MunicipalityDetailOsloV3Language(Taal taal)
         {
             Value = taal;
         }
@@ -193,7 +193,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
     /// <summary>
     /// De hyperlinks die gerelateerd zijn aan de gemeente.
     /// </summary>
-    public class MunicipalityDetailOsloResponseLinks
+    public class MunicipalityDetailOsloV3ResponseLinks
     {
         [JsonProperty(PropertyName = "@type", Required = Required.DisallowNull, Order = 0)]
         public string Type => "Links";
@@ -210,7 +210,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         [JsonProperty(PropertyName = "postinfo", Required = Required.Default, DefaultValueHandling = DefaultValueHandling.Ignore, Order = 4)]
         public Link? PostInfo { get; set; }
 
-        public MunicipalityDetailOsloResponseLinks(
+        public MunicipalityDetailOsloV3ResponseLinks(
             Link self,
             Link? straatnamen = null,
             Link? adressen = null,
@@ -223,15 +223,15 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         }
     }
 
-    public class MunicipalityOsloResponseExamples : IExamplesProvider<MunicipalityOsloResponse>
+    public class MunicipalityOsloResponseExamples : IExamplesProvider<MunicipalityOsloV3Response>
     {
         private readonly ResponseOptionsV3 _responseOptions;
 
         public MunicipalityOsloResponseExamples(IOptions<ResponseOptionsV3> responseOptionsProvider)
             => _responseOptions = responseOptionsProvider.Value;
 
-        public MunicipalityOsloResponse GetExamples()
-            => new MunicipalityOsloResponse(
+        public MunicipalityOsloV3Response GetExamples()
+            => new MunicipalityOsloV3Response(
                 _responseOptions.ContextUrlDetail,
                 GemeenteStatus.InGebruik,
                 "31005",

@@ -12,7 +12,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
     using Newtonsoft.Json;
     using Swashbuckle.AspNetCore.Filters;
 
-    public class MunicipalityListOsloResponse
+    public class MunicipalityListOsloV3Response
     {
         /// <summary>
         /// De linked-data context van de gemeente.
@@ -30,7 +30,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         /// De verzameling van gemeentes.
         /// </summary>
         [JsonProperty("data", Required = Required.DisallowNull, Order = 2)]
-        public required List<MunicipalityListOsloItemResponse> Gemeenten { get; set; }
+        public required List<MunicipalityListOsloItemV3Response> Gemeenten { get; set; }
 
         /// <summary>
         /// De URL voor het ophalen van de volgende verzameling.
@@ -39,7 +39,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         public Uri? Volgende { get; set; }
     }
 
-    public class MunicipalityListOsloItemResponse
+    public class MunicipalityListOsloItemV3Response
     {
         /// <summary>
         /// Het linked-data type van de gemeente.
@@ -77,7 +77,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         [JsonProperty("status", Required = Required.DisallowNull, Order = 5)]
         public Status GemeenteStatus { get; private set; }
 
-        public MunicipalityListOsloItemResponse(
+        public MunicipalityListOsloItemV3Response(
             string nisCode,
             string detail,
             DateTimeOffset version,
@@ -95,25 +95,25 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         }
     }
 
-    public class MunicipalityListOsloResponseExamples : IExamplesProvider<MunicipalityListOsloResponse>
+    public class MunicipalityListOsloResponseExamples : IExamplesProvider<MunicipalityListOsloV3Response>
     {
         private readonly ResponseOptionsV3 _responseOptions;
 
         public MunicipalityListOsloResponseExamples(IOptions<ResponseOptionsV3> responseOptionsProvider)
             => _responseOptions = responseOptionsProvider.Value;
 
-        public MunicipalityListOsloResponse GetExamples()
+        public MunicipalityListOsloV3Response GetExamples()
         {
-            var municipalitySamples = new List<MunicipalityListOsloItemResponse>
+            var municipalitySamples = new List<MunicipalityListOsloItemV3Response>
             {
-                new MunicipalityListOsloItemResponse(
+                new MunicipalityListOsloItemV3Response(
                     "31005",
                     _responseOptions.DetailUrl,
                     DateTimeOffset.Now.ToExampleOffset(),
                     [new GeografischeNaam("Brugge", Taal.Nl)],
                     MunicipalityStatus.Current),
 
-                new MunicipalityListOsloItemResponse(
+                new MunicipalityListOsloItemV3Response(
                     "53084",
                     _responseOptions.DetailUrl,
                     DateTimeOffset.Now.AddHours(32).ToExampleOffset(),
@@ -121,7 +121,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
                     MunicipalityStatus.Retired)
             };
 
-            return new MunicipalityListOsloResponse
+            return new MunicipalityListOsloV3Response
             {
                 Context = _responseOptions.ContextUrlList,
                 Gemeenten = municipalitySamples,
