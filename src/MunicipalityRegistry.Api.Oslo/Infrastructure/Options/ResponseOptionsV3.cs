@@ -2,7 +2,7 @@ namespace MunicipalityRegistry.Api.Oslo.Infrastructure.Options
 {
     using Be.Vlaanderen.Basisregisters.GrAr.ChangeFeed;
 
-    public sealed class ResponseOptionsV3
+    public class ResponseOptionsV3
     {
         public string Naamruimte { get; set; }
         public string VolgendeUrl { get; set; }
