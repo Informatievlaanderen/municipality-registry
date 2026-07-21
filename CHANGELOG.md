@@ -1,3 +1,10 @@
+## [7.2.1](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.0...v7.2.1) (2026-07-21)
+
+
+### Bug Fixes
+
+* **oslo:** make options inheritable ([32bd3e3](https://github.com/informatievlaanderen/municipality-registry/commit/32bd3e3662ecfd05173a09fa35b41f67b268ff7f))
+
 # [7.2.0](https://github.com/informatievlaanderen/municipality-registry/compare/v7.1.0...v7.2.0) (2026-07-21)
 
 
