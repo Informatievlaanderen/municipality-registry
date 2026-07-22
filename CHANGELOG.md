@@ -1,3 +1,10 @@
+## [7.2.4](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.3...v7.2.4) (2026-07-22)
+
+
+### Bug Fixes
+
+* cleanup appsettings ([22c4037](https://github.com/informatievlaanderen/municipality-registry/commit/22c40379f460ed815cc9a71baf71b0a552f7be5c))
+
 ## [7.2.3](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.2...v7.2.3) (2026-07-22)
 
 
