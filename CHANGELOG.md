@@ -1,3 +1,10 @@
+## [7.2.3](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.2...v7.2.3) (2026-07-22)
+
+
+### Bug Fixes
+
+* **oslo:** envelop type ([205b53c](https://github.com/informatievlaanderen/municipality-registry/commit/205b53c87056a2b40913d9cec3888821e1ed5091))
+
 ## [7.2.2](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.1...v7.2.2) (2026-07-21)
 
 
