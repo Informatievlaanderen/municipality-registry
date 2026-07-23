@@ -24,7 +24,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         /// Linked-data type.
         /// </summary>
         [JsonProperty("@type", Required = Required.DisallowNull, Order = 1)]
-        public string Type => "DataEnvelop";
+        public string Type => "GemeentenEnvelop";
 
         /// <summary>
         /// De verzameling van gemeentes.
