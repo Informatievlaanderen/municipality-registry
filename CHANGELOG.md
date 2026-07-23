@@ -1,3 +1,10 @@
+## [7.2.6](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.5...v7.2.6) (2026-07-23)
+
+
+### Bug Fixes
+
+* **feed:** update example oslo changes ([469b621](https://github.com/informatievlaanderen/municipality-registry/commit/469b6216275f1c49d3567efe648cc3e7fd6f912e))
+
 ## [7.2.5](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.4...v7.2.5) (2026-07-23)
 
 
