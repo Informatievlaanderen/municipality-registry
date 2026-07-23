@@ -1,3 +1,10 @@
+## [7.2.8](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.7...v7.2.8) (2026-07-23)
+
+
+### Bug Fixes
+
+* **oslo:** add summary swagger oslo v3 ([7e01e41](https://github.com/informatievlaanderen/municipality-registry/commit/7e01e414125d6bceb9b8210d13ff2057af531ad6))
+
 ## [7.2.7](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.6...v7.2.7) (2026-07-23)
 
 ## [7.2.6](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.5...v7.2.6) (2026-07-23)
