@@ -25,11 +25,11 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
                                  "type": "basisregisters.municipality.create.v1",
                                  "source": "{{_feedConfig.MunicipalityFeed.FeedUrl}}",
                                  "datacontenttype": "application/json",
+                                 "subject": "https://data.vlaanderen.be/id/gemeente/11001",
                                  "dataschema": "{{_feedConfig.MunicipalityFeed.DataSchemaUrl}}",
                                  "basisregisterseventtype": "MunicipalityWasRegistered",
                                  "basisregisterscausationid": "d1c6eec2-a1ae-5c24-95f3-5f9c484305db",
                                  "data": {
-                                     "@id": "https://data.vlaanderen.be/id/gemeente/11001",
                                      "objectId": "11001",
                                      "naamruimte": "https://data.vlaanderen.be/id/gemeente",
                                      "versieId": "2002-08-13T17:32:32+02:00",
@@ -40,7 +40,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
                                          {
                                              "naam": "status",
                                              "oudeWaarde": null,
-                                             "nieuweWaarde": "voorgesteld"
+                                             "nieuweWaarde": "https://data.vlaanderen.be/id/concept/gemeentestatus/voorgesteld"
                                          }
                                      ]
                                  }
@@ -52,11 +52,11 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
                                  "type": "basisregisters.municipality.update.v1",
                                  "source": "{{_feedConfig.MunicipalityFeed.FeedUrl}}",
                                  "datacontenttype": "application/json",
+                                 "subject": "https://data.vlaanderen.be/id/gemeente/11001",
                                  "dataschema": "{{_feedConfig.MunicipalityFeed.DataSchemaUrl}}",
                                  "basisregisterseventtype": "MunicipalityOfficialLanguageWasAdded",
                                  "basisregisterscausationid": "d1c6eec2-a1ae-5c24-95f3-5f9c484305db",
                                  "data": {
-                                     "@id": "https://data.vlaanderen.be/id/gemeente/11001",
                                      "objectId": "11001",
                                      "naamruimte": "https://data.vlaanderen.be/id/gemeente",
                                      "versieId": "2002-08-13T17:32:32+02:00",
