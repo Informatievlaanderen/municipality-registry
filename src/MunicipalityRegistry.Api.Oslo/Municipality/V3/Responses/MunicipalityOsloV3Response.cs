@@ -90,6 +90,9 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         }
     }
 
+    /// <summary>
+    /// De details van de gemeente.
+    /// </summary>
     public class MunicipalityDetailOsloV3ResponseData
     {
         /// <summary>
