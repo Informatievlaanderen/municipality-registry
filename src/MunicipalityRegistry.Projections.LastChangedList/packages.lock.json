@@ -587,7 +587,7 @@
       "municipalityregistry": {
         "type": "Project",
         "dependencies": {
-          "Autofac": "[9.2.0, )",
+          "Autofac": "[9.3.1, )",
           "Be.Vlaanderen.Basisregisters.AggregateSource": "[11.0.0, )",
           "Be.Vlaanderen.Basisregisters.AggregateSource.ExplicitRouting": "[11.0.0, )",
           "Be.Vlaanderen.Basisregisters.CommandHandling": "[11.0.0, )",
@@ -604,7 +604,7 @@
       "municipalityregistry.infrastructure": {
         "type": "Project",
         "dependencies": {
-          "Autofac": "[9.2.0, )",
+          "Autofac": "[9.3.1, )",
           "Be.Vlaanderen.Basisregisters.AggregateSource": "[11.0.0, )",
           "Be.Vlaanderen.Basisregisters.AggregateSource.SqlStreamStore": "[11.0.0, )",
           "Be.Vlaanderen.Basisregisters.AggregateSource.SqlStreamStore.Autofac": "[11.0.0, )",
@@ -614,9 +614,9 @@
       },
       "Autofac": {
         "type": "CentralTransitive",
-        "requested": "[9.2.0, )",
-        "resolved": "9.2.0",
-        "contentHash": "uF4jyEUS2kQgbEkiI/1aq0S6WqhKsP7ZQytpTloBBpxNCwevtGRBQOsEdapxngIfxvIkqGOLkRvCeIxzg9+unQ=="
+        "requested": "[9.3.1, )",
+        "resolved": "9.3.1",
+        "contentHash": "WCDp+kYLr+r9enkRDt4PYRzj321P/c+8SICxHhWo9gkVNqE9EziiYyUMa7A0ce27SK6qgRWYCK0zp19J2ykVHw=="
       },
       "Be.Vlaanderen.Basisregisters.AggregateSource.ExplicitRouting": {
         "type": "CentralTransitive",
