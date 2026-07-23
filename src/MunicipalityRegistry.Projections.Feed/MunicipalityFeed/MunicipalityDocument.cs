@@ -49,7 +49,7 @@
             {
                 MunicipalityId = municipalityId,
                 NisCode = nisCode,
-                Status = new Status(GemeenteStatus.Voorgesteld),
+                Status = new GemeenteStatus(GemeenteStatusValue.Voorgesteld),
             };
 
             LastChangedOn = createdTimestamp;
@@ -60,7 +60,7 @@
     {
         public Guid MunicipalityId { get; set; }
         public string NisCode { get; set; } = null!;
-        public Status Status { get; set; }
+        public GemeenteStatus Status { get; set; }
         public DateTimeOffset VersionId { get; set; }
         public List<GeografischeNaam> Names { get; set; } = [];
         public List<Taal> OfficialLanguages { get; set; } = [];

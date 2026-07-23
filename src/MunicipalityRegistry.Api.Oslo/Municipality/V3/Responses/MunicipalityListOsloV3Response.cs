@@ -75,7 +75,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         /// De fase in het leven van de gemeente.
         /// </summary>
         [JsonProperty("status", Required = Required.DisallowNull, Order = 5)]
-        public Status GemeenteStatus { get; private set; }
+        public GemeenteStatus GemeenteStatus { get; private set; }
 
         public MunicipalityListOsloItemV3Response(
             string nisCode,
@@ -91,7 +91,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
             {
                 Gemeentenamen = geografischeNamen.ToList()
             };
-            GemeenteStatus = new Status(municipalityStatus.ConvertOsloFromMunicipalityStatus());
+            GemeenteStatus = new GemeenteStatus(municipalityStatus.ConvertOsloFromMunicipalityStatus());
         }
     }
 

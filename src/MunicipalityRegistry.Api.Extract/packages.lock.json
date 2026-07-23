@@ -85,9 +85,9 @@
       },
       "Be.Vlaanderen.Basisregisters.GrAr.Extracts": {
         "type": "Direct",
-        "requested": "[25.2.1, )",
-        "resolved": "25.2.1",
-        "contentHash": "QATV1qmrgL/06U/NaF0YeDiG1B8Pxeo+uctX4cTRG9/YqAdxoRAp8NY3IpVWjScYdEet0IFa0yrjJ/p77GKjyQ==",
+        "requested": "[25.3.0, )",
+        "resolved": "25.3.0",
+        "contentHash": "npUzyn5U/iQJIhjb0LJfLwBvIq6PYLCl5BiEz3bri9e7qNE3jYAMrSv6dOGQH6jeswhocC44KNsiJmfD8JNdig==",
         "dependencies": {
           "Be.Vlaanderen.Basisregisters.Api": "27.0.0",
           "Be.Vlaanderen.Basisregisters.Shaperon": "11.1.0"
@@ -345,7 +345,8 @@
         "resolved": "11.11.0",
         "contentHash": "viTKWaMbL3yJYgGI0DiCeavNbE9UPMWFVK2XS9nYXGbm3NDMd0/L5ER4wBzmTtW3BYh3SrlSXm9RACiKZ6stlA==",
         "dependencies": {
-          "FluentValidation": "11.11.0"
+          "FluentValidation": "11.11.0",
+          "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
         }
       },
       "Fluid.Core": {
@@ -895,7 +896,7 @@
           "Be.Vlaanderen.Basisregisters.Crab": "[5.1.0, )",
           "Be.Vlaanderen.Basisregisters.EventHandling": "[7.1.0, )",
           "Be.Vlaanderen.Basisregisters.Generators.Guid.Deterministic": "[5.1.0, )",
-          "Be.Vlaanderen.Basisregisters.GrAr.Provenance": "[25.2.1, )",
+          "Be.Vlaanderen.Basisregisters.GrAr.Provenance": "[25.3.0, )",
           "Be.Vlaanderen.Basisregisters.Utilities.HexByteConvertor": "[5.1.0, )",
           "NetTopologySuite": "[2.6.0, )",
           "NodaTime": "[3.3.2, )"
@@ -916,8 +917,8 @@
         "dependencies": {
           "Be.Vlaanderen.Basisregisters.AggregateSource": "[11.0.0, )",
           "Be.Vlaanderen.Basisregisters.EventHandling.Autofac": "[7.1.0, )",
-          "Be.Vlaanderen.Basisregisters.GrAr.Common": "[25.2.1, )",
-          "Be.Vlaanderen.Basisregisters.GrAr.Extracts": "[25.2.1, )",
+          "Be.Vlaanderen.Basisregisters.GrAr.Common": "[25.3.0, )",
+          "Be.Vlaanderen.Basisregisters.GrAr.Extracts": "[25.3.0, )",
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.Runner.SqlServer": "[16.0.0, )",
           "Be.Vlaanderen.Basisregisters.ProjectionHandling.SqlStreamStore.Autofac": "[16.0.0, )",
           "Be.Vlaanderen.Basisregisters.Shaperon": "[11.1.0, )",
@@ -1023,9 +1024,9 @@
       },
       "Be.Vlaanderen.Basisregisters.GrAr.Common": {
         "type": "CentralTransitive",
-        "requested": "[25.2.1, )",
-        "resolved": "25.2.1",
-        "contentHash": "n2slvLh3SyC89bbHCuDEpS37Snn8JJov012PqCFCjBSIeysMn2hO93Kj5vydkwhKRlMgEEcWEsOf9VMA6BaXDg==",
+        "requested": "[25.3.0, )",
+        "resolved": "25.3.0",
+        "contentHash": "9J4FNMNzi0yFF/+gxMIRz4d5o7t++6rgawpwcz77n6Sidn/3/m7tZD70OahTw2o+8Nfu3tjq4b7kj8YV42jKUQ==",
         "dependencies": {
           "Be.Vlaanderen.Basisregisters.AggregateSource": "11.0.0",
           "Be.Vlaanderen.Basisregisters.CommandHandling": "11.0.0",
@@ -1035,13 +1036,13 @@
       },
       "Be.Vlaanderen.Basisregisters.GrAr.Provenance": {
         "type": "CentralTransitive",
-        "requested": "[25.2.1, )",
-        "resolved": "25.2.1",
-        "contentHash": "tlFezzrnUX97bpS8JGPb/Fs+xhfeUIHOGFdhOIB0uCVOOsgVW765kzn6a305zLROuwoBrzij72kG7b/HptkNgA==",
+        "requested": "[25.3.0, )",
+        "resolved": "25.3.0",
+        "contentHash": "o+MGcPCUQNhuhbJatApnQA0sn18rFwBrWZKAx7oNLwbVJ26n1RPsZSjuxST9Cc9avFQ1Ixp7Z8bw/zgWeoxs1A==",
         "dependencies": {
           "Be.Vlaanderen.Basisregisters.CommandHandling": "11.0.0",
           "Be.Vlaanderen.Basisregisters.Crab": "5.1.0",
-          "Be.Vlaanderen.Basisregisters.GrAr.Common": "25.2.1",
+          "Be.Vlaanderen.Basisregisters.GrAr.Common": "25.3.0",
           "Be.Vlaanderen.Basisregisters.Utilities.Rfc3339DateTimeOffset": "5.1.0",
           "CompareNETObjects": "4.84.0"
         }
@@ -1132,6 +1133,12 @@
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "10.0.8"
         }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions": {
+        "type": "CentralTransitive",
+        "requested": "[10.0.8, )",
+        "resolved": "10.0.8",
+        "contentHash": "21nbDV60SRPWGIivsyl6lqBeEJNG1sginhhfWgRrr3Ais7aQ12To25OAHQxgoiJkjqy1aQ6RxpZBGYuTi7Ge6A=="
       },
       "NetTopologySuite": {
         "type": "CentralTransitive",

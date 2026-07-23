@@ -6,7 +6,7 @@ namespace MunicipalityRegistry.Api.Oslo.Convertors
         public static Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente.GemeenteStatus ConvertFromMunicipalityStatus(this MunicipalityStatus? status)
             => ConvertFromMunicipalityStatus(status ?? MunicipalityStatus.Current);
 
-        public static Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente.GemeenteStatus ConvertOsloFromMunicipalityStatus(this MunicipalityStatus? status)
+        public static Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente.GemeenteStatusValue ConvertOsloFromMunicipalityStatus(this MunicipalityStatus? status)
             => ConvertOsloFromMunicipalityStatus(status ?? MunicipalityStatus.Current);
 
         public static Be.Vlaanderen.Basisregisters.GrAr.Legacy.Gemeente.GemeenteStatus ConvertFromMunicipalityStatus(this MunicipalityStatus status)
@@ -25,19 +25,19 @@ namespace MunicipalityRegistry.Api.Oslo.Convertors
             }
         }
 
-        public static Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente.GemeenteStatus ConvertOsloFromMunicipalityStatus(this MunicipalityStatus status)
+        public static Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente.GemeenteStatusValue ConvertOsloFromMunicipalityStatus(this MunicipalityStatus status)
         {
             switch (status)
             {
                 case MunicipalityStatus.Retired:
-                    return Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente.GemeenteStatus.Gehistoreerd;
+                    return Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente.GemeenteStatusValue.Gehistoreerd;
 
                 case MunicipalityStatus.Proposed:
-                    return Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente.GemeenteStatus.Voorgesteld;
+                    return Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente.GemeenteStatusValue.Voorgesteld;
 
                 default:
                 case MunicipalityStatus.Current:
-                    return Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente.GemeenteStatus.InGebruik;
+                    return Be.Vlaanderen.Basisregisters.GrAr.Oslo.Gemeente.GemeenteStatusValue.InGebruik;
             }
         }
 

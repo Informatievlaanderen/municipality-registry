@@ -43,7 +43,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
 
         public MunicipalityOsloV3Response(
             string contextUrlDetail,
-            GemeenteStatus status,
+            GemeenteStatusValue status,
             string nisCode,
             IEnumerable<Language> officialLanguages,
             IEnumerable<Language> facilitiesLanguages,
@@ -132,10 +132,10 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         /// De fase in het leven van de gemeente.
         /// </summary>
         [JsonProperty(PropertyName = "status", Order = 6, Required = Required.DisallowNull)]
-        public Status GemeenteStatus { get; private set; }
+        public GemeenteStatus GemeenteStatus { get; private set; }
 
         public MunicipalityDetailOsloV3ResponseData(
-            GemeenteStatus status,
+            GemeenteStatusValue status,
             string nisCode,
             IEnumerable<Language> officialLanguages,
             IEnumerable<Language> facilitiesLanguages,
@@ -147,7 +147,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         {
             Id = OsloNamespaces.Gemeente.ToPuri(nisCode);
             Identificator = new GemeenteIdentificator(nisCode, version);
-            GemeenteStatus = new Status(status);
+            GemeenteStatus = new GemeenteStatus(status);
             OfficialLanguages = officialLanguages
                 .Select(LanguageExtensions.ConvertOsloFromLanguage)
                 .Select(x => new MunicipalityDetailOsloV3Language(x)).ToList();
@@ -233,7 +233,7 @@ namespace MunicipalityRegistry.Api.Oslo.Municipality.V3.Responses
         public MunicipalityOsloV3Response GetExamples()
             => new MunicipalityOsloV3Response(
                 _responseOptions.ContextUrlDetail,
-                GemeenteStatus.InGebruik,
+                GemeenteStatusValue.InGebruik,
                 "31005",
                 new List<Language> { Language.Dutch },
                 new List<Language> { Language.French },

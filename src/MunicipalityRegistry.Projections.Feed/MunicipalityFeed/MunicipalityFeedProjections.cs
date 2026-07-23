@@ -172,7 +172,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                     throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
 
                 var oldStatus = document.Document.Status.Id;
-                document.Document.Status = new Status(GemeenteStatus.InGebruik);
+                document.Document.Status = new GemeenteStatus(GemeenteStatusValue.InGebruik);
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
@@ -187,7 +187,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                     throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
 
                 var oldStatus = document.Document.Status.Id;
-                document.Document.Status = new Status(GemeenteStatus.InGebruik);
+                document.Document.Status = new GemeenteStatus(GemeenteStatusValue.InGebruik);
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
@@ -202,7 +202,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                     throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
 
                 var oldStatus = document.Document.Status.Id;
-                document.Document.Status = new Status(GemeenteStatus.Gehistoreerd);
+                document.Document.Status = new GemeenteStatus(GemeenteStatusValue.Gehistoreerd);
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
@@ -217,7 +217,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                     throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
 
                 var oldStatus = document.Document.Status.Id;
-                document.Document.Status = new Status(GemeenteStatus.Gehistoreerd);
+                document.Document.Status = new GemeenteStatus(GemeenteStatusValue.Gehistoreerd);
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
@@ -273,7 +273,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 await CheckToUpdateCache(page, context);
 
                 var oldStatus = document.Document.Status.Id;
-                document.Document.Status = new Status(GemeenteStatus.Gehistoreerd);
+                document.Document.Status = new GemeenteStatus(GemeenteStatusValue.Gehistoreerd);
                 document.LastChangedOn = message.Message.Provenance.Timestamp;
 
                 await AddCloudEvent(message, document, context, [
