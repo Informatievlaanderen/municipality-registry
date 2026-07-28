@@ -18,7 +18,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
         {
             When<Envelope<MunicipalityWasRegistered>>(async (context, message, ct) =>
             {
-                var attachedRecords = await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(GetIdentifier(message.Message.MunicipalityId.ToString())), message.Position, context, ct);
+                var attachedRecords = await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
 
                 foreach (var record in attachedRecords)
                 {
@@ -29,7 +29,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
 
             When<Envelope<MunicipalityNisCodeWasDefined>>(async (context, message, ct) =>
             {
-                var attachedRecords = await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(GetIdentifier(message.Message.MunicipalityId.ToString())), message.Position, context, ct);
+                var attachedRecords = await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
 
                 foreach (var record in attachedRecords)
                 {
