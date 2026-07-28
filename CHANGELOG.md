@@ -1,3 +1,10 @@
+## [7.2.9](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.8...v7.2.9) (2026-07-28)
+
+
+### Bug Fixes
+
+* **lastchanged:** new id for v3 endpoints ([edee16c](https://github.com/informatievlaanderen/municipality-registry/commit/edee16c5e3fc9b4b5279efb432e0f97f33a4ab0d))
+
 ## [7.2.8](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.7...v7.2.8) (2026-07-23)
 
 
