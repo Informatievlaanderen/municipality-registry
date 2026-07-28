@@ -18,7 +18,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
         {
             When<Envelope<MunicipalityWasRegistered>>(async (context, message, ct) =>
             {
-                var attachedRecords = await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                var attachedRecords = await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(GetIdentifier(message.Message.MunicipalityId.ToString())), message.Position, context, ct);
 
                 foreach (var record in attachedRecords)
                 {
@@ -29,7 +29,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
 
             When<Envelope<MunicipalityNisCodeWasDefined>>(async (context, message, ct) =>
             {
-                var attachedRecords = await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                var attachedRecords = await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(GetIdentifier(message.Message.MunicipalityId.ToString())), message.Position, context, ct);
 
                 foreach (var record in attachedRecords)
                 {
@@ -40,7 +40,7 @@ namespace MunicipalityRegistry.Projections.LastChangedList
 
             When<Envelope<MunicipalityNisCodeWasCorrected>>(async (context, message, ct) =>
             {
-                var attachedRecords = await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                var attachedRecords = await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
 
                 foreach (var record in attachedRecords)
                 {
@@ -51,72 +51,72 @@ namespace MunicipalityRegistry.Projections.LastChangedList
 
             When<Envelope<MunicipalityWasNamed>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityNameWasCorrected>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityNameWasCorrected>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityNameWasCorrectedToCleared>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityOfficialLanguageWasAdded>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityOfficialLanguageWasRemoved>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityFacilityLanguageWasAdded>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityFacilityLanguageWasRemoved>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityBecameCurrent>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityWasCorrectedToCurrent>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityWasRetired>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityWasCorrectedToRetired>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityWasMerged>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityWasRemoved>>(async (context, message, ct) =>
             {
-                await GetLastChangedRecordsAndUpdatePosition(message.Message.MunicipalityId.ToString(), message.Position, context, ct);
+                await GetLastChangedRecordsAndUpdatePosition(GetIdentifier(message.Message.MunicipalityId.ToString()), message.Position, context, ct);
             });
 
             When<Envelope<MunicipalityGeometryWasCleared>>(async (context, message, ct) => await DoNothing());
@@ -125,6 +125,11 @@ namespace MunicipalityRegistry.Projections.LastChangedList
             When<Envelope<MunicipalityWasDrawn>>(async (context, message, ct) => await DoNothing());
             When<Envelope<MunicipalityNameWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
             When<Envelope<MunicipalityWasImportedFromCrab>>(async (context, message, ct) => await DoNothing());
+        }
+
+        private static string GetIdentifier(string municipalityId)
+        {
+            return $"v3.{municipalityId}";
         }
 
         protected override string BuildCacheKey(AcceptType acceptType, string identifier)
