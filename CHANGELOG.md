@@ -1,3 +1,10 @@
+## [7.2.10](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.9...v7.2.10) (2026-07-28)
+
+
+### Bug Fixes
+
+* **lastchanged:** correct identifier ([0030c45](https://github.com/informatievlaanderen/municipality-registry/commit/0030c4556eb66f66408a676c391f65f11845bce3))
+
 ## [7.2.9](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.8...v7.2.9) (2026-07-28)
 
 
