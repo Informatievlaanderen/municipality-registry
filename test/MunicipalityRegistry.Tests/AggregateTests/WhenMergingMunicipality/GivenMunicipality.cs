@@ -83,6 +83,20 @@ namespace MunicipalityRegistry.Tests.AggregateTests.WhenMergingMunicipality
         }
 
         [Fact]
+        public void WithRemovedMunicipality_ThenThrowsMunicipalityIsRemovedException()
+        {
+            var command = _fixture.Create<MergeMunicipality>();
+
+            Assert(
+                new Scenario()
+                    .Given(_municipalityId,
+                        _fixture.Create<MunicipalityWasRegistered>(),
+                        _fixture.Create<MunicipalityWasRemoved>())
+                    .When(command)
+                    .Throws(new MunicipalityIsRemovedException()));
+        }
+
+        [Fact]
         public void ThenMunicipalityWasMerged()
         {
             var command = _fixture.Create<MergeMunicipality>()

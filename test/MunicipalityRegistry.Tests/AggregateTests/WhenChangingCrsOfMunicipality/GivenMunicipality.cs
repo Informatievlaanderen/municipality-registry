@@ -2,11 +2,15 @@ namespace MunicipalityRegistry.Tests.AggregateTests.WhenChangingCrsOfMunicipalit
 {
     using AutoFixture;
     using Be.Vlaanderen.Basisregisters.AggregateSource.Testing;
-    using Exceptions;
+    using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
+    using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
+    using Be.Vlaanderen.Basisregisters.Utilities.HexByteConvertor;
     using FluentAssertions;
     using global::AutoFixture;
+    using Municipality;
     using Municipality.Commands;
     using Municipality.Events;
+    using NetTopologySuite.IO;
     using Xunit;
     using Xunit.Abstractions;
 
@@ -26,17 +30,23 @@ namespace MunicipalityRegistry.Tests.AggregateTests.WhenChangingCrsOfMunicipalit
         }
 
         [Fact]
-        public void WithMunicipalityRemoved_ThenMunicipalityIsRemovedExceptionIsThrown()
+        public void ThenGeometryCrsWasChanged()
         {
-            var command = _fixture.Create<ActivateMunicipality>();
+            var drawn = new MunicipalityWasDrawn(
+                _municipalityId,
+                new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb));
+            ((ISetProvenance)drawn).SetProvenance(_fixture.Create<Provenance>());
+            var command = _fixture.Create<TransformToLambert2008>();
 
             Assert(
                 new Scenario()
                     .Given(_municipalityId,
                         _fixture.Create<MunicipalityWasRegistered>(),
-                        _fixture.Create<MunicipalityWasRemoved>())
+                        _fixture.Create<MunicipalityBecameCurrent>(),
+                        drawn)
                     .When(command)
-                    .Throws(new MunicipalityIsRemovedException()));
+                    .Then(_municipalityId,
+                        new MunicipalityGeometryCrsWasChanged(_municipalityId, command.Geometry)));
         }
 
         [Fact]
@@ -58,19 +68,36 @@ namespace MunicipalityRegistry.Tests.AggregateTests.WhenChangingCrsOfMunicipalit
         public void StateCheck()
         {
             // Arrange
-            var municipalityBecameCurrent = _fixture.Create<MunicipalityBecameCurrent>();
+            var drawn = new MunicipalityWasDrawn(
+                _municipalityId,
+                new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb));
+            ((ISetProvenance)drawn).SetProvenance(_fixture.Create<Provenance>());
+
+            var crsChanged = new MunicipalityGeometryCrsWasChanged(
+                _municipalityId,
+                new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkbLambert08));
+            ((ISetProvenance)crsChanged).SetProvenance(_fixture.Create<Provenance>());
 
             // Act
-            var sut = Municipality.Municipality.Factory();
+            var sut = Municipality.Factory();
             sut.Initialize(new object[]
             {
                 _fixture.Create<MunicipalityWasRegistered>(),
-                municipalityBecameCurrent
+                _fixture.Create<MunicipalityBecameCurrent>(),
+                drawn,
+                crsChanged
             });
 
             // Assert
             sut.MunicipalityId.Should().Be(_municipalityId);
-            sut.Status.Should().Be(MunicipalityStatus.Current);
+            sut.Geometry.Should().NotBeNull();
+            sut.Geometry!.ToString().Should().Be(GeometryHelpers.ExampleExtendedWkbLambert08.ToHexString());
+
+            var wkbReader = WKBReaderFactory.CreateForLambert2008();
+            var geometry = wkbReader.Read(sut.Geometry);
+
+            geometry.Should().NotBeNull();
+            geometry.SRID.Should().Be(SystemReferenceId.SridLambert2008);
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿namespace MunicipalityRegistry.Municipality.Events
 {
     using System;
-    using System.Text.Json.Serialization;
     using Be.Vlaanderen.Basisregisters.EventHandling;
     using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Be.Vlaanderen.Basisregisters.Utilities.HexByteConvertor;
+    using Newtonsoft.Json;
 
     [EventTags(EventTag.For.Sync)]
     [EventName(EventName)]

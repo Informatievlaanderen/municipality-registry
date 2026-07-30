@@ -54,6 +54,21 @@ namespace MunicipalityRegistry.Tests.AggregateTests.WhenActivatingMunicipality
         }
 
         [Fact]
+        public void WithMunicipalityRemoved_ThenMunicipalityIsRemovedExceptionIsThrown()
+        {
+            var command = _fixture.Create<ActivateMunicipality>();
+
+            Assert(
+                new Scenario()
+                    .Given(_municipalityId,
+                        _fixture.Create<MunicipalityWasRegistered>(),
+                        _fixture.Create<MunicipalityWasRemoved>())
+                    .When(command)
+                    .Throws(new MunicipalityIsRemovedException()));
+        }
+
+
+        [Fact]
         public void ThenMunicipalityBecameCurrent()
         {
             var command = _fixture.Create<ActivateMunicipality>();
