@@ -61,6 +61,9 @@
             MunicipalityId newMunicipalityId,
             NisCode newNisCode)
         {
+            if (IsRemoved)
+                throw new MunicipalityIsRemovedException();
+
             if (IsMerged)
                 return;
 
@@ -81,6 +84,9 @@
 
         public void Activate()
         {
+            if (IsRemoved)
+                throw new MunicipalityIsRemovedException();
+
             if (Status == MunicipalityStatus.Current)
                 return;
 
@@ -92,6 +98,9 @@
 
         public void Draw(ExtendedWkbGeometry geometry)
         {
+            if (IsRemoved)
+                throw new MunicipalityIsRemovedException();
+
             var reader = WKBReaderFactory.CreateForEwkb(geometry);
             GuardPolygon(reader.Read(geometry));
             if(geometry.ToString() == Geometry?.ToString())
@@ -135,6 +144,25 @@
 
             if (geometry is MultiPolygon multiPolygon
                 && multiPolygon.SRID is SystemReferenceId.SridLambert2008
+                && multiPolygon.Geometries.All(GeometryValidator.IsValid))
+            {
+                return;
+            }
+
+            throw new InvalidPolygonException();
+        }
+
+        private static void GuardLegacyPolygon(Geometry? geometry)
+        {
+            if (geometry is Polygon
+                && geometry.SRID is SystemReferenceId.SridLambert72
+                && GeometryValidator.IsValid(geometry))
+            {
+                return;
+            }
+
+            if (geometry is MultiPolygon multiPolygon
+                && multiPolygon.SRID is SystemReferenceId.SridLambert72
                 && multiPolygon.Geometries.All(GeometryValidator.IsValid))
             {
                 return;

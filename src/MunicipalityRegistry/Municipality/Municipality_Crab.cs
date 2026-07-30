@@ -126,7 +126,8 @@ namespace MunicipalityRegistry.Municipality
             }
             else if (facilityLanguage.HasValue && _facilitiesLanguages.Count > 1)
             {
-                ApplyChange(new MunicipalityFacilityLanguageWasRemoved(MunicipalityId, _facilitiesLanguages.Single(x => x != facilityLanguage.Value)));
+                ApplyChange(new MunicipalityFacilityLanguageWasRemoved(MunicipalityId,
+                    _facilitiesLanguages.Single(x => x != facilityLanguage.Value)));
             }
         }
 
@@ -195,7 +196,15 @@ namespace MunicipalityRegistry.Municipality
                 }
                 else
                 {
-                    Draw(ewkb);
+                    var reader = WKBReaderFactory.CreateForEwkb(ewkb);
+                    GuardLegacyPolygon(reader.Read(ewkb));
+                    if (ewkb.ToString() == Geometry?.ToString())
+                        return;
+
+                    if (Geometry is null)
+                        ApplyChange(new MunicipalityWasDrawn(MunicipalityId, ewkb));
+                    else
+                        ApplyChange(new MunicipalityGeometryWasCorrected(MunicipalityId, ewkb));
                 }
             }
             else

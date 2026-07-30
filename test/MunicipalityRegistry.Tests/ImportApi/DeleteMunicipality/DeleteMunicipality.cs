@@ -60,7 +60,7 @@
                 [Language.Dutch],
                 [],
                 [new MunicipalityName(_fixture.Create<string>(), Language.Dutch)],
-                new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkb),
+                new ExtendedWkbGeometry(GeometryHelpers.ExampleExtendedWkbLambert08),
                 _fixture.Create<Provenance>()));
 
             await _controller.Delete(municipalityDetail.NisCode, CancellationToken.None);

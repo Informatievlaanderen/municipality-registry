@@ -75,7 +75,7 @@
         [Fact]
         public void WithGeometryPresent_ThenMunicipalityGeometryWasCorrected()
         {
-            var command = new DrawMunicipality(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.OtherExampleExtendedWkb), _fixture.Create<Provenance>());
+            var command = new DrawMunicipality(_municipalityId, new ExtendedWkbGeometry(GeometryHelpers.OtherExampleExtendedWkbLambert08), _fixture.Create<Provenance>());
 
             Assert(
                 new Scenario()
@@ -118,6 +118,20 @@
                         _fixture.Create<MunicipalityWasDrawn>())
                     .When(command)
                     .Throws(new InvalidPolygonException()));
+        }
+
+        [Fact]
+        public void WithRemovedMunicipality_ThenThrowsMunicipalityIsRemovedException()
+        {
+            var command = new DrawMunicipality(_municipalityId, GeometryHelpers.InValidGmlPolygon.ToExtendedWkbGeometry(), _fixture.Create<Provenance>());
+
+            Assert(
+                new Scenario()
+                    .Given(_municipalityId,
+                        _fixture.Create<MunicipalityWasRegistered>(),
+                        _fixture.Create<MunicipalityWasRemoved>())
+                    .When(command)
+                    .Throws(new MunicipalityIsRemovedException()));
         }
     }
 }
