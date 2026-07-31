@@ -79,7 +79,7 @@
         {
             var municipalitiesToUpdate = _legacyContext
                 .MunicipalityList
-                .Where(x => !x.IsRemoved)
+                .Where(x => !x.IsRemoved && x.Status != MunicipalityStatus.Retired)
                 .AsNoTracking()
                 .Select(x =>
                     new
