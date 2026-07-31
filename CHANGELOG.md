@@ -1,3 +1,10 @@
+## [7.3.1](https://github.com/informatievlaanderen/municipality-registry/compare/v7.3.0...v7.3.1) (2026-07-31)
+
+
+### Bug Fixes
+
+* **import:** only transform current municipalities ([dd8db6d](https://github.com/informatievlaanderen/municipality-registry/commit/dd8db6d9eb4ca2d0c45a2a4f9807a36dfd390bd1))
+
 # [7.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.10...v7.3.0) (2026-07-31)
 
 
