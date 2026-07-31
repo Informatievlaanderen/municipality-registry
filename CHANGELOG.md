@@ -1,3 +1,15 @@
+# [7.3.0](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.10...v7.3.0) (2026-07-31)
+
+
+### Bug Fixes
+
+* **projector:** feed  appsettings ([413402d](https://github.com/informatievlaanderen/municipality-registry/commit/413402d911b973cd17e53844b14acd98034ca178))
+
+
+### Features
+
+* add transform to lambert 2008 ([8ef32ba](https://github.com/informatievlaanderen/municipality-registry/commit/8ef32ba9e694e8d07065af9cc64a78f5d27127dc))
+
 ## [7.2.10](https://github.com/informatievlaanderen/municipality-registry/compare/v7.2.9...v7.2.10) (2026-07-28)
 
 
