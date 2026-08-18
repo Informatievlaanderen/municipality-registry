@@ -1,3 +1,10 @@
+## [7.3.2](https://github.com/informatievlaanderen/municipality-registry/compare/v7.3.1...v7.3.2) (2026-08-18)
+
+
+### Bug Fixes
+
+* **oslo:** bump oslo packages ([2c95e72](https://github.com/informatievlaanderen/municipality-registry/commit/2c95e7272fed0c2dfb4fae67e9a977eeac1d344a))
+
 ## [7.3.1](https://github.com/informatievlaanderen/municipality-registry/compare/v7.3.0...v7.3.1) (2026-07-31)
 
 
