@@ -270,7 +270,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                     message.Metadata["CommandId"].ToString()!);
 
                 municipalityFeedItem.CloudEventAsString = _changeFeedService.SerializeCloudEvent(cloudEvent);
-                await CheckToUpdateCache(page, context);
+                await MarkCompletedPage(page, context);
 
                 var oldStatus = document.Document.Status.Id;
                 document.Document.Status = new GemeenteStatus(GemeenteStatusValue.Gehistoreerd);
@@ -338,7 +338,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 message.Metadata["CommandId"].ToString()!);
 
             municipalityFeedItem.CloudEventAsString = _changeFeedService.SerializeCloudEvent(cloudEvent);
-            await CheckToUpdateCache(page, context);
+            await MarkCompletedPage(page, context);
         }
 
         public static Taal MapLanguage(Language language)
@@ -360,17 +360,14 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
             }
         }
 
-        private async Task CheckToUpdateCache(int page, FeedContext context)
+        private async Task MarkCompletedPage(int page, FeedContext context)
         {
-            await _changeFeedService.CheckToUpdateCacheAsync(
+            await _changeFeedService.MarkCompletedPageAsync(
                 page,
-                context,
-                async p =>
-                {
-                    var localCount = context.MunicipalityFeed.Local
-                        .Count(x => x.Page == page && context.Entry(x).State == EntityState.Added);
-                    return await context.MunicipalityFeed.CountAsync(x => x.Page == p) + localCount - 1; //exclude current item
-                });
+                // Committed rows only. Rows that are merely tracked as added on the context must not be
+                // counted here, or the cache record can be published for a page that is not yet complete
+                // in the database.
+                async p => await context.MunicipalityFeed.CountAsync(x => x.Page == p));
         }
 
         private static async Task DoNothing()
