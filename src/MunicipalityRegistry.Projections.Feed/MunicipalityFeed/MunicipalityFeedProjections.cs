@@ -231,7 +231,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 if (document == null)
                     throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
 
-                var nisCodes = new List<string>(message.Message.NisCodesToMergeWith)
+                var nisCodes = new List<string>()
                 {
                     message.Message.NewNisCode,
                     message.Message.NisCode
