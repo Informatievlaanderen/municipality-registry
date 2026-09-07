@@ -1,3 +1,11 @@
+## [7.3.3](https://github.com/informatievlaanderen/municipality-registry/compare/v7.3.2...v7.3.3) (2026-09-07)
+
+
+### Bug Fixes
+
+* **feed:** concurrency in feed projections ([b5422f1](https://github.com/informatievlaanderen/municipality-registry/commit/b5422f179a1ac9147ebf15e02261a1d2d0f4f59e))
+* **feed:** transform merge only affected muni's GAWR-7665 ([b2898c4](https://github.com/informatievlaanderen/municipality-registry/commit/b2898c49aed922325e779cbd6adc0f38add81a35))
+
 ## [7.3.2](https://github.com/informatievlaanderen/municipality-registry/compare/v7.3.1...v7.3.2) (2026-08-18)
 
 
