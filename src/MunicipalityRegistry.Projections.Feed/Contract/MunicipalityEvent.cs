@@ -26,8 +26,5 @@
 
         [JsonProperty("naarId", Order = 1)]
         public required string To { get; set; }
-
-        [JsonProperty("nisCodes", Order = 2)]
-        public required List<string> NisCodes { get; set; }
     }
 }

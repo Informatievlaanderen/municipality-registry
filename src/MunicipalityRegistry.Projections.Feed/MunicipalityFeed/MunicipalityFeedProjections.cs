@@ -231,12 +231,6 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 if (document == null)
                     throw new InvalidOperationException($"Could not find document for municipality {message.Message.MunicipalityId}");
 
-                var nisCodes = new List<string>()
-                {
-                    message.Message.NewNisCode,
-                    message.Message.NisCode
-                };
-
                 var page = await context.CalculatePage();
                 var municipalityFeedItem = new MunicipalityFeedItem(
                     position: message.Position,
@@ -256,7 +250,6 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 {
                     From = OsloNamespaces.Gemeente.ToPuri(message.Message.NisCode),
                     To = OsloNamespaces.Gemeente.ToPuri(message.Message.NewNisCode),
-                    NisCodes = nisCodes
                 };
 
                 var cloudEvent = _changeFeedService.CreateCloudEvent(
@@ -332,7 +325,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                 eventType,
                 document.NisCode,
                 document.LastChangedOnAsDateTimeOffset,
-                [document.NisCode],
+                null,
                 attributes,
                 message.EventName,
                 message.Metadata["CommandId"].ToString()!);
