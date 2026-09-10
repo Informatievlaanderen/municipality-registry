@@ -27,7 +27,7 @@
         <PackageVersion Include="CloudNative.CloudEvents.NewtonsoftJson" Version="2.8.0" />
 
         <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.8" />
-        <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.2" />
+        <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
         <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite" Version="10.0.2" />
         <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.8" />
         <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.8" />
