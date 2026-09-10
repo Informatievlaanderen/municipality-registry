@@ -1,3 +1,10 @@
+## [7.3.4](https://github.com/informatievlaanderen/municipality-registry/compare/v7.3.3...v7.3.4) (2026-09-10)
+
+
+### Bug Fixes
+
+* **feed:** bump packages + remove niscodes filtering ([dde09b6](https://github.com/informatievlaanderen/municipality-registry/commit/dde09b6a0024b560e8bf342e3cf90d895e6c07fe))
+
 ## [7.3.3](https://github.com/informatievlaanderen/municipality-registry/compare/v7.3.2...v7.3.3) (2026-09-07)
 
 
