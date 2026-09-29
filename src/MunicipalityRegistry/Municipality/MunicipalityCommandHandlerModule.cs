@@ -165,6 +165,18 @@ namespace MunicipalityRegistry.Municipality
 
                     municipality.TransformToLambert2008(message.Command.Geometry);
                 });
+
+            For<RenameMunicipality>()
+                .AddSqlStreamStore(getStreamStore, getUnitOfWork, eventMapping, eventSerializer)
+                .AddProvenance(getUnitOfWork, provenanceFactory)
+                .Handle(async (message, ct) =>
+                {
+                    var municipalityId = message.Command.MunicipalityId;
+
+                    var municipality = await getMunicipalities().GetAsync(municipalityId, ct);
+
+                    municipality.Rename(message.Command.NewName);
+                });
         }
     }
 }

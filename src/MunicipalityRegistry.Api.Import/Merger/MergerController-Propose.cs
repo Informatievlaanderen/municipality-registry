@@ -8,15 +8,12 @@
     using Autofac;
     using Be.Vlaanderen.Basisregisters.CommandHandling.Idempotency;
     using Be.Vlaanderen.Basisregisters.GrAr.Common.NetTopology;
-    using Be.Vlaanderen.Basisregisters.GrAr.Legacy;
-    using Be.Vlaanderen.Basisregisters.GrAr.Provenance;
     using Exceptions;
     using FluentValidation;
     using Infrastructure.Vrbg;
     using Microsoft.AspNetCore.Mvc;
     using Municipality.Commands;
     using NetTopologySuite.Geometries;
-    using NodaTime;
     using Propose;
 
     public partial class MergerController
@@ -75,9 +72,9 @@
             var registerMunicipalityCommand = new RegisterMunicipality(
                 new MunicipalityId(Guid.NewGuid()),
                 new NisCode(municipality.NisCode),
-                municipality.ProposeMunicipality!.OfficialLanguages.Select(ToLanguage).ToList(),
-                municipality.ProposeMunicipality.FacilitiesLanguages.Select(ToLanguage).ToList(),
-                municipality.ProposeMunicipality.Names.Select(n => new MunicipalityName(n.Value, ToLanguage(n.Key))).ToList(),
+                municipality.ProposeMunicipality!.OfficialLanguages.Select(x => x.ToLanguage()).ToList(),
+                municipality.ProposeMunicipality.FacilitiesLanguages.Select(x => x.ToLanguage()).ToList(),
+                municipality.ProposeMunicipality.Names.Select(n => new MunicipalityName(n.Value, n.Key.ToLanguage())).ToList(),
                 ExtendedWkbGeometry.CreateEWkb(newMunicipalityGeometry)!,
                 CreateProvenance($"Fusie {mergerYear}")
             );
@@ -124,18 +121,6 @@
             };
 
             return newMunicipalityCombinedGeometry;
-        }
-
-        private static Language ToLanguage(Taal taal)
-        {
-            return taal switch
-            {
-                Taal.NL => Language.Dutch,
-                Taal.FR => Language.French,
-                Taal.DE => Language.German,
-                Taal.EN => Language.English,
-                _ => throw new ArgumentOutOfRangeException(nameof(taal), taal, $"Non existing language '{taal}'.")
-            };
         }
     }
 }

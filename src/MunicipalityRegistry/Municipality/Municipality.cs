@@ -125,6 +125,20 @@
             ApplyChange(new MunicipalityGeometryCrsWasChanged(MunicipalityId, geometry));
         }
 
+        public void Rename(MunicipalityName newName)
+        {
+            if (IsRemoved)
+                throw new MunicipalityIsRemovedException();
+
+            if(!_names.TryGetValue(newName.Language, out var currentName))
+                throw new MunicipalityNameDoesNotExistException(newName.Language);
+
+            if (currentName == newName)
+                return;
+
+            ApplyChange(new MunicipalityNameWasCorrected(MunicipalityId, newName));
+        }
+
         public void Remove()
         {
             if (IsRemoved)
