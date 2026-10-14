@@ -256,7 +256,7 @@ namespace MunicipalityRegistry.Projections.Feed.MunicipalityFeed
                     municipalityFeedItem.Id,
                     message.Message.Provenance.Timestamp.ToBelgianDateTimeOffset(),
                     MunicipalityEventTypes.TransformV1,
-                    municipalityFeedItem.NisCode,
+                    null,
                     transformData,
                     _changeFeedService.DataSchemaUriTransform,
                     message.EventName,
