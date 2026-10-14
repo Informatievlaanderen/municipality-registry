@@ -1,3 +1,10 @@
+## [7.3.6](https://github.com/informatievlaanderen/municipality-registry/compare/v7.3.5...v7.3.6) (2026-10-14)
+
+
+### Bug Fixes
+
+* **feed:** remove subject from transform events ([2c89a58](https://github.com/informatievlaanderen/municipality-registry/commit/2c89a5809e81b0dcbb2e2a8066a2aca636390181))
+
 ## [7.3.5](https://github.com/informatievlaanderen/municipality-registry/compare/v7.3.4...v7.3.5) (2026-09-10)
 
 
